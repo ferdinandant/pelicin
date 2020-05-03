@@ -1,6 +1,7 @@
 # Build folder
 node_modules
 .next
+.dist
 
 # Config
 .vscode

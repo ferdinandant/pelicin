@@ -6,8 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build && next export -o .dist"
   },
   "dependencies": {
     "next": "^9.3.6",
