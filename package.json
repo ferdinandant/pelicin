@@ -1,0 +1,22 @@
+{
+  "name": "pelicin",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "Ferdinand Antonius <ferdinand.antonius@traveloka.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^9.3.6",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.4",
+    "@types/react": "^16.9.34",
+    "typescript": "^3.8.3"
+  }
+}

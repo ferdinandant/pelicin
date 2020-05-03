@@ -1,0 +1,11 @@
+# Build folder
+node_modules
+.next
+
+# Config
+.vscode
+
+# Logs
+yarn-debug.log*
+yarn-error.log*
+*.log
