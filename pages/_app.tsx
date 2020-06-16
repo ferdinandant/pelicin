@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Header from 'global/header/Header';
+import Header from 'global/Header';
 import 'global/styles/reset.css';
 import 'global/styles/global.css';
 
@@ -12,7 +12,15 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <Header />
-      <Component {...pageProps} />
+      <div id="mainContainer">
+        <Component {...pageProps} />
+      </div>
+
+      <style jsx>{`
+        #mainContainer {
+          display: flex;
+        }
+      `}</style>
     </>
   );
 }
