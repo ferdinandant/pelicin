@@ -1,5 +1,5 @@
 import React from 'react';
-import SideIndex from './SideIndex';
+import IndexSidebar from './IndexSidebar';
 
 type Props = {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ export default function MainContainer(props: Props) {
         <div id="content">{props.children}</div>
         {/* <div id="content">ffsdfsdsfsdf</div> */}
         <aside id="sideIndex">
-          <SideIndex />
+          <IndexSidebar />
         </aside>
       </main>
 
