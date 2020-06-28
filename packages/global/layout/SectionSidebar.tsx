@@ -67,10 +67,13 @@ export function SectionSidebar() {
           font-size: 14px;
           color: #aaa;
           padding: 12px;
+          padding-top: 24px;
           padding-left: 0;
           line-height: 1.5;
         }
         aside > ul {
+          padding-top: 1px;
+          padding-bottom: 1px;
           border-left: 1px solid #ccc;
           position: relative;
         }

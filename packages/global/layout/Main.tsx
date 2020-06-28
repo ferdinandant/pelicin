@@ -9,11 +9,13 @@ export function MainContainer(props: Props) {
   return (
     <>
       <main>
-        <article id="article">{props.children}</article>
+        <article>{props.children}</article>
 
-        <div id="toc-container">
-          <SectionSidebar />
-        </div>
+        <aside>
+          <div>
+            <SectionSidebar />
+          </div>
+        </aside>
       </main>
 
       <style jsx>{`
@@ -21,22 +23,32 @@ export function MainContainer(props: Props) {
           width: 100%;
           display: flex;
           flex-direction: row;
-          margin: 0 var(--sidebar-width);
         }
         article {
           padding: 24px;
           max-width: 800px;
+          flex: 0 1 800px;
           margin: 0 auto;
         }
 
-        #toc-container {
+        aside {
+          flex: 0 1 var(--sidebar-width);
+        }
+        aside > div {
+          position: sticky;
+          top: var(--header-height);
+          height: calc(100vh - var(--header-height));
+          overflow-y: auto;
+        }
+
+         {
+          /* #toc-container {
           position: fixed;
           right: 0px;
           overflow-y: auto;
           height: calc(100% - var(--header-height));
           width: var(--sidebar-width);
         }
-
         @media (max-width: 1365px) {
           main {
             margin-right: 0;
@@ -44,6 +56,7 @@ export function MainContainer(props: Props) {
           #toc-container {
             display: none;
           }
+        } */
         }
       `}</style>
     </>

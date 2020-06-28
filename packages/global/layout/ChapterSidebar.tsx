@@ -4,7 +4,7 @@ export function ChapterSidebar() {
   return (
     <>
       <aside>
-        <div id="chapter-sidebar-container">{sidebarContent}</div>
+        <div>{sidebarContent}</div>
       </aside>
 
       <style jsx>{`
@@ -12,10 +12,11 @@ export function ChapterSidebar() {
           flex: 0 0 var(--sidebar-width);
           background-color: #f5f5f5;
         }
-
-        #chapter-sidebar-container {
+        aside > div {
           position: sticky;
           top: var(--header-height);
+          height: calc(100vh - var(--header-height));
+          overflow-y: auto;
         }
       `}</style>
     </>
@@ -23,5 +24,23 @@ export function ChapterSidebar() {
 }
 
 function renderSidebarContent() {
-  return 'sdfksdkjfsdfj';
+  return (
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
+        molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
+        saepe? Eos porro ipsum eum vero quaerat?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
+        molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
+        saepe? Eos porro ipsum eum vero quaerat?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
+        molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
+        saepe? Eos porro ipsum eum vero quaerat?
+      </p>
+    </div>
+  );
 }
