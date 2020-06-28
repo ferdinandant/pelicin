@@ -56,9 +56,6 @@ export function SectionSidebar() {
           border-left: 1px solid #ccc;
           position: relative;
         }
-        aside > ul > li > a {
-          font-weight: bold;
-        }
 
         a {
           cursor: pointer;
@@ -85,7 +82,7 @@ export function SectionSidebar() {
           height: 100%;
           left: -1px;
           position: absolute;
-          border-left: 2px solid ${accentColor};
+          border-left: 3px solid ${accentColor};
         }
       `}</style>
     </>

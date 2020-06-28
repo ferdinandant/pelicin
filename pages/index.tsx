@@ -9,12 +9,12 @@ export default function IndexPage() {
         <h1>Lorem Ipsum</h1>
 
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ullamcorper maximus
-          maximus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque ornare
-          convallis sollicitudin. Nam in nulla quam. Phasellus lobortis, felis eu efficitur
-          consequat, nulla purus sodales mauris, eu vestibulum mauris dolor sed est. Phasellus eu
-          felis nec justo commodo consectetur vel sed lacus. Pellentesque vehicula dolor arcu, a
-          scelerisque augue pellentesque eget.
+          Lorem <b>ipsum</b> dolor sit amet, consectetur adipiscing elit. Quisque ullamcorper
+          maximus maximus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+          Pellentesque ornare convallis sollicitudin. Nam in nulla quam. Phasellus lobortis, felis
+          eu efficitur consequat, nulla purus sodales mauris, eu vestibulum mauris dolor sed est.
+          Phasellus eu felis nec justo commodo consectetur vel sed lacus. Pellentesque vehicula
+          dolor arcu, a scelerisque augue pellentesque eget.
         </p>
 
         <p>

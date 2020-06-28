@@ -10,7 +10,10 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>My page title</title>
-        <link href="https://fonts.googleapis.com/css2?family=Muli&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Muli:wght@400;800&display=swap"
+          rel="stylesheet"
+        />
       </Head>
 
       <TopicConfigProvider topic="css">
