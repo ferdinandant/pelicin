@@ -1,3 +1,8 @@
+:root {
+  --header-height: 48px;
+  --sidebar-width: 300px;
+}
+
 body {
   font-family: 'Muli', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
@@ -8,4 +13,8 @@ body {
 p {
   margin-top: 16px;
   margin-bottom: 16px;
+}
+
+h1 {
+  font-size: 32px;
 }

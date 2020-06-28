@@ -6,6 +6,8 @@ export default function IndexPage() {
       <ChapterSidebar />
 
       <MainContainer>
+        <h1>Lorem Ipsum</h1>
+
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ullamcorper maximus
           maximus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque ornare

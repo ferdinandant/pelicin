@@ -25,22 +25,30 @@ export function ChapterSidebar() {
 
 function renderSidebarContent() {
   return (
-    <div>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
-        molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
-        saepe? Eos porro ipsum eum vero quaerat?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
-        molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
-        saepe? Eos porro ipsum eum vero quaerat?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
-        molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
-        saepe? Eos porro ipsum eum vero quaerat?
-      </p>
-    </div>
+    <>
+      <div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
+          molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
+          saepe? Eos porro ipsum eum vero quaerat?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
+          molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
+          saepe? Eos porro ipsum eum vero quaerat?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
+          molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
+          saepe? Eos porro ipsum eum vero quaerat?
+        </p>
+      </div>
+
+      <style jsx>{`
+        div {
+          padding: 24px;
+        }
+      `}</style>
+    </>
   );
 }

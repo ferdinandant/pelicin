@@ -40,24 +40,6 @@ export function MainContainer(props: Props) {
           height: calc(100vh - var(--header-height));
           overflow-y: auto;
         }
-
-         {
-          /* #toc-container {
-          position: fixed;
-          right: 0px;
-          overflow-y: auto;
-          height: calc(100% - var(--header-height));
-          width: var(--sidebar-width);
-        }
-        @media (max-width: 1365px) {
-          main {
-            margin-right: 0;
-          }
-          #toc-container {
-            display: none;
-          }
-        } */
-        }
       `}</style>
     </>
   );

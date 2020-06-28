@@ -36,27 +36,6 @@ export function SectionSidebar() {
             </ul>
           </li>
           <li>
-            <a>
-              1 - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad earum ex magnam,
-              animi, numquam eaque nesciunt placeat reprehenderit dolores aspernatur saepe sint iste
-              beatae? Harum blanditiis sapiente maxime voluptates incidunt?
-            </a>
-          </li>
-          <li>
-            <a>
-              2 - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad earum ex magnam,
-              animi, numquam eaque nesciunt placeat reprehenderit dolores aspernatur saepe sint iste
-              beatae? Harum blanditiis sapiente maxime voluptates incidunt?
-            </a>
-          </li>
-          <li>
-            <a>
-              3 - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad earum ex magnam,
-              animi, numquam eaque nesciunt placeat reprehenderit dolores aspernatur saepe sint iste
-              beatae? Harum blanditiis sapiente maxime voluptates incidunt?
-            </a>
-          </li>
-          <li>
             <a>Asdfghjkl</a>
           </li>
         </ul>

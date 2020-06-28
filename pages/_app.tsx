@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { Header } from 'global/layout';
 import { TopicConfigProvider } from 'global/topic';
 import 'global/styles/reset.css';
-import 'global/styles/vars.css';
 import 'global/styles/global.css';
 
 function MyApp({ Component, pageProps }) {
