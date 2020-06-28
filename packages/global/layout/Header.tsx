@@ -1,8 +1,6 @@
 import { useTopicConfig } from 'global/topic';
 
 export function Header() {
-  // `languageColorHex` is picked from https://github.com/ozh/github-colors
-  // `accentColorHex` is picked from https://mycolor.space/?hex=%23563D7C&sub=1
   const { mainColor, accentColor } = useTopicConfig();
 
   return (
