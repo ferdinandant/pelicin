@@ -19,7 +19,7 @@ export function Header() {
         header {
           position: sticky;
           top: 0;
-          height: 48px;
+          height: var(--header-height);
           display: flex;
           align-items: center;
           color: white;

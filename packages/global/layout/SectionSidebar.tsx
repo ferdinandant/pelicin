@@ -36,7 +36,28 @@ export function SectionSidebar() {
             </ul>
           </li>
           <li>
-            <a>dsfdsfsdfd</a>
+            <a>
+              1 - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad earum ex magnam,
+              animi, numquam eaque nesciunt placeat reprehenderit dolores aspernatur saepe sint iste
+              beatae? Harum blanditiis sapiente maxime voluptates incidunt?
+            </a>
+          </li>
+          <li>
+            <a>
+              2 - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad earum ex magnam,
+              animi, numquam eaque nesciunt placeat reprehenderit dolores aspernatur saepe sint iste
+              beatae? Harum blanditiis sapiente maxime voluptates incidunt?
+            </a>
+          </li>
+          <li>
+            <a>
+              3 - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad earum ex magnam,
+              animi, numquam eaque nesciunt placeat reprehenderit dolores aspernatur saepe sint iste
+              beatae? Harum blanditiis sapiente maxime voluptates incidunt?
+            </a>
+          </li>
+          <li>
+            <a>Asdfghjkl</a>
           </li>
         </ul>
       </aside>
@@ -45,7 +66,7 @@ export function SectionSidebar() {
         aside {
           font-size: 14px;
           color: #aaa;
-          padding: 24px;
+          padding: 12px;
           padding-left: 0;
           line-height: 1.5;
         }
@@ -53,20 +74,24 @@ export function SectionSidebar() {
           border-left: 1px solid #ccc;
           position: relative;
         }
+        aside > ul > li > a {
+          font-weight: bold;
+        }
 
         a {
+          cursor: pointer;
           position: relative;
           margin: 8px 0;
           display: block;
         }
         li a {
-          padding-left: 12px;
+          padding-left: 16px;
         }
         li li a {
-          padding-left: 24px;
+          padding-left: 32px;
         }
         li li li a {
-          padding-left: 36px;
+          padding-left: 48px;
         }
 
         a.active {
