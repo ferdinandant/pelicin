@@ -1,5 +1,7 @@
 import Head from 'next/head';
-import Header from 'global/Header';
+
+import { Header } from 'global/layout';
+import { TopicConfigProvider } from 'global/topic';
 import 'global/styles/reset.css';
 import 'global/styles/global.css';
 
@@ -11,10 +13,12 @@ function MyApp({ Component, pageProps }) {
         <link href="https://fonts.googleapis.com/css2?family=Muli&display=swap" rel="stylesheet" />
       </Head>
 
-      <Header />
-      <div id="mainContainer">
-        <Component {...pageProps} />
-      </div>
+      <TopicConfigProvider topic="css">
+        <Header />
+        <div id="mainContainer">
+          <Component {...pageProps} />
+        </div>
+      </TopicConfigProvider>
 
       <style jsx>{`
         #mainContainer {

@@ -1,8 +1,9 @@
-export default function Header() {
+import { useTopicConfig } from 'global/topic';
+
+export function Header() {
   // `languageColorHex` is picked from https://github.com/ozh/github-colors
   // `accentColorHex` is picked from https://mycolor.space/?hex=%23563D7C&sub=1
-  const languageColorHex = '#563d7c';
-  const accentColorHex = '#9f4a84';
+  const { mainColor, accentColor } = useTopicConfig();
 
   return (
     <>
@@ -23,8 +24,9 @@ export default function Header() {
           align-items: center;
           color: white;
           background-image: url('/shattered.png'),
-            linear-gradient(45deg, ${languageColorHex}, ${accentColorHex});
+            linear-gradient(45deg, ${mainColor}, ${accentColor});
           background-blend-mode: color-burn;
+          z-index: 999;
         }
         nav {
           display: flex;

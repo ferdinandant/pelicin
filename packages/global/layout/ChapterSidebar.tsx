@@ -1,4 +1,4 @@
-export default function Sidebar() {
+export function ChapterSidebar() {
   const sidebarContent = renderSidebarContent();
 
   return (

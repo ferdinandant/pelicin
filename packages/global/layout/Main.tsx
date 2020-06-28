@@ -1,18 +1,18 @@
 import React from 'react';
-import IndexSidebar from './IndexSidebar';
+import { SectionSidebar } from './SectionSidebar';
 
 type Props = {
   children: React.ReactNode;
 };
 
-export default function MainContainer(props: Props) {
+export function MainContainer(props: Props) {
   return (
     <>
       <main>
         <div id="content">{props.children}</div>
         {/* <div id="content">ffsdfsdsfsdf</div> */}
         <aside id="sideIndex">
-          <IndexSidebar />
+          <SectionSidebar />
         </aside>
       </main>
 

@@ -1,12 +1,11 @@
-import Sidebar from 'global/Sidebar';
-import Content from 'global/Content';
+import { ChapterSidebar, MainContainer } from 'global/layout';
 
 export default function IndexPage() {
   return (
     <>
-      <Sidebar />
+      <ChapterSidebar />
 
-      <Content>
+      <MainContainer>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ullamcorper maximus
           maximus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque ornare
@@ -64,7 +63,7 @@ export default function IndexPage() {
           felis. Nullam aliquam tortor ac tortor ultricies, eget bibendum odio iaculis. Aliquam
           venenatis odio a eros tempus, eget ullamcorper felis suscipit. Nullam id tincidunt neque.
         </p>
-      </Content>
+      </MainContainer>
     </>
   );
 }
