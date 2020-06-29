@@ -6,43 +6,61 @@ export function SectionSidebar() {
   return (
     <>
       <aside>
-        <ul>
-          <li>
-            <a>Lorem Ipsum Dolor</a>
-          </li>
-          <li>
-            <a>Pikalo pikalo pikalo</a>
-          </li>
-          <li>
-            <a className="active">Saya Suka susunya hingga tetes terakhir Saya suka coklatnya</a>
-          </li>
-          <li>
-            <a>Kenapa suka yang begitu?</a>
-            <ul>
-              <li>
-                <a>Karena ini?</a>
-              </li>
-              <li>
-                <a>Karena itu?</a>
-              </li>
-              <li>
-                <a>Karena ini dan itu?</a>
-                <ul>
-                  <li>
-                    <a>Waw!!</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a>Asdfghjkl</a>
-          </li>
-        </ul>
+        <nav>
+          <ul>
+            <li>
+              <a>Lorem Ipsum Dolor</a>
+            </li>
+            <li>
+              <a>Pikalo pikalo pikalo</a>
+            </li>
+            <li>
+              <a className="active">Saya Suka susunya hingga tetes terakhir Saya suka coklatnya</a>
+            </li>
+            <li>
+              <a>Kenapa suka yang begitu?</a>
+              <ul>
+                <li>
+                  <a>Karena ini?</a>
+                </li>
+                <li>
+                  <a>Karena itu?</a>
+                </li>
+                <li>
+                  <a>Karena ini dan itu?</a>
+                  <ul>
+                    <li>
+                      <a>Waw!!</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a>Asdfghjkl</a>
+            </li>
+          </ul>
+        </nav>
       </aside>
 
       <style jsx>{`
         aside {
+          position: sticky;
+          box-sizing: content-box;
+          top: var(--header-height);
+          height: calc(100vh - var(--header-height));
+          overflow-y: auto;
+        }
+        /* Hide scrollbar */
+        aside {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        aside::-webkit-scrollbar {
+          display: none;
+        }
+
+        nav {
           font-size: 14px;
           color: #aaa;
           padding: 12px;
@@ -50,7 +68,7 @@ export function SectionSidebar() {
           padding-left: 0;
           line-height: 1.5;
         }
-        aside > ul {
+        nav > ul {
           padding-top: 1px;
           padding-bottom: 1px;
           border-left: 1px solid #ccc;
