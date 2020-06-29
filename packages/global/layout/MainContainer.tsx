@@ -31,6 +31,11 @@ export function MainContainer(props: Props) {
         .sectionSidebarContainer {
           flex: 0 1 var(--sidebar-width);
         }
+        @media (max-width: 1280px) {
+          .sectionSidebarContainer {
+            display: none;
+          }
+        }
       `}</style>
     </>
   );
