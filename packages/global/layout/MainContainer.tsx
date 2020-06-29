@@ -11,11 +11,9 @@ export function MainContainer(props: Props) {
       <main>
         <article>{props.children}</article>
 
-        <aside>
-          <div>
-            <SectionSidebar />
-          </div>
-        </aside>
+        <div className="sectionSidebarContainer">
+          <SectionSidebar />
+        </div>
       </main>
 
       <style jsx>{`
@@ -30,15 +28,13 @@ export function MainContainer(props: Props) {
           flex: 0 1 800px;
           margin: 0 auto;
         }
-
-        aside {
+        .sectionSidebarContainer {
           flex: 0 1 var(--sidebar-width);
         }
-        aside > div {
-          position: sticky;
-          top: var(--header-height);
-          height: calc(100vh - var(--header-height));
-          overflow-y: auto;
+        @media (max-width: 1280px) {
+          .sectionSidebarContainer {
+            display: none;
+          }
         }
       `}</style>
     </>

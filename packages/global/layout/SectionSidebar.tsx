@@ -1,11 +1,32 @@
 import { useTopicConfig } from 'global/topic';
 
 export function SectionSidebar() {
+  return (
+    <>
+      <aside>
+        <SectionSidebarLinks />
+      </aside>
+
+      <style jsx>{`
+        aside {
+          position: sticky;
+          box-sizing: content-box;
+          top: calc(var(--header-height) + 24px);
+          height: calc(100vh - var(--header-height) - 48px);
+          margin-right: 12px;
+          overflow-y: auto;
+        }
+      `}</style>
+    </>
+  );
+}
+
+function SectionSidebarLinks() {
   const { accentColor } = useTopicConfig();
 
   return (
     <>
-      <aside>
+      <nav>
         <ul>
           <li>
             <a>Lorem Ipsum Dolor</a>
@@ -39,18 +60,17 @@ export function SectionSidebar() {
             <a>Asdfghjkl</a>
           </li>
         </ul>
-      </aside>
+      </nav>
 
       <style jsx>{`
-        aside {
+        nav {
+          padding: 0 12px;
+          padding-left: 0;
           font-size: 14px;
           color: #aaa;
-          padding: 12px;
-          padding-top: 24px;
-          padding-left: 0;
           line-height: 1.5;
         }
-        aside > ul {
+        nav > ul {
           padding-top: 1px;
           padding-bottom: 1px;
           border-left: 1px solid #ccc;
