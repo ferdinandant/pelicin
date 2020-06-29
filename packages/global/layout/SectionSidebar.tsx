@@ -11,18 +11,10 @@ export function SectionSidebar() {
         aside {
           position: sticky;
           box-sizing: content-box;
-          top: var(--header-height);
-          height: calc(100vh - var(--header-height));
+          top: calc(var(--header-height) + 24px);
+          height: calc(100vh - var(--header-height) - 48px);
+          margin-right: 12px;
           overflow-y: auto;
-        }
-
-        /* Hide scrollbar */
-        aside {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        aside::-webkit-scrollbar {
-          display: none;
         }
       `}</style>
     </>
@@ -72,10 +64,10 @@ function SectionSidebarLinks() {
 
       <style jsx>{`
         nav {
-          padding: 24px 12px;
+          padding: 0 12px;
+          padding-left: 0;
           font-size: 14px;
           color: #aaa;
-          padding-left: 0;
           line-height: 1.5;
         }
         nav > ul {

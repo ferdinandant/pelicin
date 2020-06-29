@@ -11,9 +11,9 @@ export function MainContainer(props: Props) {
       <main>
         <article>{props.children}</article>
 
-        <aside>
+        <div className="sectionSidebarContainer">
           <SectionSidebar />
-        </aside>
+        </div>
       </main>
 
       <style jsx>{`
@@ -28,7 +28,7 @@ export function MainContainer(props: Props) {
           flex: 0 1 800px;
           margin: 0 auto;
         }
-        aside {
+        .sectionSidebarContainer {
           flex: 0 1 var(--sidebar-width);
         }
       `}</style>
