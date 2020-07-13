@@ -68,7 +68,7 @@ function SectionSidebarLinks() {
           padding-left: 0;
           font-size: 14px;
           color: #aaa;
-          line-height: 1.5;
+          line-height: 1.4;
         }
         nav > ul {
           padding-top: 1px;
