@@ -1,3 +1,5 @@
+import { useTopicConfig } from 'global/topic';
+
 export function ChapterSidebar() {
   const sidebarContent = renderSidebarContent();
 
@@ -24,29 +26,102 @@ export function ChapterSidebar() {
 }
 
 function renderSidebarContent() {
+  const { mainColor } = useTopicConfig();
+
   return (
     <>
-      <div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
-          molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
-          saepe? Eos porro ipsum eum vero quaerat?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
-          molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
-          saepe? Eos porro ipsum eum vero quaerat?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eius ipsam, error ipsa
-          molestiae unde debitis nesciunt perspiciatis voluptatem dolores assumenda quis, aliquam
-          saepe? Eos porro ipsum eum vero quaerat?
-        </p>
-      </div>
+      <nav>
+        <div className="group">
+          <h1>Pesawatku</h1>
+          <a href="#" className="active">
+            Biar kurakit pesawatku
+          </a>
+          <a href="#">Rentangkan pelan dua sayapnya</a>
+          <a href="#">Nyalakan sumbunya hingga terpercik api menari</a>
+          <a href="#">Lepaskan pengaitnya relakan pergi ke arah bulan</a>
+        </div>
+
+        <div className="group">
+          <h1>Lorem Ipsum Dolor Sit Amet</h1>
+          <a href="#">Biar kurakit pesawatku</a>
+          <a href="#">Rentangkan pelan dua sayapnya</a>
+          <a href="#">Nyalakan sumbunya hingga terpercik api menari</a>
+          <a href="#">Lepaskan pengaitnya relakan pergi ke arah bulan</a>
+        </div>
+
+        <div className="group">
+          <h1>Pesawatku</h1>
+          <a href="#">Biar kurakit pesawatku</a>
+          <a href="#">Rentangkan pelan dua sayapnya</a>
+          <a href="#">Nyalakan sumbunya hingga terpercik api menari</a>
+          <a href="#">Lepaskan pengaitnya relakan pergi ke arah bulan</a>
+        </div>
+
+        <div className="group">
+          <h1>Pesawatku</h1>
+          <a href="#">Biar kurakit pesawatku</a>
+          <a href="#">Rentangkan pelan dua sayapnya</a>
+          <a href="#">Nyalakan sumbunya hingga terpercik api menari</a>
+          <a href="#">Lepaskan pengaitnya relakan pergi ke arah bulan</a>
+        </div>
+
+        <div className="group">
+          <h1>Pesawatku</h1>
+          <a href="#">Biar kurakit pesawatku</a>
+          <a href="#">Rentangkan pelan dua sayapnya</a>
+          <a href="#">Nyalakan sumbunya hingga terpercik api menari</a>
+          <a href="#">Lepaskan pengaitnya relakan pergi ke arah bulan</a>
+        </div>
+      </nav>
 
       <style jsx>{`
-        div {
+        nav {
           padding: 24px;
+          line-height: 1.4;
+        }
+        .group {
+          margin-top: 24px;
+        }
+        .group:first-child {
+          margin-top: 0;
+        }
+
+        h1 {
+          font-size: 24px;
+          line-height: 1.2;
+          margin-bottom: 12px;
+        }
+        a {
+          display: block;
+          position: relative;
+          font-size: 15px;
+          text-decoration: none;
+          margin: 8px 0;
+          margin-left: 18px;
+          color: #888;
+        }
+
+        a.active {
+          font-weight: bold;
+        }
+        a.active,
+        a:hover {
+          color: ${mainColor};
+        }
+        a.active::before,
+        a:hover::before {
+          content: '';
+          position: absolute;
+          height: 100%;
+          left: -16px;
+          border-left: 8px solid ${mainColor};
+        }
+        a.active::before,
+        a.active:hover::before {
+          opacity: 0.8;
+        }
+        a:hover::before {
+          opacity: 0.4;
         }
       `}</style>
     </>
