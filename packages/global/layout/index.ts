@@ -1,4 +1,5 @@
-export * from './Header';
-export * from './MainContainer';
-export * from './ChapterSidebar';
-export * from './SectionSidebar';
+// Components
+export * from './components/Header';
+export * from './components/MainContainer';
+export * from './components/SectionSidebar';
+export * from './components/ChapterSidebar';
