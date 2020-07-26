@@ -1,7 +1,18 @@
-const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
-});
+module.exports = {
+  webpack: (config, { defaultLoaders }) => {
+    // Enabling MDX support
+    config.module.rules.push({
+      test: /\.mdx/,
+      use: [
+        defaultLoaders.babel,
+        {
+          loader: '@mdx-js/loader',
+          options: {},
+        },
+      ],
+    });
+    return config;
+  },
 
-module.exports = withMDX({
   pageExtensions: ['mdx', 'tsx'],
-});
+};

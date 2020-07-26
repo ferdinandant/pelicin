@@ -1,4 +1,4 @@
-import { ChapterSidebar, MainContainer } from 'global/layout';
+import { ChapterSidebar, MainContainer } from 'layout';
 
 export default function IndexPage() {
   return (

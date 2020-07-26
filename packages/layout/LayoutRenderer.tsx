@@ -5,5 +5,8 @@ type Props = {
 };
 
 export default function (props: Props) {
+  const { children } = props;
+  console.log(children);
+
   return <>{props.children}</>;
 }
