@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export -o .dist"
+    "build": "next build && next export -o .dist",
+    "start": "next start"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.6",

@@ -1,25 +1,12 @@
 import Head from 'next/head';
-import { MDXProvider } from '@mdx-js/react';
 
-import { Header, LayoutRenderer } from 'layout';
+import { LayoutRenderer } from 'layout';
 import { TopicConfigProvider } from 'topic';
 import 'styles/reset.css';
 import 'styles/global.css';
-
-const components = {
-  wrapper: ({ children }) => {
-    console.log(children);
-    return <>{children}</>;
-  },
-};
+import 'styles/article.css';
 
 function MyApp({ Component, pageProps }) {
-  const mainSection = Component.isMDXComponent ? (
-    <MDXProvider components={components}></MDXProvider>
-  ) : (
-    <Component {...pageProps} />
-  );
-
   return (
     <>
       <Head>
@@ -31,15 +18,10 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <TopicConfigProvider topic="css">
-        <Header />
-        <div id="mainContainer">{mainSection}</div>
+        <LayoutRenderer>
+          <Component {...pageProps} />
+        </LayoutRenderer>
       </TopicConfigProvider>
-
-      <style jsx>{`
-        #mainContainer {
-          display: flex;
-        }
-      `}</style>
     </>
   );
 }
