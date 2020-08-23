@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionSidebar } from './SectionSidebar';
+import { TOCSidebar } from './TOCSidebar';
 
 type Props = {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ export function MainContainer(props: Props) {
         <article>{props.children}</article>
 
         <div className="sectionSidebarContainer">
-          <SectionSidebar />
+          <TOCSidebar />
         </div>
       </main>
 
