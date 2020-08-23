@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 
-import { Header } from '../components/Header';
-import { ChapterSidebar } from '../components/ChapterSidebar';
-import { MainContainer } from '../components/MainContainer';
+import { Header } from '../global/Header';
+import { ChapterSidebar } from './structure-components/ChapterSidebar';
+import { MainContainer } from './structure-components/MainContainer';
+import { getArticleTOC } from './utils/getArticleTOC';
 
 type Props = {
   children: ReactNode;
@@ -27,6 +28,9 @@ export function MDXArticleLayout(props: Props) {
 }
 
 function renderMDX(children: ReactNode) {
+  const toc = getArticleTOC(children);
+  console.log('toc', toc);
+
   return (
     <>
       <div>

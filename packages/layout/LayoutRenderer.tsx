@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { MDXArticleLayout } from './layouts/MDXArticleLayout';
+import { MDXArticleLayout } from './article/MDXArticleLayout';
 
 type Props = {
   children: ReactNode;
