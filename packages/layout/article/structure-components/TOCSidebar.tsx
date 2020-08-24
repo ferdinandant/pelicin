@@ -68,7 +68,7 @@ function renderTOCItem(tocItem: ArticleTOCItem, headerLevel = 1) {
   return (
     <>
       <li>
-        <a>{titleNode}</a>
+        <a href={'#' + hash}>{titleNode}</a>
         {children.length > 0 && (
           <ul>
             {children.map((child, index) => {
@@ -84,10 +84,15 @@ function renderTOCItem(tocItem: ArticleTOCItem, headerLevel = 1) {
 
       <style jsx>{`
         a {
-          cursor: pointer;
+          display: block;
           position: relative;
           margin: 8px 0;
-          display: block;
+          color: #aaa;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        a:hover {
+          color: ${accentColor};
         }
         li a {
           padding-left: ${headerLevel * 16}px;
