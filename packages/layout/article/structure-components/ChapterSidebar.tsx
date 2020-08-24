@@ -1,4 +1,4 @@
-import { useTopicConfig } from 'global/topic';
+import { useTopicConfig } from 'topic';
 
 export function ChapterSidebar() {
   const sidebarContent = renderSidebarContent();
@@ -12,7 +12,7 @@ export function ChapterSidebar() {
       <style jsx>{`
         aside {
           flex: 0 0 var(--sidebar-width);
-          background-color: #f5f5f5;
+          background-color: #f2f2f2;
         }
         aside > div {
           position: sticky;
@@ -87,7 +87,7 @@ function renderSidebarContent() {
         }
 
         h1 {
-          font-size: 24px;
+          font-size: 18px;
           line-height: 1.2;
           margin-bottom: 12px;
         }
@@ -114,14 +114,14 @@ function renderSidebarContent() {
           position: absolute;
           height: 100%;
           left: -16px;
-          border-left: 8px solid ${mainColor};
+          border-left: 6px solid ${mainColor};
         }
         a.active::before,
         a.active:hover::before {
           opacity: 0.8;
         }
         a:hover::before {
-          opacity: 0.4;
+          opacity: 0.3;
         }
       `}</style>
     </>

@@ -8,13 +8,10 @@ body {
     'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  background: #fafafa;
 }
 
-p {
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
-
-h1 {
-  font-size: 32px;
+pre,
+code {
+  font-family: source-code-pro, 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
 }

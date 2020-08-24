@@ -6,9 +6,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export -o .dist"
+    "build": "next build && next export -o .dist",
+    "start": "next start"
   },
   "dependencies": {
+    "@mdx-js/loader": "^1.6.6",
     "next": "^9.3.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"

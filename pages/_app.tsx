@@ -1,9 +1,10 @@
 import Head from 'next/head';
 
-import { Header } from 'global/layout';
-import { TopicConfigProvider } from 'global/topic';
-import 'global/styles/reset.css';
-import 'global/styles/global.css';
+import { LayoutRenderer } from 'layout';
+import { TopicConfigProvider } from 'topic';
+import 'styles/reset.css';
+import 'styles/global.css';
+import 'styles/article.css';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -17,17 +18,10 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <TopicConfigProvider topic="css">
-        <Header />
-        <div id="mainContainer">
+        <LayoutRenderer>
           <Component {...pageProps} />
-        </div>
+        </LayoutRenderer>
       </TopicConfigProvider>
-
-      <style jsx>{`
-        #mainContainer {
-          display: flex;
-        }
-      `}</style>
     </>
   );
 }

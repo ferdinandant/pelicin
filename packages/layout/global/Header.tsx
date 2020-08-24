@@ -1,4 +1,4 @@
-import { useTopicConfig } from 'global/topic';
+import { useTopicConfig } from 'topic';
 
 export function Header() {
   const { mainColor, accentColor } = useTopicConfig();
