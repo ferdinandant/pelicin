@@ -9,14 +9,20 @@ export function Title(props: Props) {
 
   return (
     <>
-      <h1>{children}</h1>
+      <div>
+        <h1>{children}</h1>
+      </div>
 
       <style jsx>{`
+        div {
+          margin-bottom: 2.5rem;
+        }
         h1 {
-          margin-top: 2.5rem;
           font-size: 2.5rem;
           font-weight: bold;
           border: initial;
+          border-bottom: 1px solid #dedede;
+          padding-bottom: 0.5rem;
         }
       `}</style>
     </>
