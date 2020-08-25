@@ -20,7 +20,7 @@ function processChild(child: ReactNode) {
   const { props } = child as React.Component<any, any>;
   const { mdxType, children } = props;
 
-  // Map heading to unclude anchor hash
+  // Map heading to include anchor hash
   if (mdxType.match(/h([1-6])/)) {
     const anchorHash = extractHashFromNode(children);
     return (
