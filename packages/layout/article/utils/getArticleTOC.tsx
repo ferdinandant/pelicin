@@ -18,20 +18,20 @@ export function getArticleTOC(children: ReactNode): ArticleTOC {
 
     const match = mdxType.match(/h([1-6])/);
     if (match) {
-      const headerLevel = Number(match[1]);
+      const headingLevel = Number(match[1]);
 
-      if (headerLevel === 1) {
+      if (headingLevel === 1) {
         toc.push({
           titleNode: children,
           hash: extractHashFromNode(children),
           children: [],
         });
       } else {
-        // Traverse parent headers
+        // Traverse parent headings
         let parentTOCItemChildren = toc;
-        for (let level = 1; level < headerLevel; level++) {
+        for (let level = 1; level < headingLevel; level++) {
           const isChildrenEmpty = parentTOCItemChildren.length === 0;
-          const hasNextIteration = level + 1 < headerLevel;
+          const hasNextIteration = level + 1 < headingLevel;
           if (isChildrenEmpty && hasNextIteration) {
             parentTOCItemChildren.push({ titleNode: null, hash: '', children: [] });
           }
