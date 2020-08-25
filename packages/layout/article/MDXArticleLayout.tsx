@@ -6,6 +6,7 @@ import { ArticleTOCProvider } from './contexts/ArticleTOCContext';
 import { ChapterSidebar } from './structure-components/ChapterSidebar';
 import { MainContainer } from './structure-components/MainContainer';
 import { getArticleTOC } from './utils/getArticleTOC';
+import { processArticleMDX } from './utils/processArticleMDX';
 
 type Props = {
   children: ReactNode;
@@ -30,14 +31,14 @@ export function MDXArticleLayout(props: Props) {
 
 function renderMDX(children: ReactNode) {
   const toc = getArticleTOC(children);
-  console.log('toc', toc);
+  const processedChildren = processArticleMDX(children);
 
   return (
     <>
       <ArticleTOCProvider value={toc}>
         <div>
           <ChapterSidebar />
-          <MainContainer>{children}</MainContainer>
+          <MainContainer>{processedChildren}</MainContainer>
         </div>
       </ArticleTOCProvider>
 
