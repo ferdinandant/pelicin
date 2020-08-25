@@ -21,7 +21,7 @@ export function Title(props: Props) {
           font-size: 2.5rem;
           font-weight: bold;
           border: initial;
-          border-bottom: 1px solid #dedede;
+          border-bottom: 1px solid #e5e5e5;
           padding-bottom: 0.5rem;
         }
       `}</style>
