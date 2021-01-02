@@ -1,10 +1,12 @@
 import Head from 'next/head';
 
-import { LayoutRenderer } from 'layout';
-import { TopicConfigProvider } from 'topic';
-import '@pelicin/core/styles/reset.css';
-import '@pelicin/core/styles/global.css';
-import '@pelicin/core/styles/article.css';
+import { LayoutRenderer } from '@pelicin/core';
+import { TopicConfigProvider } from '@pelicin/topic';
+import resetStyle from '@pelicin/core/styles/reset.global.css';
+import globalStyle from '@pelicin/core/styles/style.global.css';
+import articleStyle from '@pelicin/core/styles/article.global.css';
+
+console.log('globalStyle', globalStyle);
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -23,6 +25,16 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </LayoutRenderer>
       </TopicConfigProvider>
+
+      <style jsx global>
+        {resetStyle}
+      </style>
+      <style jsx global>
+        {globalStyle}
+      </style>
+      <style jsx global>
+        {articleStyle}
+      </style>
     </>
   );
 }
