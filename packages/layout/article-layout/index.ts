@@ -1,3 +1,5 @@
+export * from './types';
+export * from './constants';
 export { default as MDXArticleLayout } from './MDXArticleLayout';
 
 // Structure components
@@ -13,4 +15,4 @@ export * from './contexts/OnScreenAnchorHash';
 export { default as extractHashFromNode } from './utils/extractHashFromNode';
 export { default as getArticleTOC } from './utils/getArticleTOC';
 export { default as processArticleMDX } from './utils/processArticleMDX';
-export { default as getTOCAnchorHashes } from './utils/getTOCAnchorHashes';
+export { default as getDisplayedTOCAnchorHashes } from './utils/getDisplayedTOCAnchorHashes';

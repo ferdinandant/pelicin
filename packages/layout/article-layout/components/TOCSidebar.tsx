@@ -4,48 +4,29 @@ import { debounce } from 'debounce';
 
 import { useTopicConfig } from '@pelicin/topic';
 import {
-  ArticleTOC,
   ArticleTOCItem,
   useArticleTOC,
   OnScreenAnchorHashProvider,
   useOnScreenAnchorHash,
-  getTOCAnchorHashes,
+  getDisplayedTOCAnchorHashes,
 } from '@pelicin/layout';
+
+// ================================================================================
+// TYPES/CONST
+// ================================================================================
+
+const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 10;
 
 // ================================================================================
 // MAIN
 // ================================================================================
 
 export default function TOCSidebar() {
-  const toc = useArticleTOC();
-  const anchorHashes = getTOCAnchorHashes(toc);
-  const [aaa, setOnScreenAnchorHash] = useState<string>('papakakaka');
-
-  useEffect(() => {
-    const debouncedHandleScroll = debounce(handleScroll, 50);
-    window.addEventListener('scroll', debouncedHandleScroll);
-    return () => {
-      window.removeEventListener('scroll', debouncedHandleScroll);
-    };
-  }, []);
-
-  function handleScroll() {
-    const newOnScreenAnchorHash = anchorHashes.find((anchorHash) => {
-      const element = window.document.getElementById(anchorHash);
-      const rect = element.getBoundingClientRect();
-      return rect.top >= -10;
-    });
-    console.log('SCROLL!!!', newOnScreenAnchorHash);
-    setOnScreenAnchorHash(newOnScreenAnchorHash);
-  }
-
-  console.log(aaa);
-
   return (
     <>
-      <OnScreenAnchorHashProvider value={'ASDASDASD'}>
-        <aside>{renderTOC(toc)}</aside>
-      </OnScreenAnchorHashProvider>
+      <aside>
+        <TOCSidebarContent />
+      </aside>
 
       <style jsx>{`
         aside {
@@ -62,21 +43,54 @@ export default function TOCSidebar() {
 }
 
 // ================================================================================
-// HELPERS
+// CHILDREN
 // ================================================================================
 
-function renderTOC(toc: ArticleTOC) {
+function TOCSidebarContent() {
+  const toc = useArticleTOC();
+  const anchorHashes = getDisplayedTOCAnchorHashes(toc);
+  const [onScreenAnchorHash, setOnScreenAnchorHash] = useState<string>(null);
+
+  useEffect(() => {
+    const debouncedHandleScroll = debounce(handleScroll, 50);
+    window.addEventListener('scroll', debouncedHandleScroll);
+    return () => {
+      window.removeEventListener('scroll', debouncedHandleScroll);
+    };
+  }, []);
+
+  function handleScroll() {
+    let newOnScreenAnchorHash = anchorHashes[0];
+    // Find the last `anchorHash` which has not passed the "viewed" threshold
+    for (const anchorHash of anchorHashes) {
+      const element = window.document.getElementById(anchorHash);
+      const rect = element.getBoundingClientRect();
+      if (rect.top <= ANCHOR_VIEWED_TOP_THRESHOLD_PX) {
+        newOnScreenAnchorHash = anchorHash;
+      } else {
+        break;
+      }
+    }
+    setOnScreenAnchorHash(newOnScreenAnchorHash);
+  }
+
   return (
     <>
-      <nav>
-        <ul>
-          {toc.map((tocItem, index) => {
-            const { hash } = tocItem;
-            const key = `${index}-${hash}`;
-            return <React.Fragment key={key}>{renderTOCItem(tocItem)}</React.Fragment>;
-          })}
-        </ul>
-      </nav>
+      <OnScreenAnchorHashProvider value={onScreenAnchorHash}>
+        <nav>
+          <ul>
+            {toc.map((tocItem, index) => {
+              const { hash } = tocItem;
+              const key = `${index}-${hash}`;
+              return (
+                <React.Fragment key={key}>
+                  <TOCSidebarItem tocItem={tocItem} />
+                </React.Fragment>
+              );
+            })}
+          </ul>
+        </nav>
+      </OnScreenAnchorHashProvider>
 
       <style jsx>{`
         nav {
@@ -97,12 +111,12 @@ function renderTOC(toc: ArticleTOC) {
   );
 }
 
-function renderTOCItem(tocItem: ArticleTOCItem, headerLevel = 1) {
+function TOCSidebarItem(props: { tocItem: ArticleTOCItem; headerLevel?: number }) {
+  const { tocItem, headerLevel = 1 } = props;
   const { accentColor } = useTopicConfig();
   const onScreenAnchorHash = useOnScreenAnchorHash();
   const { hash, titleNode, children } = tocItem;
   const isOnScreen = hash === onScreenAnchorHash;
-  console.log('onScreenAnchorHash', onScreenAnchorHash);
 
   if (headerLevel > 3) {
     return null;
@@ -121,7 +135,9 @@ function renderTOCItem(tocItem: ArticleTOCItem, headerLevel = 1) {
               const { hash } = child;
               const key = `${index}-${hash}`;
               return (
-                <React.Fragment key={key}>{renderTOCItem(child, headerLevel + 1)}</React.Fragment>
+                <React.Fragment key={key}>
+                  <TOCSidebarItem tocItem={child} headerLevel={headerLevel + 1} />
+                </React.Fragment>
               );
             })}
           </ul>
@@ -151,7 +167,7 @@ function renderTOCItem(tocItem: ArticleTOCItem, headerLevel = 1) {
           height: 100%;
           left: -1px;
           position: absolute;
-          border-left: 3px solid ${accentColor};
+          border-left: 4px solid ${accentColor};
         }
       `}</style>
     </>
