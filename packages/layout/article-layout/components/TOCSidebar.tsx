@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
+import { debounce } from 'debounce';
 
 import { useTopicConfig } from '@pelicin/topic';
-import { useArticleTOC } from '@pelicin/layout';
-import { ArticleTOC, ArticleTOCItem } from '../types';
+import {
+  ArticleTOC,
+  ArticleTOCItem,
+  useArticleTOC,
+  OnScreenAnchorHashProvider,
+  useOnScreenAnchorHash,
+  getTOCAnchorHashes,
+} from '@pelicin/layout';
 
 // ================================================================================
 // MAIN
@@ -10,10 +18,34 @@ import { ArticleTOC, ArticleTOCItem } from '../types';
 
 export default function TOCSidebar() {
   const toc = useArticleTOC();
+  const anchorHashes = getTOCAnchorHashes(toc);
+  const [aaa, setOnScreenAnchorHash] = useState<string>('papakakaka');
+
+  useEffect(() => {
+    const debouncedHandleScroll = debounce(handleScroll, 50);
+    window.addEventListener('scroll', debouncedHandleScroll);
+    return () => {
+      window.removeEventListener('scroll', debouncedHandleScroll);
+    };
+  }, []);
+
+  function handleScroll() {
+    const newOnScreenAnchorHash = anchorHashes.find((anchorHash) => {
+      const element = window.document.getElementById(anchorHash);
+      const rect = element.getBoundingClientRect();
+      return rect.top >= -10;
+    });
+    console.log('SCROLL!!!', newOnScreenAnchorHash);
+    setOnScreenAnchorHash(newOnScreenAnchorHash);
+  }
+
+  console.log(aaa);
 
   return (
     <>
-      <aside>{renderTOC(toc)}</aside>
+      <OnScreenAnchorHashProvider value={'ASDASDASD'}>
+        <aside>{renderTOC(toc)}</aside>
+      </OnScreenAnchorHashProvider>
 
       <style jsx>{`
         aside {
@@ -66,17 +98,23 @@ function renderTOC(toc: ArticleTOC) {
 }
 
 function renderTOCItem(tocItem: ArticleTOCItem, headerLevel = 1) {
+  const { accentColor } = useTopicConfig();
+  const onScreenAnchorHash = useOnScreenAnchorHash();
+  const { hash, titleNode, children } = tocItem;
+  const isOnScreen = hash === onScreenAnchorHash;
+  console.log('onScreenAnchorHash', onScreenAnchorHash);
+
   if (headerLevel > 3) {
     return null;
   }
-
-  const { accentColor } = useTopicConfig();
-  const { hash, titleNode, children } = tocItem;
-
   return (
     <>
       <li>
-        <a href={'#' + hash}>{titleNode}</a>
+        {/* Current TOC node */}
+        <a href={'#' + hash} className={classNames({ active: isOnScreen })}>
+          {titleNode}
+        </a>
+        {/* Children TOC node */}
         {children.length > 0 && (
           <ul>
             {children.map((child, index) => {
@@ -103,11 +141,10 @@ function renderTOCItem(tocItem: ArticleTOCItem, headerLevel = 1) {
           color: ${accentColor};
         }
         li a {
-          padding-left: ${headerLevel * 16}px;
+          padding-left: ${4 + headerLevel * 12}px;
         }
         a.active {
           color: ${accentColor};
-          font-weight: bold;
         }
         a.active::before {
           content: '';
