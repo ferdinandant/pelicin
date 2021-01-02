@@ -7,8 +7,8 @@ article {
 /* -------------------------------------------------------------------------- */
 
 article p {
-  margin-top: 0.75em;
-  margin-bottom: 0.75em;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 article p:first-child {
@@ -19,39 +19,15 @@ article p:first-child {
 /*                                   Headers                                  */
 /* -------------------------------------------------------------------------- */
 
-article h1 {
-  margin-top: 2.25rem;
-  margin-bottom: -0.1rem;
-  font-size: 2rem;
-  font-weight: bold;
-}
-article h2 {
-  margin-top: 1.5rem;
-  margin-bottom: -0.1rem;
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-article h3 {
-  font-size: 1rem;
-  margin-top: 1rem;
-  margin-bottom: -0.1rem;
-  font-weight: bold;
-}
-article h4 {
-  font-size: 1rem;
-  margin-bottom: -0.5rem;
-  font-weight: bold;
-}
-article h5 {
-  font-size: 1rem;
-  margin-bottom: -0.5rem;
-  font-style: italic;
-  font-weight: bold;
-}
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
 article h6 {
-  font-size: 1rem;
-  margin-bottom: -0.5rem;
-  font-style: italic;
+  font-weight: bold;
+  margin-top: 1.6rem;
+  margin-bottom: 0.75rem;
 }
 
 article h1:first-child,
@@ -61,4 +37,26 @@ article h4:first-child,
 article h5:first-child,
 article h6:first-child {
   margin-top: 0;
+}
+
+article h1 {
+  font-size: 2rem;
+}
+article h2 {
+  font-size: 1.6rem;
+}
+article h3 {
+  font-size: 1.2rem;
+}
+article h4 {
+  font-size: 1rem;
+}
+article h5 {
+  font-size: 1rem;
+  font-style: italic;
+}
+article h6 {
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: normal;
 }
