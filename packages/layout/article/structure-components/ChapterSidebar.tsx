@@ -12,7 +12,7 @@ export function ChapterSidebar() {
       <style jsx>{`
         aside {
           flex: 0 0 var(--sidebar-width);
-          background-color: #f2f2f2;
+          background-color: #fafafa;
         }
         aside > div {
           position: sticky;
@@ -80,7 +80,7 @@ function renderSidebarContent() {
           line-height: 1.4;
         }
         .group {
-          margin-top: 24px;
+          margin-top: 28px;
         }
         .group:first-child {
           margin-top: 0;
@@ -98,12 +98,9 @@ function renderSidebarContent() {
           text-decoration: none;
           margin: 8px 0;
           margin-left: 18px;
-          color: #888;
+          color: #999;
         }
 
-        a.active {
-          font-weight: bold;
-        }
         a.active,
         a:hover {
           color: ${mainColor};
