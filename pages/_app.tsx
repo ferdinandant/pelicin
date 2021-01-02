@@ -2,9 +2,9 @@ import Head from 'next/head';
 
 import { LayoutRenderer } from 'layout';
 import { TopicConfigProvider } from 'topic';
-import 'styles/reset.css';
-import 'styles/global.css';
-import 'styles/article.css';
+import '@pelicin/core/styles/reset.css';
+import '@pelicin/core/styles/global.css';
+import '@pelicin/core/styles/article.css';
 
 function MyApp({ Component, pageProps }) {
   return (
