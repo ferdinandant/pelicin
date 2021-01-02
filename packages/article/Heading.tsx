@@ -36,12 +36,12 @@ export function Heading(props: Props) {
           display: inline-block;
           width: 28px;
           left: -28px;
-          padding-right: 4px;
+          padding-right: 8px;
           font-style: normal;
           font-weight: normal;
           text-align: right;
           text-decoration: none;
-          color: #888;
+          color: #ccc;
           opacity: 0;
         }
         a.hashLink::before {

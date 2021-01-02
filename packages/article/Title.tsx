@@ -22,7 +22,12 @@ export function Title(props: Props) {
           font-weight: bold;
           border: initial;
           border-bottom: 1px solid #e5e5e5;
-          padding-bottom: 0.5rem;
+          margin-left: -16px;
+          margin-right: -16px;
+          padding-left: 16px;
+          padding-right: 16px;
+          padding-bottom: 16px;
+          line-height: 3.2rem;
         }
       `}</style>
     </>
