@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
+import { debounce } from 'debounce';
 
 import { useTopicConfig } from '@pelicin/topic';
-import { useArticleTOC } from '@pelicin/layout';
-import { ArticleTOC, ArticleTOCItem } from '../types';
+import {
+  ArticleTOCItem,
+  useArticleTOC,
+  OnScreenAnchorHashProvider,
+  useOnScreenAnchorHash,
+  getDisplayedTOCAnchorHashes,
+} from '@pelicin/layout';
+
+// ================================================================================
+// TYPES/CONST
+// ================================================================================
+
+const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 10;
 
 // ================================================================================
 // MAIN
 // ================================================================================
 
 export default function TOCSidebar() {
-  const toc = useArticleTOC();
-
   return (
     <>
-      <aside>{renderTOC(toc)}</aside>
+      <aside>
+        <TOCSidebarContent />
+      </aside>
 
       <style jsx>{`
         aside {
@@ -30,21 +43,54 @@ export default function TOCSidebar() {
 }
 
 // ================================================================================
-// HELPERS
+// CHILDREN
 // ================================================================================
 
-function renderTOC(toc: ArticleTOC) {
+function TOCSidebarContent() {
+  const toc = useArticleTOC();
+  const anchorHashes = getDisplayedTOCAnchorHashes(toc);
+  const [onScreenAnchorHash, setOnScreenAnchorHash] = useState<string>(null);
+
+  useEffect(() => {
+    const debouncedHandleScroll = debounce(handleScroll, 50);
+    window.addEventListener('scroll', debouncedHandleScroll);
+    return () => {
+      window.removeEventListener('scroll', debouncedHandleScroll);
+    };
+  }, []);
+
+  function handleScroll() {
+    let newOnScreenAnchorHash = anchorHashes[0];
+    // Find the last `anchorHash` which has not passed the "viewed" threshold
+    for (const anchorHash of anchorHashes) {
+      const element = window.document.getElementById(anchorHash);
+      const rect = element.getBoundingClientRect();
+      if (rect.top <= ANCHOR_VIEWED_TOP_THRESHOLD_PX) {
+        newOnScreenAnchorHash = anchorHash;
+      } else {
+        break;
+      }
+    }
+    setOnScreenAnchorHash(newOnScreenAnchorHash);
+  }
+
   return (
     <>
-      <nav>
-        <ul>
-          {toc.map((tocItem, index) => {
-            const { hash } = tocItem;
-            const key = `${index}-${hash}`;
-            return <React.Fragment key={key}>{renderTOCItem(tocItem)}</React.Fragment>;
-          })}
-        </ul>
-      </nav>
+      <OnScreenAnchorHashProvider value={onScreenAnchorHash}>
+        <nav>
+          <ul>
+            {toc.map((tocItem, index) => {
+              const { hash } = tocItem;
+              const key = `${index}-${hash}`;
+              return (
+                <React.Fragment key={key}>
+                  <TOCSidebarItem tocItem={tocItem} />
+                </React.Fragment>
+              );
+            })}
+          </ul>
+        </nav>
+      </OnScreenAnchorHashProvider>
 
       <style jsx>{`
         nav {
@@ -65,25 +111,33 @@ function renderTOC(toc: ArticleTOC) {
   );
 }
 
-function renderTOCItem(tocItem: ArticleTOCItem, headerLevel = 1) {
+function TOCSidebarItem(props: { tocItem: ArticleTOCItem; headerLevel?: number }) {
+  const { tocItem, headerLevel = 1 } = props;
+  const { accentColor } = useTopicConfig();
+  const onScreenAnchorHash = useOnScreenAnchorHash();
+  const { hash, titleNode, children } = tocItem;
+  const isOnScreen = hash === onScreenAnchorHash;
+
   if (headerLevel > 3) {
     return null;
   }
-
-  const { accentColor } = useTopicConfig();
-  const { hash, titleNode, children } = tocItem;
-
   return (
     <>
       <li>
-        <a href={'#' + hash}>{titleNode}</a>
+        {/* Current TOC node */}
+        <a href={'#' + hash} className={classNames({ active: isOnScreen })}>
+          {titleNode}
+        </a>
+        {/* Children TOC node */}
         {children.length > 0 && (
           <ul>
             {children.map((child, index) => {
               const { hash } = child;
               const key = `${index}-${hash}`;
               return (
-                <React.Fragment key={key}>{renderTOCItem(child, headerLevel + 1)}</React.Fragment>
+                <React.Fragment key={key}>
+                  <TOCSidebarItem tocItem={child} headerLevel={headerLevel + 1} />
+                </React.Fragment>
               );
             })}
           </ul>
@@ -103,18 +157,17 @@ function renderTOCItem(tocItem: ArticleTOCItem, headerLevel = 1) {
           color: ${accentColor};
         }
         li a {
-          padding-left: ${headerLevel * 16}px;
+          padding-left: ${4 + headerLevel * 12}px;
         }
         a.active {
           color: ${accentColor};
-          font-weight: bold;
         }
         a.active::before {
           content: '';
           height: 100%;
           left: -1px;
           position: absolute;
-          border-left: 3px solid ${accentColor};
+          border-left: 4px solid ${accentColor};
         }
       `}</style>
     </>

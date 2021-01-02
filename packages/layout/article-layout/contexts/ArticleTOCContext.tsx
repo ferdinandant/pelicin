@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ArticleTOC } from '../types';
+import { ArticleTOC } from '@pelicin/layout';
 
 const ArticleTOCContext = React.createContext<ArticleTOC>([]);
 
