@@ -12,4 +12,4 @@ export const TopicConfig: Record<Topic, TopicConfigType> = {
     mainColor: '#563d7c',
     accentColor: '#9f4a84',
   },
-};
+} as const;
