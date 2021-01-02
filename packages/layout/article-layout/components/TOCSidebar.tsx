@@ -1,10 +1,14 @@
 import React from 'react';
 
-import { useTopicConfig } from 'topic';
-import { useArticleTOC } from '../contexts/ArticleTOCContext';
+import { useTopicConfig } from '@pelicin/topic';
+import { useArticleTOC } from '@pelicin/layout';
 import { ArticleTOC, ArticleTOCItem } from '../types';
 
-export function TOCSidebar() {
+// ================================================================================
+// MAIN
+// ================================================================================
+
+export default function TOCSidebar() {
   const toc = useArticleTOC();
 
   return (
@@ -24,6 +28,10 @@ export function TOCSidebar() {
     </>
   );
 }
+
+// ================================================================================
+// HELPERS
+// ================================================================================
 
 function renderTOC(toc: ArticleTOC) {
   return (

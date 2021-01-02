@@ -1,12 +1,10 @@
 import Head from 'next/head';
 
-import { LayoutRenderer } from '@pelicin/core';
+import { LayoutRenderer } from '@pelicin/layout';
 import { TopicConfigProvider } from '@pelicin/topic';
-import resetStyle from '@pelicin/core/styles/reset.global.css';
-import globalStyle from '@pelicin/core/styles/style.global.css';
-import articleStyle from '@pelicin/core/styles/article.global.css';
-
-console.log('globalStyle', globalStyle);
+import resetStyle from '@pelicin/styles/reset.global.css';
+import globalStyle from '@pelicin/styles/style.global.css';
+import articleStyle from '@pelicin/styles/article.global.css';
 
 function MyApp({ Component, pageProps }) {
   return (

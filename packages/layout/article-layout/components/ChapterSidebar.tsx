@@ -1,6 +1,11 @@
-import { useTopicConfig } from 'topic';
+import { useTopicConfig } from '@pelicin/topic';
+import chapterSidebarStyle from './ChapterSidebar.css';
 
-export function ChapterSidebar() {
+// ================================================================================
+// MAIN
+// ================================================================================
+
+export default function ChapterSidebar() {
   const sidebarContent = renderSidebarContent();
 
   return (
@@ -9,21 +14,14 @@ export function ChapterSidebar() {
         <div>{sidebarContent}</div>
       </aside>
 
-      <style jsx>{`
-        aside {
-          flex: 0 0 var(--sidebar-width);
-          background-color: #fafafa;
-        }
-        aside > div {
-          position: sticky;
-          top: var(--header-height);
-          height: calc(100vh - var(--header-height));
-          overflow-y: auto;
-        }
-      `}</style>
+      <style jsx>{chapterSidebarStyle}</style>
     </>
   );
 }
+
+// ================================================================================
+// HELPERS
+// ================================================================================
 
 function renderSidebarContent() {
   const { mainColor } = useTopicConfig();

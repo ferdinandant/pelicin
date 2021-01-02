@@ -1,17 +1,15 @@
 import React, { ReactNode } from 'react';
-
-import { ArticleTOC } from '../types';
-import { extractHashFromNode } from './extractHashFromNode';
+import { ArticleTOC, extractHashFromNode } from '@pelicin/layout';
 
 /**
  * Given mdxChildren, generate table of contents of the article
  * @param children
  */
-export function getArticleTOC(children: ReactNode): ArticleTOC {
+export default function getArticleTOC(children: ReactNode): ArticleTOC {
   if (!children) return [];
+  if (!Array.isArray(children)) return [];
 
   const toc = [];
-
   for (const child of children) {
     const { props } = child as React.Component<any, any>;
     const { mdxType, children } = props;

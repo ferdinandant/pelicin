@@ -1,0 +1,10 @@
+aside {
+  flex: 0 0 var(--sidebar-width);
+  background-color: #fafafa;
+}
+aside > div {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+}
