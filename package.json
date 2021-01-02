@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "Ferdinand Antonius <ferdinand.antonius@traveloka.com>",
   "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export -o .dist",

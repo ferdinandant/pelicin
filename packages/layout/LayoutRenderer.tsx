@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { MDXArticleLayout } from './article/MDXArticleLayout';
+import { MDXArticleLayout } from '@pelicin/layout';
 
 type Props = {
   children: ReactNode;
@@ -8,6 +8,7 @@ type Props = {
 export default function LayoutRenderer(props: Props) {
   const { children } = props;
 
+  // Determine what layout to use
   if (isMdxComponent(children)) {
     return <MDXArticleLayout>{children}</MDXArticleLayout>;
   }

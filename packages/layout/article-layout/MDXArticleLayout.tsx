@@ -1,12 +1,18 @@
 import React, { ReactNode } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 
-import { Header } from '../global/Header';
-import { ArticleTOCProvider } from './contexts/ArticleTOCContext';
-import { ChapterSidebar } from './structure-components/ChapterSidebar';
-import { MainContainer } from './structure-components/MainContainer';
-import { getArticleTOC } from './utils/getArticleTOC';
-import { processArticleMDX } from './utils/processArticleMDX';
+import {
+  TopBar,
+  ArticleTOCProvider,
+  ChapterSidebar,
+  MainContainer,
+  getArticleTOC,
+  processArticleMDX,
+} from '@pelicin/layout';
+
+// ================================================================================
+// TYPES/CONST
+// ================================================================================
 
 type Props = {
   children: ReactNode;
@@ -18,16 +24,24 @@ const components = {
   },
 };
 
-export function MDXArticleLayout(props: Props) {
+// ================================================================================
+// MAIN
+// ================================================================================
+
+export default function MDXArticleLayout(props: Props) {
   const { children } = props;
 
   return (
     <>
-      <Header />
+      <TopBar />
       <MDXProvider components={components}>{children}</MDXProvider>
     </>
   );
 }
+
+// ================================================================================
+// HELPERS
+// ================================================================================
 
 function renderMDX(children: ReactNode) {
   const toc = getArticleTOC(children);

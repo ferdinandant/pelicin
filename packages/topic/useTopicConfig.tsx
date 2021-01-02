@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { Topic, TopicConfigType, TopicConfig } from './TopicConfig';
+import { Topic, TopicConfigType, topicConfigMap } from '@pelicin/topic';
 
 const ThemeColorContext = React.createContext<TopicConfigType>(null);
 
 export function TopicConfigProvider(props: { topic: Topic; children: React.ReactNode }) {
-  const topicConfig = TopicConfig[props.topic];
+  const topicConfig = topicConfigMap[props.topic];
   return (
     <ThemeColorContext.Provider value={topicConfig}>{props.children}</ThemeColorContext.Provider>
   );

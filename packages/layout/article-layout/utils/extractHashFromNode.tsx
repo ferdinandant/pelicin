@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
  * Given a react node (usually heading), extract URL hash based on its content
  * @param node
  */
-export function extractHashFromNode(node: ReactNode): string | null {
+export default function extractHashFromNode(node: ReactNode): string | null {
   if (node === null) {
     return null;
   }

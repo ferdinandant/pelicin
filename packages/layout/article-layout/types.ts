@@ -1,5 +1,3 @@
-import { isRegExp } from 'util';
-
 import { ReactNode } from 'react';
 
 export type ArticleTOCItem = {
