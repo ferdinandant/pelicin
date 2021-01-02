@@ -8,7 +8,7 @@ type Props = {
 export function Header(props: Props) {
   const { children, level } = props;
 
-  const headerComponent = React.createElement(`h${level}`, [...children]);
+  const headerComponent = React.createElement(`h${level}`, children);
 
   return <>{headerComponent}</>;
 }
