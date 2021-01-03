@@ -1,8 +1,17 @@
-import { Title } from '@pelicin/components';
+import { Title, Latex } from '@pelicin/components';
 
 <Title>Biar Kurakit Pesawatku</Title>
 
-# Ini H1
+# Ini H1 <Latex>\aleph_0</Latex>
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, <Latex>x = 5</Latex>.
+
+<Latex block>{String.raw`
+  \begin{aligned}
+    x &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\
+    &= 2 \pm 3i 
+  \end{aligned}
+`}</Latex>
 
 ## Ini H2 _Test 123_
 
