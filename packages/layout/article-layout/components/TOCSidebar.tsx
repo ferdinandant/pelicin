@@ -84,7 +84,10 @@ function TOCSidebarContent() {
     // Find the last `anchorHash` which has not passed the "viewed" threshold
     for (const anchorHash of anchorHashes) {
       const element = window.document.getElementById(anchorHash);
-      const rect = element.getBoundingClientRect();
+      const rect = element && element.getBoundingClientRect();
+      if (!element) {
+        continue;
+      }
       if (rect.top <= ANCHOR_VIEWED_TOP_THRESHOLD_PX) {
         newOnScreenAnchorHash = anchorHash;
       } else {
