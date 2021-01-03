@@ -1,15 +1,11 @@
-export type Topic = keyof typeof TopicConfigMap;
-
-export type TopicConfig = {
-  mainColor: string;
-  accentColor: string;
-};
+import { TestChapters } from '@pelicin/config';
 
 // `mainColor` is picked from https://github.com/ozh/github-colors
 // `accentColor` is picked from https://mycolor.space/?hex=%23563D7C&sub=1
 export const TopicConfigMap = {
-  css: {
-    mainColor: '#563d7c',
-    accentColor: '#9f4a84',
+  test: {
+    mainColor: '#65737e',
+    accentColor: '#65737e',
+    chapters: TestChapters,
   },
 } as const;
