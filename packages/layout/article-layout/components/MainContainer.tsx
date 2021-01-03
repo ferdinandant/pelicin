@@ -1,6 +1,5 @@
 import React from 'react';
 import { TOCSidebar } from '@pelicin/layout';
-import style from './MainContainer.css';
 
 type Props = {
   children: React.ReactNode;
