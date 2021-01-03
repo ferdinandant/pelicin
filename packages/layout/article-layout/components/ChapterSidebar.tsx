@@ -1,5 +1,4 @@
 import { useTopicConfig } from '@pelicin/config';
-import chapterSidebarStyle from './ChapterSidebar.css';
 
 // ================================================================================
 // MAIN
@@ -14,7 +13,18 @@ export default function ChapterSidebar() {
         <div>{sidebarContent}</div>
       </aside>
 
-      <style jsx>{chapterSidebarStyle}</style>
+      <style jsx>{`
+        aside {
+          flex: 0 0 var(--sidebar-width);
+          background-color: #fafafa;
+        }
+        aside > div {
+          position: sticky;
+          top: var(--header-height);
+          height: calc(100vh - var(--header-height));
+          overflow-y: auto;
+        }
+      `}</style>
     </>
   );
 }
