@@ -7,7 +7,10 @@ import { Title, Latex } from '@pelicin/components';
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, <Latex>x = 5</Latex>.
 
 <Latex block>{String.raw`
-  x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+  \begin{aligned}
+    x &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\
+    &= 2 \pm 3i 
+  \end{aligned}
 `}</Latex>
 
 ## Ini H2 _Test 123_

@@ -14,7 +14,10 @@ type Props = {
  *
  * @example
  * <Latex block>{String.raw`
- *   x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+ *   \begin{aligned}
+ *     x &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\
+ *     &= 2 \pm 3i
+ *   \end{aligned}
  * `}</Latex>
  */
 export default function Latex(props: Props) {
