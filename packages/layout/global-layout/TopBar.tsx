@@ -1,4 +1,4 @@
-import { useTopicConfig } from '@pelicin/topic';
+import { useTopicConfig } from '@pelicin/config';
 
 export default function TopBar() {
   const { mainColor, accentColor } = useTopicConfig();
@@ -31,7 +31,6 @@ export default function TopBar() {
           align-items: center;
           justify-content: center;
           width: 100%;
-          font-weight: bold;
           font-size: 18px;
           text-align: center;
         }

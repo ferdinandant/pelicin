@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { debounce } from 'debounce';
 
-import { useTopicConfig } from '@pelicin/topic';
+import { useTopicConfig } from '@pelicin/config';
 import {
   ArticleTOCItem,
   useArticleTOC,
@@ -15,7 +15,15 @@ import {
 // TYPES/CONST
 // ================================================================================
 
-const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 10;
+type TOCSidebarItemProps = {
+  tocItem: ArticleTOCItem;
+  headerLevel?: number;
+  onClickSidebarItem: (anchorHash: string) => void;
+};
+
+const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 30;
+
+const SCROLL_EVENT_COOLDOWN_MS = 50;
 
 // ================================================================================
 // MAIN
@@ -49,10 +57,14 @@ export default function TOCSidebar() {
 function TOCSidebarContent() {
   const toc = useArticleTOC();
   const anchorHashes = getDisplayedTOCAnchorHashes(toc);
+
   const [onScreenAnchorHash, setOnScreenAnchorHash] = useState<string>(null);
+  const lastClickSidebarItemTsRef = useRef<number>(Date.now() - 1000);
 
   useEffect(() => {
-    const debouncedHandleScroll = debounce(handleScroll, 50);
+    const debouncedHandleScroll = debounce(handleScroll, SCROLL_EVENT_COOLDOWN_MS);
+    // Initialize `onScreenAnchorHash` value on load
+    handleScroll();
     window.addEventListener('scroll', debouncedHandleScroll);
     return () => {
       window.removeEventListener('scroll', debouncedHandleScroll);
@@ -60,7 +72,15 @@ function TOCSidebarContent() {
   }, []);
 
   function handleScroll() {
+    const currentTs = Date.now();
+    const lastClickSidebarItemTs = lastClickSidebarItemTsRef.current;
     let newOnScreenAnchorHash = anchorHashes[0];
+    // Do not consider scroll event when user just clicked on sidebar item
+    // (Prevent the highlighted item to be directly overwritten by the scroll event)
+    // We set 2 * cooldown to give ample amount of time after debounce.
+    if (currentTs - lastClickSidebarItemTs < 2 * SCROLL_EVENT_COOLDOWN_MS) {
+      return;
+    }
     // Find the last `anchorHash` which has not passed the "viewed" threshold
     for (const anchorHash of anchorHashes) {
       const element = window.document.getElementById(anchorHash);
@@ -74,6 +94,11 @@ function TOCSidebarContent() {
     setOnScreenAnchorHash(newOnScreenAnchorHash);
   }
 
+  function handleClickSidebarItem(anchorHash) {
+    lastClickSidebarItemTsRef.current = Date.now();
+    setOnScreenAnchorHash(anchorHash);
+  }
+
   return (
     <>
       <OnScreenAnchorHashProvider value={onScreenAnchorHash}>
@@ -84,7 +109,7 @@ function TOCSidebarContent() {
               const key = `${index}-${hash}`;
               return (
                 <React.Fragment key={key}>
-                  <TOCSidebarItem tocItem={tocItem} />
+                  <TOCSidebarItem tocItem={tocItem} onClickSidebarItem={handleClickSidebarItem} />
                 </React.Fragment>
               );
             })}
@@ -111,8 +136,8 @@ function TOCSidebarContent() {
   );
 }
 
-function TOCSidebarItem(props: { tocItem: ArticleTOCItem; headerLevel?: number }) {
-  const { tocItem, headerLevel = 1 } = props;
+function TOCSidebarItem(props: TOCSidebarItemProps) {
+  const { tocItem, headerLevel = 1, onClickSidebarItem } = props;
   const { accentColor } = useTopicConfig();
   const onScreenAnchorHash = useOnScreenAnchorHash();
   const { hash, titleNode, children } = tocItem;
@@ -125,7 +150,11 @@ function TOCSidebarItem(props: { tocItem: ArticleTOCItem; headerLevel?: number }
     <>
       <li>
         {/* Current TOC node */}
-        <a href={'#' + hash} className={classNames({ active: isOnScreen })}>
+        <a
+          href={'#' + hash}
+          onClick={() => onClickSidebarItem(hash)}
+          className={classNames({ active: isOnScreen })}
+        >
           {titleNode}
         </a>
         {/* Children TOC node */}
@@ -136,7 +165,11 @@ function TOCSidebarItem(props: { tocItem: ArticleTOCItem; headerLevel?: number }
               const key = `${index}-${hash}`;
               return (
                 <React.Fragment key={key}>
-                  <TOCSidebarItem tocItem={child} headerLevel={headerLevel + 1} />
+                  <TOCSidebarItem
+                    tocItem={child}
+                    headerLevel={headerLevel + 1}
+                    onClickSidebarItem={onClickSidebarItem}
+                  />
                 </React.Fragment>
               );
             })}
