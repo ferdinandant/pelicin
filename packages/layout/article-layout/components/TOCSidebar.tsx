@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { debounce } from 'debounce';
 
@@ -22,6 +22,8 @@ type TOCSidebarItemProps = {
 };
 
 const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 30;
+
+const SCROLL_EVENT_COOLDOWN_MS = 50;
 
 // ================================================================================
 // MAIN
@@ -55,10 +57,14 @@ export default function TOCSidebar() {
 function TOCSidebarContent() {
   const toc = useArticleTOC();
   const anchorHashes = getDisplayedTOCAnchorHashes(toc);
+
   const [onScreenAnchorHash, setOnScreenAnchorHash] = useState<string>(null);
+  const lastClickSidebarItemTsRef = useRef<number>(Date.now() - 1000);
 
   useEffect(() => {
-    const debouncedHandleScroll = debounce(handleScroll, 50);
+    const debouncedHandleScroll = debounce(handleScroll, SCROLL_EVENT_COOLDOWN_MS);
+    // Initialize `onScreenAnchorHash` value on load
+    handleScroll();
     window.addEventListener('scroll', debouncedHandleScroll);
     return () => {
       window.removeEventListener('scroll', debouncedHandleScroll);
@@ -66,7 +72,15 @@ function TOCSidebarContent() {
   }, []);
 
   function handleScroll() {
+    const currentTs = Date.now();
+    const lastClickSidebarItemTs = lastClickSidebarItemTsRef.current;
     let newOnScreenAnchorHash = anchorHashes[0];
+    // Do not consider scroll event when user just clicked on sidebar item
+    // (Prevent the highlighted item to be directly overwritten by the scroll event)
+    // We set 2 * cooldown to give ample amount of time after debounce.
+    if (currentTs - lastClickSidebarItemTs < 2 * SCROLL_EVENT_COOLDOWN_MS) {
+      return;
+    }
     // Find the last `anchorHash` which has not passed the "viewed" threshold
     for (const anchorHash of anchorHashes) {
       const element = window.document.getElementById(anchorHash);
@@ -81,7 +95,7 @@ function TOCSidebarContent() {
   }
 
   function handleClickSidebarItem(anchorHash) {
-    console.log('CLICK!', anchorHash);
+    lastClickSidebarItemTsRef.current = Date.now();
     setOnScreenAnchorHash(anchorHash);
   }
 
