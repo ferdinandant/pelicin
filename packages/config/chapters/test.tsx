@@ -5,11 +5,7 @@ export default [
     chapter: null,
     children: [
       {
-        title: (
-          <span>
-            Ini hanyalah <Latex>{String.raw`\mathrm{Ujian}`}</Latex>
-          </span>
-        ),
+        title: <span>Ini hanyalah <Latex>{String.raw`\mathrm{Ujian}`}</Latex></span>,
         path: '/test/123',
       },
     ],
