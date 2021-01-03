@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { Heading } from '@pelicin/article';
+import { Heading } from '@pelicin/components';
 import { extractHashFromNode } from '@pelicin/layout';
 
 /**

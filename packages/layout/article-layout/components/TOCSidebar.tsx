@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { debounce } from 'debounce';
 
-import { useTopicConfig } from '@pelicin/topic';
+import { useTopicConfig } from '@pelicin/config';
 import {
   ArticleTOCItem,
   useArticleTOC,
@@ -15,7 +15,7 @@ import {
 // TYPES/CONST
 // ================================================================================
 
-const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 10;
+const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 30;
 
 // ================================================================================
 // MAIN

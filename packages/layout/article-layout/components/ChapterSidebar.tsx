@@ -1,4 +1,4 @@
-import { useTopicConfig } from '@pelicin/topic';
+import { useTopicConfig } from '@pelicin/config';
 import chapterSidebarStyle from './ChapterSidebar.css';
 
 // ================================================================================

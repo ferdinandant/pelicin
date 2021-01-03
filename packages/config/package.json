@@ -1,5 +1,5 @@
 {
-  "name": "@pelicin/article",
+  "name": "@pelicin/config",
   "version": "1.0.0",
   "main": "index.ts",
   "license": "MIT"

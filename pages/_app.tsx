@@ -1,10 +1,14 @@
 import Head from 'next/head';
 
 import { LayoutRenderer } from '@pelicin/layout';
-import { TopicConfigProvider } from '@pelicin/topic';
+import { TopicConfigProvider } from '@pelicin/config';
 import resetStyle from '@pelicin/styles/reset.global.css';
 import globalStyle from '@pelicin/styles/style.global.css';
 import articleStyle from '@pelicin/styles/article.global.css';
+
+// ================================================================================
+// MAIN
+// ================================================================================
 
 function MyApp({ Component, pageProps }) {
   return (

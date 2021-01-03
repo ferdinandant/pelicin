@@ -1,4 +1,4 @@
-import { useTopicConfig } from '@pelicin/topic';
+import { useTopicConfig } from '@pelicin/config';
 
 export default function TopBar() {
   const { mainColor, accentColor } = useTopicConfig();
