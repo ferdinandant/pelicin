@@ -6,7 +6,7 @@ export const TopicConfigMap = {
   test: {
     mainColor: '#65737e',
     accentColor: '#65737e',
-    baseURL: '/test',
+    basePath: '/test',
     chapters: TestChapters,
   },
 } as const;

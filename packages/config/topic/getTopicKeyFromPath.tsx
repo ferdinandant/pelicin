@@ -4,8 +4,8 @@ export default function getTopicKeyFromPath(path: string): TopicKey {
   let result: TopicKey = 'test';
 
   for (const topicKey in TopicConfigMap) {
-    const { baseURL } = TopicConfigMap[topicKey];
-    if (path.startsWith(baseURL + '/')) {
+    const { basePath } = TopicConfigMap[topicKey];
+    if (path.startsWith(basePath + '/')) {
       result = topicKey as TopicKey;
       break;
     }

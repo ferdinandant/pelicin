@@ -1,3 +1,7 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
+
 import { useTopicConfig } from '@pelicin/config';
 
 // ================================================================================
@@ -5,12 +9,12 @@ import { useTopicConfig } from '@pelicin/config';
 // ================================================================================
 
 export default function ChapterSidebar() {
-  const sidebarContent = renderSidebarContent();
-
   return (
     <>
       <aside>
-        <div>{sidebarContent}</div>
+        <div>
+          <SidebarContent />
+        </div>
       </aside>
 
       <style jsx>{`
@@ -30,56 +34,34 @@ export default function ChapterSidebar() {
 }
 
 // ================================================================================
-// HELPERS
+// CHILDREN
 // ================================================================================
 
-function renderSidebarContent() {
-  const { mainColor } = useTopicConfig();
+function SidebarContent() {
+  const { pathname } = useRouter();
+  const { mainColor, chapters } = useTopicConfig();
+  console.log(chapters);
 
   return (
     <>
       <nav>
-        <div className="group">
-          <h1>Pesawatku</h1>
-          <a href="#" className="active">
-            Biar kurakit pesawatku
-          </a>
-          <a href="#">Rentangkan pelan dua sayapnya</a>
-          <a href="#">Nyalakan sumbunya hingga terpercik api menari</a>
-          <a href="#">Lepaskan pengaitnya relakan pergi ke arah bulan</a>
-        </div>
-
-        <div className="group">
-          <h1>Lorem Ipsum Dolor Sit Amet</h1>
-          <a href="#">Biar kurakit pesawatku</a>
-          <a href="#">Rentangkan pelan dua sayapnya</a>
-          <a href="#">Nyalakan sumbunya hingga terpercik api menari</a>
-          <a href="#">Lepaskan pengaitnya relakan pergi ke arah bulan</a>
-        </div>
-
-        <div className="group">
-          <h1>Pesawatku</h1>
-          <a href="#">Biar kurakit pesawatku</a>
-          <a href="#">Rentangkan pelan dua sayapnya</a>
-          <a href="#">Nyalakan sumbunya hingga terpercik api menari</a>
-          <a href="#">Lepaskan pengaitnya relakan pergi ke arah bulan</a>
-        </div>
-
-        <div className="group">
-          <h1>Pesawatku</h1>
-          <a href="#">Biar kurakit pesawatku</a>
-          <a href="#">Rentangkan pelan dua sayapnya</a>
-          <a href="#">Nyalakan sumbunya hingga terpercik api menari</a>
-          <a href="#">Lepaskan pengaitnya relakan pergi ke arah bulan</a>
-        </div>
-
-        <div className="group">
-          <h1>Pesawatku</h1>
-          <a href="#">Biar kurakit pesawatku</a>
-          <a href="#">Rentangkan pelan dua sayapnya</a>
-          <a href="#">Nyalakan sumbunya hingga terpercik api menari</a>
-          <a href="#">Lepaskan pengaitnya relakan pergi ke arah bulan</a>
-        </div>
+        {chapters.map((chapterData, chapterIndex) => {
+          const { chapter, children } = chapterData;
+          return (
+            <div className="group" key={chapterIndex}>
+              <h1>{chapter}</h1>
+              {children.map((titleData, titleIndex) => {
+                const { title, path } = titleData;
+                const isActive = pathname === path;
+                return (
+                  <Link key={titleIndex} href={path}>
+                    <a className={classNames({ active: isActive })}>{title}</a>
+                  </Link>
+                );
+              })}
+            </div>
+          );
+        })}
       </nav>
 
       <style jsx>{`
