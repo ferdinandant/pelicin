@@ -15,6 +15,12 @@ import {
 // TYPES/CONST
 // ================================================================================
 
+type TOCSidebarItemProps = {
+  tocItem: ArticleTOCItem;
+  headerLevel?: number;
+  onClickSidebarItem: (anchorHash: string) => void;
+};
+
 const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 30;
 
 // ================================================================================
@@ -74,6 +80,11 @@ function TOCSidebarContent() {
     setOnScreenAnchorHash(newOnScreenAnchorHash);
   }
 
+  function handleClickSidebarItem(anchorHash) {
+    console.log('CLICK!', anchorHash);
+    setOnScreenAnchorHash(anchorHash);
+  }
+
   return (
     <>
       <OnScreenAnchorHashProvider value={onScreenAnchorHash}>
@@ -84,7 +95,7 @@ function TOCSidebarContent() {
               const key = `${index}-${hash}`;
               return (
                 <React.Fragment key={key}>
-                  <TOCSidebarItem tocItem={tocItem} />
+                  <TOCSidebarItem tocItem={tocItem} onClickSidebarItem={handleClickSidebarItem} />
                 </React.Fragment>
               );
             })}
@@ -111,8 +122,8 @@ function TOCSidebarContent() {
   );
 }
 
-function TOCSidebarItem(props: { tocItem: ArticleTOCItem; headerLevel?: number }) {
-  const { tocItem, headerLevel = 1 } = props;
+function TOCSidebarItem(props: TOCSidebarItemProps) {
+  const { tocItem, headerLevel = 1, onClickSidebarItem } = props;
   const { accentColor } = useTopicConfig();
   const onScreenAnchorHash = useOnScreenAnchorHash();
   const { hash, titleNode, children } = tocItem;
@@ -125,7 +136,11 @@ function TOCSidebarItem(props: { tocItem: ArticleTOCItem; headerLevel?: number }
     <>
       <li>
         {/* Current TOC node */}
-        <a href={'#' + hash} className={classNames({ active: isOnScreen })}>
+        <a
+          href={'#' + hash}
+          onClick={() => onClickSidebarItem(hash)}
+          className={classNames({ active: isOnScreen })}
+        >
           {titleNode}
         </a>
         {/* Children TOC node */}
@@ -136,7 +151,11 @@ function TOCSidebarItem(props: { tocItem: ArticleTOCItem; headerLevel?: number }
               const key = `${index}-${hash}`;
               return (
                 <React.Fragment key={key}>
-                  <TOCSidebarItem tocItem={child} headerLevel={headerLevel + 1} />
+                  <TOCSidebarItem
+                    tocItem={child}
+                    headerLevel={headerLevel + 1}
+                    onClickSidebarItem={onClickSidebarItem}
+                  />
                 </React.Fragment>
               );
             })}
