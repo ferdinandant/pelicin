@@ -40,7 +40,6 @@ export default function ChapterSidebar() {
 function SidebarContent() {
   const { pathname } = useRouter();
   const { mainColor, chapters } = useTopicConfig();
-  console.log(chapters);
 
   return (
     <>
