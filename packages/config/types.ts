@@ -5,7 +5,7 @@ import { TopicConfigMap } from '@pelicin/config';
 // TOPIC
 // ================================================================================
 
-export type Topic = keyof typeof TopicConfigMap;
+export type TopicKey = keyof typeof TopicConfigMap;
 
 export type TopicConfig = {
   mainColor: string;
