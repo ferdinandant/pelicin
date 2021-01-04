@@ -24,6 +24,8 @@
   --color-light-stain: #eeeeee;
   --color-dark-primary: #111111;
   --color-dark-secondary: #333333;
+
+  --border-radius-rounded: 999px;
 }
 
 body {
