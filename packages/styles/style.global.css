@@ -1,14 +1,37 @@
 :root {
   --header-height: 52px;
   --sidebar-width: 300px;
+
+  /* Font sizes */
+  --font-size-normal: 16px;
+  --font-size-title-1: 40px;
+  --font-size-title-2: 24px;
+  --font-size-title-3: 18px;
+  --font-size-small: 14px;
+
+  /* Spacing */
+  --spacing-l: 24px;
+  --spacing-ml: 20px;
+  --spacing-m: 16px;
+  --spacing-ms: 12px;
+  --spacing-s: 8px;
+  --spacing-xs: 4px;
+
+  /* Main colors */
+  /* https://colorhunt.co/palette/212984 */
+  --color-light-primary: #f1f1f1;
+  --color-light-secondary: #9b9b9b;
+  --color-light-stain: #eeeeee;
+  --color-dark-primary: #111111;
+  --color-dark-secondary: #333333;
 }
 
 body {
   font-family: 'Noto Sans', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
+  font-size: var(--font-size-normal);
+  background: var(--color-light-primary);
   line-height: 1.5;
-  background: #fefefe;
 }
 
 pre,
