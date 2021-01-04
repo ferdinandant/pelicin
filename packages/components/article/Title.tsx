@@ -23,20 +23,20 @@ export default function Title(props: Props) {
 
       <style jsx>{`
         div {
-          margin-bottom: 2.5rem;
+          margin-bottom: var(--spacing-xxl);
         }
 
         h1 {
-          font-size: 2.5rem;
+          font-size: var(--font-size-title-1);
           font-weight: bold;
           border: initial;
-          border-bottom: 1px solid #e5e5e5;
-          margin-left: -16px;
-          margin-right: -16px;
-          padding-left: 16px;
-          padding-right: 16px;
-          padding-bottom: 16px;
-          line-height: 3.2rem;
+          border-bottom: 1px solid #cecece;
+          margin-left: calc(var(--spacing-m) * -1);
+          margin-right: calc(var(--spacing-m) * -1);
+          padding-left: var(--spacing-m);
+          padding-right: var(--spacing-m);
+          padding-bottom: var(--spacing-m);
+          line-height: 1.275em;
         }
       `}</style>
     </>

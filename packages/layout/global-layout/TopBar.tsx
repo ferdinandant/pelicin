@@ -20,7 +20,7 @@ export default function TopBar() {
           height: var(--header-height);
           display: flex;
           align-items: center;
-          color: white;
+          color: var(--color-light-primary);
           background-image: url('/shattered.png'),
             linear-gradient(45deg, ${mainColor}, ${accentColor});
           background-blend-mode: color-burn;
@@ -31,23 +31,23 @@ export default function TopBar() {
           align-items: center;
           justify-content: center;
           width: 100%;
-          font-size: 18px;
+          font-size: var(--font-size-title-3);
           text-align: center;
         }
         nav a {
-          padding: 4px 10px;
+          padding: var(--spacing-xs) var(--spacing-ms);
           color: inherit;
           text-decoration: none;
           display: inline-block;
         }
         nav a:hover {
           background: rgba(255, 255, 255, 0.2);
-          border-radius: 100px;
+          border-radius: var(--border-radius-rounded);
         }
         nav .divider:after {
           font-weight: normal;
-          padding-left: 5px;
-          padding-right: 5px;
+          padding-left: var(--spacing-xs);
+          padding-right: var(--spacing-xs);
           opacity: 0.5;
           font-size: 22px;
           content: '/';

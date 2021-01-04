@@ -122,10 +122,9 @@ function TOCSidebarContent() {
 
       <style jsx>{`
         nav {
-          padding: 0 12px;
+          padding: 0 var(--spacing-ms);
           padding-left: 0;
-          font-size: 14px;
-          color: #aaa;
+          font-size: var(--font-size-small);
           line-height: 1.4;
         }
         nav > ul {
@@ -184,19 +183,22 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
         a {
           display: block;
           position: relative;
-          margin: 8px 0;
-          color: #aaa;
+          margin: var(--spacing-s) 0;
+          color: var(--color-dark-secondary);
           text-decoration: none;
           cursor: pointer;
+          opacity: 0.4;
         }
         a:hover {
           color: ${accentColor};
+          opacity: 1;
         }
         li a {
           padding-left: ${4 + headerLevel * 12}px;
         }
         a.active {
           color: ${accentColor};
+          opacity: 1;
         }
         a.active::before {
           content: '';

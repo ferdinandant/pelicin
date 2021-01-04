@@ -1,5 +1,6 @@
 article {
-  font-size: 16;
+  font-size: var(--font-size-normal);
+  color: var(--color-dark-2);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -28,6 +29,7 @@ article h6 {
   font-weight: bold;
   margin-top: 1.6rem;
   margin-bottom: 0.75rem;
+  color: var(--color-dark-1);
 }
 
 article h1:first-child,
