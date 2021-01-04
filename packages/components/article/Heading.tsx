@@ -51,7 +51,7 @@ export default function Heading(props: Props) {
             font-weight: normal;
             text-align: right;
             text-decoration: none;
-            color: #ccc;
+            color: var(--color-light-secondary);
             opacity: 0;
           }
           a.hashLink::before {
