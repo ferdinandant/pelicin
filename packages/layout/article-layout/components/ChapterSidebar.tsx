@@ -84,7 +84,7 @@ function SidebarContent() {
         a {
           display: block;
           position: relative;
-          font-size: var(--font-size-small);
+          font-size: var(--font-size-chapter-sidebar);
           text-decoration: none;
           margin: var(--spacing-s) 0;
           margin-left: var(--spacing-m);
