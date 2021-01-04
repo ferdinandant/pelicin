@@ -10,6 +10,8 @@
   --font-size-small: 14px;
 
   /* Spacing */
+  --spacing-xxl: 48px;
+  --spacing-xl: 32px;
   --spacing-l: 24px;
   --spacing-ml: 20px;
   --spacing-m: 16px;
@@ -21,10 +23,11 @@
   /* https://colorhunt.co/palette/212984 */
   --color-light-primary: #f1f1f1;
   --color-light-secondary: #9b9b9b;
-  --color-light-stain: #eeeeee;
+  --color-light-stain: #ebebeb;
   --color-dark-primary: #111111;
   --color-dark-secondary: #333333;
 
+  /* Border radius */
   --border-radius-rounded: 999px;
 }
 
