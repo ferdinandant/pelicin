@@ -21,6 +21,27 @@ export default [
         title: 'Duh, yang ini juga mau',
         path: '/test/other',
       },
+      {
+        title: 'Yang ini juga :<',
+        path: '/test/other',
+      },
+    ],
+  },
+  {
+    chapter: 'Lorem ipsum',
+    children: [
+      {
+        title: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit',
+        path: '/test/other',
+      },
+      {
+        title: 'Donec odio. Quisque volutpat mattis eros',
+        path: '/test/other',
+      },
+      {
+        title: 'Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede',
+        path: '/test/other',
+      },
     ],
   },
 ];

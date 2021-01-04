@@ -20,7 +20,7 @@ export default function ChapterSidebar() {
       <style jsx>{`
         aside {
           flex: 0 0 var(--sidebar-width);
-          background-color: #fafafa;
+          background-color: var(--color-light-stain);
         }
         aside > div {
           position: sticky;
@@ -65,41 +65,44 @@ function SidebarContent() {
 
       <style jsx>{`
         nav {
-          padding: 24px;
-          line-height: 1.4;
+          padding: var(--spacing-l);
+          line-height: 1.5;
         }
         .group {
-          margin-top: 28px;
+          margin-top: var(--spacing-l);
         }
         .group:first-child {
           margin-top: 0;
         }
 
         h1 {
-          font-size: 18px;
+          font-size: var(--font-size-title-3);
           line-height: 1.2;
-          margin-bottom: 12px;
+          margin-bottom: var(--spacing-ms);
+          color: var(--color-dark-secondary);
         }
         a {
           display: block;
           position: relative;
-          font-size: 15px;
+          font-size: var(--font-size-small);
           text-decoration: none;
-          margin: 8px 0;
-          margin-left: 18px;
-          color: #999;
+          margin: var(--spacing-s) 0;
+          margin-left: var(--spacing-m);
+          color: var(--color-dark-secondary);
+          opacity: 0.5;
         }
 
         a.active,
         a:hover {
           color: ${mainColor};
+          opacity: 1;
         }
         a.active::before,
         a:hover::before {
           content: '';
           position: absolute;
           height: 100%;
-          left: -16px;
+          left: calc(var(--spacing-m) * -1);
           border-left: 6px solid ${mainColor};
         }
         a.active::before,
@@ -107,7 +110,7 @@ function SidebarContent() {
           opacity: 0.8;
         }
         a:hover::before {
-          opacity: 0.3;
+          opacity: 0.4;
         }
       `}</style>
     </>
