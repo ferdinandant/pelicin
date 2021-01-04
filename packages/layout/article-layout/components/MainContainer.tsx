@@ -22,7 +22,7 @@ export default function MainContainer(props: Props) {
           flex-direction: row;
         }
         article {
-          padding: 32px 48px;
+          padding: var(--spacing-xl) var(--spacing-xxl);
           max-width: 800px;
           flex: 0 1 800px;
           margin: 0 auto;
