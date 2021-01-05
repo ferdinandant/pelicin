@@ -1,15 +1,29 @@
 import { useTopicConfig } from '@pelicin/config';
+import { SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX } from '@pelicin/layout';
 
 export default function TopBar() {
   const { mainColor, accentColor } = useTopicConfig();
+  const segments = ['css'];
 
   return (
     <>
       <header>
+        <div className="hamburgerToggle">
+          <svg viewBox="0 0 100 72" width="20" height="20">
+            <rect y="0" width="100" height="12" rx="8" fill="white" />
+            <rect y="30" width="100" height="12" rx="8" fill="white" />
+            <rect y="60" width="100" height="12" rx="8" fill="white" />
+          </svg>
+        </div>
+
         <nav>
           <a href="#">pelicin</a>
-          <span className="divider"></span>
-          <a href="#">css</a>
+          {segments.map((segment, index) => (
+            <span className="breadcrumbItem" key={index}>
+              <span className="divider" />
+              <a href="#">{segment}</a>
+            </span>
+          ))}
         </nav>
       </header>
 
@@ -26,6 +40,32 @@ export default function TopBar() {
           background-blend-mode: color-burn;
           z-index: 999;
         }
+
+        /* Hamburger toggle */
+        .hamburgerToggle {
+          position: absolute;
+          display: flex;
+          margin-left: var(--spacing-m);
+          padding: var(--spacing-s) var(--spacing-m);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: var(--border-radius-normal);
+          cursor: pointer;
+        }
+        .hamburgerToggle:hover {
+          border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        @media (max-width: ${SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX}px) {
+          .breadcrumbItem {
+            display: none;
+          }
+        }
+        @media (min-width: ${SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX}px) {
+          .hamburgerToggle {
+            display: none;
+          }
+        }
+
+        /* Breadcrumb */
         nav {
           display: flex;
           align-items: center;

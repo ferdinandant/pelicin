@@ -29,6 +29,7 @@
 
   /* Border radius */
   --border-radius-rounded: 999px;
+  --border-radius-normal: 4px;
 }
 
 body {
