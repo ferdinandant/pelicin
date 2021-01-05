@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
 import { useTopicConfig } from '@pelicin/config';
+import { SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX } from '@pelicin/layout';
 
 // ================================================================================
 // MAIN
@@ -27,6 +28,12 @@ export default function ChapterSidebar() {
           top: var(--header-height);
           height: calc(100vh - var(--header-height));
           overflow-y: auto;
+        }
+
+        @media (max-width: ${SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX}px) {
+          aside {
+            display: none;
+          }
         }
       `}</style>
     </>
