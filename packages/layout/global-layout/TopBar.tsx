@@ -9,7 +9,7 @@ export default function TopBar() {
     <>
       <header>
         <div className="hamburgerToggle">
-          <svg viewBox="0 0 100 72" width="20" height="20">
+          <svg viewBox="0 0 100 72" width="16" height="16">
             <rect y="0" width="100" height="12" rx="8" fill="white" />
             <rect y="30" width="100" height="12" rx="8" fill="white" />
             <rect y="60" width="100" height="12" rx="8" fill="white" />
