@@ -86,10 +86,11 @@ function SidebarContent() {
           position: relative;
           font-size: 15px;
           text-decoration: none;
-          margin: var(--spacing-s) 0;
+          margin: var(--spacing-ms) 0;
           margin-left: var(--spacing-m);
           color: var(--color-dark-secondary);
           opacity: 0.5;
+          line-height: 1.275;
         }
 
         a.active,
