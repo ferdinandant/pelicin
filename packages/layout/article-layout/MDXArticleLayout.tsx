@@ -5,6 +5,7 @@ import {
   TopBar,
   ArticleTOCProvider,
   ChapterSidebar,
+  HamburgerChapterSidebar,
   MainContainer,
   getArticleTOC,
   processArticleMDX,
@@ -52,6 +53,7 @@ function renderMDX(children: ReactNode) {
       <ArticleTOCProvider value={toc}>
         <div>
           <ChapterSidebar />
+          <HamburgerChapterSidebar />
           <MainContainer>{processedChildren}</MainContainer>
         </div>
       </ArticleTOCProvider>
