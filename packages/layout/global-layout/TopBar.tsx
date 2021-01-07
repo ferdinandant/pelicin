@@ -1,18 +1,33 @@
+import classNames from 'classnames';
 import { useTopicConfig } from '@pelicin/config';
-import { SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX } from '@pelicin/layout';
+import { SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX, useHamburgerToggle } from '@pelicin/layout';
 
 export default function TopBar() {
   const { mainColor, accentColor } = useTopicConfig();
+  const {
+    isToggled: isHamburgerToggled,
+    setIsToggled: setIsHamburgerToggled,
+  } = useHamburgerToggle();
+  const hamburgerFillColor = isHamburgerToggled
+    ? 'var(--color-dark-primary)'
+    : 'var(--color-light-primary)';
   const segments = ['css'];
+
+  function handleClickHamburger() {
+    setIsHamburgerToggled(!isHamburgerToggled);
+  }
 
   return (
     <>
       <header>
-        <button className="hamburgerToggle">
+        <button
+          className={classNames(['hamburgerToggle', { active: isHamburgerToggled }])}
+          onClick={handleClickHamburger}
+        >
           <svg viewBox="0 0 100 72" width="16" height="16">
-            <rect y="0" width="100" height="12" rx="8" fill="white" />
-            <rect y="30" width="100" height="12" rx="8" fill="white" />
-            <rect y="60" width="100" height="12" rx="8" fill="white" />
+            <rect y="0" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
+            <rect y="30" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
+            <rect y="60" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
           </svg>
         </button>
 
@@ -51,6 +66,9 @@ export default function TopBar() {
           border-radius: var(--border-radius-normal);
           background-color: transparent;
           cursor: pointer;
+        }
+        .hamburgerToggle.active {
+          background-color: var(--color-light-primary);
         }
         .hamburgerToggle:hover {
           border: 1px solid rgba(255, 255, 255, 0.6);

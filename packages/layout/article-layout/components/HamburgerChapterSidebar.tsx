@@ -23,7 +23,7 @@ function PortalizedSidebarContent() {
           position: fixed;
           top: var(--header-height);
           width: calc(100vw + var(--sidebar-width));
-          left: 0;
+          left: 0);
           background-color: rgba(0, 0, 0, 0.6);
         }
         aside > div {
