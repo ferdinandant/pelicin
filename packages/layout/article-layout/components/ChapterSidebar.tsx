@@ -13,7 +13,7 @@ export default function ChapterSidebar() {
       <style jsx>{`
         aside {
           flex: 0 0 var(--sidebar-width);
-          background-color: var(--color-light-stain);
+          background-color: var(--color-sidebar-bg);
         }
         aside > div {
           position: sticky;

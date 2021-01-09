@@ -21,7 +21,7 @@ type TOCSidebarItemProps = {
   onClickSidebarItem: (anchorHash: string) => void;
 };
 
-const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 30;
+const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 100;
 
 const SCROLL_EVENT_COOLDOWN_MS = 50;
 
@@ -56,6 +56,7 @@ export default function TOCSidebar() {
 
 function TOCSidebarContent() {
   const toc = useArticleTOC();
+  const { accentColor } = useTopicConfig();
   const anchorHashes = getDisplayedTOCAnchorHashes(toc);
 
   const [onScreenAnchorHash, setOnScreenAnchorHash] = useState<string>(null);
@@ -124,13 +125,13 @@ function TOCSidebarContent() {
         nav {
           padding: 0 var(--spacing-ms);
           padding-left: 0;
-          font-size: var(--font-size-small);
+          font-size: var(--font-size-tiny);
           line-height: 1.4;
         }
         nav > ul {
           padding-top: 1px;
           padding-bottom: 1px;
-          border-left: 1px solid #ccc;
+          border-left: 1px solid ${accentColor}55;
           position: relative;
         }
       `}</style>
@@ -184,7 +185,7 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
           display: block;
           position: relative;
           margin: var(--spacing-s) 0;
-          color: var(--color-dark-secondary);
+          color: var(--color-gray-9);
           text-decoration: none;
           cursor: pointer;
           opacity: 0.4;
@@ -205,7 +206,7 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
           height: 100%;
           left: -1px;
           position: absolute;
-          border-left: 4px solid ${accentColor};
+          border-left: 6px solid ${accentColor};
         }
       `}</style>
     </>

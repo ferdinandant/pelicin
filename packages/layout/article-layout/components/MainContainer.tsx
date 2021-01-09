@@ -28,7 +28,7 @@ export default function MainContainer(props: Props) {
           margin: 0 auto;
         }
         .sectionSidebarContainer {
-          flex: 0 1 var(--sidebar-width);
+          flex: 0 1 var(--toc-width);
         }
         @media (max-width: ${SHOW_TOC_SIDEBAR_BREAKPOINT_PX}px) {
           .sectionSidebarContainer {

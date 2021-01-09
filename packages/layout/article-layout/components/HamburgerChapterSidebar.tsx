@@ -103,7 +103,7 @@ function PortalizedSidebarContent() {
           top: var(--header-height);
           width: calc(var(--sidebar-width));
           height: calc(100vh - var(--header-height));
-          background-color: var(--color-light-stain);
+          background-color: var(--color-gray-2);
           overflow-y: auto;
         }
 

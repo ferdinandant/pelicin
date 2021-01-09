@@ -16,7 +16,7 @@ export default function ChapterSidebarContent() {
           const { chapter, children } = chapterData;
           return (
             <div className="group" key={chapterIndex}>
-              <h1>{chapter}</h1>
+              <span className="groupTitle">{chapter}</span>
               {children.map((titleData, titleIndex) => {
                 const { title, path } = titleData;
                 const isActive = pathname === path;
@@ -34,20 +34,25 @@ export default function ChapterSidebarContent() {
       <style jsx>{`
         nav {
           padding: var(--spacing-l);
-          line-height: 1.5;
         }
         .group {
-          margin-top: var(--spacing-l);
+          margin-top: var(--spacing-xl);
         }
         .group:first-child {
           margin-top: 0;
+          padding-top: 0;
+          border-top: none;
         }
 
-        h1 {
+        .groupTitle {
+          display: block;
+          position: relative;
           font-size: var(--font-size-title-3);
+          font-weight: bold;
           line-height: 1.2;
           margin-bottom: var(--spacing-ms);
-          color: var(--color-dark-secondary);
+          color: ${mainColor};
+          line-height: 1.4;
         }
         a {
           display: block;
@@ -55,31 +60,30 @@ export default function ChapterSidebarContent() {
           font-size: 15px;
           text-decoration: none;
           margin: var(--spacing-ms) 0;
-          margin-left: var(--spacing-m);
-          color: var(--color-dark-secondary);
-          opacity: 0.5;
-          line-height: 1.275;
+          color: var(--color-gray-6);
+          line-height: 1.4;
         }
 
         a.active,
         a:hover {
           color: ${mainColor};
-          opacity: 1;
+        }
+
+        span.groupTitle::before {
+          content: '';
+          position: absolute;
+          height: 100%;
+          left: calc(var(--spacing-l) * -1);
+          border-left: 12px solid ${mainColor};
         }
         a.active::before,
         a:hover::before {
           content: '';
           position: absolute;
           height: 100%;
-          left: calc(var(--spacing-m) * -1);
-          border-left: 6px solid ${mainColor};
-        }
-        a.active::before,
-        a.active:hover::before {
-          opacity: 0.8;
-        }
-        a:hover::before {
-          opacity: 0.4;
+          left: calc(var(--spacing-l) * -1);
+          border-left: 12px solid ${mainColor};
+          opacity: 0.25;
         }
       `}</style>
     </>
