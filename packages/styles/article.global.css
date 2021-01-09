@@ -5,26 +5,13 @@ article {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                                  Paragraph                                 */
-/* -------------------------------------------------------------------------- */
-
-article p {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-article p:first-child {
-  margin-top: 0em;
-}
-
-/* -------------------------------------------------------------------------- */
 /*                                   Headers                                  */
 /* -------------------------------------------------------------------------- */
 
 article h1 {
   font-weight: bold;
   border: initial;
-  border-bottom: 1px solid #cecece;
+  border-bottom: 1px solid var(--color-separator);
   margin-top: 2rem;
   margin-left: calc(var(--spacing-m) * -1);
   margin-right: calc(var(--spacing-m) * -1);
@@ -77,4 +64,27 @@ article h6 {
   font-size: 1rem;
   font-style: italic;
   font-weight: normal;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Paragraph                                 */
+/* -------------------------------------------------------------------------- */
+
+article p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+article p:first-child {
+  margin-top: 0em;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Blocks                                   */
+/* -------------------------------------------------------------------------- */
+
+article code {
+  background-color: var(--color-light-secondary);
+  padding: var(--spacing-xs) var(--spacing-s);
+  border-radius: var(--border-radius-normal);
 }
