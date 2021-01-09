@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { motion } from 'framer-motion';
 
@@ -11,6 +11,9 @@ import {
 // ================================================================================
 // TYPES/CONST
 // ================================================================================
+
+const SLIDE_ANIMATION_DURATION_MS = 300;
+const FADE_ANIMATIOM_DURATION_MS = 200;
 
 const HIDDEN_X_VALUE = 'calc(-1 * var(--sidebar-width))';
 const SHOWED_X_VALUE = 'calc(0 * var(--sidebar-width))';
@@ -34,69 +37,58 @@ export default function HamburgerChapterSidebar() {
 // ================================================================================
 
 function PortalizedSidebarContent() {
-  const { isToggled: isHamburgerToggled } = useHamburgerToggle();
+  const {
+    isToggled: isHamburgerToggled,
+    setIsToggled: setIsHamburgerToggled,
+  } = useHamburgerToggle();
 
-  const [lastAnimatedHamburgerToggle, setLastAnimatedHamburgerToggle] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [animationXValue, setAnimationXValue] = useState(HIDDEN_X_VALUE);
   const [animationBGValue, setAnimationBGValue] = useState(HIDDEN_BG_VALUE);
-  const [animationDisplayValue, setAnimationDisplayValue] = useState('none');
-  const [isReady, setIsReady] = useState(false);
+  const [shouldRenderCover, setShouldRenderCover] = useState(false);
 
   useEffect(() => {
-    setIsReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (lastAnimatedHamburgerToggle === false && isHamburgerToggled === true) {
-      animateFlyInMenu();
-    } else if (lastAnimatedHamburgerToggle === true && isHamburgerToggled === false) {
-      animateFlyOutMenu();
+    if (!isSidebarVisible && isHamburgerToggled) {
+      animateSlideInSidebar();
+    } else if (isSidebarVisible && !isHamburgerToggled) {
+      animateSlideOutSidebar();
     }
   }, [isHamburgerToggled]);
 
-  function animateFlyInMenu() {
+  function animateSlideInSidebar() {
     setAnimationXValue(SHOWED_X_VALUE);
     setAnimationBGValue(SHOWED_BG_VALUE);
-    setLastAnimatedHamburgerToggle(true);
+    setIsSidebarVisible(true);
+    setShouldRenderCover(true);
   }
 
-  function animateFlyOutMenu() {
+  function animateSlideOutSidebar() {
     setAnimationXValue(HIDDEN_X_VALUE);
     setAnimationBGValue(HIDDEN_BG_VALUE);
-    setLastAnimatedHamburgerToggle(false);
+    setIsSidebarVisible(false);
+    setTimeout(() => {
+      setShouldRenderCover(false);
+    }, FADE_ANIMATIOM_DURATION_MS);
   }
-
-  function showOrHideBackgroundCover() {
-    if (lastAnimatedHamburgerToggle === false) {
-      // setAnimationDisplayValue('none');
-    }
-  }
-
-  console.log(isReady, animationXValue);
 
   const component = (
     <>
-      <aside>
+      <aside style={{ display: shouldRenderCover ? 'block' : 'none' }}>
         <motion.div
-          transition={{
-            duration: 0.3,
-          }}
-          animate={{
-            x: animationXValue,
-          }}
+          transition={{ duration: SLIDE_ANIMATION_DURATION_MS / 1000 }}
+          animate={{ x: animationXValue }}
           style={{
             position: 'fixed',
             top: 'var(--header-height)',
             width: 'calc(999vw)',
             height: 'calc(100vh - var(--header-height))',
-            display: animationDisplayValue,
+            cursor: 'pointer',
           }}
+          onClick={() => setIsHamburgerToggled(false)}
         >
           <motion.div
-            transition={{ duration: 0.2 }}
+            transition={{ duration: FADE_ANIMATIOM_DURATION_MS / 1000 }}
             animate={{ backgroundColor: animationBGValue }}
-            // onAnimationStart={showOrHideBackgroundCover}
-            onAnimationComplete={showOrHideBackgroundCover}
           >
             <div>
               <ChapterSidebarContent />
