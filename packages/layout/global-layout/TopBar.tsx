@@ -48,9 +48,8 @@ export default function TopBar() {
           display: flex;
           align-items: center;
           color: var(--color-gray-0);
-          background-image: url('/shattered.png'),
+          background-image: url('/diagmonds.png'),
             linear-gradient(45deg, ${mainColor}, ${accentColor});
-          background-blend-mode: color-burn;
           z-index: 999;
         }
 
@@ -66,7 +65,7 @@ export default function TopBar() {
           cursor: pointer;
         }
         .hamburgerToggle.active {
-          background-color: var(--color-gray-0);
+          background-color: var(--color-gray-1);
         }
         .hamburgerToggle:hover {
           border: 1px solid rgba(255, 255, 255, 0.6);
