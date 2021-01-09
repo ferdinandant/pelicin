@@ -1,6 +1,7 @@
 article {
   font-size: var(--font-size-normal);
-  color: var(--color-dark-2);
+  color: var(--color-dark-secondary);
+  line-height: 1.6;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -8,8 +9,8 @@ article {
 /* -------------------------------------------------------------------------- */
 
 article p {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 article p:first-child {
@@ -21,17 +22,18 @@ article p:first-child {
 /* -------------------------------------------------------------------------- */
 
 article h1 {
-  font-size: var(--font-size-title-1);
   font-weight: bold;
   border: initial;
   border-bottom: 1px solid #cecece;
+  margin-top: 2rem;
   margin-left: calc(var(--spacing-m) * -1);
   margin-right: calc(var(--spacing-m) * -1);
-  margin-bottom: var(--spacing-xxl);
+  margin-bottom: var(--spacing-xl);
   padding-left: var(--spacing-m);
   padding-right: var(--spacing-m);
   padding-bottom: var(--spacing-ms);
-  line-height: 1.275em;
+  color: var(--color-dark-primary);
+  line-height: 1.3em;
 }
 
 article h2,
@@ -42,7 +44,8 @@ article h6 {
   font-weight: bold;
   margin-top: 1.6rem;
   margin-bottom: 0.75rem;
-  color: var(--color-dark-1);
+  color: var(--color-dark-primary);
+  line-height: 1.4em;
 }
 
 article h1:first-child,
@@ -55,16 +58,16 @@ article h6:first-child {
 }
 
 article h1 {
-  font-size: 2rem;
+  font-size: var(--font-size-title-1);
 }
 article h2 {
-  font-size: 1.6rem;
+  font-size: 2rem;
 }
 article h3 {
-  font-size: 1.2rem;
+  font-size: 1.6rem;
 }
 article h4 {
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 article h5 {
   font-size: 1rem;

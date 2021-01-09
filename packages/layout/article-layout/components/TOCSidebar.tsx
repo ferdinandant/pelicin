@@ -56,6 +56,7 @@ export default function TOCSidebar() {
 
 function TOCSidebarContent() {
   const toc = useArticleTOC();
+  const { accentColor } = useTopicConfig();
   const anchorHashes = getDisplayedTOCAnchorHashes(toc);
 
   const [onScreenAnchorHash, setOnScreenAnchorHash] = useState<string>(null);
@@ -130,7 +131,7 @@ function TOCSidebarContent() {
         nav > ul {
           padding-top: 1px;
           padding-bottom: 1px;
-          border-left: 1px solid #ccc;
+          border-left: 1px solid ${accentColor}55;
           position: relative;
         }
       `}</style>
