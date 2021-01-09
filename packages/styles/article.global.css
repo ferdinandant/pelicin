@@ -20,7 +20,20 @@ article p:first-child {
 /*                                   Headers                                  */
 /* -------------------------------------------------------------------------- */
 
-article h1,
+article h1 {
+  font-size: var(--font-size-title-1);
+  font-weight: bold;
+  border: initial;
+  border-bottom: 1px solid #cecece;
+  margin-left: calc(var(--spacing-m) * -1);
+  margin-right: calc(var(--spacing-m) * -1);
+  margin-bottom: var(--spacing-xxl);
+  padding-left: var(--spacing-m);
+  padding-right: var(--spacing-m);
+  padding-bottom: var(--spacing-ms);
+  line-height: 1.275em;
+}
+
 article h2,
 article h3,
 article h4,

@@ -20,10 +20,17 @@ export default function Heading(props: Props) {
 
   return (
     <>
+      {/* No anchor for h1 */}
       <HeadingTag>
-        {anchor && <a className="anchor" id={anchor} />}
-        <a className="hashLink" aria-hidden href={`#${anchor}`} />
-        {children}
+        {heading === 'h1' ? (
+          children
+        ) : (
+          <>
+            {anchor && <a className="anchor" id={anchor} />}
+            <a className="hashLink" aria-hidden href={`#${anchor}`} />
+            {children}
+          </>
+        )}
       </HeadingTag>
 
       <style jsx>
@@ -58,7 +65,6 @@ export default function Heading(props: Props) {
             content: '#';
           }
 
-          h1:hover a.hashLink,
           h2:hover a.hashLink,
           h3:hover a.hashLink,
           h4:hover a.hashLink,
