@@ -1,15 +1,26 @@
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
+
 import { useTopicConfig } from '@pelicin/config';
-import { SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX, useHamburgerToggle } from '@pelicin/layout';
+import {
+  SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX,
+  useHamburgerToggle,
+  getBreadcrumbSegments,
+} from '@pelicin/layout';
+
+// ================================================================================
+// MAIN
+// ================================================================================
 
 export default function TopBar() {
-  const { mainColor, accentColor } = useTopicConfig();
+  const { pathname } = useRouter();
+  const { mainColor, accentColor, basePath } = useTopicConfig();
   const {
     isToggled: isHamburgerToggled,
     setIsToggled: setIsHamburgerToggled,
   } = useHamburgerToggle();
   const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
-  const segments = ['css'];
+  const segments = getBreadcrumbSegments({ basePath, pathname });
 
   function handleClickHamburger() {
     setIsHamburgerToggled(!isHamburgerToggled);
@@ -30,13 +41,16 @@ export default function TopBar() {
         </button>
 
         <nav>
-          <a href="#">pelicin</a>
-          {segments.map((segment, index) => (
-            <span className="breadcrumbItem" key={index}>
-              <span className="divider" />
-              <a href="#">{segment}</a>
-            </span>
-          ))}
+          <a href="/">pelicin</a>
+          {segments.map((segment, index) => {
+            const { text, path } = segment;
+            return (
+              <span className="breadcrumbItem" key={index}>
+                <span className="divider" />
+                <a href={path}>{text}</a>
+              </span>
+            );
+          })}
         </nav>
       </header>
 
