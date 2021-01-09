@@ -21,7 +21,7 @@ type TOCSidebarItemProps = {
   onClickSidebarItem: (anchorHash: string) => void;
 };
 
-const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 30;
+const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 100;
 
 const SCROLL_EVENT_COOLDOWN_MS = 50;
 

@@ -19,6 +19,9 @@ export default function getArticleTOC(children: ReactNode): ArticleTOC {
       const headingLevel = Number(match[1]);
 
       if (headingLevel === 1) {
+        // Don't put main title in TOC
+        continue;
+      } else if (headingLevel === 2) {
         toc.push({
           titleNode: children,
           hash: extractHashFromNode(children),
@@ -27,7 +30,7 @@ export default function getArticleTOC(children: ReactNode): ArticleTOC {
       } else {
         // Traverse parent headings
         let parentTOCItemChildren = toc;
-        for (let level = 1; level < headingLevel; level++) {
+        for (let level = 2; level < headingLevel; level++) {
           const isChildrenEmpty = parentTOCItemChildren.length === 0;
           const hasNextIteration = level + 1 < headingLevel;
           if (isChildrenEmpty && hasNextIteration) {
