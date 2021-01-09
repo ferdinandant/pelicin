@@ -66,7 +66,6 @@ export default function ChapterSidebarContent() {
 
         a.active,
         a:hover {
-          opacity: 1;
           color: ${mainColor};
         }
 
@@ -76,6 +75,15 @@ export default function ChapterSidebarContent() {
           height: 100%;
           left: calc(var(--spacing-l) * -1);
           border-left: 12px solid ${mainColor};
+        }
+        a.active::before,
+        a:hover::before {
+          content: '';
+          position: absolute;
+          height: 100%;
+          left: calc(var(--spacing-l) * -1);
+          border-left: 12px solid ${mainColor};
+          opacity: 0.25;
         }
       `}</style>
     </>
