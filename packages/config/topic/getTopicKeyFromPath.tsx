@@ -1,7 +1,7 @@
 import { TopicConfigMap, TopicKey } from '@pelicin/config';
 
 export default function getTopicKeyFromPath(path: string): TopicKey {
-  let result: TopicKey = 'test';
+  let result: TopicKey = 'default';
 
   for (const topicKey in TopicConfigMap) {
     const { basePath } = TopicConfigMap[topicKey];
