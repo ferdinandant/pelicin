@@ -1,5 +1,9 @@
 import React from 'react';
-import { TOCSidebar, SHOW_TOC_SIDEBAR_BREAKPOINT_PX } from '@pelicin/layout';
+import {
+  TOCSidebar,
+  SHOW_TOC_SIDEBAR_BREAKPOINT_PX,
+  REDUCE_PADDING_BREAKPOINT_PX,
+} from '@pelicin/layout';
 
 type Props = {
   children: React.ReactNode;
@@ -30,9 +34,15 @@ export default function MainContainer(props: Props) {
         .sectionSidebarContainer {
           flex: 0 1 var(--toc-width);
         }
+
         @media (max-width: ${SHOW_TOC_SIDEBAR_BREAKPOINT_PX}px) {
           .sectionSidebarContainer {
             display: none;
+          }
+        }
+        @media (max-width: ${REDUCE_PADDING_BREAKPOINT_PX}px) {
+          article {
+            padding: var(--spacing-l) var(--spacing-xl);
           }
         }
       `}</style>
