@@ -1,3 +1,4 @@
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 
@@ -19,12 +20,15 @@ export default function TopBar() {
     isToggled: isHamburgerToggled,
     setIsToggled: setIsHamburgerToggled,
   } = useHamburgerToggle();
-  const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
-  const segments = getBreadcrumbSegments({ basePath, pathname });
+  const segments = useMemo(() => {
+    return getBreadcrumbSegments({ basePath, pathname });
+  }, [basePath, pathname]);
 
   function handleClickHamburger() {
     setIsHamburgerToggled(!isHamburgerToggled);
   }
+
+  const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
 
   return (
     <>

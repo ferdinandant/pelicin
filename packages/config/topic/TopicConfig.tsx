@@ -15,4 +15,4 @@ export const TopicConfigMap = {
     basePath: '/',
     chapters: [],
   },
-} as const;
+};

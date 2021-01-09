@@ -11,7 +11,7 @@ type SegmentInfo = {
 export default function getBreadcrumbSegments(opts: Opts): SegmentInfo[] {
   const { basePath } = opts;
   const unprefixedBasePath = basePath.replace(/^[/]/, '');
-  const textSegments = unprefixedBasePath.split('/');
+  const textSegments = unprefixedBasePath.split('/').filter((item) => item !== '');
   let pathSegments = [];
 
   // Construct `pathSegments`
