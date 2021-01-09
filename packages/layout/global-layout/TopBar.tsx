@@ -8,9 +8,7 @@ export default function TopBar() {
     isToggled: isHamburgerToggled,
     setIsToggled: setIsHamburgerToggled,
   } = useHamburgerToggle();
-  const hamburgerFillColor = isHamburgerToggled
-    ? 'var(--color-dark-primary)'
-    : 'var(--color-light-primary)';
+  const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
   const segments = ['css'];
 
   function handleClickHamburger() {
@@ -49,7 +47,7 @@ export default function TopBar() {
           height: var(--header-height);
           display: flex;
           align-items: center;
-          color: var(--color-light-primary);
+          color: var(--color-gray-0);
           background-image: url('/shattered.png'),
             linear-gradient(45deg, ${mainColor}, ${accentColor});
           background-blend-mode: color-burn;
@@ -68,7 +66,7 @@ export default function TopBar() {
           cursor: pointer;
         }
         .hamburgerToggle.active {
-          background-color: var(--color-light-primary);
+          background-color: var(--color-gray-0);
         }
         .hamburgerToggle:hover {
           border: 1px solid rgba(255, 255, 255, 0.6);

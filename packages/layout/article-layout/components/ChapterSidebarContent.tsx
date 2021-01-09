@@ -53,7 +53,6 @@ export default function ChapterSidebarContent() {
           margin-bottom: var(--spacing-ms);
           color: ${mainColor};
           line-height: 1.4;
-          opacity: 0.9;
         }
         a {
           display: block;
@@ -61,8 +60,7 @@ export default function ChapterSidebarContent() {
           font-size: 15px;
           text-decoration: none;
           margin: var(--spacing-ms) 0;
-          color: var(--color-dark-secondary);
-          opacity: 0.9;
+          color: var(--color-gray-6);
           line-height: 1.4;
         }
 

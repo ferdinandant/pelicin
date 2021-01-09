@@ -185,7 +185,7 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
           display: block;
           position: relative;
           margin: var(--spacing-s) 0;
-          color: var(--color-dark-primary);
+          color: var(--color-gray-9);
           text-decoration: none;
           cursor: pointer;
           opacity: 0.4;

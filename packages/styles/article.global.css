@@ -1,6 +1,6 @@
 article {
   font-size: var(--font-size-normal);
-  color: var(--color-dark-secondary);
+  color: var(--color-gray-6);
   line-height: 1.6;
 }
 
@@ -11,7 +11,7 @@ article {
 article h1 {
   font-weight: bold;
   border: initial;
-  border-bottom: 1px solid var(--color-separator);
+  border-bottom: 1px solid var(--color-gray-2);
   margin-top: 2rem;
   margin-left: calc(var(--spacing-m) * -1);
   margin-right: calc(var(--spacing-m) * -1);
@@ -19,7 +19,7 @@ article h1 {
   padding-left: var(--spacing-m);
   padding-right: var(--spacing-m);
   padding-bottom: var(--spacing-ms);
-  color: var(--color-dark-primary);
+  color: var(--color-gray-9);
   line-height: 1.3em;
 }
 
@@ -31,7 +31,7 @@ article h6 {
   font-weight: bold;
   margin-top: 1.6rem;
   margin-bottom: 0.75rem;
-  color: var(--color-dark-primary);
+  color: var(--color-gray-9);
   line-height: 1.4em;
 }
 
@@ -84,7 +84,7 @@ article p:first-child {
 /* -------------------------------------------------------------------------- */
 
 article code {
-  background-color: var(--color-light-secondary);
+  background-color: var(--color-gray-1);
   padding: var(--spacing-xs) var(--spacing-s);
   border-radius: var(--border-radius-normal);
 }
