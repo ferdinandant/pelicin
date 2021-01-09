@@ -5,6 +5,8 @@ import {
   TopBar,
   ArticleTOCProvider,
   ChapterSidebar,
+  HamburgerChapterSidebar,
+  HamburgerToggleProvider,
   MainContainer,
   getArticleTOC,
   processArticleMDX,
@@ -32,10 +34,10 @@ export default function MDXArticleLayout(props: Props) {
   const { children } = props;
 
   return (
-    <>
+    <HamburgerToggleProvider>
       <TopBar />
       <MDXProvider components={components}>{children}</MDXProvider>
-    </>
+    </HamburgerToggleProvider>
   );
 }
 
@@ -52,6 +54,7 @@ function renderMDX(children: ReactNode) {
       <ArticleTOCProvider value={toc}>
         <div>
           <ChapterSidebar />
+          <HamburgerChapterSidebar />
           <MainContainer>{processedChildren}</MainContainer>
         </div>
       </ArticleTOCProvider>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TOCSidebar } from '@pelicin/layout';
+import { TOCSidebar, SHOW_TOC_SIDEBAR_BREAKPOINT_PX } from '@pelicin/layout';
 
 type Props = {
   children: React.ReactNode;
@@ -30,7 +30,7 @@ export default function MainContainer(props: Props) {
         .sectionSidebarContainer {
           flex: 0 1 var(--sidebar-width);
         }
-        @media (max-width: 1280px) {
+        @media (max-width: ${SHOW_TOC_SIDEBAR_BREAKPOINT_PX}px) {
           .sectionSidebarContainer {
             display: none;
           }
