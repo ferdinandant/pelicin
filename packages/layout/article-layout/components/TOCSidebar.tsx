@@ -125,7 +125,7 @@ function TOCSidebarContent() {
         nav {
           padding: 0 var(--spacing-ms);
           padding-left: 0;
-          font-size: var(--font-size-small);
+          font-size: var(--font-size-tiny);
           line-height: 1.4;
         }
         nav > ul {
@@ -185,7 +185,7 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
           display: block;
           position: relative;
           margin: var(--spacing-s) 0;
-          color: var(--color-dark-secondary);
+          color: var(--color-dark-primary);
           text-decoration: none;
           cursor: pointer;
           opacity: 0.4;
@@ -206,7 +206,7 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
           height: 100%;
           left: -1px;
           position: absolute;
-          border-left: 4px solid ${accentColor};
+          border-left: 6px solid ${accentColor};
         }
       `}</style>
     </>
