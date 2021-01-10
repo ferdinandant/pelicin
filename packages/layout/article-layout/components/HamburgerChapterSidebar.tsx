@@ -98,6 +98,10 @@ function PortalizedSidebarContent() {
       </aside>
 
       <style jsx>{`
+        aside {
+          position: relative;
+          z-index: 44;
+        }
         aside div {
           position: sticky;
           top: var(--header-height);
