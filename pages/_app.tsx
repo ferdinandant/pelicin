@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { LayoutRenderer } from '@pelicin/layout';
 import { TopicConfigProvider, getTopicKeyFromPath } from '@pelicin/config';
 import resetStyle from '@pelicin/styles/reset.global.css';
-import globalStyle from '@pelicin/styles/style.global.css';
+import mainStyle from '@pelicin/styles/main.global.css';
 import articleStyle from '@pelicin/styles/article.global.css';
 
 // ================================================================================
@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }) {
         {resetStyle}
       </style>
       <style jsx global>
-        {globalStyle}
+        {mainStyle}
       </style>
       <style jsx global>
         {articleStyle}

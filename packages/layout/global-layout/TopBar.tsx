@@ -1,19 +1,34 @@
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
+
 import { useTopicConfig } from '@pelicin/config';
-import { SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX, useHamburgerToggle } from '@pelicin/layout';
+import {
+  SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX,
+  useHamburgerToggle,
+  getBreadcrumbSegments,
+} from '@pelicin/layout';
+
+// ================================================================================
+// MAIN
+// ================================================================================
 
 export default function TopBar() {
-  const { mainColor, accentColor } = useTopicConfig();
+  const { pathname } = useRouter();
+  const { mainColor, accentColor, basePath } = useTopicConfig();
   const {
     isToggled: isHamburgerToggled,
     setIsToggled: setIsHamburgerToggled,
   } = useHamburgerToggle();
-  const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
-  const segments = ['css'];
+  const segments = useMemo(() => {
+    return getBreadcrumbSegments({ basePath, pathname });
+  }, [basePath, pathname]);
 
   function handleClickHamburger() {
     setIsHamburgerToggled(!isHamburgerToggled);
   }
+
+  const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
 
   return (
     <>
@@ -30,13 +45,16 @@ export default function TopBar() {
         </button>
 
         <nav>
-          <a href="#">pelicin</a>
-          {segments.map((segment, index) => (
-            <span className="breadcrumbItem" key={index}>
-              <span className="divider" />
-              <a href="#">{segment}</a>
-            </span>
-          ))}
+          <a href="/">pelicin</a>
+          {segments.map((segment, index) => {
+            const { text, path } = segment;
+            return (
+              <span className="breadcrumbItem" key={index}>
+                <span className="divider" />
+                <a href={path}>{text}</a>
+              </span>
+            );
+          })}
         </nav>
       </header>
 
@@ -48,9 +66,8 @@ export default function TopBar() {
           display: flex;
           align-items: center;
           color: var(--color-gray-0);
-          background-image: url('/shattered.png'),
+          background-image: url('/diagmonds.png'),
             linear-gradient(45deg, ${mainColor}, ${accentColor});
-          background-blend-mode: color-burn;
           z-index: 999;
         }
 
@@ -66,7 +83,7 @@ export default function TopBar() {
           cursor: pointer;
         }
         .hamburgerToggle.active {
-          background-color: var(--color-gray-0);
+          background-color: var(--color-gray-1);
         }
         .hamburgerToggle:hover {
           border: 1px solid rgba(255, 255, 255, 0.6);

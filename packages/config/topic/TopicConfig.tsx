@@ -5,8 +5,14 @@ import { TestChapters } from '@pelicin/config';
 export const TopicConfigMap = {
   test: {
     mainColor: '#65737e',
-    accentColor: '#65737e',
+    accentColor: '#5992a0',
     basePath: '/test',
     chapters: TestChapters,
   },
-} as const;
+  default: {
+    mainColor: '#65737e',
+    accentColor: '#65737e',
+    basePath: '/',
+    chapters: [],
+  },
+};
