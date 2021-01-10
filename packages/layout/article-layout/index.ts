@@ -3,10 +3,10 @@ export * from './constants';
 export { default as MDXArticleLayout } from './MDXArticleLayout';
 
 // Structure components
+export { default as MainContainer } from './MainContainer';
 export { default as ChapterSidebar } from './components/ChapterSidebar';
 export { default as HamburgerChapterSidebar } from './components/HamburgerChapterSidebar';
 export { default as ChapterSidebarContent } from './components/ChapterSidebarContent';
-export { default as MainContainer } from './components/MainContainer';
 export { default as TOCSidebar } from './components/TOCSidebar';
 
 // Contexts

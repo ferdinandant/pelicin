@@ -78,8 +78,9 @@ export default function TopBar(props: Props) {
           display: flex;
           align-items: center;
           color: var(--color-gray-0);
-          background-image: url('/diagmonds.png'),
+          background-image: url('/site/skulls.png'),
             linear-gradient(45deg, ${mainColor}, ${accentColor});
+          background-blend-mode: multiply;
           z-index: 999;
         }
 
