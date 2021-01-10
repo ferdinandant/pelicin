@@ -23,6 +23,7 @@
 
   /* Main colors */
   /* https://uxdesign.cc/dark-mode-ui-design-the-definitive-guide-part-1-color-53dcfaea5129 */
+  /* https://design.rockcontent.com/docs/foundations/colors/ */
   --color-gray-0: #f8f8f8;
   --color-gray-1: #e4e7eb;
   --color-gray-2: #cbd2d9;
@@ -33,6 +34,26 @@
   --color-gray-7: #3e4c59;
   --color-gray-8: #323f4b;
   --color-gray-9: #1f2933;
+  --color-blue-0: #f5f8ff;
+  --color-blue-1: #c0d6ff;
+  --color-blue-2: #8bb3fd;
+  --color-blue-3: #5c93f7;
+  --color-blue-4: #3576ed;
+  --color-blue-5: #225ed8;
+  --color-blue-6: #1649bc;
+  --color-blue-7: #0f369b;
+  --color-blue-8: #0b2574;
+  --color-blue-9: #040c2a;
+  --color-purple-0: #f9f7ff;
+  --color-purple-1: #dad2ff;
+  --color-purple-2: #baadfc;
+  --color-purple-3: #9d8af5;
+  --color-purple-4: #826deb;
+  --color-purple-5: #6b58d6;
+  --color-purple-6: #5647bb;
+  --color-purple-7: #42379a;
+  --color-purple-8: #2d2673;
+  --color-purple-9: #141236;
   --color-sidebar-bg: #eef0f3;
 
   /* Border radius */

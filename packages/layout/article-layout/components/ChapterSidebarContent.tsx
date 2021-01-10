@@ -64,9 +64,11 @@ export default function ChapterSidebarContent() {
           line-height: 1.4;
         }
 
-        a.active,
-        a:hover {
+        a.active {
           color: ${mainColor};
+        }
+        a:hover {
+          text-decoration: underline;
         }
 
         span.groupTitle::before {
@@ -76,8 +78,7 @@ export default function ChapterSidebarContent() {
           left: calc(var(--spacing-l) * -1);
           border-left: 12px solid ${mainColor};
         }
-        a.active::before,
-        a:hover::before {
+        a.active::before {
           content: '';
           position: absolute;
           height: 100%;

@@ -27,6 +27,9 @@ export default function MainContainer(props: Props) {
       </main>
 
       <style jsx>{`
+        main {
+          width: 100%;
+        }
         .breadcrumbContainer {
           display: none;
         }
@@ -50,17 +53,24 @@ export default function MainContainer(props: Props) {
             display: none;
           }
         }
-        @media (max-width: ${REDUCE_PADDING_BREAKPOINT_PX}px) {
-          article {
-            padding: var(--spacing-l) var(--spacing-xl);
-          }
-        }
         @media (max-width: ${SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX}px) {
           .breadcrumbContainer {
             display: block;
             padding: var(--spacing-xl) var(--spacing-xxl);
             padding-bottom: 0;
+            margin-bottom: calc(-1.25 * var(--spacing-l));
+            position: relative;
+            z-index: 2;
+          }
+        }
+        @media (max-width: ${REDUCE_PADDING_BREAKPOINT_PX}px) {
+          article {
+            padding: var(--spacing-l) var(--spacing-xl);
+          }
+          .breadcrumbContainer {
+            padding: var(--spacing-l) var(--spacing-xl);
             margin-bottom: calc(-1 * var(--spacing-l));
+            padding-bottom: 0;
           }
         }
       `}</style>
