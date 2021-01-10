@@ -10,16 +10,26 @@ import {
 } from '@pelicin/layout';
 
 // ================================================================================
+// TYPES/CONST
+// ================================================================================
+
+type Props = {
+  showHamburgerToggle?: boolean;
+};
+
+// ================================================================================
 // MAIN
 // ================================================================================
 
-export default function TopBar() {
+export default function TopBar(props: Props) {
+  const { showHamburgerToggle } = props;
   const { pathname } = useRouter();
   const { mainColor, accentColor, basePath } = useTopicConfig();
   const {
     isToggled: isHamburgerToggled,
     setIsToggled: setIsHamburgerToggled,
   } = useHamburgerToggle();
+
   const segments = useMemo(() => {
     return getBreadcrumbSegments({ basePath, pathname });
   }, [basePath, pathname]);
@@ -33,16 +43,18 @@ export default function TopBar() {
   return (
     <>
       <header>
-        <button
-          className={classNames(['hamburgerToggle', { active: isHamburgerToggled }])}
-          onClick={handleClickHamburger}
-        >
-          <svg viewBox="0 0 100 72" width="16" height="16">
-            <rect y="0" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
-            <rect y="30" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
-            <rect y="60" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
-          </svg>
-        </button>
+        {showHamburgerToggle && (
+          <button
+            className={classNames(['hamburgerToggle', { active: isHamburgerToggled }])}
+            onClick={handleClickHamburger}
+          >
+            <svg viewBox="0 0 100 72" width="16" height="16">
+              <rect y="0" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
+              <rect y="30" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
+              <rect y="60" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
+            </svg>
+          </button>
+        )}
 
         <nav>
           <a href="/">pelicin</a>

@@ -35,7 +35,7 @@ export default function MDXArticleLayout(props: Props) {
 
   return (
     <HamburgerToggleProvider>
-      <TopBar />
+      <TopBar showHamburgerToggle />
       <MDXProvider components={components}>{children}</MDXProvider>
     </HamburgerToggleProvider>
   );
