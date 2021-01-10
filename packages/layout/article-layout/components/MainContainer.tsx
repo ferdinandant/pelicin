@@ -1,6 +1,8 @@
 import React from 'react';
 import {
+  Breadcrumb,
   TOCSidebar,
+  SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX,
   SHOW_TOC_SIDEBAR_BREAKPOINT_PX,
   REDUCE_PADDING_BREAKPOINT_PX,
 } from '@pelicin/layout';
@@ -13,14 +15,22 @@ export default function MainContainer(props: Props) {
   return (
     <>
       <main>
-        <article>{props.children}</article>
-        <div className="sectionSidebarContainer">
-          <TOCSidebar />
+        <div className="breadcrumbContainer">
+          <Breadcrumb />
+        </div>
+        <div className="contentContainer">
+          <article>{props.children}</article>
+          <div className="sectionSidebarContainer">
+            <TOCSidebar />
+          </div>
         </div>
       </main>
 
       <style jsx>{`
-        main {
+        .breadcrumbContainer {
+          display: none;
+        }
+        .contentContainer {
           width: 100%;
           display: flex;
           flex-direction: row;
@@ -43,6 +53,14 @@ export default function MainContainer(props: Props) {
         @media (max-width: ${REDUCE_PADDING_BREAKPOINT_PX}px) {
           article {
             padding: var(--spacing-l) var(--spacing-xl);
+          }
+        }
+        @media (max-width: ${SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX}px) {
+          .breadcrumbContainer {
+            display: block;
+            padding: var(--spacing-xl) var(--spacing-xxl);
+            padding-bottom: 0;
+            margin-bottom: calc(-1 * var(--spacing-l));
           }
         }
       `}</style>
