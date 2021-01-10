@@ -64,11 +64,9 @@ export default function ChapterSidebarContent() {
           line-height: 1.4;
         }
 
+        a:hover,
         a.active {
           color: ${mainColor};
-        }
-        a:hover {
-          text-decoration: underline;
         }
 
         span.groupTitle::before {
