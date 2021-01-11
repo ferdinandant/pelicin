@@ -75,6 +75,10 @@ export default function Hero() {
           text-decoration: none;
           font-size: var(--font-size-title-2);
           font-weight: 600;
+          transition: background-color 0.2s;
+        }
+        a:hover {
+          background-color: var(--color-gray-1);
         }
 
         @media (max-width: ${SMALLER_HERO_TEXT_BREAKPOINT_PX}px) {
