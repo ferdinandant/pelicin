@@ -21,7 +21,8 @@ export default function Hero() {
         .hero {
           height: 50vh;
           display: flex;
-          background-image: linear-gradient(120deg, var(--color-blue-5), var(--color-purple-6));
+          background-image: url('/site/skulls.png'),
+            linear-gradient(120deg, var(--color-blue-5), var(--color-purple-6));
           background-blend-mode: multiply;
           background-size: cover;
           background-position: center;

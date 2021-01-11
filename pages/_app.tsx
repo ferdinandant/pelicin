@@ -25,6 +25,9 @@ function MyApp({ Component, pageProps }) {
           href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
           rel="stylesheet"
         />
+        {/* Font awesome */}
+        <link rel="preconnect" href="https://kit.fontawesome.com" />
+        <script src="https://kit.fontawesome.com/6fd8d6a992.js" crossOrigin="anonymous"></script>
         {/* Katex (LaTeX displayer) */}
         <link
           rel="stylesheet"
