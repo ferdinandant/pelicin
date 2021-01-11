@@ -1,3 +1,4 @@
+export * from './constants';
 export { default as Hero } from './Hero';
 
 // Components

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { SMALLER_HERO_TEXT_BREAKPOINT_PX } from '@pelicin/layout';
 
 // ================================================================================
 // TYPES/CONST
@@ -9,14 +10,28 @@ const CURSOR_BLINK_RATE_MS = 800;
 
 const texts = [
   'Average intelligence',
+  'Short attention span',
+  '1x performance',
   'Lackluster GPA',
   'Median salary',
-  '1x efficiency',
-  'Meet-expectation performance',
-  'Healthy appetite',
-  'Mediocre hobbies',
-  'Chronic boredom',
-  'Unsatisfiable desires',
+  'Plain appetite',
+  'Mediocre lifestyle',
+  'Work-life balance',
+  'Moderate expenses',
+  'Unexciting diction',
+  'Undistinguished looks',
+  'Forgettable excuses',
+  '8-hour of daily sleep',
+  'Standard virtues',
+  'Zero fear to copy-pasta',
+  'Commendable modesty',
+  'Basic needs',
+  'Balanced diet',
+  'Dry comedy',
+  'Intact residence card',
+  'Annoying habits',
+  'Self-deprecating jokes',
+  'Irony',
 ];
 
 // ================================================================================
@@ -91,6 +106,12 @@ export default function Typist() {
         span::before,
         span::after {
           content: '${'\u00a0'}';
+        }
+
+        @media (max-width: ${SMALLER_HERO_TEXT_BREAKPOINT_PX}px) {
+          span {
+            font-size: var(--font-size-title-3);
+          }
         }
       `}</style>
     </>
