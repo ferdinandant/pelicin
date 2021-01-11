@@ -26,8 +26,12 @@ function MyApp({ Component, pageProps }) {
           rel="stylesheet"
         />
         {/* Font awesome */}
-        <link rel="preconnect" href="https://kit.fontawesome.com" />
-        <script src="https://kit.fontawesome.com/6fd8d6a992.js" crossOrigin="anonymous"></script>
+        <link
+          rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+          integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+          crossOrigin="anonymous"
+        />
         {/* Katex (LaTeX displayer) */}
         <link
           rel="stylesheet"
