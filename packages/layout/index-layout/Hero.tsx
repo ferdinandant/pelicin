@@ -7,10 +7,10 @@ export default function Hero() {
       <div className="hero">
         <div className="heroContent">
           <h1>pelicin!</h1>
-          <h2>Ferdinand's study notes for people with</h2>
+          <p className="description">Ferdinand's study notes for people with</p>
           <Typist />
           <span className="asterisk">*</span>
-          <h3>(*) Only for comedic purpose ;)</h3>
+          <p className="fineprint">(*) Only for comedic purpose ;)</p>
           <div className="ctaContainer">
             <a href="#">Explore</a>
           </div>
@@ -21,7 +21,8 @@ export default function Hero() {
         .hero {
           height: 50vh;
           display: flex;
-          background-image: linear-gradient(120deg, var(--color-blue-5), var(--color-purple-6));
+          background-image: url('/site/skulls.png'),
+            linear-gradient(120deg, var(--color-blue-5), var(--color-purple-6));
           background-blend-mode: multiply;
           background-size: cover;
           background-position: center;
@@ -47,11 +48,11 @@ export default function Hero() {
           text-shadow: 0 0 var(--spacing-s) var(--color-grey-9);
           color: var(--color-gray-0);
         }
-        h2 {
+        .description {
           font-size: var(--font-size-title-2);
           text-shadow: 0 0 var(--spacing-s) var(--color-grey-9);
         }
-        h3 {
+        .fineprint {
           padding-top: var(--spacing-m);
           font-size: var(--font-size-tiny);
           font-style: italic;
@@ -74,13 +75,17 @@ export default function Hero() {
           text-decoration: none;
           font-size: var(--font-size-title-2);
           font-weight: 600;
+          transition: background-color 0.2s;
+        }
+        a:hover {
+          background-color: var(--color-gray-1);
         }
 
         @media (max-width: ${SMALLER_HERO_TEXT_BREAKPOINT_PX}px) {
           h1 {
             font-size: var(--font-size-title-1);
           }
-          h2 {
+          .description {
             font-size: var(--font-size-title-3);
           }
           a {
@@ -90,11 +95,11 @@ export default function Hero() {
           .hero {
             min-height: 300px;
           }
-          .ctaContainer {
-            margin-top: var(--spacing-xl);
-          }
           .heroContent {
             padding: var(--spacing-m) var(--spacing-xl);
+          }
+          .ctaContainer {
+            margin-top: var(--spacing-xl);
           }
         }
       `}</style>

@@ -25,6 +25,13 @@ function MyApp({ Component, pageProps }) {
           href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
           rel="stylesheet"
         />
+        {/* Font awesome */}
+        <link
+          rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+          integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+          crossOrigin="anonymous"
+        />
         {/* Katex (LaTeX displayer) */}
         <link
           rel="stylesheet"
