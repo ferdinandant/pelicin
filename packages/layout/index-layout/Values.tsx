@@ -1,5 +1,4 @@
 import { Icon } from '@pelicin/components';
-import { ReactNode } from 'react';
 
 // ================================================================================
 // TYPES/CONST

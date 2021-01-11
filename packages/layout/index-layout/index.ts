@@ -1,6 +1,7 @@
 export * from './constants';
-export { default as Hero } from './Hero';
 
 // Components
+export { default as ContentIndex } from './ContentIndex';
+export { default as Hero } from './Hero';
 export { default as Typist } from './components/Typist';
-export { default as Values } from './components/Values';
+export { default as Values } from './Values';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopBar, Hero, Values } from '@pelicin/layout';
+import { TopBar, Hero, Values, ContentIndex } from '@pelicin/layout';
 
 export default function IndexPage() {
   return (
@@ -7,6 +7,7 @@ export default function IndexPage() {
       <TopBar />
       <Hero />
       <Values />
+      <ContentIndex />
     </>
   );
 }
