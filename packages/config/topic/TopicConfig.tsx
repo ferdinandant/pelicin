@@ -10,8 +10,8 @@ export const TopicConfigMap = {
     chapters: TestChapters,
   },
   default: {
-    mainColor: '#65737e',
-    accentColor: '#65737e',
+    mainColor: '#34495e',
+    accentColor: '#34495e',
     basePath: '/',
     chapters: [],
   },

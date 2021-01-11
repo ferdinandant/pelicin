@@ -26,9 +26,6 @@ const SHOWED_BG_VALUE = 'rgba(0, 0, 0, 0.6)';
 // ================================================================================
 
 export default function HamburgerChapterSidebar() {
-  if (typeof window === 'undefined') {
-    return null;
-  }
   return <PortalizedSidebarContent />;
 }
 
@@ -98,6 +95,10 @@ function PortalizedSidebarContent() {
       </aside>
 
       <style jsx>{`
+        aside {
+          position: relative;
+          z-index: 44;
+        }
         aside div {
           position: sticky;
           top: var(--header-height);

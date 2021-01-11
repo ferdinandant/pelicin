@@ -5,6 +5,7 @@
 
   /* Font sizes */
   --font-size-normal: 16px;
+  --font-size-hero: 52px;
   --font-size-title-1: 40px;
   --font-size-title-2: 24px;
   --font-size-title-3: 18px;
@@ -54,6 +55,16 @@
   --color-purple-7: #42379a;
   --color-purple-8: #2d2673;
   --color-purple-9: #141236;
+  --color-teal-0: #ecfcfc;
+  --color-teal-1: #c1f9f8;
+  --color-teal-2: #8febea;
+  --color-teal-3: #39d2d2;
+  --color-teal-4: #009e9e;
+  --color-teal-5: #008080;
+  --color-teal-6: #006666;
+  --color-teal-7: #004d4d;
+  --color-teal-8: #003333;
+  --color-teal-9: #062424;
   --color-sidebar-bg: #eef0f3;
 
   /* Border radius */

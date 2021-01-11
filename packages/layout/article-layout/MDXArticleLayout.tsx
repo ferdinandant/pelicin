@@ -1,16 +1,20 @@
 import React, { ReactNode } from 'react';
+import dynamic from 'next/dynamic';
 import { MDXProvider } from '@mdx-js/react';
 
 import {
   TopBar,
   ArticleTOCProvider,
   ChapterSidebar,
-  HamburgerChapterSidebar,
   HamburgerToggleProvider,
   MainContainer,
   getArticleTOC,
   processArticleMDX,
 } from '@pelicin/layout';
+
+const HamburgerChapterSidebar = dynamic(() => import('./components/HamburgerChapterSidebar'), {
+  ssr: false,
+});
 
 // ================================================================================
 // TYPES/CONST
@@ -35,7 +39,7 @@ export default function MDXArticleLayout(props: Props) {
 
   return (
     <HamburgerToggleProvider>
-      <TopBar />
+      <TopBar showHamburgerToggle />
       <MDXProvider components={components}>{children}</MDXProvider>
     </HamburgerToggleProvider>
   );
