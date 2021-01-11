@@ -18,7 +18,7 @@ const texts = [
   'Mediocre lifestyle',
   'Work-life balance',
   'Moderate expenses',
-  'Unexciting diction',
+  'Unexciting lexicon',
   'Undistinguished looks',
   'Forgettable excuses',
   '8-hour of daily sleep',
