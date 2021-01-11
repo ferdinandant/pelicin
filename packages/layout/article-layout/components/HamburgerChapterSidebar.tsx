@@ -26,9 +26,6 @@ const SHOWED_BG_VALUE = 'rgba(0, 0, 0, 0.6)';
 // ================================================================================
 
 export default function HamburgerChapterSidebar() {
-  if (typeof window === 'undefined') {
-    return null;
-  }
   return <PortalizedSidebarContent />;
 }
 
