@@ -31,10 +31,12 @@ export default function Hero() {
           justify-content: center;
           position: relative;
           overflow: hidden;
-          box-shadow: inset 0 var(--spacing-s) var(--spacing-m) var(--color-blue-8);
+          border-top: 2px solid var(--color-blue-6);
+          border-bottom: 2px solid var(--color-blue-6);
         }
         .heroContent {
-          flex-basis: 800px;
+          flex-basis: 640px;
+          box-sizing: content-box;
           padding: var(--spacing-m) var(--spacing-xxl);
           padding-top: var(--spacing-s);
           color: var(--color-blue-1);
