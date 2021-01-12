@@ -1,7 +1,8 @@
 import { SampleTopic, TopicConfig, DefaultTopic } from '@pelicin/config';
 
-export const TopicConfigMap: Record<string, TopicConfig> = {
-  // Sample/default
+const TopicConfigMap: Record<string, TopicConfig> = {
   sample: SampleTopic,
   default: DefaultTopic,
 };
+
+export default TopicConfigMap;

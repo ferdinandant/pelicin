@@ -20,4 +20,9 @@ export { default as SampleGroup } from './groups/sample';
 export * from './utils/TopicConfigContext';
 export { default as getTopicKeyFromPath } from './utils/getTopicKeyFromPath';
 
-export { TopicConfigMap } from './TopicConfigMap';
+// ================================================================================
+// MISC
+// ================================================================================
+
+export { default as GrouoList } from './GroupList';
+export { default as TopicConfigMap } from './TopicConfigMap';

@@ -20,7 +20,10 @@ export type TopicConfig = {
 // TOPIC GROUP
 // ================================================================================
 
-export type TopicGroup = {};
+export type TopicGroup = {
+  groupTitle: string;
+  groupDescription: string;
+};
 
 // ================================================================================
 // TOPIC CHAPTER
