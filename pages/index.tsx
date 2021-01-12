@@ -6,7 +6,6 @@ export default function IndexPage() {
     <>
       <TopBar />
       <Hero />
-      <Values />
       <ContentIndex />
     </>
   );
