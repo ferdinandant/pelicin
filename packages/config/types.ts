@@ -8,11 +8,23 @@ import { TopicConfigMap } from '@pelicin/config';
 export type TopicKey = keyof typeof TopicConfigMap;
 
 export type TopicConfig = {
+  topicTitle: string;
+  topicDescription: string;
   mainColor: string;
   accentColor: string;
   basePath: string;
   chapters: TopicChapters;
 };
+
+// ================================================================================
+// TOPIC GROUP
+// ================================================================================
+
+export type TopicGroup = {};
+
+// ================================================================================
+// TOPIC CHAPTER
+// ================================================================================
 
 export type TopicChapter = {
   chapter: string | ReactNode;
