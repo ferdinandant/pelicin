@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typist, SMALLER_HERO_TEXT_BREAKPOINT_PX } from '@pelicin/layout';
+import { Typist, SMALLER_HERO_TEXT_BREAKPOINT_PX, INDEX_DOM_ID } from '@pelicin/layout';
 
 export default function Hero() {
   return (
@@ -12,7 +12,7 @@ export default function Hero() {
           <span className="asterisk">*</span>
           <p className="fineprint">(*) Only for comedic purpose ;)</p>
           <div className="ctaContainer">
-            <a href="#">Explore</a>
+            <a href={`#${INDEX_DOM_ID}`}>Explore</a>
           </div>
         </div>
       </div>
@@ -31,10 +31,12 @@ export default function Hero() {
           justify-content: center;
           position: relative;
           overflow: hidden;
-          box-shadow: inset 0 var(--spacing-s) var(--spacing-m) var(--color-blue-8);
+          border-top: 2px solid var(--color-blue-6);
+          border-bottom: 2px solid var(--color-blue-6);
         }
         .heroContent {
-          flex-basis: 800px;
+          flex-basis: 640px;
+          box-sizing: content-box;
           padding: var(--spacing-m) var(--spacing-xxl);
           padding-top: var(--spacing-s);
           color: var(--color-blue-1);

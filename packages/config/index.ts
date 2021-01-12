@@ -1,9 +1,28 @@
 export * from './types';
 
-// Chapters
-export { default as TestChapters } from './chapters/test';
+// ================================================================================
+// TOPICS
+// ================================================================================
 
-// Topic
-export * from './topic/TopicConfig';
-export * from './topic/TopicConfigContext';
-export { default as getTopicKeyFromPath } from './topic/getTopicKeyFromPath';
+export { default as DefaultTopic } from './topics/default';
+export { default as SampleTopic } from './topics/sample';
+
+// ================================================================================
+// GROUPS
+// ================================================================================
+
+export { default as SampleGroup } from './groups/sample';
+
+// ================================================================================
+// UTILS
+// ================================================================================
+
+export * from './utils/TopicConfigContext';
+export { default as getTopicKeyFromPath } from './utils/getTopicKeyFromPath';
+
+// ================================================================================
+// MISC
+// ================================================================================
+
+export { default as GroupList } from './GroupList';
+export { default as TopicConfigMap } from './TopicConfigMap';

@@ -1,5 +1,4 @@
 import { Icon } from '@pelicin/components';
-import { ReactNode } from 'react';
 
 // ================================================================================
 // TYPES/CONST
@@ -10,6 +9,7 @@ type ValueCardProps = {
   heading: string;
   description: string;
   color: string;
+  textColor: string;
 };
 
 // ================================================================================
@@ -29,18 +29,21 @@ export default function Values() {
             heading="Concise"
             description="Keep things simple. Try to elaborate complex stuffs in an elegant way."
             color="#E01F1F"
+            textColor="#8A1919"
           />
           <ValueCard
             iconName="brain"
             heading="Memorable"
             description="Make everything easy to stay. Present the most important things first."
             color="#DB7500"
+            textColor="#883E01"
           />
           <ValueCard
             iconName="seedling"
             heading="Evolving"
             description="Make it fun. Not everything needs to be perfect the first time :)"
             color="#157F3F"
+            textColor="#0F4D29"
           />
         </div>
       </div>
@@ -95,7 +98,7 @@ export default function Values() {
 // ================================================================================
 
 function ValueCard(props: ValueCardProps) {
-  const { iconName, heading, description, color } = props;
+  const { iconName, heading, description, color, textColor } = props;
 
   return (
     <>
@@ -135,7 +138,7 @@ function ValueCard(props: ValueCardProps) {
           margin-top: var(--spacing-m);
           font-weight: 600;
           font-size: var(--font-size-title-3);
-          color: var(--color-gray-9);
+          color: ${textColor || color};
         }
         p {
           margin-top: var(--spacing-s);
