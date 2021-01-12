@@ -9,7 +9,7 @@ export type TopicKey = keyof typeof TopicConfigMap;
 
 export type TopicConfig = {
   topicTitle: string;
-  topicDescription: string;
+  topicDescription: string | ReactNode;
   mainColor: string;
   accentColor: string;
   basePath: string;
@@ -22,7 +22,7 @@ export type TopicConfig = {
 
 export type TopicGroup = {
   groupTitle: string;
-  groupDescription: string;
+  groupDescription: string | ReactNode;
 };
 
 // ================================================================================

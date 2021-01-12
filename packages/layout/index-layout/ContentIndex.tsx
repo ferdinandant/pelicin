@@ -2,53 +2,33 @@ import React from 'react';
 import ScrollableAnchor from 'react-scrollable-anchor';
 
 import { INDEX_DOM_ID } from '@pelicin/layout';
+import { GroupList, TopicConfigMap } from '@pelicin/config';
 
 export default function ContentIndex() {
   return (
     <>
       <ScrollableAnchor id={INDEX_DOM_ID}>
         <main>
-          <section>
-            <h2>Web</h2>
-            <p>
-              dsfhdjs fhjs <a href="#">dsfdsf</a> fdgdfhds kfjhd ksjdhf.
-            </p>
-            <ul>
-              <li>
-                <a href="#">CSS</a>
-              </li>
-              <li>
-                <a href="#">CSS</a>
-              </li>
-              <li>
-                <a href="#">CSS</a>
-              </li>
-            </ul>
-          </section>
-
-          <section>
-            <h2>Web</h2>
-            <ul>
-              <li>
-                <a href="#">CSS</a>
-              </li>
-              <li>
-                <a href="#">CSS</a>
-              </li>
-              <li>
-                <a href="#">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                  Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                  unknown printer took a galley of type and scrambled it to make a type specimen
-                  book. It has survived not only five centuries, but also the leap into electronic
-                  typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                  with desktop publishing software like Aldus PageMaker including versions of Lorem
-                  Ipsum.
-                </a>
-              </li>
-            </ul>
-          </section>
+          {GroupList.map((groupInfo, index) => {
+            const { groupTitle, groupDescription, topics } = groupInfo;
+            return (
+              <section key={index}>
+                <h2>{groupTitle}</h2>
+                <div className="description">{groupDescription}</div>
+                <ul>
+                  {topics.map((topic, index) => {
+                    const topicInfo = TopicConfigMap[topic];
+                    const { topicTitle } = topicInfo;
+                    return (
+                      <li>
+                        <a href="#">{topicTitle}</a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            );
+          })}
         </main>
       </ScrollableAnchor>
 
@@ -94,7 +74,7 @@ export default function ContentIndex() {
           margin-left: var(--spacing-ml);
           padding-left: var(--spacing-s);
         }
-        section p {
+        section .description {
           margin-top: var(--spacing-s);
           color: var(--color-gray-6);
         }
