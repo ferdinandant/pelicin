@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typist, SMALLER_HERO_TEXT_BREAKPOINT_PX, INDEX_DOM_ID } from '@pelicin/layout';
+import { SMALLER_HERO_TEXT_BREAKPOINT_PX, INDEX_DOM_ID } from '@pelicin/layout';
 
 export default function Hero() {
   return (
@@ -7,10 +7,11 @@ export default function Hero() {
       <div className="hero">
         <div className="heroContent">
           <h1>pelicin!</h1>
-          <p className="description">Ferdinand's study notes for people with</p>
-          <Typist />
-          <span className="asterisk">*</span>
-          <p className="fineprint">(*) Only for comedic purpose ;)</p>
+          <p className="description">
+            Ferdinand's study notes for average people
+            <br />
+            <em>... like me! :)</em>
+          </p>
           <div className="ctaContainer">
             <a href={`#${INDEX_DOM_ID}`}>Explore</a>
           </div>
@@ -19,7 +20,7 @@ export default function Hero() {
 
       <style jsx>{`
         .hero {
-          height: 50vh;
+          height: 60vh;
           display: flex;
           background-image: url('/site/skulls.png'),
             linear-gradient(120deg, var(--color-blue-5), var(--color-purple-6));
@@ -31,8 +32,6 @@ export default function Hero() {
           justify-content: center;
           position: relative;
           overflow: hidden;
-          border-top: 2px solid var(--color-blue-6);
-          border-bottom: 2px solid var(--color-blue-6);
         }
         .heroContent {
           flex-basis: 640px;
@@ -54,16 +53,6 @@ export default function Hero() {
           font-size: var(--font-size-title-2);
           text-shadow: 0 0 var(--spacing-s) var(--color-grey-9);
         }
-        .fineprint {
-          padding-top: var(--spacing-m);
-          font-size: var(--font-size-tiny);
-          font-style: italic;
-          letter-spacing: 0.5px;
-          color: var(--color-teal-2);
-        }
-        .asterisk {
-          color: var(--color-teal-2);
-        }
 
         .ctaContainer {
           margin-top: var(--spacing-xxl);
@@ -80,7 +69,7 @@ export default function Hero() {
           transition: background-color 0.2s;
         }
         a:hover {
-          background-color: var(--color-teal-2);
+          background-color: var(--color-yellow-2);
         }
 
         @media (max-width: ${SMALLER_HERO_TEXT_BREAKPOINT_PX}px) {
