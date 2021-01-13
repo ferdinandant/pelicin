@@ -54,6 +54,7 @@ export default function ContentIndex(props: Props) {
 
       <style jsx>{`
         main {
+          border-top: var(--spacing-s) solid var(--color-teal-2);
           width: 100%;
           padding: var(--spacing-xxl) var(--spacing-xl);
           margin-bottom: var(--spacing-xxl);
@@ -73,8 +74,8 @@ export default function ContentIndex(props: Props) {
           padding-left: 10px;
           font-weight: 700;
           font-size: var(--font-size-title-2);
-          color: var(--color-yellow-4);
-          border-bottom: 2px solid var(--color-yellow-4);
+          color: var(--color-blue-5);
+          border-bottom: 2px solid var(--color-blue-5);
           margin-bottom: var(--spacing-ms);
         }
         section a {
