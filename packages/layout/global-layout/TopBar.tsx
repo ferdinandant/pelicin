@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 
 import { useTopicConfig } from '@pelicin/config';
 import {
@@ -40,14 +41,26 @@ export default function TopBar(props: Props) {
     setIsHamburgerToggled(!isHamburgerToggled);
   }
 
-  console.log('topicTitle in TopBar', topicTitle);
-
   const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
-  const headerBackgroundImage = `url('/site/skulls.png'), linear-gradient(45deg, ${mainColor}, ${accentColor})`;
+  const headerBackgroundImage = `linear-gradient(45deg, ${mainColor}, ${accentColor})`;
 
   return (
     <>
-      <header style={{ backgroundImage: headerBackgroundImage }}>
+      <motion.header
+        animate={{ backgroundImage: headerBackgroundImage }}
+        style={{
+          position: 'sticky',
+          top: 0,
+          height: 'var(--header-height)',
+          display: 'flex',
+          alignItems: 'center',
+          color: 'var(--color-gray-0)',
+          backgroundBlendMode: 'multiply',
+          backgroundImage: headerBackgroundImage,
+          zIndex: 999,
+          boxShadow: '0 0 2px var(--color-gray-9)',
+        }}
+      >
         {showHamburgerToggle && (
           <button
             className={classNames(['hamburgerToggle', { active: isHamburgerToggled }])}
@@ -73,20 +86,9 @@ export default function TopBar(props: Props) {
             );
           })}
         </nav>
-      </header>
+      </motion.header>
 
       <style jsx>{`
-        header {
-          position: sticky;
-          top: 0;
-          height: var(--header-height);
-          display: flex;
-          align-items: center;
-          color: var(--color-gray-0);
-          background-blend-mode: multiply;
-          z-index: 999;
-        }
-
         /* Hamburger toggle */
         .hamburgerToggle {
           position: absolute;
