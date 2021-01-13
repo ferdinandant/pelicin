@@ -1,27 +1,6 @@
-import React from 'react';
 import { Latex } from '@pelicin/components';
 
-// ================================================================================
-// META
-// ================================================================================
-
-/*
- * `mainColor` is picked from https://github.com/ozh/github-colors
- * accentColor` is picked from https://mycolor.space/?hex=%23563D7C&sub=1
- */
-const meta = {
-  topicTitle: 'Sample',
-  topicDescription: 'This is just for testing',
-  mainColor: '#65737e',
-  accentColor: '#5992a0',
-  basePath: '/sample',
-};
-
-// ================================================================================
-// CHAPTERS
-// ================================================================================
-
-const chapters = [
+export default [
   {
     chapter: null,
     children: [
@@ -71,12 +50,3 @@ const chapters = [
     ],
   },
 ];
-
-// ================================================================================
-// EXPORTS
-// ================================================================================
-
-export default {
-  ...meta,
-  chapters,
-};

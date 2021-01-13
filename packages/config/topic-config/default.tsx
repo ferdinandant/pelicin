@@ -7,6 +7,4 @@ export default {
   topicDescription: '',
   mainColor: '#34495e',
   accentColor: '#34495e',
-  basePath: '/',
-  chapters: [],
 };

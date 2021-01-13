@@ -8,6 +8,7 @@ export default function Breadcrumb() {
   const { basePath } = useTopicConfig();
 
   const segments = useMemo(() => {
+    return [];
     return getBreadcrumbSegments({ basePath, pathname });
   }, [basePath, pathname]);
 

@@ -1,15 +1,14 @@
-import { TopicConfigMap, TopicKey } from '@pelicin/config';
+import { TopicKey, pathPrefixToTopicKey } from '@pelicin/config';
 
 export default function getTopicKeyFromPath(path: string): TopicKey {
-  let result: TopicKey = 'default';
+  // `match` is null || [prefixKey, topicKey]
+  const match = Object.entries(pathPrefixToTopicKey).find(([pathPrefix]) =>
+    path.startsWith(pathPrefix)
+  );
 
-  for (const topicKey in TopicConfigMap) {
-    const { basePath } = TopicConfigMap[topicKey];
-    if (path.startsWith(basePath + '/')) {
-      result = topicKey as TopicKey;
-      break;
-    }
+  if (match) {
+    return match[1];
+  } else {
+    return 'default';
   }
-
-  return result;
 }

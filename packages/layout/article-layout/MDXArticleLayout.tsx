@@ -1,7 +1,9 @@
 import React, { ReactNode } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { MDXProvider } from '@mdx-js/react';
 
+import { getTopicKeyFromPath, TopicConfigProvider, TopicChaptersProvider } from '@pelicin/config';
 import {
   TopBar,
   ArticleTOCProvider,
@@ -51,17 +53,23 @@ export default function MDXArticleLayout(props: Props) {
 
 function renderMDX(children: ReactNode) {
   const toc = getArticleTOC(children);
+  const { pathname } = useRouter();
+  const topicKey = getTopicKeyFromPath(pathname);
   const processedChildren = processArticleMDX(children);
 
   return (
     <>
-      <ArticleTOCProvider value={toc}>
-        <div>
-          <ChapterSidebar />
-          <HamburgerChapterSidebar />
-          <MainContainer>{processedChildren}</MainContainer>
-        </div>
-      </ArticleTOCProvider>
+      <TopicConfigProvider topicKey={topicKey}>
+        <TopicChaptersProvider topicKey={topicKey}>
+          <ArticleTOCProvider value={toc}>
+            <div>
+              <ChapterSidebar />
+              <HamburgerChapterSidebar />
+              <MainContainer>{processedChildren}</MainContainer>
+            </div>
+          </ArticleTOCProvider>
+        </TopicChaptersProvider>
+      </TopicConfigProvider>
 
       <style jsx>{`
         div {

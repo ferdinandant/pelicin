@@ -12,8 +12,6 @@ export type TopicConfig = {
   topicDescription: string | ReactNode;
   mainColor: string;
   accentColor: string;
-  basePath: string;
-  chapters: TopicChapters;
 };
 
 // ================================================================================

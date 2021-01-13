@@ -31,6 +31,7 @@ export default function TopBar(props: Props) {
   } = useHamburgerToggle();
 
   const segments = useMemo(() => {
+    return [];
     return getBreadcrumbSegments({ basePath, pathname });
   }, [basePath, pathname]);
 

@@ -1,8 +1,6 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 import { LayoutRenderer } from '@pelicin/layout';
-import { TopicConfigProvider, getTopicKeyFromPath } from '@pelicin/config';
 import resetStyle from '@pelicin/styles/reset.global.css';
 import mainStyle from '@pelicin/styles/main.global.css';
 import articleStyle from '@pelicin/styles/article.global.css';
@@ -12,9 +10,6 @@ import articleStyle from '@pelicin/styles/article.global.css';
 // ================================================================================
 
 function MyApp({ Component, pageProps }) {
-  const { pathname } = useRouter();
-  const topicKey = getTopicKeyFromPath(pathname);
-
   return (
     <>
       <Head>
@@ -41,11 +36,9 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
 
-      <TopicConfigProvider topicKey={topicKey}>
-        <LayoutRenderer>
-          <Component {...pageProps} />
-        </LayoutRenderer>
-      </TopicConfigProvider>
+      <LayoutRenderer>
+        <Component {...pageProps} />
+      </LayoutRenderer>
 
       <style jsx global>
         {resetStyle}
