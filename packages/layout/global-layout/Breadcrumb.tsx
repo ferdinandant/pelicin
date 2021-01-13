@@ -1,16 +1,15 @@
 import React, { useMemo } from 'react';
 import { useRouter } from 'next/router';
-import { useTopicConfig } from '@pelicin/config';
+import { getBasePathFromPath } from '@pelicin/config';
 import { getBreadcrumbSegments } from '@pelicin/layout';
 
 export default function Breadcrumb() {
   const { pathname } = useRouter();
-  const { basePath } = useTopicConfig();
 
   const segments = useMemo(() => {
-    return [];
+    const basePath = getBasePathFromPath(pathname);
     return getBreadcrumbSegments({ basePath, pathname });
-  }, [basePath, pathname]);
+  }, [pathname]);
 
   return (
     <>
