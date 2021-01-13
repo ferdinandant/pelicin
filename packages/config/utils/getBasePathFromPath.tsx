@@ -9,6 +9,6 @@ export default function getBasePathFromPath(path: string): TopicKey {
   if (match) {
     return match[0];
   } else {
-    return 'default';
+    return '/';
   }
 }

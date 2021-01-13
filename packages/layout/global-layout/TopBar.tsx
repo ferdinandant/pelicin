@@ -34,7 +34,6 @@ export default function TopBar(props: Props) {
 
   const segments = useMemo(() => {
     const basePath = getBasePathFromPath(pathname);
-    console.log('basePath', basePath);
     return getBreadcrumbSegments({ basePath, pathname });
   }, [pathname]);
 
@@ -76,7 +75,9 @@ export default function TopBar(props: Props) {
         )}
 
         <nav>
-          <a href="/">pelicin</a>
+          <a href="/" className="logo">
+            pelicin
+          </a>
           {segments.map((segment, index) => {
             const { text, path } = segment;
             return (
@@ -128,14 +129,15 @@ export default function TopBar(props: Props) {
           text-align: center;
         }
         nav a {
+          transition: background 0.3s;
           padding: var(--spacing-xs) var(--spacing-ms);
           color: inherit;
           text-decoration: none;
           display: inline-block;
+          border-radius: var(--border-radius-rounded);
         }
         nav a:hover {
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: var(--border-radius-rounded);
+          background: rgba(255, 255, 255, 0.1);
         }
         nav .divider:after {
           font-weight: normal;

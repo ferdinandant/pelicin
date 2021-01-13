@@ -1,5 +1,6 @@
 export * from './types';
-export * from './constants';
+export { default as pathPrefixToTopicKey } from './constants/pathPrefixToTopicKey';
+export { default as pathPrefixToURL } from './constants/pathPrefixToURL';
 
 // ================================================================================
 // TOPICS
@@ -23,5 +24,6 @@ export * from './contexts/TopicChaptersContext';
 export { default as getTopicKeyFromPath } from './utils/getTopicKeyFromPath';
 export { default as getBasePathFromPath } from './utils/getBasePathFromPath';
 
+// Deprecated
 export { default as GroupList } from './GroupList';
 export { default as TopicConfigMap } from './TopicConfigMap';

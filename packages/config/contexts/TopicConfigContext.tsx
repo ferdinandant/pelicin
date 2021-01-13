@@ -17,7 +17,7 @@ const fallbackValue: TopicConfigContextValue = {
   accentColor: '#34495e',
 };
 
-const TopicConfigContext = React.createContext<TopicConfigContextValue>(null);
+const TopicConfigContext = React.createContext<TopicConfigContextValue>(fallbackValue);
 
 // ================================================================================
 // MAIN
