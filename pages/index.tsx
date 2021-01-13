@@ -1,12 +1,18 @@
 import React from 'react';
-import { TopBar, Hero, Values, ContentIndex } from '@pelicin/layout';
+
+import { TopBar, Hero, ContentIndex } from '@pelicin/layout';
+import { SampleGroup } from '@pelicin/config';
+
+// ================================================================================
+// MAIN
+// ================================================================================
 
 export default function IndexPage() {
   return (
     <>
       <TopBar />
       <Hero />
-      <ContentIndex />
+      <ContentIndex groups={[SampleGroup]} />
     </>
   );
 }

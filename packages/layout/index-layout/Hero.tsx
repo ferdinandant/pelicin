@@ -80,7 +80,7 @@ export default function Hero() {
           transition: background-color 0.2s;
         }
         a:hover {
-          background-color: var(--color-gray-1);
+          background-color: var(--color-teal-2);
         }
 
         @media (max-width: ${SMALLER_HERO_TEXT_BREAKPOINT_PX}px) {

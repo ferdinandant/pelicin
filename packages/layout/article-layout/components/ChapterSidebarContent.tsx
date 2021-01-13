@@ -3,16 +3,17 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
-import { useTopicConfig } from '@pelicin/config';
+import { useTopicConfig, useTopicChapters } from '@pelicin/config';
 
 export default function ChapterSidebarContent() {
   const { pathname } = useRouter();
-  const { mainColor, chapters } = useTopicConfig();
+  const { mainColor } = useTopicConfig();
+  const { topicChapters } = useTopicChapters();
 
   return (
     <>
       <nav>
-        {chapters.map((chapterData, chapterIndex) => {
+        {topicChapters.map((chapterData, chapterIndex) => {
           const { chapter, children } = chapterData;
           return (
             <div className="group" key={chapterIndex}>

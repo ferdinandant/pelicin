@@ -1,15 +1,28 @@
 import React from 'react';
 import ScrollableAnchor from 'react-scrollable-anchor';
 
+import { TopicGroups } from '@pelicin/config';
 import { INDEX_DOM_ID } from '@pelicin/layout';
-import { GroupList, TopicConfigMap } from '@pelicin/config';
 
-export default function ContentIndex() {
+// ================================================================================
+// TYPES/CONST
+// ================================================================================
+
+type Props = {
+  groups: TopicGroups;
+};
+
+// ================================================================================
+// MAIN
+// ================================================================================
+
+export default function ContentIndex(props: Props) {
+  const { groups } = props;
   return (
     <>
       <ScrollableAnchor id={INDEX_DOM_ID}>
         <main>
-          {GroupList.map((groupInfo, index) => {
+          {groups.map((groupInfo, index) => {
             const { groupTitle, groupDescription, topics } = groupInfo;
             return (
               <section key={index}>
@@ -17,11 +30,18 @@ export default function ContentIndex() {
                 <div className="description">{groupDescription}</div>
                 <ul>
                   {topics.map((topic, index) => {
-                    const topicInfo = TopicConfigMap[topic];
-                    const { topicTitle } = topicInfo;
+                    const {
+                      title: topicTitle,
+                      path: topicPath,
+                      description: topicDescription,
+                    } = topic;
+                    const topicDescriptionNode = topicDescription && (
+                      <span className="topicDescription"> &mdash; {topicDescription}</span>
+                    );
                     return (
-                      <li>
-                        <a href="#">{topicTitle}</a>
+                      <li key={index}>
+                        <a href={topicPath}>{topicTitle}</a>
+                        {topicDescriptionNode}
                       </li>
                     );
                   })}
@@ -57,20 +77,20 @@ export default function ContentIndex() {
           margin-bottom: var(--spacing-ms);
         }
         section a {
-          color: var(--color-blue-5);
-          text-decoration: none;
-        }
-        section a:hover {
           color: var(--color-blue-4);
           text-decoration: none;
         }
+        section a:hover {
+          text-decoration: underline;
+        }
 
+        /* Topic item */
         section ul {
           list-style: disc outside;
           margin-top: var(--spacing-s);
         }
         section li {
-          margin-top: var(--spacing-xs);
+          margin-top: var(--spacing-s);
           margin-left: var(--spacing-ml);
           padding-left: var(--spacing-s);
         }
@@ -81,6 +101,9 @@ export default function ContentIndex() {
         section p:first-child,
         section ul:first-child {
           margin-top: 0;
+        }
+        .topicDescription {
+          color: var(--color-gray-5);
         }
       `}</style>
     </>
