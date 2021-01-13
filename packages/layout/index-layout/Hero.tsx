@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typist, SMALLER_HERO_TEXT_BREAKPOINT_PX, INDEX_DOM_ID } from '@pelicin/layout';
+import { SMALLER_HERO_TEXT_BREAKPOINT_PX, INDEX_DOM_ID } from '@pelicin/layout';
 
 export default function Hero() {
   return (
@@ -32,8 +32,6 @@ export default function Hero() {
           justify-content: center;
           position: relative;
           overflow: hidden;
-          border-top: 2px solid var(--color-blue-6);
-          border-bottom: 2px solid var(--color-blue-6);
         }
         .heroContent {
           flex-basis: 640px;
@@ -71,7 +69,7 @@ export default function Hero() {
           transition: background-color 0.2s;
         }
         a:hover {
-          background-color: var(--color-teal-2);
+          background-color: var(--color-yellow-2);
         }
 
         @media (max-width: ${SMALLER_HERO_TEXT_BREAKPOINT_PX}px) {
