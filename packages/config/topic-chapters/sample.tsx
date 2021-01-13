@@ -1,6 +1,7 @@
 import { Latex } from '@pelicin/components';
+import { TopicChapters } from '@pelicin/config';
 
-export default [
+const chapters: TopicChapters = [
   {
     chapter: null,
     children: [
@@ -50,3 +51,5 @@ export default [
     ],
   },
 ];
+
+export default chapters;

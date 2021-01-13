@@ -1,11 +1,10 @@
 import { ReactNode } from 'react';
-import { TopicConfigMap } from '@pelicin/config';
 
 // ================================================================================
 // TOPIC
 // ================================================================================
 
-export type TopicKey = keyof typeof TopicConfigMap;
+export type TopicKey = string;
 
 export type TopicConfig = {
   topicTitle: string;
@@ -21,7 +20,15 @@ export type TopicConfig = {
 export type TopicGroup = {
   groupTitle: string;
   groupDescription: string | ReactNode;
+  groupHash: string;
+  topics: Array<{
+    title: string;
+    path: string;
+    description?: string | ReactNode;
+  }>;
 };
+
+export type TopicGroups = Array<TopicGroup>;
 
 // ================================================================================
 // TOPIC CHAPTER
