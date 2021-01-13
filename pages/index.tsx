@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TopBar, Hero, ContentIndex } from '@pelicin/layout';
+import { TopBar, Hero, ContentIndex, SiteDescription, SiteDisclaimer } from '@pelicin/layout';
 import { SampleGroup } from '@pelicin/config';
 
 // ================================================================================
@@ -12,6 +12,8 @@ export default function IndexPage() {
     <>
       <TopBar />
       <Hero />
+      <SiteDescription />
+      <SiteDisclaimer />
       <ContentIndex groups={[SampleGroup]} />
     </>
   );
