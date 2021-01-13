@@ -9,17 +9,15 @@ type TopicConfigContextValue = TopicConfig & {
   isLoaded: boolean;
 };
 
-const fallbackConfig: TopicConfig = {
+const fallbackValue: TopicConfigContextValue = {
+  isLoaded: false,
   topicTitle: '',
   topicDescription: '',
   mainColor: '#34495e',
   accentColor: '#34495e',
 };
 
-const TopicConfigContext = React.createContext<TopicConfigContextValue>({
-  isLoaded: false,
-  ...fallbackConfig,
-});
+const TopicConfigContext = React.createContext<TopicConfigContextValue>(null);
 
 // ================================================================================
 // MAIN
@@ -27,22 +25,19 @@ const TopicConfigContext = React.createContext<TopicConfigContextValue>({
 
 export function TopicConfigProvider(props: { topicKey: TopicKey; children: React.ReactNode }) {
   const { topicKey } = props;
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [topicConfig, setTopicConfig] = useState(fallbackConfig);
+  const [value, setValue] = useState(fallbackValue);
 
   useEffect(() => {
     import('@pelicin/config/topic-config/' + topicKey).then((module) => {
       const fetchedConfig = module.default;
-      setTopicConfig(fetchedConfig);
-      setIsLoaded(true);
+      setValue({
+        isLoaded: true,
+        ...fetchedConfig,
+      });
     });
-  }, []);
+  }, [topicKey]);
 
-  return (
-    <TopicConfigContext.Provider value={{ isLoaded, ...topicConfig }}>
-      {props.children}
-    </TopicConfigContext.Provider>
-  );
+  return <TopicConfigContext.Provider value={value}>{props.children}</TopicConfigContext.Provider>;
 }
 
 export function useTopicConfig() {

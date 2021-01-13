@@ -10,10 +10,7 @@ type TopicChaptersContextValue = {
   topicChapters: TopicChapters;
 };
 
-const TopicChaptersContext = React.createContext<TopicChaptersContextValue>({
-  isLoaded: false,
-  topicChapters: [],
-});
+const TopicChaptersContext = React.createContext<TopicChaptersContextValue>(null);
 
 // ================================================================================
 // MAIN
@@ -30,7 +27,7 @@ export function TopicChaptersProvider(props: { topicKey: TopicKey; children: Rea
       setTopicChapters(fetchedChapters);
       setIsLoaded(true);
     });
-  }, []);
+  }, [topicKey]);
 
   return (
     <TopicChaptersContext.Provider value={{ isLoaded, topicChapters }}>

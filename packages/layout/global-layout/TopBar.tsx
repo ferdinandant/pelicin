@@ -24,7 +24,8 @@ type Props = {
 export default function TopBar(props: Props) {
   const { showHamburgerToggle } = props;
   const { pathname } = useRouter();
-  const { mainColor, accentColor, basePath } = useTopicConfig();
+  const { mainColor, accentColor, topicTitle, basePath } = useTopicConfig();
+
   const {
     isToggled: isHamburgerToggled,
     setIsToggled: setIsHamburgerToggled,
@@ -39,11 +40,14 @@ export default function TopBar(props: Props) {
     setIsHamburgerToggled(!isHamburgerToggled);
   }
 
+  console.log('topicTitle in TopBar', topicTitle);
+
   const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
+  const headerBackgroundImage = `url('/site/skulls.png'), linear-gradient(45deg, ${mainColor}, ${accentColor})`;
 
   return (
     <>
-      <header>
+      <header style={{ backgroundImage: headerBackgroundImage }}>
         {showHamburgerToggle && (
           <button
             className={classNames(['hamburgerToggle', { active: isHamburgerToggled }])}
@@ -79,8 +83,6 @@ export default function TopBar(props: Props) {
           display: flex;
           align-items: center;
           color: var(--color-gray-0);
-          background-image: url('/site/skulls.png'),
-            linear-gradient(45deg, ${mainColor}, ${accentColor});
           background-blend-mode: multiply;
           z-index: 999;
         }

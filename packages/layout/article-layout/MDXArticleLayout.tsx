@@ -38,12 +38,18 @@ const components = {
 
 export default function MDXArticleLayout(props: Props) {
   const { children } = props;
+  const { pathname } = useRouter();
+  const topicKey = getTopicKeyFromPath(pathname);
 
   return (
-    <HamburgerToggleProvider>
-      <TopBar showHamburgerToggle />
-      <MDXProvider components={components}>{children}</MDXProvider>
-    </HamburgerToggleProvider>
+    <TopicConfigProvider topicKey={topicKey}>
+      <TopicChaptersProvider topicKey={topicKey}>
+        <HamburgerToggleProvider>
+          <TopBar showHamburgerToggle />
+          <MDXProvider components={components}>{children}</MDXProvider>
+        </HamburgerToggleProvider>
+      </TopicChaptersProvider>
+    </TopicConfigProvider>
   );
 }
 
@@ -53,23 +59,17 @@ export default function MDXArticleLayout(props: Props) {
 
 function renderMDX(children: ReactNode) {
   const toc = getArticleTOC(children);
-  const { pathname } = useRouter();
-  const topicKey = getTopicKeyFromPath(pathname);
   const processedChildren = processArticleMDX(children);
 
   return (
     <>
-      <TopicConfigProvider topicKey={topicKey}>
-        <TopicChaptersProvider topicKey={topicKey}>
-          <ArticleTOCProvider value={toc}>
-            <div>
-              <ChapterSidebar />
-              <HamburgerChapterSidebar />
-              <MainContainer>{processedChildren}</MainContainer>
-            </div>
-          </ArticleTOCProvider>
-        </TopicChaptersProvider>
-      </TopicConfigProvider>
+      <ArticleTOCProvider value={toc}>
+        <div>
+          <ChapterSidebar />
+          <HamburgerChapterSidebar />
+          <MainContainer>{processedChildren}</MainContainer>
+        </div>
+      </ArticleTOCProvider>
 
       <style jsx>{`
         div {
