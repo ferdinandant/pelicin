@@ -1,7 +1,14 @@
 import React from 'react';
 import getConfig from 'next/config';
 
-import { TopBar, Hero, ContentIndex, SiteDescription, SiteDisclaimer } from '@pelicin/layout';
+import {
+  TopBar,
+  Hero,
+  ContentIndex,
+  SiteDescription,
+  SiteDisclaimer,
+  Footer,
+} from '@pelicin/layout';
 import { SampleGroup } from '@pelicin/config';
 
 // ================================================================================
@@ -25,6 +32,7 @@ export default function IndexPage() {
       <SiteDescription />
       <SiteDisclaimer />
       <ContentIndex groups={shownGroups} />
+      <Footer />
     </>
   );
 }

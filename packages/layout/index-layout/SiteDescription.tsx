@@ -8,8 +8,7 @@ export default function SiteDescription() {
           <section>
             <h2>Why?</h2>
             <p>
-              It's hard for me to keep track of what I've learned without scribbling notes about
-              them.
+              It's hard for me to remember what I've learned without scribbling notes about them.
             </p>
           </section>
           <section>
