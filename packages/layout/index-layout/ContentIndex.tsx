@@ -57,7 +57,7 @@ export default function ContentIndex(props: Props) {
           border-top: var(--spacing-s) solid var(--color-gray-2);
           width: 100%;
           padding: var(--spacing-xxl) var(--spacing-xl);
-          margin-bottom: var(--spacing-xxl);
+          padding-bottom: var(--spacing-xxl);
         }
         section {
           max-width: 640px;
