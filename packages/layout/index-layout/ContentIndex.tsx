@@ -54,7 +54,7 @@ export default function ContentIndex(props: Props) {
 
       <style jsx>{`
         main {
-          border-top: var(--spacing-s) solid var(--color-teal-2);
+          border-top: var(--spacing-s) solid var(--color-gray-2);
           width: 100%;
           padding: var(--spacing-xxl) var(--spacing-xl);
           margin-bottom: var(--spacing-xxl);

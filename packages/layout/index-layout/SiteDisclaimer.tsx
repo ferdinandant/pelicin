@@ -21,7 +21,7 @@ export default function SiteDisclaimer() {
           width: 100%;
           padding: var(--spacing-xl) var(--spacing-xl);
           background-color: var(--color-gray-8);
-          color: var(--color-gray-2);
+          color: var(--color-gray-1);
           font-style: italic;
           box-shadow: inset 0 0 var(--spacing-xxl) var(--color-gray-9);
         }
