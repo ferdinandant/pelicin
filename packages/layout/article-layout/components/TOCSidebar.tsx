@@ -132,6 +132,7 @@ function TOCSidebarContent() {
           padding-top: 1px;
           padding-bottom: 1px;
           border-left: 1px solid ${accentColor}55;
+          list-style-type: none;
           position: relative;
         }
       `}</style>
@@ -193,6 +194,14 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
         a:hover {
           color: ${accentColor};
           opacity: 1;
+        }
+        ul {
+          list-style-type: none;
+        }
+        li {
+          margin-left: 0;
+          padding-left: 0;
+          margin: var(--spacing-s) 0;
         }
         li a {
           padding-left: ${4 + headerLevel * 12}px;
