@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { TopicKey, TopicConfig } from '@pelicin/config';
+import { TopicKey, TopicConfig, DefaultTopic } from '@pelicin/config';
 
 // ================================================================================
 // TYPES/CONST
@@ -11,10 +11,7 @@ type TopicConfigContextValue = TopicConfig & {
 
 const fallbackValue: TopicConfigContextValue = {
   isLoaded: false,
-  topicTitle: '',
-  topicDescription: '',
-  mainColor: '#34495e',
-  accentColor: '#34495e',
+  ...DefaultTopic,
 };
 
 const TopicConfigContext = React.createContext<TopicConfigContextValue>(fallbackValue);

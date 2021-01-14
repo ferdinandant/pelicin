@@ -5,6 +5,6 @@
 export default {
   topicTitle: '',
   topicDescription: '',
-  mainColor: '#34495e',
-  accentColor: '#34495e',
+  mainColor: '#3e4c59',
+  accentColor: '#3e4c59',
 };

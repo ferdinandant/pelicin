@@ -54,7 +54,7 @@ export default function ContentIndex(props: Props) {
 
       <style jsx>{`
         main {
-          border-top: var(--spacing-s) solid var(--color-teal-2);
+          border-top: var(--spacing-s) solid var(--color-gray-2);
           width: 100%;
           padding: var(--spacing-xxl) var(--spacing-xl);
           margin-bottom: var(--spacing-xxl);
@@ -76,26 +76,11 @@ export default function ContentIndex(props: Props) {
           font-size: var(--font-size-title-2);
           color: var(--color-blue-5);
           border-bottom: 2px solid var(--color-blue-5);
+          padding-bottom: var(--spacing-xs);
           margin-bottom: var(--spacing-ms);
-        }
-        section a {
-          color: var(--color-blue-4);
-          text-decoration: none;
-        }
-        section a:hover {
-          text-decoration: underline;
         }
 
         /* Topic item */
-        section ul {
-          list-style: disc outside;
-          margin-top: var(--spacing-s);
-        }
-        section li {
-          margin-top: var(--spacing-s);
-          margin-left: var(--spacing-ml);
-          padding-left: var(--spacing-s);
-        }
         section .description {
           margin-top: var(--spacing-s);
           color: var(--color-gray-6);

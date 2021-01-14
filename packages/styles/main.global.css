@@ -82,15 +82,133 @@
   --border-radius-normal: 4px;
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                    Main                                    */
+/* -------------------------------------------------------------------------- */
+
 body {
   font-family: 'Noto Sans', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
   font-size: var(--font-size-normal);
   background: var(--color-gray-0);
-  line-height: 1.5;
+  color: var(--color-gray-6);
+  line-height: 1.6;
 }
 
 pre,
 code {
   font-family: source-code-pro, 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Headers                                  */
+/* -------------------------------------------------------------------------- */
+
+h1 {
+  font-weight: bold;
+  border: initial;
+  border-bottom: 1px solid var(--color-gray-2);
+  margin-top: 2rem;
+  margin-left: calc(var(--spacing-m) * -1);
+  margin-right: calc(var(--spacing-m) * -1);
+  margin-bottom: var(--spacing-xl);
+  padding-left: var(--spacing-m);
+  padding-right: var(--spacing-m);
+  padding-bottom: var(--spacing-ms);
+  color: var(--color-gray-9);
+  line-height: 1.3em;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-m);
+  color: var(--color-gray-9);
+  line-height: 1.4em;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: var(--font-size-title-1);
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.6rem;
+}
+h4 {
+  font-size: 1.2rem;
+}
+h5 {
+  font-size: 1rem;
+  font-style: italic;
+}
+h6 {
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: normal;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Paragraph                                 */
+/* -------------------------------------------------------------------------- */
+
+p {
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+}
+
+p:first-child {
+  margin-top: 0em;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Blocks                                   */
+/* -------------------------------------------------------------------------- */
+
+code {
+  background-color: var(--color-gray-1);
+  padding: var(--spacing-xs) var(--spacing-s);
+  border-radius: var(--border-radius-normal);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    Links                                   */
+/* -------------------------------------------------------------------------- */
+
+a {
+  text-decoration: none;
+  color: var(--color-blue-4);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    Lists                                   */
+/* -------------------------------------------------------------------------- */
+
+ul {
+  list-style: disc outside;
+  margin-top: var(--spacing-ms);
+  margin-bottom: var(--spacing-ms);
+}
+
+li {
+  margin: var(--spacing-s) 0;
+  margin-left: var(--spacing-ml);
+  padding-left: var(--spacing-s);
 }
