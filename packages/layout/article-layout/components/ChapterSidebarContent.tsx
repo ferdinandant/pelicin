@@ -52,7 +52,7 @@ export default function ChapterSidebarContent() {
           font-weight: bold;
           line-height: 1.2;
           margin-bottom: var(--spacing-ms);
-          color: ${mainColor};
+          color: var(--color-gray-7);
           line-height: 1.4;
         }
         a {
@@ -61,29 +61,22 @@ export default function ChapterSidebarContent() {
           font-size: 15px;
           text-decoration: none;
           margin: var(--spacing-ms) 0;
-          color: var(--color-gray-6);
+          color: var(--color-gray-4);
           line-height: 1.4;
+          padding: 0 var(--spacing-ms);
         }
 
         a:hover,
         a.active {
           color: ${mainColor};
         }
-
-        span.groupTitle::before {
-          content: '';
-          position: absolute;
-          height: 100%;
-          left: calc(var(--spacing-l) * -1);
-          border-left: 12px solid ${mainColor};
+        a:hover {
+          text-decoration: underline;
         }
-        a.active::before {
-          content: '';
-          position: absolute;
-          height: 100%;
-          left: calc(var(--spacing-l) * -1);
-          border-left: 12px solid ${mainColor};
-          opacity: 0.25;
+        a.active {
+          background-color: ${mainColor}22;
+          padding: var(--spacing-xs) var(--spacing-ms);
+          border-radius: var(--border-radius-normal);
         }
       `}</style>
     </>
