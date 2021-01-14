@@ -46,7 +46,11 @@ export default function SiteDescription() {
         h2 {
           font-size: var(--font-size-title-2);
           font-weight: 700;
-          margin-bottom: var(--spacing-s);
+          margin-top: var(--spacing-m);
+          margin-bottom: 0;
+          padding-bottom: var(--spacing-xs);
+          display: inline-block;
+          border-bottom: 2px solid var(--color-red-4);
         }
       `}</style>
     </>

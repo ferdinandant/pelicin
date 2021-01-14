@@ -35,6 +35,9 @@ export default function SiteDisclaimer() {
         p:first-child {
           margin-top: 0;
         }
+        p:last-child {
+          margin-bottom: 0;
+        }
         a {
           color: var(--color-blue-3);
           text-decoration: none;
