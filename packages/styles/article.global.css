@@ -1,14 +1,8 @@
-article {
-  font-size: var(--font-size-normal);
-  color: var(--color-gray-6);
-  line-height: 1.6;
-}
-
 /* -------------------------------------------------------------------------- */
 /*                                   Headers                                  */
 /* -------------------------------------------------------------------------- */
 
-article h1 {
+h1 {
   font-weight: bold;
   border: initial;
   border-bottom: 1px solid var(--color-gray-2);
@@ -23,11 +17,11 @@ article h1 {
   line-height: 1.3em;
 }
 
-article h2,
-article h3,
-article h4,
-article h5,
-article h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: bold;
   margin-top: 1.6rem;
   margin-bottom: 0.75rem;
@@ -35,32 +29,32 @@ article h6 {
   line-height: 1.4em;
 }
 
-article h1:first-child,
-article h2:first-child,
-article h3:first-child,
-article h4:first-child,
-article h5:first-child,
-article h6:first-child {
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
   margin-top: 0;
 }
 
-article h1 {
+h1 {
   font-size: var(--font-size-title-1);
 }
-article h2 {
+h2 {
   font-size: 2rem;
 }
-article h3 {
+h3 {
   font-size: 1.6rem;
 }
-article h4 {
+h4 {
   font-size: 1.2rem;
 }
-article h5 {
+h5 {
   font-size: 1rem;
   font-style: italic;
 }
-article h6 {
+h6 {
   font-size: 1rem;
   font-style: italic;
   font-weight: normal;
@@ -70,12 +64,12 @@ article h6 {
 /*                                  Paragraph                                 */
 /* -------------------------------------------------------------------------- */
 
-article p {
+p {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-article p:first-child {
+p:first-child {
   margin-top: 0em;
 }
 
@@ -83,7 +77,7 @@ article p:first-child {
 /*                                   Blocks                                   */
 /* -------------------------------------------------------------------------- */
 
-article code {
+code {
   background-color: var(--color-gray-1);
   padding: var(--spacing-xs) var(--spacing-s);
   border-radius: var(--border-radius-normal);
@@ -93,10 +87,10 @@ article code {
 /*                                    Links                                   */
 /* -------------------------------------------------------------------------- */
 
-article a {
+a {
   text-decoration: none;
   color: var(--color-blue-4);
 }
-article a:hover {
+a:hover {
   text-decoration: underline;
 }
