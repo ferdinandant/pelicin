@@ -78,24 +78,8 @@ export default function ContentIndex(props: Props) {
           border-bottom: 2px solid var(--color-blue-5);
           margin-bottom: var(--spacing-ms);
         }
-        section a {
-          color: var(--color-blue-4);
-          text-decoration: none;
-        }
-        section a:hover {
-          text-decoration: underline;
-        }
 
         /* Topic item */
-        section ul {
-          list-style: disc outside;
-          margin-top: var(--spacing-s);
-        }
-        section li {
-          margin-top: var(--spacing-s);
-          margin-left: var(--spacing-ml);
-          padding-left: var(--spacing-s);
-        }
         section .description {
           margin-top: var(--spacing-s);
           color: var(--color-gray-6);

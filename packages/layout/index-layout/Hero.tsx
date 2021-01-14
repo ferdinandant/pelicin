@@ -47,6 +47,7 @@ export default function Hero() {
           font-weight: 600;
           margin-bottom: var(--spacing-m);
           text-shadow: 0 0 var(--spacing-s) var(--color-grey-9);
+          border-bottom: none;
           color: var(--color-gray-0);
         }
         .description {
@@ -66,10 +67,11 @@ export default function Hero() {
           text-decoration: none;
           font-size: var(--font-size-title-2);
           font-weight: 600;
-          transition: background-color 0.2s;
+          transition: box-shadow 0.2s;
         }
         a:hover {
-          background-color: var(--color-yellow-2);
+          box-shadow: 0 0 var(--spacing-m) var(--color-blue-0);
+          text-decoration: none;
         }
 
         @media (max-width: ${SMALLER_HERO_TEXT_BREAKPOINT_PX}px) {
