@@ -9,7 +9,7 @@ export default function SiteDescription() {
             <h2>Why?</h2>
             <ul>
               <li>I like to forget stuffs that I learned</li>
-              <li>I need references for better life</li>
+              <li>I need references sometimes</li>
             </ul>
           </section>
           <section className="column">
