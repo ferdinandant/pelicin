@@ -4,8 +4,8 @@ export default function SiteDisclaimer() {
       <div className="container">
         <div className="content">
           <p>
-            <strong>A kind word of warning</strong> &mdash; I may not recheck my works, and although
-            I do my best, my understanding about certain topics may be false.
+            <strong>A kind word of warning</strong> &mdash; I might incorrectly comprehend stuffs,
+            and things may become out-of-date over time. Proceed with caution.
           </p>
           <p>
             If you want to write feedback or make corrections, you can file a GitHub issue here:{' '}
@@ -23,6 +23,7 @@ export default function SiteDisclaimer() {
           background-color: var(--color-gray-8);
           color: var(--color-gray-1);
           font-style: italic;
+          letter-spacing: 0.025em;
           box-shadow: inset 0 0 var(--spacing-xxl) var(--color-gray-9);
         }
         .content {

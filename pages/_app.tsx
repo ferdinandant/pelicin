@@ -2,6 +2,7 @@ import Head from 'next/head';
 
 import { LayoutRenderer } from '@pelicin/layout';
 import resetStyle from '@pelicin/styles/reset.global.css';
+import varsStyle from '@pelicin/styles/vars.global.css';
 import mainStyle from '@pelicin/styles/main.global.css';
 
 // ================================================================================
@@ -41,6 +42,9 @@ function MyApp({ Component, pageProps }) {
 
       <style jsx global>
         {resetStyle}
+      </style>
+      <style jsx global>
+        {varsStyle}
       </style>
       <style jsx global>
         {mainStyle}

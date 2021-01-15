@@ -1,0 +1,104 @@
+:root {
+  --header-height: 48px;
+  --sidebar-width: 300px;
+  --toc-width: 240px;
+
+  /* Font sizes */
+  --font-size-normal: 16px;
+  --font-size-hero: 52px;
+  --font-size-title-1: 40px;
+  --font-size-title-2: 24px;
+  --font-size-title-3: 18px;
+  --font-size-small: 14px;
+  --font-size-tiny: 12px;
+
+  /* Spacing */
+  --spacing-xxl: 48px;
+  --spacing-xl: 32px;
+  --spacing-l: 24px;
+  --spacing-ml: 20px;
+  --spacing-m: 16px;
+  --spacing-ms: 12px;
+  --spacing-s: 8px;
+  --spacing-xs: 4px;
+
+  /* Main colors */
+  /* https://uxdesign.cc/dark-mode-ui-design-the-definitive-guide-part-1-color-53dcfaea5129 */
+  /* https://design.rockcontent.com/docs/foundations/colors/ */
+  --color-gray-0: #f8f8f8;
+  --color-gray-1: #e4e7eb;
+  --color-gray-2: #cbd2d9;
+  --color-gray-3: #9aa5b1;
+  --color-gray-4: #7b8794;
+  --color-gray-5: #616e7c;
+  --color-gray-6: #52606d;
+  --color-gray-7: #3e4c59;
+  --color-gray-8: #323f4b;
+  --color-gray-9: #1f2933;
+  --color-blue-0: #f5f8ff;
+  --color-blue-1: #c0d6ff;
+  --color-blue-2: #8bb3fd;
+  --color-blue-3: #5c93f7;
+  --color-blue-4: #3576ed;
+  --color-blue-5: #225ed8;
+  --color-blue-6: #1649bc;
+  --color-blue-7: #0f369b;
+  --color-blue-8: #0b2574;
+  --color-blue-9: #040c2a;
+  --color-teal-0: #ecfcfc;
+  --color-teal-1: #c1f9f8;
+  --color-teal-2: #8febea;
+  --color-teal-3: #39d2d2;
+  --color-teal-4: #009e9e;
+  --color-teal-5: #008080;
+  --color-teal-6: #006666;
+  --color-teal-7: #004d4d;
+  --color-teal-8: #003333;
+  --color-teal-9: #062424;
+  --color-red-0: #fff6f6;
+  --color-red-1: #ffc7c7;
+  --color-red-2: #ff9696;
+  --color-red-3: #fd6969;
+  --color-red-4: #f34242;
+  --color-red-5: #e01f1f;
+  --color-red-6: #b61b1b;
+  --color-red-7: #8a1919;
+  --color-red-8: #561212;
+  --color-red-9: #310d0d;
+  --color-yellow-0: #fff9ed;
+  --color-yellow-1: #ffecbb;
+  --color-yellow-2: #ffdd87;
+  --color-yellow-3: #ffb92e;
+  --color-yellow-4: #db7500;
+  --color-yellow-5: #b35c00;
+  --color-yellow-6: #883e01;
+  --color-yellow-7: #742f01;
+  --color-yellow-8: #5f2102;
+  --color-yellow-9: #3c0901;
+  --color-green-0: #eefcf3;
+  --color-green-1: #bdefce;
+  --color-green-2: #88dfa5;
+  --color-green-3: #46bd6f;
+  --color-green-4: #2aa254;
+  --color-green-5: #157f3f;
+  --color-green-6: #0d6331;
+  --color-green-7: #0f4d29;
+  --color-green-8: #0b371f;
+  --color-green-9: #072c19;
+  --color-purple-0: #f9f7ff;
+  --color-purple-1: #dad2ff;
+  --color-purple-2: #baadfc;
+  --color-purple-3: #9d8af5;
+  --color-purple-4: #826deb;
+  --color-purple-5: #6b58d6;
+  --color-purple-6: #5647bb;
+  --color-purple-7: #42379a;
+  --color-purple-8: #2d2673;
+  --color-purple-9: #141236;
+  /* Extra colors */
+  --color-sidebar-bg: #eef0f3;
+
+  /* Border radius */
+  --border-radius-rounded: 999px;
+  --border-radius-normal: 4px;
+}
