@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>My page title</title>
+        <title>Pelicin!</title>
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
