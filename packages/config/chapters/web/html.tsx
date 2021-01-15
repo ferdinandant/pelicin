@@ -1,4 +1,3 @@
-import { Latex } from '@pelicin/components';
 import { TopicChapters } from '@pelicin/config';
 
 const chapters: TopicChapters = [
