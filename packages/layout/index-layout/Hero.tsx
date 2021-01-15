@@ -8,9 +8,9 @@ export default function Hero() {
         <div className="heroContent">
           <h1>pelicin!</h1>
           <p className="description">
-            Ferdinand's study notes for average people
+            Ferdinand's study notes and cheatsheets
             <br />
-            <em>... like me! :)</em>
+            <em>... for average people like me! :)</em>
           </p>
           <div className="ctaContainer">
             <a href={`#${INDEX_DOM_ID}`}>Explore</a>
@@ -22,8 +22,7 @@ export default function Hero() {
         .hero {
           height: 60vh;
           display: flex;
-          background-image: url('/site/skulls.png'),
-            linear-gradient(120deg, var(--color-blue-5), var(--color-purple-6));
+          background-image: linear-gradient(120deg, var(--color-blue-5), var(--color-purple-6));
           background-blend-mode: multiply;
           background-size: cover;
           background-position: center;
@@ -38,25 +37,27 @@ export default function Hero() {
           box-sizing: content-box;
           padding: var(--spacing-m) var(--spacing-xxl);
           padding-top: var(--spacing-s);
-          color: var(--color-blue-1);
+          color: var(--color-teal-1);
           z-index: 2;
         }
 
         h1 {
           font-size: var(--font-size-hero);
           font-weight: 600;
-          margin-bottom: var(--spacing-m);
-          text-shadow: 0 0 var(--spacing-s) var(--color-grey-9);
+          padding-bottom: 0;
+          margin-bottom: var(--spacing-l);
           border-bottom: none;
           color: var(--color-gray-0);
+          text-align: center;
         }
         .description {
           font-size: var(--font-size-title-2);
-          text-shadow: 0 0 var(--spacing-s) var(--color-grey-9);
+          text-align: center;
         }
 
         .ctaContainer {
           margin-top: var(--spacing-xxl);
+          text-align: center;
         }
         a {
           display: inline-block;
@@ -70,8 +71,11 @@ export default function Hero() {
           transition: box-shadow 0.2s;
         }
         a:hover {
-          box-shadow: 0 0 var(--spacing-m) var(--color-blue-0);
+          box-shadow: 0 2px var(--spacing-l) var(--color-teal-1);
           text-decoration: none;
+        }
+        em {
+          letter-spacing: 0.02em;
         }
 
         @media (max-width: ${SMALLER_HERO_TEXT_BREAKPOINT_PX}px) {
