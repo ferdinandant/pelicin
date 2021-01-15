@@ -7,8 +7,9 @@ import { ReactNode } from 'react';
 export type TopicKey = string;
 
 export type TopicConfig = {
+  topicKey: TopicKey;
+  basePath: string;
   topicTitle: string;
-  topicDescription: string | ReactNode;
   mainColor: string;
   accentColor: string;
 };

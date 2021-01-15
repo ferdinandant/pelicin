@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 
-import { useTopicConfig, getBasePathFromPath } from '@pelicin/config';
+import { useTopicConfig, getTopicConfigFromPath } from '@pelicin/config';
 import {
   SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX,
   useHamburgerToggle,
@@ -24,8 +24,7 @@ type Props = {
 
 export default function TopBar(props: Props) {
   const { showHamburgerToggle } = props;
-  const { pathname } = useRouter();
-  const { mainColor, accentColor } = useTopicConfig();
+  const { basePath, mainColor, accentColor, topicTitle } = useTopicConfig();
 
   const {
     isToggled: isHamburgerToggled,
@@ -33,9 +32,8 @@ export default function TopBar(props: Props) {
   } = useHamburgerToggle();
 
   const segments = useMemo(() => {
-    const basePath = getBasePathFromPath(pathname);
-    return getBreadcrumbSegments({ basePath, pathname });
-  }, [pathname]);
+    return getBreadcrumbSegments({ basePath, topicTitle });
+  }, [basePath, topicTitle]);
 
   function handleClickHamburger() {
     setIsHamburgerToggled(!isHamburgerToggled);
