@@ -197,6 +197,7 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
         }
         ul {
           list-style-type: none;
+          margin: var(--spacing-s) 0;
         }
         li {
           margin-left: 0;
