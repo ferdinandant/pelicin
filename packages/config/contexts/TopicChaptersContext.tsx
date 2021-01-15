@@ -22,7 +22,7 @@ export function TopicChaptersProvider(props: { topicKey: TopicKey; children: Rea
   const [topicChapters, setTopicChapters] = useState([]);
 
   useEffect(() => {
-    import('@pelicin/config/topic-chapters/' + topicKey).then((module) => {
+    import('@pelicin/config/chapters/' + topicKey).then((module) => {
       const fetchedChapters = module.default;
       setTopicChapters(fetchedChapters);
       setIsLoaded(true);
