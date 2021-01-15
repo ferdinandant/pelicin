@@ -74,8 +74,8 @@ export default function ContentIndex(props: Props) {
           padding-left: 10px;
           font-weight: 700;
           font-size: var(--font-size-title-2);
-          color: var(--color-blue-5);
-          border-bottom: 2px solid var(--color-blue-5);
+          color: var(--color-blue-7);
+          border-bottom: 2px solid var(--color-blue-7);
           padding-bottom: var(--spacing-xs);
           margin-bottom: var(--spacing-ms);
         }
