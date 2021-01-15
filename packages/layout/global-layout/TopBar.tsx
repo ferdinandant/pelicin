@@ -1,9 +1,7 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
-import { motion } from 'framer-motion';
 
-import { useTopicConfig, getBasePathFromPath } from '@pelicin/config';
+import { useTopicConfig } from '@pelicin/config';
 import {
   SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX,
   useHamburgerToggle,
@@ -24,8 +22,7 @@ type Props = {
 
 export default function TopBar(props: Props) {
   const { showHamburgerToggle } = props;
-  const { pathname } = useRouter();
-  const { mainColor, accentColor } = useTopicConfig();
+  const { basePath, mainColor, accentColor, topicTitle } = useTopicConfig();
 
   const {
     isToggled: isHamburgerToggled,
@@ -33,34 +30,18 @@ export default function TopBar(props: Props) {
   } = useHamburgerToggle();
 
   const segments = useMemo(() => {
-    const basePath = getBasePathFromPath(pathname);
-    return getBreadcrumbSegments({ basePath, pathname });
-  }, [pathname]);
+    return getBreadcrumbSegments({ basePath, topicTitle });
+  }, [basePath, topicTitle]);
 
   function handleClickHamburger() {
     setIsHamburgerToggled(!isHamburgerToggled);
   }
 
   const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
-  const headerBackgroundImage = `linear-gradient(45deg, ${mainColor}, ${accentColor})`;
 
   return (
     <>
-      <motion.header
-        animate={{ backgroundImage: headerBackgroundImage }}
-        style={{
-          position: 'sticky',
-          top: 0,
-          height: 'var(--header-height)',
-          display: 'flex',
-          alignItems: 'center',
-          color: 'var(--color-gray-0)',
-          backgroundBlendMode: 'multiply',
-          backgroundImage: headerBackgroundImage,
-          zIndex: 999,
-          boxShadow: '0 0 2px var(--color-gray-9)',
-        }}
-      >
+      <header>
         {showHamburgerToggle && (
           <button
             className={classNames(['hamburgerToggle', { active: isHamburgerToggled }])}
@@ -88,9 +69,23 @@ export default function TopBar(props: Props) {
             );
           })}
         </nav>
-      </motion.header>
+      </header>
 
       <style jsx>{`
+        header {
+          position: sticky;
+          top: 0;
+          height: var(--header-height);
+          display: flex;
+          align-items: center;
+          color: var(--color-gray-0);
+          background-image: url('/site/skulls.png'),
+            linear-gradient(45deg, ${mainColor}, ${accentColor});
+          background-blend-mode: multiply;
+          box-shadow: 0 0 4px var(--color-gray-9);
+          z-index: 999;
+        }
+
         /* Hamburger toggle */
         .hamburgerToggle {
           position: absolute;

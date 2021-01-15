@@ -9,13 +9,13 @@ import {
   SiteDisclaimer,
   Footer,
 } from '@pelicin/layout';
-import { SampleGroup } from '@pelicin/config';
+import { SampleGroup, WebGroup } from '@pelicin/config';
 
 // ================================================================================
 // TYPES/CONST
 // ================================================================================
 
-const groups = [];
+const groups = [WebGroup];
 
 // ================================================================================
 // MAIN

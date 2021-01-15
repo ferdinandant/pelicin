@@ -3,7 +3,11 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { MDXProvider } from '@mdx-js/react';
 
-import { getTopicKeyFromPath, TopicConfigProvider, TopicChaptersProvider } from '@pelicin/config';
+import {
+  getTopicConfigFromPath,
+  TopicConfigProvider,
+  TopicChaptersProvider,
+} from '@pelicin/config';
 import {
   TopBar,
   ArticleTOCProvider,
@@ -39,10 +43,11 @@ const components = {
 export default function MDXArticleLayout(props: Props) {
   const { children } = props;
   const { pathname } = useRouter();
-  const topicKey = getTopicKeyFromPath(pathname);
+  const topicConfig = getTopicConfigFromPath(pathname);
+  const { topicKey } = topicConfig;
 
   return (
-    <TopicConfigProvider topicKey={topicKey}>
+    <TopicConfigProvider value={topicConfig}>
       <TopicChaptersProvider topicKey={topicKey}>
         <HamburgerToggleProvider>
           <TopBar showHamburgerToggle />

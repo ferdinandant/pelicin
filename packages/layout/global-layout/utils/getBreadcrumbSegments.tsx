@@ -1,12 +1,10 @@
-import { pathPrefixToURL } from '@pelicin/config';
-
 // ================================================================================
 // TYPES/CONST
 // ================================================================================
 
 type Opts = {
   basePath: string;
-  pathname: string;
+  topicTitle: string;
 };
 
 type SegmentInfo = {
@@ -19,18 +17,17 @@ type SegmentInfo = {
 // ================================================================================
 
 export default function getBreadcrumbSegments(opts: Opts): SegmentInfo[] {
-  const { basePath } = opts;
+  const { basePath, topicTitle } = opts;
   const unprefixedBasePath = basePath.replace(/^[/]/, '');
   const textSegments = unprefixedBasePath.split('/').filter((item) => item !== '');
   const segmentInfoList: SegmentInfo[] = [];
 
   // Construct `pathSegments`
-  let prefix = '';
-  textSegments.forEach((textSegment) => {
-    prefix = prefix + '/' + textSegment;
+  textSegments.forEach((textSegment, index) => {
+    const isLastSegment = index === textSegments.length - 1;
     segmentInfoList.push({
-      text: textSegment,
-      path: pathPrefixToURL[prefix],
+      text: isLastSegment ? topicTitle : textSegment,
+      path: `/#${textSegment}`,
     });
   });
 

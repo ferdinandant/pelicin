@@ -1,40 +1,27 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { TopicKey, TopicConfig, DefaultTopic } from '@pelicin/config';
+import React, { useContext, useState } from 'react';
+import { TopicKey, TopicConfig } from '@pelicin/config';
 
 // ================================================================================
 // TYPES/CONST
 // ================================================================================
 
-type TopicConfigContextValue = TopicConfig & {
-  isLoaded: boolean;
+const defaultTopicConfig = {
+  basePath: '/',
+  topicKey: 'default',
+  topicTitle: '',
+  mainColor: '#3e4c59',
+  accentColor: '#3e4c59',
 };
 
-const fallbackValue: TopicConfigContextValue = {
-  isLoaded: false,
-  ...DefaultTopic,
-};
-
-const TopicConfigContext = React.createContext<TopicConfigContextValue>(fallbackValue);
+const TopicConfigContext = React.createContext<TopicConfig>(defaultTopicConfig);
 
 // ================================================================================
 // MAIN
 // ================================================================================
 
-export function TopicConfigProvider(props: { topicKey: TopicKey; children: React.ReactNode }) {
-  const { topicKey } = props;
-  const [value, setValue] = useState(fallbackValue);
-
-  useEffect(() => {
-    import('@pelicin/config/topic-config/' + topicKey).then((module) => {
-      const fetchedConfig = module.default;
-      setValue({
-        isLoaded: true,
-        ...fetchedConfig,
-      });
-    });
-  }, [topicKey]);
-
-  return <TopicConfigContext.Provider value={value}>{props.children}</TopicConfigContext.Provider>;
+export function TopicConfigProvider(props: { value: TopicConfig; children: React.ReactNode }) {
+  const { value, children } = props;
+  return <TopicConfigContext.Provider value={value}>{children}</TopicConfigContext.Provider>;
 }
 
 export function useTopicConfig() {
