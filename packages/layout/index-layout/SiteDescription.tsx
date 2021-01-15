@@ -12,7 +12,6 @@ export default function SiteDescription() {
               <li>I need references for better life</li>
             </ul>
           </section>
-          <section className="divider">{'}'}</section>
           <section className="column">
             <h2>So...</h2>
             <p>
@@ -34,23 +33,13 @@ export default function SiteDescription() {
           max-width: 640px;
           margin: auto;
           display: flex;
-          align-items: center;
         }
 
         section {
           color: var(--color-gray-7);
           line-height: 1.5;
           margin: 0 var(--spacing-m);
-          flex-grow: 1;
-        }
-        section.divider {
-          flex-basis: 0;
-          color: var(--color-red-6);
-          font-size: 100px;
-          margin: 0;
-          opacity: 0.15;
-        }
-        section.column {
+          flex: 1 1 0;
         }
         section:first-child {
           margin-left: 0;
@@ -71,6 +60,16 @@ export default function SiteDescription() {
         .nonbreaking {
           display: inline-block;
           white-space: keep-all;
+        }
+
+        @media (max-width: 640px) {
+          .content {
+            flex-direction: column;
+          }
+          section {
+            margin-left: 0;
+            margin-right: 0;
+          }
         }
       `}</style>
     </>
