@@ -1,3 +1,4 @@
+import React, { ComponentType } from 'react';
 import { dirname } from 'path';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -11,6 +12,11 @@ import mainStyle from '@pelicin/styles/main.global.css';
 // TYPES/CONST
 // ================================================================================
 
+type Props = {
+  Component: ComponentType;
+  pageProps: any;
+};
+
 const useFontAwesomePaths = new Set([]);
 
 const useSyntaxHighlighterPaths = new Set(['/web', '/sample']);
@@ -21,7 +27,8 @@ const useLatexPaths = new Set(['/sample']);
 // MAIN
 // ================================================================================
 
-function MyApp({ Component, pageProps }) {
+function MyApp(props: Props) {
+  const { Component, pageProps } = props;
   const { pathname } = useRouter();
   const pathPrefixes = getPathPrefixes(pathname);
 
@@ -103,6 +110,6 @@ function getPathPrefixes(pathname: string) {
   return pathPrefixes;
 }
 
-function checkShouldEnableFeature(set: Set<String>, pathPrefixes: string[]) {
+function checkShouldEnableFeature(set: Set<string>, pathPrefixes: string[]) {
   return pathPrefixes.find((item) => set.has(item));
 }

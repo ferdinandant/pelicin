@@ -12,6 +12,9 @@ jobs:
       - run:
           name: Running typescript
           command: yarn tsc
+      - run:
+          name: Running eslint
+          command: yarn lint
 
 workflows:
   build:
