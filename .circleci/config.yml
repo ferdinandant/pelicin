@@ -8,7 +8,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Running tests
+          name: Install dependencies
+          command: yarn
+      - run:
+          name: Running typescript
           command: yarn tsc
 
 workflows:
