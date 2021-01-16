@@ -8,7 +8,7 @@ jobs:
       steps:
         - run:
             name: Running tests
-            command: yarn tsc
+            command: ls
          
 workflows:
   build:
