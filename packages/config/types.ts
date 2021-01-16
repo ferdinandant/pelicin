@@ -22,10 +22,14 @@ export type TopicGroup = {
   groupTitle: string;
   groupDescription: string | ReactNode;
   groupHash: string;
-  topics: Array<{
-    title: string;
-    path: string;
-    description?: string | ReactNode;
+  sections: Array<{
+    sectionTitle?: string;
+    sectionDescription?: string | ReactNode;
+    topics: Array<{
+      title: string;
+      path: string;
+      description?: string | ReactNode;
+    }>;
   }>;
 };
 

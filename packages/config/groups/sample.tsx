@@ -1,14 +1,20 @@
+import React from 'react';
 import { TopicGroup } from '@pelicin/config';
 
 const group: TopicGroup = {
   groupTitle: 'Sample',
-  groupDescription:
-    "This is just for documentation/showcase. It won't be displayed in the final build.",
+  groupDescription: (
+    <p>This is just for documentation/showcase. It won't be displayed in the final build.</p>
+  ),
   groupHash: 'sample',
-  topics: [
+  sections: [
     {
-      title: 'Example',
-      path: '/sample/article',
+      topics: [
+        {
+          title: 'Example',
+          path: '/sample/article',
+        },
+      ],
     },
   ],
 };

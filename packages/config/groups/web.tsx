@@ -4,10 +4,14 @@ const group: TopicGroup = {
   groupTitle: 'Web',
   groupDescription: '',
   groupHash: 'web',
-  topics: [
+  sections: [
     {
-      title: 'HTML',
-      path: '/web/html/introduction',
+      topics: [
+        {
+          title: 'HTML',
+          path: '/web/html/introduction',
+        },
+      ],
     },
   ],
 };
