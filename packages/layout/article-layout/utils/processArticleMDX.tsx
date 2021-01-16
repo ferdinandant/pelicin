@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { Heading } from '@pelicin/components';
+import { Heading, SyntaxHighlighter } from '@pelicin/components';
 import { extractHashFromNode } from '@pelicin/layout';
 
 /**
@@ -20,14 +20,22 @@ function processChild(child: ReactNode, index: number = 0) {
   const { props } = child as React.Component<any, any>;
   const { mdxType, children } = props;
 
-  // Map heading to include anchor hash
   if (mdxType.match(/h([1-6])/)) {
+    // Map heading to include anchor hash
     const anchorHash = extractHashFromNode(children);
     return (
       <Heading heading={mdxType} anchor={anchorHash} key={index}>
         {children}
       </Heading>
     );
+  } else if (mdxType === 'pre') {
+    // Map '<pre>' to use syntax highlighter
+    const { props: childrenProps } = children as any;
+    const { className, children: codeString } = childrenProps || {};
+    if (className && className.startsWith('language-')) {
+      const language = className.replace('language-', '');
+      return <SyntaxHighlighter language={language}>{codeString}</SyntaxHighlighter>;
+    }
   }
 
   return child;

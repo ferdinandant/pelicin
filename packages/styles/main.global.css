@@ -101,6 +101,29 @@ code {
   border-radius: var(--border-radius-normal);
 }
 
+pre {
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+  padding: var(--spacing-ms);
+  border-radius: var(--border-radius-normal);
+  line-height: 20px;
+  /* Hard to config horizontal scrolling */
+  /* We'll just follow docusaurus style */
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-wrap: anywhere;
+  /* Adapting color with highlight.js theme */
+  color: var(--color-gray-2) !important;
+  background-color: #282c34;
+  font-size: var(--font-size-small);
+}
+pre code {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--color-gray-2) !important;
+  padding: 0 !important;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                    Links                                   */
 /* -------------------------------------------------------------------------- */

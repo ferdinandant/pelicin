@@ -11,9 +11,11 @@ import mainStyle from '@pelicin/styles/main.global.css';
 // TYPES/CONST
 // ================================================================================
 
-const useFontAwesomeBasePaths = new Set([]);
+const useFontAwesomePaths = new Set([]);
 
-const useLatexBasePaths = new Set(['/sample']);
+const useSyntaxHighlighterPaths = new Set(['/web', '/sample']);
+
+const useLatexPaths = new Set(['/sample']);
 
 // ================================================================================
 // MAIN
@@ -21,9 +23,11 @@ const useLatexBasePaths = new Set(['/sample']);
 
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
-  const basePath = dirname(pathname);
-  const useFontAwesome = useFontAwesomeBasePaths.has(basePath);
-  const useLatex = useLatexBasePaths.has(basePath);
+  const pathPrefixes = getPathPrefixes(pathname);
+
+  const useFontAwesome = checkShouldEnableFeature(useFontAwesomePaths, pathPrefixes);
+  const useSyntaxHighlighter = checkShouldEnableFeature(useSyntaxHighlighterPaths, pathPrefixes);
+  const useLatex = checkShouldEnableFeature(useLatexPaths, pathPrefixes);
 
   return (
     <>
@@ -53,6 +57,13 @@ function MyApp({ Component, pageProps }) {
             crossOrigin="anonymous"
           />
         )}
+        {/* Highlight.js (Syntax Highlighter) */}
+        {useSyntaxHighlighter && (
+          <link
+            rel="stylesheet"
+            href="https://highlightjs.org/static/demo/styles/atom-one-dark.css"
+          />
+        )}
       </Head>
 
       <LayoutRenderer>
@@ -73,3 +84,25 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+
+// ================================================================================
+// HELPERS
+// ================================================================================
+
+/**
+ * Generate something like ['/aa/bb', '/aa', '/']
+ */
+function getPathPrefixes(pathname: string) {
+  const pathPrefixes = [];
+  let pathPrefix = pathname;
+  while ((pathPrefix = dirname(pathPrefix)) !== '/') {
+    pathPrefixes.push(pathPrefix);
+  }
+  pathPrefixes.push('/');
+
+  return pathPrefixes;
+}
+
+function checkShouldEnableFeature(set: Set<String>, pathPrefixes: string[]) {
+  return pathPrefixes.find((item) => set.has(item));
+}
