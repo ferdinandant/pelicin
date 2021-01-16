@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+  test-and-lint:
+    docker:
+      - image: circleci/node:12.20.0
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn
+      - run:
+          name: Running typescript
+          command: yarn tsc
+
+workflows:
+  build:
+    jobs:
+      - test-and-lint
