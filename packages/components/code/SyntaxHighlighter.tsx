@@ -1,10 +1,19 @@
 import React from 'react';
 import Highlight from 'react-highlight.js';
 
-type Props = {};
+// ================================================================================
+// TYPES/CONST
+// ================================================================================
 
+type Props = {
+  language: string;
+  children: string;
+};
+
+// ================================================================================
+// MAIN
+// ================================================================================
 export default function SyntaxHighlighter(props: Props) {
-  const codeString = '(num) => num + 1';
-
-  return <Highlight language={'javascript'}>{codeString}</Highlight>;
+  const { language, children } = props;
+  return <Highlight language={language}>{children}</Highlight>;
 }
