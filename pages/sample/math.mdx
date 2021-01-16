@@ -1,0 +1,15 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { Latex } from '@pelicin/components';
+
+<MetadataConfigurer title="Sample Article with Math" />
+
+# Sample Article with Math
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, <Latex>x = 5</Latex>.
+
+<Latex block>{String.raw`
+  \begin{aligned}
+    x &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\
+    &= 2 \pm 3i 
+  \end{aligned}
+`}</Latex>
