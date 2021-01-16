@@ -13,7 +13,7 @@ import mainStyle from '@pelicin/styles/main.global.css';
 
 const useFontAwesomePaths = new Set([]);
 
-const useSyntaxHighlighterPaths = new Set(['/web/html', '/sample']);
+const useSyntaxHighlighterPaths = new Set(['/web', '/sample']);
 
 const useLatexPaths = new Set(['/sample']);
 
@@ -23,10 +23,11 @@ const useLatexPaths = new Set(['/sample']);
 
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
-  const basePath = dirname(pathname);
-  const useFontAwesome = useFontAwesomePaths.has(basePath);
-  const useSyntaxHighlighter = useSyntaxHighlighterPaths.has(basePath);
-  const useLatex = useLatexPaths.has(basePath);
+  const pathPrefixes = getPathPrefixes(pathname);
+
+  const useFontAwesome = checkShouldEnableFeature(useFontAwesomePaths, pathPrefixes);
+  const useSyntaxHighlighter = checkShouldEnableFeature(useSyntaxHighlighterPaths, pathPrefixes);
+  const useLatex = checkShouldEnableFeature(useLatexPaths, pathPrefixes);
 
   return (
     <>
@@ -83,3 +84,25 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+
+// ================================================================================
+// HELPERS
+// ================================================================================
+
+/**
+ * Generate something like ['/aa/bb', '/aa', '/']
+ */
+function getPathPrefixes(pathname: string) {
+  const pathPrefixes = [];
+  let pathPrefix = pathname;
+  while ((pathPrefix = dirname(pathPrefix)) !== '/') {
+    pathPrefixes.push(pathPrefix);
+  }
+  pathPrefixes.push('/');
+
+  return pathPrefixes;
+}
+
+function checkShouldEnableFeature(set: Set<String>, pathPrefixes: string[]) {
+  return pathPrefixes.find((item) => set.has(item));
+}
