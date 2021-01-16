@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install dependenciesgit 
+          name: Install dependencies
           command: yarn
       - run:
           name: Running typescript
