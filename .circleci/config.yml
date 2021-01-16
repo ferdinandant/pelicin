@@ -2,16 +2,16 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 jobs:
-  typescript:
-      docker:
-        - image: circleci/node:9.9.0
-      steps:
-        - run:
-            name: Running tests
-            command: ls
-         
+  test-and-lint:
+    docker:
+      - image: circleci/node:9.9.0
+    steps:
+      - checkout
+      - run:
+          name: Running tests
+          command: yarn tsc
+
 workflows:
   build:
     jobs:
-      - typescript
-         
+      - test-and-lint
