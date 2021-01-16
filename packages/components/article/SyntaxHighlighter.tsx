@@ -13,7 +13,8 @@ type Props = {
 // ================================================================================
 // MAIN
 // ================================================================================
-export default function SyntaxHighlighter(props: Props) {
-  const { language, children } = props;
+
+export default function Preformatted(props: Props) {
+  const { language = 'plaintext', children } = props;
   return <Highlight language={language}>{children}</Highlight>;
 }

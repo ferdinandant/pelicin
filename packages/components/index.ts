@@ -1,8 +1,6 @@
 // Article
 export { default as Heading } from './article/Heading';
-
-// Code
-export { default as SyntaxHighlighter } from './code/SyntaxHighlighter';
+export { default as SyntaxHighlighter } from './article/SyntaxHighlighter';
 
 // Icon
 export { default as Icon } from './icon/Icon';
