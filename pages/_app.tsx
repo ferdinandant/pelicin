@@ -11,9 +11,11 @@ import mainStyle from '@pelicin/styles/main.global.css';
 // TYPES/CONST
 // ================================================================================
 
-const useFontAwesomeBasePaths = new Set([]);
+const useFontAwesomePaths = new Set([]);
 
-const useLatexBasePaths = new Set(['/sample']);
+const useSyntaxHighlighterPaths = new Set(['/web/html', '/sample']);
+
+const useLatexPaths = new Set(['/sample']);
 
 // ================================================================================
 // MAIN
@@ -22,8 +24,9 @@ const useLatexBasePaths = new Set(['/sample']);
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
   const basePath = dirname(pathname);
-  const useFontAwesome = useFontAwesomeBasePaths.has(basePath);
-  const useLatex = useLatexBasePaths.has(basePath);
+  const useFontAwesome = useFontAwesomePaths.has(basePath);
+  const useSyntaxHighlighter = useSyntaxHighlighterPaths.has(basePath);
+  const useLatex = useLatexPaths.has(basePath);
 
   return (
     <>
@@ -51,6 +54,13 @@ function MyApp({ Component, pageProps }) {
             href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
             integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
             crossOrigin="anonymous"
+          />
+        )}
+        {/* Highlight.js (Syntax Highlighter) */}
+        {useSyntaxHighlighter && (
+          <link
+            rel="stylesheet"
+            href="https://highlightjs.org/static/demo/styles/atom-one-dark.css"
           />
         )}
       </Head>

@@ -1,4 +1,5 @@
-import { Latex } from '@pelicin/components';
+import { Latex, SyntaxHighlighter } from '@pelicin/components';
+const html = (a) => a;
 
 # Biar Kurakit Pesawatku
 
@@ -18,6 +19,20 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit [link here](example.com
 - One
 - Two
 - Three
+
+```html
+<html>
+  <head> </head>
+  <pre>dsfjkhds lfjh djf shgfl sjhlf dsjkflshdf</pre>
+</html>
+```
+
+<SyntaxHighlighter language="html">{`
+  <html>
+    <head> </head>
+    <pre>dsfjkhds lfjh djf shgfl sjhlf dsjkflshdf</pre>
+  </html>
+`}</SyntaxHighlighter>
 
 Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.
 

@@ -101,6 +101,22 @@ code {
   border-radius: var(--border-radius-normal);
 }
 
+pre {
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+  padding: var(--spacing-ms);
+  border-radius: var(--border-radius-normal);
+  line-height: 20px;
+  /* Adapting color with highlight.js theme */
+  background-color: #282c34;
+}
+pre code {
+  background-color: transparent;
+  font-size: var(--font-size-small);
+  color: var(--color-gray-2) !important;
+  padding: 0 !important;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                    Links                                   */
 /* -------------------------------------------------------------------------- */
