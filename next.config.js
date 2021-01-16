@@ -16,8 +16,7 @@ module.exports = {
     return config;
   },
   publicRuntimeConfig: {
-    // For testing, run at root `SHOW_SAMPLE=1 yarn dev`
-    showSample: Boolean(process.env.SHOW_SAMPLE),
+    showSample: Boolean(process.env.NODE_ENV !== 'production'),
   },
   pageExtensions: ['mdx', 'tsx'],
 };

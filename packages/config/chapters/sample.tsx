@@ -1,52 +1,26 @@
-import { Latex } from '@pelicin/components';
 import { TopicChapters } from '@pelicin/config';
+import { Latex } from '@pelicin/components';
 
 const chapters: TopicChapters = [
   {
     chapter: null,
     children: [
       {
-        title: (
-          <span>
-            Ini hanyalah <Latex>{String.raw`\mathrm{Ujian}`}</Latex>
-          </span>
-        ),
-        path: '/test/123',
+        title: 'Sample Article',
+        path: '/sample/article',
       },
     ],
   },
   {
-    chapter: <>Selalu berlaku sopan di jalan, ya!</>,
+    chapter: <>Feature Showcase</>,
     children: [
       {
-        title: <>Saya hanya mau ini dan itu :(</>,
-        path: '/sample/test',
+        title: <>With <Latex>{String.raw`\mathrm{Math}`}</Latex></>,
+        path: '/sample/math',
       },
       {
-        title: 'Duh, yang ini juga mau',
-        path: '/sample/other',
-      },
-      {
-        title: 'Yang ini juga :<',
-        path: '/sample/other',
-      },
-    ],
-  },
-  {
-    chapter: 'Lorem ipsum',
-    children: [
-      {
-        title: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit',
-        path: '/sample/other',
-      },
-      {
-        title: 'Donec odio. Quisque volutpat mattis eros',
-        path: '/sample/other',
-      },
-      {
-        title:
-          'Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede',
-        path: '/sample/other',
+        title: 'With code',
+        path: '/sample/code',
       },
     ],
   },
