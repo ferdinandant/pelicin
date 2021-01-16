@@ -25,33 +25,44 @@ export default function ContentIndex(props: Props) {
       <ScrollableAnchor id={INDEX_DOM_ID}>
         <main>
           {groups.map((groupInfo, index) => {
-            const { groupTitle, groupDescription, topics } = groupInfo;
+            const { groupTitle, groupDescription, sections } = groupInfo;
             const groupHash = extractHashFromTitle(groupTitle);
             return (
-              <section key={index}>
+              <section key={`${index}-${groupTitle}`}>
+                {/* Render group title */}
                 <a className="hash" id={groupHash} />
                 <h2>{groupTitle}</h2>
                 <div className="description">{groupDescription}</div>
-                <ul>
-                  {topics.map((topic, index) => {
-                    const {
-                      title: topicTitle,
-                      path: topicPath,
-                      description: topicDescription,
-                    } = topic;
-                    const topicHash = extractHashFromTitle(topicTitle);
-                    const topicDescriptionNode = topicDescription && (
-                      <span className="topicDescription"> &mdash; {topicDescription}</span>
-                    );
-                    return (
-                      <li key={index}>
-                        <a className="hash" id={topicHash} />
-                        <a href={topicPath}>{topicTitle}</a>
-                        {topicDescriptionNode}
-                      </li>
-                    );
-                  })}
-                </ul>
+                {sections.map((section, index) => {
+                  const { sectionTitle, sectionDescription, topics } = section;
+                  return (
+                    <>
+                      {/* Render section title */}
+                      {sectionTitle && <h3>{sectionTitle}</h3>}
+                      {sectionDescription && <div className="description">{groupDescription}</div>}
+                      <ul key={`${index}-${sectionTitle}`}>
+                        {topics.map((topic, index) => {
+                          const {
+                            title: topicTitle,
+                            path: topicPath,
+                            description: topicDescription,
+                          } = topic;
+                          const topicHash = extractHashFromTitle(topicTitle);
+                          const topicDescriptionNode = topicDescription && (
+                            <span className="topicDescription"> &mdash; {topicDescription}</span>
+                          );
+                          return (
+                            <li key={index}>
+                              <a className="hash" id={topicHash} />
+                              <a href={topicPath}>{topicTitle}</a>
+                              {topicDescriptionNode}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </>
+                  );
+                })}
               </section>
             );
           })}
@@ -85,15 +96,21 @@ export default function ContentIndex(props: Props) {
           padding-bottom: var(--spacing-xs);
           margin-bottom: var(--spacing-ms);
         }
+        section h3 {
+          font-size: var(--font-size-title-3);
+          margin-top: var(--spacing-ms);
+          margin-bottom: var(--spacing-s);
+        }
 
         /* Topic item */
         section .description {
-          margin-top: var(--spacing-s);
           color: var(--color-gray-6);
         }
-        section p:first-child,
-        section ul:first-child {
-          margin-top: 0;
+        section ul {
+          margin: var(--spacing-s) 0;
+        }
+        section :global(p) {
+          margin: var(--spacing-s) 0;
         }
         .topicDescription {
           color: var(--color-gray-5);
