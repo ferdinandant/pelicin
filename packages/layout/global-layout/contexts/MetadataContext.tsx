@@ -16,6 +16,7 @@ type MetadataContextProviderProps = {
 
 type MetadataConfigurerProps = {
   title: MetadataContextValue['title'];
+  dateCreated?: string;
 };
 
 const MetadataContext = React.createContext<MetadataContextValue>(null);
