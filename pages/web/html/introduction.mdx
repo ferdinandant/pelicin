@@ -1,16 +1,48 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { SyntaxHighlighter } from '@pelicin/components';
+import { References, Image } from '@pelicin/components';
 
-<MetadataConfigurer title="Intro to HTML" />
+<MetadataConfigurer title="Intro to HTML" dateCreated="2021-01-17" />
 
 # Intro to HTML
 
-HTML is a declarative language that describes the structure of a web page.
+HTML is a language that describes the structure of a web page.
 
-<SyntaxHighlighter />
+## HTML Elements
 
-## Structure of HTML
+HTML is made up of elements.
+
+An element typically consists of an <b>opening tag</b> (which may specify attributes and their values), <b>content</b>, and a <b>closing tag</b>. Some elements do not have content and a closing tag.
+
+<Image path="/content/web/html/anatomy-of-html-element.png" caption="Anatomy of HTML element" />
+
+## Structure of HTML Document
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- metadata goes here -->
+  </head>
+
+  <body>
+    <!-- content goes here -->
+  </body>
+</html>
+```
+
+- `<!DOCTYPE html>` signifies that the document is using HTML5 (the latest standard)
+
+- `<head>` is where you place metadata of the page (e.g. title, SEO metadata, etc.)
+
+- `<body>` is where you place the content of your page.
 
 ## References
 
-- fddfg
+<References
+  references={[
+    {
+      text: 'MDN',
+      link: `https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started`,
+    },
+  ]}
+></References>

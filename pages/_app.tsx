@@ -40,6 +40,7 @@ function MyApp(props: Props) {
     <>
       <Head>
         <title>Pelicin!</title>
+        <meta charSet="utf-8" />
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
