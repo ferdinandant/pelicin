@@ -1,5 +1,5 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { Image } from '@pelicin/components';
+import { References, Image } from '@pelicin/components';
 
 <MetadataConfigurer title="Intro to HTML" dateCreated="2021-01-17" />
 
@@ -38,4 +38,11 @@ An element typically consists of an <b>opening tag</b> (which may specify attrib
 
 ## References
 
-- MDN &mdash; https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started
+<References
+  references={[
+    {
+      text: 'MDN',
+      link: `https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started`,
+    },
+  ]}
+></References>
