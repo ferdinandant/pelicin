@@ -45,6 +45,11 @@ export default function TOCSidebar() {
           margin-right: 12px;
           overflow-y: auto;
         }
+        @media print {
+          aside {
+            display: none;
+          }
+        }
       `}</style>
     </>
   );

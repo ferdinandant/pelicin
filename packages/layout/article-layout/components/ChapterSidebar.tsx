@@ -27,6 +27,11 @@ export default function ChapterSidebar() {
             display: none;
           }
         }
+        @media print {
+          aside {
+            display: none;
+          }
+        }
       `}</style>
     </>
   );
