@@ -8,6 +8,10 @@ const chapters: TopicChapters = [
         title: 'Introduction',
         path: '/web/html/introduction',
       },
+      {
+        title: 'Where to Develop',
+        path: '/web/html/where-to-develop',
+      },
     ],
   },
 ];

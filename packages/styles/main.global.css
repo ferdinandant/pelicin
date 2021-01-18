@@ -99,6 +99,7 @@ code {
   background-color: var(--color-gray-1);
   padding: var(--spacing-xs) var(--spacing-s);
   border-radius: var(--border-radius-normal);
+  font-size: 0.9em;
 }
 
 pre {
