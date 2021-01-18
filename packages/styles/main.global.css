@@ -43,7 +43,16 @@ h1 {
   line-height: 1.3em;
 }
 
-h2,
+h2 {
+  font-weight: bold;
+  margin-top: var(--spacing-xxl);
+  margin-bottom: var(--spacing-m);
+  padding-bottom: var(--spacing-s);
+  border-bottom: 1px solid var(--color-gray-1);
+  color: var(--color-gray-9);
+  line-height: 1.3em;
+}
+
 h3,
 h4,
 h5,
