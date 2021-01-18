@@ -40,6 +40,7 @@ export default function MainContainer(props: Props) {
         }
         article {
           padding: var(--spacing-xl) var(--spacing-xxl);
+          width: 100%;
           max-width: 800px;
           flex: 0 1 800px;
           margin: 0 auto;
@@ -65,12 +66,11 @@ export default function MainContainer(props: Props) {
         }
         @media (max-width: ${REDUCE_PADDING_BREAKPOINT_PX}px) {
           article {
-            padding: var(--spacing-l) var(--spacing-xl);
+            padding: var(--spacing-m) var(--spacing-l);
           }
           .breadcrumbContainer {
-            padding: var(--spacing-l) var(--spacing-xl);
-            margin-bottom: calc(-1 * var(--spacing-l));
-            padding-bottom: 0;
+            padding: var(--spacing-m) var(--spacing-l);
+            padding-bottom: var(--spacing-ms);
           }
         }
       `}</style>
