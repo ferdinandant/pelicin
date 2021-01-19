@@ -1,0 +1,46 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, FixedColumnWidthTable } from '@pelicin/components';
+
+export const HTML_TABLE_TAG_HEADER = {
+  text: 'Tag',
+  key: 'tag',
+  formatContent: (tag) => <code>&lt;{tag}&gt;</code>,
+  width: 100,
+};
+export const HTML_TABLE_DESCRIPTION_HEADER = {
+  text: 'Description',
+  key: 'description',
+};
+
+<MetadataConfigurer title="Where to Develop" dateCreated="2021-01-19" />
+
+# List of HTML Tags
+
+This is the list of all HTML tags.
+
+Although we are not "required" to follow the specification religiously,
+using the appropriate tags gives semantic meaning to the elements in our web page,
+which may help bots/programs to parse the page.
+
+## Root Element
+
+<FixedColumnWidthTable
+  headers={[HTML_TABLE_TAG_HEADER, HTML_TABLE_DESCRIPTION_HEADER]}
+  contents={[
+    {
+      tag: 'html',
+      description: <>Represents the root of an HTML document.</>,
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'MDN',
+      link: `https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started`,
+    },
+  ]}
+></References>

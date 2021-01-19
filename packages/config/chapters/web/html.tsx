@@ -14,6 +14,15 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  {
+    chapter: 'HTML Reference',
+    children: [
+      {
+        title: 'List of HTML Tags',
+        path: '/web/html/list-html-tags'
+      }
+    ]
+  }
 ];
 
 export default chapters;

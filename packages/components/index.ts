@@ -9,3 +9,6 @@ export { default as Icon } from './icon/Icon';
 
 // Math
 export { default as Latex } from './math/Latex';
+
+// Table
+export { default as FixedColumnWidthTable } from './table/FixedColumnWidthTable';
