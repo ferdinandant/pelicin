@@ -1,18 +1,42 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable } from '@pelicin/components';
+import { References, FixedColumnWidthTable, SyntaxHighlighter } from '@pelicin/components';
 
 export const HTML_TABLE_TAG_HEADER = {
   text: 'Tag',
   key: 'tag',
-  formatContent: (tag) => <code>&lt;{tag}&gt;</code>,
+  formatContent: (tag) => (
+    <>
+      <a
+        style={{ position: 'relative', top: `calc(-2 * var(--header-height))` }}
+        id={`tag-${tag}`}
+      />
+      <a href={`#tag-${tag}`}>
+        <code>&lt;{tag}&gt;</code>
+      </a>
+    </>
+  ),
+  contentStyle: { verticalAlign: 'top' },
   width: 100,
 };
 export const HTML_TABLE_DESCRIPTION_HEADER = {
   text: 'Description',
   key: 'description',
 };
+export const HTML_TABLE_STYLE = {
+  fontSize: '0.9em',
+};
 
-<MetadataConfigurer title="Where to Develop" dateCreated="2021-01-19" />
+export const Attribute = (props) => (
+  <strong>
+    <code>{props.children}</code>
+  </strong>
+);
+
+export const trim = (segments) => {
+  const joined = segments.join('');
+  return joined.trim().replace(/\n {12}/g, '\n');
+};
+<MetadataConfigurer title="List of HTML Tags" dateCreated="2021-01-20" />;
 
 # List of HTML Tags
 
@@ -25,6 +49,7 @@ which may help bots/programs to parse the page.
 ## Root Element
 
 <FixedColumnWidthTable
+  tableStyle={HTML_TABLE_STYLE}
   headers={[HTML_TABLE_TAG_HEADER, HTML_TABLE_DESCRIPTION_HEADER]}
   contents={[
     {
@@ -34,13 +59,131 @@ which may help bots/programs to parse the page.
   ]}
 />
 
+## Main Sections
+
+These appear directly under `<html>`.
+
+<FixedColumnWidthTable
+  tableStyle={HTML_TABLE_STYLE}
+  headers={[HTML_TABLE_TAG_HEADER, HTML_TABLE_DESCRIPTION_HEADER]}
+  contents={[
+    {
+      tag: 'head',
+      description: <>Represents the metadata of the document.</>,
+    },
+    {
+      tag: 'body',
+      description: <>Represents the content of the document.</>,
+    },
+  ]}
+/>
+
+## Document Metadata
+
+These are what normally put inside `<head>`.
+
+<FixedColumnWidthTable
+  tableStyle={HTML_TABLE_STYLE}
+  headers={[HTML_TABLE_TAG_HEADER, HTML_TABLE_DESCRIPTION_HEADER]}
+  contents={[
+    {
+      tag: 'base',
+      description: (
+        <>
+          <p>Defines the base URL for all relative URLs in the page.</p>
+          <ul>
+            <li><Attribute>href</Attribute> &mdash; the base URL</li>
+            <li>
+              <Attribute>target</Attribute> &mdash; where to open it. Can be:
+              <ul>
+                <li><code>_self</code> <i>(current tab/window)</i></li>
+                <li><code>_blank</code> <i>(new tab/window)</i></li>
+                <li><code>_parent</code> <i>(parent frame)</i></li>
+                <li><code>_top</code> <i>(root frame)</i></li>
+              </ul>
+            </li>
+          </ul>
+          <SyntaxHighlighter language="html">{trim`
+            <!-- Resolve all relative URLs based on https://example.com -->
+            <base href="https://example.com">
+          `}</SyntaxHighlighter>
+          <SyntaxHighlighter language="html">{trim`
+            <!-- Resolve all relative URLs based on https://example.com -->
+            <!-- and when clicked, open it in new page.window -->
+            <base href="https://example.com/" target="_blank">
+          `}</SyntaxHighlighter>
+        </>
+      ),
+    },
+    {
+      tag: 'link',
+      description: (
+        <>
+          <p>Specifies relationship with other document.</p>
+          {/* --- section divider --- */}
+          <strong style={{color: 'var(--color-red-6'}}>Common Attributes:</strong>
+          <ul>
+            <li><Attribute>href</Attribute> &mdash; URL of the linked resource</li>
+            <li>
+              <Attribute>rel</Attribute> &mdash; relation of the linked document to this document. Can be (not exhaustive):
+              <ul>
+                <li><code>stylesheet</code> <i>(it's a CSS for this page)</i></li>
+                <li><code>icon</code> <i>(it's a favicon for this page)</i></li>
+                <li><code>canonical</code> <i>(it's the preferred URL of this page; i.e., to tell search engines that duplicates of this page should use this URL instead)</i></li>
+                <li><code>alternate</code> <i>(it's the alternate version of the page; e.g. in different language)</i></li>
+                <li><code>preload</code> <i>(this resource is needed soon, fetch it ASAP)</i></li>
+                <li><code>prefetch</code> <i>(this resource may be needed soon, fetch it when idle)</i></li>
+              </ul>
+            </li>
+            <li><Attribute>media</Attribute> &mdash; only load this media if the media query matches (e.g. <code>print</code> or <code>screen and (min-width: 600px)</code>)</li>
+          </ul>
+          {/* --- section divider --- */}
+          <strong style={{color: 'var(--color-red-6'}}>Related to security:</strong>
+          <ul>
+            <li><Attribute>integrity</Attribute> &mdash; hash of resource to make sure it hasn't been tampered</li>
+            <li><Attribute>crossorigin</Attribute> &mdash; <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a></li>
+            <li><Attribute>referrerpolicy</Attribute> &mdash; <a href="web/html/html-attributes-recurring#referrerpolicy"> read here</a></li>
+          </ul>
+          {/* --- section divider --- */}
+          <strong style={{color: 'var(--color-red-6'}}>Only when rel="alternate":</strong>
+          <ul>
+            <li><Attribute>hreflang</Attribute> &mdash; tells the language of the linked resource (e.g. "en-US")</li>
+          </ul>
+          {/* --- section divider --- */}
+          <strong style={{color: 'var(--color-red-6'}}>Only when rel="preload" OR rel="prefetch":</strong>
+          <ul>
+            <li><Attribute>as</Attribute> &mdash; what you would have put as "rel" if you didn't put preload/prefetch</li>
+          </ul>
+          {/* --- section divider --- */}
+          <strong style={{color: 'var(--color-red-6'}}>Only when rel="preload" AND as="image":</strong>
+          <ul>
+            <li><Attribute>imagesizes</Attribute> &mdash; what you would have put as "rel" if you didn't put preload/prefetch</li>
+            <li><Attribute>imagesrcset</Attribute> &mdash; what you would have put as "rel" if you didn't put preload/prefetch</li>
+          </ul>
+          <SyntaxHighlighter language="html">{trim`
+            <!-- 
+          `}</SyntaxHighlighter>
+        </>
+      ),
+    },
+]}
+/>
+
 ## References
 
 <References
   references={[
     {
-      text: 'MDN',
-      link: `https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started`,
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+    {
+      text: 'Link types (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types`,
+    },
+    {
+      text: 'What are the differences between html preload and prefetch? (Stack Overflow)',
+      link: `https://stackoverflow.com/questions/52764401/what-are-the-differences-between-html-preload-and-prefetch`,
     },
   ]}
 ></References>

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, CSSProperties } from 'react';
 
 // ================================================================================
 // TYPES/CONST
@@ -8,12 +8,14 @@ type Header = {
   key: string;
   text: string | ReactNode;
   formatContent?: (content: string | ReactNode) => string | ReactNode;
+  contentStyle: CSSProperties;
   width?: number;
 };
 
 type Props = {
   headers: Array<Header>;
   contents: Array<Record<string, string | ReactNode>>;
+  tableStyle?: CSSProperties;
 };
 
 // ================================================================================
@@ -21,7 +23,7 @@ type Props = {
 // ================================================================================
 
 export default function FixedColumnWidthTable(props: Props) {
-  const { headers, contents } = props;
+  const { headers, contents, tableStyle } = props;
   const headerKeys = headers.map((header) => header.key);
   const headerKeyToConfig: Record<string, Omit<Header, 'key'>> = headers.reduce((curr, header) => {
     const { key, ...otherFields } = header;
@@ -29,7 +31,7 @@ export default function FixedColumnWidthTable(props: Props) {
   }, {});
 
   return (
-    <table>
+    <table style={tableStyle}>
       <thead>
         <tr>
           {headers.map((header) => (
@@ -45,9 +47,9 @@ export default function FixedColumnWidthTable(props: Props) {
           <tr key={rowIndex}>
             {headerKeys.map((fieldName) => {
               const content = rowData[fieldName];
-              const { width, formatContent } = headerKeyToConfig[fieldName];
+              const { width, formatContent, contentStyle } = headerKeyToConfig[fieldName];
               return (
-                <td key={fieldName} style={{ width }}>
+                <td key={fieldName} style={{ width, ...contentStyle }}>
                   {formatContent ? formatContent(content) : content}
                 </td>
               );

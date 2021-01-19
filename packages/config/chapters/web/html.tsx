@@ -20,6 +20,10 @@ const chapters: TopicChapters = [
       {
         title: 'List of HTML Tags',
         path: '/web/html/list-html-tags'
+      },
+      {
+        title: 'Recurring HTML Attributes',
+        path: '/web/html/html-attributes-recurring'
       }
     ]
   }
