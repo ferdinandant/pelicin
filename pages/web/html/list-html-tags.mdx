@@ -36,6 +36,7 @@ export const trim = (segments) => {
   const joined = segments.join('');
   return joined.trim().replace(/\n {12}/g, '\n');
 };
+
 <MetadataConfigurer title="List of HTML Tags" dateCreated="2021-01-20" />;
 
 # List of HTML Tags
@@ -90,27 +91,16 @@ These are what normally put inside `<head>`.
       tag: 'base',
       description: (
         <>
-          <p>Defines the base URL for all relative URLs in the page.</p>
+          <p>Defines the base URL for all relative URLs in the page. (Including hashes like <code>#this</code>.)</p>
           <ul>
             <li><Attribute>href</Attribute> &mdash; the base URL</li>
             <li>
-              <Attribute>target</Attribute> &mdash; where to open it. Can be:
-              <ul>
-                <li><code>_self</code> <i>(current tab/window)</i></li>
-                <li><code>_blank</code> <i>(new tab/window)</i></li>
-                <li><code>_parent</code> <i>(parent frame)</i></li>
-                <li><code>_top</code> <i>(root frame)</i></li>
-              </ul>
+              <Attribute>target</Attribute> &mdash; where to open it (<a href="/web/html/html-attributes-recurring#target">read here</a>)
             </li>
           </ul>
           <SyntaxHighlighter language="html">{trim`
             <!-- Resolve all relative URLs based on https://example.com -->
             <base href="https://example.com">
-          `}</SyntaxHighlighter>
-          <SyntaxHighlighter language="html">{trim`
-            <!-- Resolve all relative URLs based on https://example.com -->
-            <!-- and when clicked, open it in new page.window -->
-            <base href="https://example.com/" target="_blank">
           `}</SyntaxHighlighter>
         </>
       ),
@@ -157,11 +147,20 @@ These are what normally put inside `<head>`.
           {/* --- section divider --- */}
           <strong style={{color: 'var(--color-red-6'}}>Only when rel="preload" AND as="image":</strong>
           <ul>
-            <li><Attribute>imagesizes</Attribute> &mdash; what you would have put as "rel" if you didn't put preload/prefetch</li>
-            <li><Attribute>imagesrcset</Attribute> &mdash; what you would have put as "rel" if you didn't put preload/prefetch</li>
+            <li><Attribute>imagesrcset</Attribute> &mdash; you can copy the <code>srcset</code> value of an <code>&lt;img srcset="..." sizes="..."&gt;</code> here; this tells the browser to preload the appropriate resource</li>
+            <li><Attribute>imagesizes</Attribute> &mdash; you can copy the <code>sizes</code> value of an <code>&lt;img srcset="..." sizes="..."&gt;</code> here; this tells the browser to preload the appropriate resource</li>
           </ul>
           <SyntaxHighlighter language="html">{trim`
-            <!-- 
+            <!-- Loading stylesheet and favicon -->
+            <link href="main.css" rel="stylesheet">
+            <link rel="icon" href="favicon.ico">
+          `}</SyntaxHighlighter>
+          <SyntaxHighlighter language="html">{trim`
+            <!-- Preloading responsive image -->
+            <link rel="preload" as="image"
+              imagesrcset="image-400.jpg 400w, image-800.jpg 800w, image-1600.jpg 1600w" 
+              imagesizes="100vw"
+            >
           `}</SyntaxHighlighter>
         </>
       ),
@@ -184,6 +183,10 @@ These are what normally put inside `<head>`.
     {
       text: 'What are the differences between html preload and prefetch? (Stack Overflow)',
       link: `https://stackoverflow.com/questions/52764401/what-are-the-differences-between-html-preload-and-prefetch`,
+    },
+    {
+      text: 'How to preload responsive images with imagesizes and imagesrcset',
+      link: `https://www.stefanjudis.com/today-i-learned/how-to-preload-responsive-images-with-imagesizes-and-imagesrcset/`,
     },
   ]}
 ></References>
