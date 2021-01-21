@@ -1,0 +1,186 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, NoteBox } from '@pelicin/components';
+
+<MetadataConfigurer title="Recurring HTML Attributes" dateCreated="2021-01-17" />
+
+# Recurring HTML Attributes
+
+Some HTML attributes are recurring in more than one type of elements. They are described here.
+
+## `crossorigin`
+
+Defines how the browser should make the request in terms of CORS. Possible values:
+
+<ul>
+  <li>
+    <strong>
+      <code>anonymous</code>
+    </strong>{' '}
+    &mdash; <em>Do not</em> send credentials for CORS when requesting the resource. Expect the
+    server to allow CORS via <code>Access-Control-Allow-Origin</code> response header
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <strong>
+      <code>use-credentials</code>
+    </strong>{' '}
+    &mdash; Send credentials for CORS when requesting the resource. Expect the server to allow CORS
+    via <code>Access-Control-Allow-Credentials</code> response header
+  </li>
+</ul>
+
+<strong>Note:</strong> <dfn>Credentials</dfn> are cookies, authorization headers, or TLS client certificates.
+
+## `referrerpolicy`
+
+Whether or not the browser should include the `Referer` header when making the request. Possible values:
+
+<div style={{ color: 'var(--color-red-6)' }}>
+  <strong>No-referrer:</strong>
+</div>
+<ul>
+  <li>
+    <strong>
+      <code>no-referrer</code>
+    </strong>{' '}
+    &mdash; Don't send referer
+  </li>
+</ul>
+<ul>
+  <li>
+    <strong>
+      <code>no-referrer-when-downgrade</code>
+    </strong>{' '}
+    &mdash; (This is default.) Don't send referer if we are making request to less secure protocol
+    (i.e. HTTPS to HTTP). Otherwise, send origin, path, and querystring as <code>Referer</code>.
+  </li>
+</ul>
+
+<div style={{ color: 'var(--color-red-6)' }}>
+  <strong>Origin:</strong>
+</div>
+<ul>
+  <li>
+    <strong>
+      <code>origin</code>
+    </strong>{' '}
+    &mdash; Only send origin as <code>Referer</code>
+  </li>
+</ul>
+<ul>
+  <li>
+    <strong>
+      <code>same-origin</code>
+    </strong>{' '}
+    &mdash; Only send origin as <code>Referer</code> when making same-origin requests. Otherwise,
+    don't send referer.
+  </li>
+</ul>
+<ul>
+  <li>
+    <strong>
+      <code>origin-when-cross-origin</code>
+    </strong>{' '}
+    &mdash; Only send origin as <code>Referer</code> when making cross-origin request. Otherwise,
+    send origin, path, and querystring as <code>Referer</code>.
+  </li>
+</ul>
+
+<div style={{ color: 'var(--color-red-6)' }}>
+  <strong>Strict Origin:</strong>
+</div>
+
+<ul>
+  <li>
+    <strong>
+      <code>strict-origin</code>
+    </strong>{' '}
+    &mdash; Only send origin as <code>Referer</code> when the protocol security level is at least
+    the same. Otherwise, don't send referer.
+  </li>
+</ul>
+<ul>
+  <li>
+    <strong>
+      <code>strict-origin-when-cross-origin</code>
+    </strong>{' '}
+    &mdash; (1) Only send origin as <code>Referer</code> when making cross-origin request and the
+    protocol security level is at least the same. (2) Send origin, path, and querystring as{' '}
+    <code>Referer</code> when making same-origin request and the protocol security level is at least
+    the same. (3) Otherwise, don't send referer.
+  </li>
+</ul>
+
+<div style={{ color: 'var(--color-red-6)' }}>
+  <strong>Badass mode:</strong>
+</div>
+<ul>
+  <li>
+    <strong>
+      <code>unsafe-url</code>
+    </strong>{' '}
+    &mdash; Send origin, path, and querystring as <code>Referer</code>.{' '}
+    <em>(May leak private data over insecure HTTP.)</em>
+  </li>
+</ul>
+
+## `target`
+
+Targets where to open a link. Possible values:
+
+<ul>
+  <li>
+    <strong>
+      <code>_self</code>
+    </strong>{' '}
+    &mdash; current window/tab
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <strong>
+      <code>_blank</code>
+    </strong>{' '}
+    &mdash; new window/tab
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <strong>
+      <code>_parent</code>
+    </strong>{' '}
+    &mdash; Parent frame (otherwise behaves like <code>_self</code>)
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <strong>
+      <code>_top</code>
+    </strong>{' '}
+    &mdash; Root frame (otherwise behaves like <code>_self</code>)
+  </li>
+</ul>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Access-Control-Allow-Credentials (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials`,
+    },
+    {
+      text: 'Referrer-Policy (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy`,
+    },
+    {
+      text: 'Referrer Policy: W3C Candidate Recommendation, 26 January 2017',
+      link: `https://www.w3.org/TR/referrer-policy/`,
+    },
+  ]}
+></References>

@@ -10,7 +10,7 @@ export default function Hero() {
           <p className="description">
             Ferdinand's study notes and cheatsheets
             <br />
-            <em>... for average people like me! :)</em>
+            <em>... for general audience like me! :)</em>
           </p>
           <div className="ctaContainer">
             <a href={`#${INDEX_DOM_ID}`}>Explore</a>

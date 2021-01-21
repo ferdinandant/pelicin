@@ -16,8 +16,11 @@ export default function processArticleMDX(children: ReactNode) {
   return result;
 }
 
-function processChild(child: ReactNode, index: number = 0) {
+function processChild(child: ReactNode, index = 0) {
   const { props } = child as React.Component<any, any>;
+  if (!props) {
+    return child;
+  }
   const { mdxType, children } = props;
 
   if (mdxType.match(/h([1-6])/)) {

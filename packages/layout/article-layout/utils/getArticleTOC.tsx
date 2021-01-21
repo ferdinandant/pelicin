@@ -12,6 +12,10 @@ export default function getArticleTOC(children: ReactNode): ArticleTOC {
   const toc = [];
   for (const child of children) {
     const { props } = child as React.Component<any, any>;
+    if (!props) {
+      continue;
+    }
+
     const { mdxType, children } = props;
 
     const match = mdxType.match(/h([1-6])/);

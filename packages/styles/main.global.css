@@ -21,7 +21,10 @@ p {
 }
 
 p:first-child {
-  margin-top: 0em;
+  margin-top: 0;
+}
+p:last-child {
+  margin-bottom: 0;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -106,7 +109,7 @@ code {
 
 code {
   background-color: var(--color-gray-1);
-  padding: var(--spacing-xs) var(--spacing-s);
+  padding: var(--spacing-xxs) var(--spacing-xs);
   border-radius: var(--border-radius-normal);
   font-size: 0.9em;
 }
@@ -123,7 +126,7 @@ pre {
   line-height: 1.4;
   /* Adapting color with highlight.js theme */
   background-color: #282c34;
-  scrollbar-color: red blue;
+  scrollbar-color: var(--color-gray-6) transparent;
 }
 pre code {
   /* Overriding highlight.js styles */
@@ -153,9 +156,48 @@ ul {
   margin-top: var(--spacing-m);
   margin-bottom: var(--spacing-m);
 }
+ul ul {
+  list-style-type: circle;
+}
 
 li {
   margin: var(--spacing-s) 0;
   margin-left: var(--spacing-ml);
   padding-left: var(--spacing-s);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Tables                                   */
+/* -------------------------------------------------------------------------- */
+
+table {
+  width: 100%;
+}
+
+th,
+td {
+  padding: var(--spacing-s);
+  border-top: 1px solid var(--color-gray-2);
+  border-bottom: 1px solid var(--color-gray-2);
+}
+th {
+  background-color: var(--color-gray-1);
+}
+
+table p,
+table ul,
+table ol,
+table pre {
+  margin-top: var(--spacing-s);
+  margin-bottom: var(--spacing-s);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Others                                   */
+/* -------------------------------------------------------------------------- */
+
+hr {
+  border: none;
+  border-bottom: 2px solid var(--color-gray-3);
+  margin: var(--spacing-m) 0;
 }
