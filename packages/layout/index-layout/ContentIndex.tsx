@@ -36,7 +36,7 @@ export default function ContentIndex(props: Props) {
                 {sections.map((section, index) => {
                   const { sectionTitle, sectionDescription, topics } = section;
                   return (
-                    <>
+                    <React.Fragment key={`${index}-${sectionTitle}`}>
                       {/* Render section title */}
                       {sectionTitle && <h3>{sectionTitle}</h3>}
                       {sectionDescription && <div className="description">{groupDescription}</div>}
@@ -60,7 +60,7 @@ export default function ContentIndex(props: Props) {
                           );
                         })}
                       </ul>
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </section>
