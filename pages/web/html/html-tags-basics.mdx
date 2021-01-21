@@ -1,0 +1,93 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+
+export const Attribute = (props) => (
+  <strong>
+    <code>{props.children}</code>
+  </strong>
+);
+
+<MetadataConfigurer title="List of HTML Tags" dateCreated="2021-01-22" />
+
+# HTML Tags: The Basics
+
+This is the most common HTML tags you will use. You would put these inside `<body>`, since they correspond to the content of your web page.
+
+<FixedColumnWidthTable
+  tableStyle={{
+    fontSize: '0.9em',
+  }}
+  headers={[
+    {
+      text: 'Tag',
+      key: 'tag',
+      formatContent: (tag) => {
+        const specialMapping = {
+          div: '-div-and-span-',
+          span: '-div-and-span-',
+        };
+        return (
+          <>
+            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#-${tag}-`}>
+              <code>&lt;{tag}&gt;</code>
+            </a>
+          </>
+        );
+      },
+      contentStyle: { verticalAlign: 'top' },
+      width: 100,
+    },
+    {
+      text: 'Description',
+      key: 'description',
+    },
+  ]}
+  contents={[
+    {
+      tag: 'div',
+      description: 'Used to create generic block-level container',
+    },
+    {
+      tag: 'span',
+      description: 'Used to create generic inline container',
+    },
+  ]}
+/>
+
+## `<div>` and `<span>`
+
+`<div>` is used to create generic <dfn>block-level container</dfn>, which means the content inside it will take the whole line.
+
+`<span>` is used to create generic <dfn>inline container</dfn>, which means the content inside it will flow with the current line of text.
+
+```html
+<!-- div creates its own line -->
+<div style="background-color: blue; color: white">
+  I'm creating a new line!
+</div>
+
+<!-- span flows inline with the surrounding text -->
+Lorem ipsum
+<span style="background-color: red; color: white">
+  I'm flowing with the text
+</span>
+dolor sit amet
+```
+
+<LightBox label="Preview">
+  <div style={{ backgroundColor: 'blue', color: 'white' }}>I'm creating a new line!</div>
+  Lorem ipsum <span style={{ backgroundColor: 'red', color: 'white' }}>
+    I'm flowing with the text
+  </span> dolor sit amet
+</LightBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+  ]}
+></References>

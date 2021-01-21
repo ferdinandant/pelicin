@@ -1,10 +1,14 @@
 import React, { ReactNode } from 'react';
-
+import { extractHashFromTitle } from '@pelicin/layout';
 /**
  * Given a react node (usually heading), extract URL hash based on its content
  * @param node
  */
 export default function extractHashFromNode(node: ReactNode): string | null {
+  return extractHashFromTitle(extractHashFromNodeInternal(node));
+}
+
+export function extractHashFromNodeInternal(node: ReactNode): string | null {
   if (node === null) {
     return null;
   }
@@ -12,12 +16,12 @@ export default function extractHashFromNode(node: ReactNode): string | null {
     return convertToURLHash(String(node));
   }
   if (Array.isArray(node)) {
-    return node.map((childNode) => extractHashFromNode(childNode)).join('');
+    return node.map((childNode) => extractHashFromNodeInternal(childNode)).join('');
   }
 
   const { props } = node as React.Component<any, any>;
   const { children } = props;
-  return extractHashFromNode(children);
+  return extractHashFromNodeInternal(children);
 }
 
 function convertToURLHash(str: string) {

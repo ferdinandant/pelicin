@@ -1,11 +1,5 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import {
-  References,
-  FixedColumnWidthTable,
-  SyntaxHighlighter,
-  Badge,
-  NoteBox,
-} from '@pelicin/components';
+import { References, FixedColumnWidthTable, Badge, NoteBox } from '@pelicin/components';
 
 <MetadataConfigurer title="List of HTML Tags" dateCreated="2021-01-20" />
 
@@ -49,11 +43,9 @@ This is the list of HTML tags you would normally put inside `<head>`.
       text: 'Tag',
       key: 'tag',
       formatContent: (tag) => (
-        <>
-          <a href={`#-${tag}-`}>
-            <code>&lt;{tag}&gt;</code>
-          </a>
-        </>
+        <a href={`#${tag}`}>
+          <code>&lt;{tag}&gt;</code>
+        </a>
       ),
       contentStyle: { verticalAlign: 'top' },
       width: 100,

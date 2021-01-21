@@ -126,7 +126,7 @@ pre {
   line-height: 1.4;
   /* Adapting color with highlight.js theme */
   background-color: #282c34;
-  scrollbar-color: red blue;
+  scrollbar-color: var(--color-gray-6) transparent;
 }
 pre code {
   /* Overriding highlight.js styles */

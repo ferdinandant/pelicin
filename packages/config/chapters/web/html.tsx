@@ -28,7 +28,7 @@ const chapters: TopicChapters = [
     chapter: <>HTML Tags in <code>&lt;body&gt;</code></>,
     children: [
       {
-        title: 'HTML Tags: the Basics',
+        title: 'HTML Tags: The Basics',
         path: '/web/html/html-tags-basics'
       },
     ]
