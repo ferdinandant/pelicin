@@ -191,3 +191,13 @@ table pre {
   margin-top: var(--spacing-s);
   margin-bottom: var(--spacing-s);
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                   Others                                   */
+/* -------------------------------------------------------------------------- */
+
+hr {
+  border: none;
+  border-bottom: 2px solid var(--color-gray-3);
+  margin: var(--spacing-m) 0;
+}
