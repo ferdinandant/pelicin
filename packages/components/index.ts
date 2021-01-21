@@ -6,6 +6,7 @@ export { default as Image } from './article/Image';
 
 // Box
 export { default as NoteBox } from './box/NoteBox';
+export { default as Badge } from './box/Badge';
 
 // Icon
 export { default as Icon } from './icon/Icon';

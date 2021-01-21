@@ -15,11 +15,11 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'HTML Reference',
+    chapter: 'HTML Tags',
     children: [
       {
-        title: 'List of HTML Tags',
-        path: '/web/html/list-html-tags'
+        title: 'HTML Tags: Metadata',
+        path: '/web/html/html-tags-metadata'
       },
       {
         title: 'Recurring HTML Attributes',

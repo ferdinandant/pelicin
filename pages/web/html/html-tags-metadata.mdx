@@ -1,0 +1,273 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, FixedColumnWidthTable, SyntaxHighlighter, Badge } from '@pelicin/components';
+
+export const Attribute = (props) => (
+  <strong>
+    <code>{props.children}</code>
+  </strong>
+);
+
+<MetadataConfigurer title="List of HTML Tags" dateCreated="2021-01-20" />
+
+# HTML Tags: Metadata
+
+This is the list of HTML tags you would normally put in `<head>`.
+
+## `<base>`
+
+Defines the base URL for all relative URLs in the page (you will rarely use this).
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>href</Attribute> &mdash; the base URL
+  </li>
+  <li>
+    <Attribute>target</Attribute> &mdash; where to open it (
+    <a href="/web/html/html-attributes-recurring#target">read here</a>)
+  </li>
+</ul>
+
+```html
+<html>
+  <head>
+    <base href="https://another-site.com" />
+  </head>
+
+  <body>
+    <!-- Will point to https://another-site.com/#anchor -->
+    <a href="#anchor">Click here!!</a>
+  </body>
+</html>
+```
+
+## `<title>`
+
+Defines the document's title shown in the browser's title bar
+
+```html
+<head>
+  <title>About Us - Pelicin!</title>
+</head>
+```
+
+## `<link>`
+
+Specifies relationship with other document. (Normally used to load CSS.)
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>href</Attribute> &mdash; URL of the linked resource
+  </li>
+  <li>
+    <Attribute>rel</Attribute> &mdash; relation of the linked document to this document. Can be (not
+    exhaustive):
+    <ul>
+      <li>
+        <code>stylesheet</code> <i>(it's a CSS for this page)</i>
+      </li>
+      <li>
+        <code>icon</code> <i>(it's a favicon for this page)</i>
+      </li>
+      <li>
+        <code>canonical</code>{' '}
+        <i>
+          (it's the preferred URL of this page; i.e., to tell search engines that duplicates of this
+          page should use this URL instead)
+        </i>
+      </li>
+      <li>
+        <code>alternate</code>{' '}
+        <i>(it's the alternate version of the page; e.g. in different language)</i>
+      </li>
+      <li>
+        <code>preload</code> <i>(this resource is needed soon, fetch it ASAP)</i>
+      </li>
+      <li>
+        <code>prefetch</code> <i>(this resource may be needed soon, fetch it when idle)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>media</Attribute> &mdash; only load this resource if the media query matches (e.g.{' '}
+    <code>print</code> or <code>screen and (min-width: 600px)</code>)
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to security</Badge>
+<ul>
+  <li>
+    <Attribute>integrity</Attribute> &mdash; hash of resource to make sure it hasn't been tampered
+  </li>
+  <li>
+    <Attribute>crossorigin</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
+  </li>
+  <li>
+    <Attribute>referrerpolicy</Attribute> &mdash;{' '}
+    <a href="web/html/html-attributes-recurring#referrerpolicy"> read here</a>
+  </li>
+</ul>
+
+<Badge color="blue">
+  Only when <code>rel="alternate"</code>
+</Badge>
+<ul>
+  <li>
+    <Attribute>hreflang</Attribute> &mdash; tells the language of the linked resource (e.g. "en-US")
+  </li>
+</ul>
+
+<Badge color="blue">
+  Only when <code>rel="preload"</code> OR <code>rel="prefetch"</code>
+</Badge>
+<ul>
+  <li>
+    <Attribute>as</Attribute> &mdash; what you would have put as "rel" if you didn't put
+    preload/prefetch
+  </li>
+</ul>
+
+<Badge color="blue">
+  Only when <code>rel="preload"</code> AND <code>as="image"</code>
+</Badge>
+<ul>
+  <li>
+    <Attribute>imagesrcset</Attribute> &mdash; <code>srcset</code> value of an{' '}
+    <code>&lt;img srcset="..." sizes="..."&gt;</code> you want to preload
+  </li>
+  <li>
+    <Attribute>imagesizes</Attribute> &mdash; <code>sizes</code> value of an{' '}
+    <code>&lt;img srcset="..." sizes="..."&gt;</code> you want to preload
+  </li>
+</ul>
+
+```html
+<head>
+  <!-- Loading CSS and favicon -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" />
+
+  <!-- The following URL is the preferred version of this page -->
+  <link rel="canonical" href="https://www.mycompany.com/en-id/" />
+  <!-- We also have alternate versions of this page -->
+  <link rel="alternate" hreflang="id-id" href="https://www.mycompany.com/id-id/" />
+  <link rel="alternate" hreflang="en-us" href="https://www.mycompany.com/en-us/" />
+</head>
+```
+
+## `<meta>`
+
+Represents metadata that cannot be represented with other tags.
+
+You may want to take a look at [Open Graph meta specification](https://css-tricks.com/essential-meta-tags-social-media/)
+to configure how social media sites display the thumbnail of your page.
+
+<Badge color="blue">Possible "key-value" pair attributes</Badge>
+
+<ul>
+  <li>
+    <Attribute>name</Attribute> &mdash; Key like <code>author</code> or <code>description</code> (
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name">
+      see here for the list
+    </a>
+    )
+  </li>
+  <li>
+    <Attribute>http-equiv</Attribute> &mdash; Key to simulate HTTP response header, like{' '}
+    <code>content-security-policy</code> or <code>content-type</code>
+  </li>
+  <li>
+    <Attribute>content</Attribute> &mdash; value for <code>name</code> or <code>http-equiv</code>
+  </li>
+</ul>
+
+<Badge color="blue">Special attribute</Badge>
+
+<ul>
+  <li>
+    <Attribute>charset</Attribute> &mdash; What character encoding to use. Only <code>utf-8</code>{' '}
+    is valid.
+  </li>
+</ul>
+
+```html
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- Author and description -->
+  <!-- Description will appear on search engine result -->
+  <meta name="author" content="Ferdinand Antonius" />
+  <meta name="description" content="Pelicin makes flight booking easier" />
+  <!-- Open graph (for social media thumbnail) -->
+  <meta property="og:title" content="Pelicin" />
+  <meta property="og:description" content="Pelicin makes flight booking easier." />
+  <meta property="og:image" content="http://pelicin.netlify.app/thumbnail.jpg" />
+  <meta property="og:url" content="http://pelicin.netlify.app/index.html" />
+</head>
+```
+
+## `<style>`
+
+Defines the style (CSS) for the page. You can place this anywhere (even in `<body>`).
+
+<Badge color="blue">Possible attributes</Badge>
+
+<ul>
+  <li>
+    <Attribute>media</Attribute> &mdash; The media to which the style is applied, e.g.{' '}
+    <code>screen and (max-width: 600px)</code>
+  </li>
+  <li>
+    <Attribute>nonce</Attribute> &mdash; Nonce for{' '}
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">
+      CSP
+    </a>
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<head>
+  <!-- Make paragraph text red by default -->
+  <style>
+    p { color: red; }
+  </style>
+  <!-- On small screens (width <= 600), it becomes blue -->
+  <style media="screen and (max-width: 600px)">
+    p { color: blue; }
+  </style>
+</head>
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+    {
+      text: 'Link types (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types`,
+    },
+    {
+      text: 'What are the differences between html preload and prefetch? (Stack Overflow)',
+      link: `https://stackoverflow.com/questions/52764401/what-are-the-differences-between-html-preload-and-prefetch`,
+    },
+    {
+      text: 'How to preload responsive images with imagesizes and imagesrcset',
+      link: `https://www.stefanjudis.com/today-i-learned/how-to-preload-responsive-images-with-imagesizes-and-imagesrcset/`,
+    },
+    {
+      text: 'HTTP-Equiv: What Is It Used For?',
+      link: `https://www.keycdn.com/support/http-equiv`,
+    },
+    {
+      text: 'The Essential Meta Tags for Social Media (CSS-Tricks)',
+      link: `https://css-tricks.com/essential-meta-tags-social-media/`,
+    },
+  ]}
+></References>

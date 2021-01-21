@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 
 type Props = {
-  type: 'info';
+  type: 'info' | 'warning' | 'danger' | 'success';
   children: ReactNode;
 };
 
@@ -35,6 +35,11 @@ export default function NoteBox(props: Props) {
           background-color: var(--color-red-1);
           border-left: var(--spacing-s) solid var(--color-red-4);
           color: var(--color-red-4);
+        }
+        .container.success {
+          background-color: var(--color-green-1);
+          border-left: var(--spacing-s) solid var(--color-green-4);
+          color: var(--color-green-4);
         }
       `}</style>
     </>
