@@ -38,6 +38,18 @@ This is the most common HTML tags you will use. You would put these inside `<bod
       width: 100,
     },
     {
+      text: 'Type',
+      key: 'type',
+      formatContent: (type) => {
+        return type === 'block' ? (
+          <Badge color="red">Block</Badge>
+        ) : (
+          <Badge color="blue">Inline</Badge>
+        );
+      },
+      width: 80,
+    },
+    {
       text: 'Description',
       key: 'description',
     },
@@ -45,97 +57,89 @@ This is the most common HTML tags you will use. You would put these inside `<bod
   contents={[
     {
       tag: 'div',
-      description: (
-        <>
-          <Badge color="red">Block</Badge> Used to create generic block-level container
-        </>
-      ),
+      type: 'block',
+      description: <>Used to create generic block-level container</>,
     },
     {
       tag: 'span',
-      description: (
-        <>
-          <Badge color="blue">Inline</Badge> Used to create generic inline container
-        </>
-      ),
+      type: 'inline',
+      description: <>Used to create generic inline container</>,
     },
     {
       tag: 'h1-h6',
-      description: (
-        <>
-          <Badge color="red">Block</Badge> Used to create headers
-        </>
-      ),
+      type: 'block',
+      description: <>Used to create headers</>,
     },
     {
       tag: 'p',
-      description: (
-        <>
-          <Badge color="red">Block</Badge> Used to create paragraphs
-        </>
-      ),
+      type: 'block',
+      description: <>Used to create paragraphs</>,
     },
     {
       tag: 'hr',
-      description: (
-        <>
-          <Badge color="red">Block</Badge> Used to create horizontal ruler
-        </>
-      ),
+      type: 'block',
+      description: <>Used to create horizontal ruler</>,
     },
     {
       tag: 'a',
+      type: 'inline',
       description: (
         <>
-          <Badge color="blue">Inline</Badge> Used to create <a href="#">anchors/hyperlinks</a>
+          Used to create <a href="#">anchors/hyperlinks</a>
         </>
       ),
     },
     {
       tag: 'b',
+      type: 'inline',
       description: (
         <>
-          <Badge color="blue">Inline</Badge> Make text <b>bold</b>
+          Make text <b>bold</b>
         </>
       ),
     },
     {
       tag: 'i',
+      type: 'inline',
       description: (
         <>
-          <Badge color="blue">Inline</Badge> Make text <i>italic</i>
+          Make text <i>italic</i>
         </>
       ),
     },
     {
       tag: 'u',
+      type: 'inline',
       description: (
         <>
-          <Badge color="blue">Inline</Badge> Make text <u>underlined</u>
+          Make text <u>underlined</u>
         </>
       ),
     },
     {
       tag: 's',
+      type: 'inline',
       description: (
         <>
-          <Badge color="blue">Inline</Badge> Make text <s>struck-through</s>
+          Render text with <s>strikethrough</s>
         </>
       ),
     },
     {
       tag: 'sub',
+      type: 'inline',
       description: (
         <>
-          <Badge color="blue">Inline</Badge> Render text as <sub>subscript</sub>
+          Render text as <sub>subscript</sub>
         </>
       ),
     },
     {
       tag: 'sup',
+      type: 'inline',
       description: (
         <>
-          <Badge color="blue">Inline</Badge> Render text as <sup>superscript</sup>
+          Render text as <sup>superscript</sup>
         </>
       ),
     },
