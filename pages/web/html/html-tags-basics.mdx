@@ -45,11 +45,99 @@ This is the most common HTML tags you will use. You would put these inside `<bod
   contents={[
     {
       tag: 'div',
-      description: 'Used to create generic block-level container',
+      description: (
+        <>
+          <Badge color="red">Block</Badge> Used to create generic block-level container
+        </>
+      ),
     },
     {
       tag: 'span',
-      description: 'Used to create generic inline container',
+      description: (
+        <>
+          <Badge color="blue">Inline</Badge> Used to create generic inline container
+        </>
+      ),
+    },
+    {
+      tag: 'h1-h6',
+      description: (
+        <>
+          <Badge color="red">Block</Badge> Used to create headers
+        </>
+      ),
+    },
+    {
+      tag: 'p',
+      description: (
+        <>
+          <Badge color="red">Block</Badge> Used to create paragraphs
+        </>
+      ),
+    },
+    {
+      tag: 'hr',
+      description: (
+        <>
+          <Badge color="red">Block</Badge> Used to create horizontal ruler
+        </>
+      ),
+    },
+    {
+      tag: 'a',
+      description: (
+        <>
+          <Badge color="blue">Inline</Badge> Used to create <a href="#">anchors/hyperlinks</a>
+        </>
+      ),
+    },
+    {
+      tag: 'b',
+      description: (
+        <>
+          <Badge color="blue">Inline</Badge> Make text <b>bold</b>
+        </>
+      ),
+    },
+    {
+      tag: 'i',
+      description: (
+        <>
+          <Badge color="blue">Inline</Badge> Make text <i>italic</i>
+        </>
+      ),
+    },
+    {
+      tag: 'u',
+      description: (
+        <>
+          <Badge color="blue">Inline</Badge> Make text <u>underlined</u>
+        </>
+      ),
+    },
+    {
+      tag: 's',
+      description: (
+        <>
+          <Badge color="blue">Inline</Badge> Make text <s>struck-through</s>
+        </>
+      ),
+    },
+    {
+      tag: 'sub',
+      description: (
+        <>
+          <Badge color="blue">Inline</Badge> Render text as <sub>subscript</sub>
+        </>
+      ),
+    },
+    {
+      tag: 'sup',
+      description: (
+        <>
+          <Badge color="blue">Inline</Badge> Render text as <sup>superscript</sup>
+        </>
+      ),
     },
   ]}
 />
@@ -62,21 +150,21 @@ This is the most common HTML tags you will use. You would put these inside `<bod
 
 ```html
 <!-- div creates its own line -->
-<div style="background-color: blue; color: white">
+<div style="background-color: red; color: white">
   I'm creating a new line!
 </div>
 
 <!-- span flows inline with the surrounding text -->
 Lorem ipsum
-<span style="background-color: red; color: white">
+<span style="background-color: blue; color: white">
   I'm flowing with the text
 </span>
 dolor sit amet
 ```
 
 <LightBox label="Preview">
-  <div style={{ backgroundColor: 'blue', color: 'white' }}>I'm creating a new line!</div>
-  Lorem ipsum <span style={{ backgroundColor: 'red', color: 'white' }}>
+  <div style={{ backgroundColor: 'red', color: 'white' }}>I'm creating a new line!</div>
+  Lorem ipsum <span style={{ backgroundColor: 'blue', color: 'white' }}>
     I'm flowing with the text
   </span> dolor sit amet
 </LightBox>
