@@ -23,6 +23,13 @@ const useSyntaxHighlighterPaths = new Set(['/web', '/sample']);
 
 const useLatexPaths = new Set(['/sample']);
 
+const gtagScript = `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0Q02ZPV32H');
+`;
+
 // ================================================================================
 // MAIN
 // ================================================================================
@@ -72,6 +79,9 @@ function MyApp(props: Props) {
             href="https://highlightjs.org/static/demo/styles/atom-one-dark.css"
           />
         )}
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-0Q02ZPV32H" />
+        <script dangerouslySetInnerHTML={{ __html: gtagScript }} />
       </Head>
 
       <LayoutRenderer>
