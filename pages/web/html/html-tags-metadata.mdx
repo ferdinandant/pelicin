@@ -1,5 +1,13 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, SyntaxHighlighter, Badge } from '@pelicin/components';
+import {
+  References,
+  FixedColumnWidthTable,
+  SyntaxHighlighter,
+  Badge,
+  NoteBox,
+} from '@pelicin/components';
+
+<MetadataConfigurer title="List of HTML Tags" dateCreated="2021-01-20" />
 
 export const Attribute = (props) => (
   <strong>
@@ -7,11 +15,77 @@ export const Attribute = (props) => (
   </strong>
 );
 
-<MetadataConfigurer title="List of HTML Tags" dateCreated="2021-01-20" />
-
 # HTML Tags: Metadata
 
-This is the list of HTML tags you would normally put in `<head>`.
+<NoteBox type="info">
+  <p>
+    This chapter is quite technical/advanced. If this is your first time learning HTML, just
+    remember these three:
+  </p>
+  <ul>
+    <li>
+      <code style={{ fontWeight: 'bold' }}>&lt;title&gt;...&lt;/title&gt;</code> is used to change
+      the browser's title bar.
+    </li>
+    <li>
+      <code style={{ fontWeight: 'bold' }}>&lt;link rel="stylesheet" href="..."&gt;</code> is used
+      to load external CSS file
+    </li>
+    <li>
+      <code style={{ fontWeight: 'bold' }}>&lt;style&gt;...&lt;/title&gt;</code> is used write CSS
+      directly in HTML file
+    </li>
+  </ul>
+</NoteBox>
+
+This is the list of HTML tags you would normally put inside `<head>`.
+
+<FixedColumnWidthTable
+  tableStyle={{
+    fontSize: '0.9em',
+  }}
+  headers={[
+    {
+      text: 'Tag',
+      key: 'tag',
+      formatContent: (tag) => (
+        <>
+          <a href={`#-${tag}-`}>
+            <code>&lt;{tag}&gt;</code>
+          </a>
+        </>
+      ),
+      contentStyle: { verticalAlign: 'top' },
+      width: 100,
+    },
+    {
+      text: 'Description',
+      key: 'description',
+    },
+  ]}
+  contents={[
+    {
+      tag: 'base',
+      description: 'Defines the base URL for all relative URLs in the page',
+    },
+    {
+      tag: 'title',
+      description: "Defines the document's title shown in the browser's title bar",
+    },
+    {
+      tag: 'link',
+      description: 'Specifies relationship with other document. (Normally used to load CSS.)',
+    },
+    {
+      tag: 'meta',
+      description: 'Represents metadata that cannot be represented with other tags.',
+    },
+    {
+      tag: 'style',
+      description: 'Defines the style (CSS) for the page.',
+    },
+  ]}
+/>
 
 ## `<base>`
 
@@ -196,10 +270,12 @@ to configure how social media sites display the thumbnail of your page.
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
   <!-- Author and description -->
   <!-- Description will appear on search engine result -->
   <meta name="author" content="Ferdinand Antonius" />
   <meta name="description" content="Pelicin makes flight booking easier" />
+
   <!-- Open graph (for social media thumbnail) -->
   <meta property="og:title" content="Pelicin" />
   <meta property="og:description" content="Pelicin makes flight booking easier." />
@@ -230,13 +306,18 @@ Defines the style (CSS) for the page. You can place this anywhere (even in `<bod
 <!-- prettier-ignore -->
 ```html
 <head>
-  <!-- Make paragraph text red by default -->
+  <!-- Make texts red by default -->
   <style>
-    p { color: red; }
+    body {
+      color: red;
+    }
   </style>
-  <!-- On small screens (width <= 600), it becomes blue -->
+
+  <!-- On small screens (width <= 600), they become blue -->
   <style media="screen and (max-width: 600px)">
-    p { color: blue; }
+    body {
+      color: blue;
+    }
   </style>
 </head>
 ```

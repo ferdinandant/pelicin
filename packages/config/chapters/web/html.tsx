@@ -1,3 +1,4 @@
+import React from 'react';
 import { TopicChapters } from '@pelicin/config';
 
 const chapters: TopicChapters = [
@@ -15,12 +16,26 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'HTML Tags',
+    chapter: <>HTML Tags in <code>&lt;head&gt;</code></>,
     children: [
       {
         title: 'HTML Tags: Metadata',
         path: '/web/html/html-tags-metadata'
       },
+    ]
+  },
+  {
+    chapter: <>HTML Tags in <code>&lt;body&gt;</code></>,
+    children: [
+      {
+        title: 'HTML Tags: the Basics',
+        path: '/web/html/html-tags-basics'
+      },
+    ]
+  },
+  {
+    chapter: 'HTML Attributes',
+    children: [
       {
         title: 'Recurring HTML Attributes',
         path: '/web/html/html-attributes-recurring'
