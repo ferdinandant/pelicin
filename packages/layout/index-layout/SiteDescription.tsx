@@ -10,6 +10,7 @@ export default function SiteDescription() {
             <ul>
               <li>I like to forget stuffs that I learned</li>
               <li>I need references sometimes</li>
+              <li>I want to be a bit productive</li>
             </ul>
           </section>
           <section className="column">
