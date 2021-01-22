@@ -1,5 +1,5 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+import { References, FixedColumnWidthTable, NoteBox, LightBox, Badge } from '@pelicin/components';
 
 export const Attribute = (props) => (
   <strong>
@@ -12,6 +12,10 @@ export const Attribute = (props) => (
 # HTML Tags: The Basics
 
 These are the most common HTML tags. You would put these inside `<body>`, since they correspond to the content of your web page.
+
+- <dfn>Block-level elements</dfn> will be placed in their own line
+
+- <dfn>Inline elements</dfn> will flow in-line with the surrounding text
 
 <FixedColumnWidthTable
   tableStyle={{
@@ -148,10 +152,10 @@ These are the most common HTML tags. You would put these inside `<body>`, since 
 
 ## `<div>` and `<span>`
 
-`<div>` is used to create generic <dfn>block-level container</dfn>, which means the content inside it will take the whole horizontal space of its parent
+`<div>` is used to create generic <dfn>block-level container</dfn>, which means it will take the whole horizontal space of its parent
 (it will be on its new line).
 
-`<span>` is used to create generic <dfn>inline container</dfn>, which means the content inside it will flow with the current line of text.
+`<span>` is used to create generic <dfn>inline container</dfn>, which means it will flow with the current line of text.
 
 ```html
 <!-- div creates its own line -->
