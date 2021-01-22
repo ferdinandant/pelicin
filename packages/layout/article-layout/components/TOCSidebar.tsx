@@ -219,9 +219,10 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
         a.active::before {
           content: '';
           height: 100%;
-          left: -1px;
+          left: -2px;
           position: absolute;
-          border-left: 6px solid ${accentColor};
+          border-right: 6px solid ${accentColor};
+          border-radius: var(--border-radius-normal);
         }
       `}</style>
     </>
