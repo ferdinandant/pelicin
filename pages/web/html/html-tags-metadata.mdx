@@ -86,10 +86,10 @@ Defines the base URL for all relative URLs in the page (you will rarely use this
 <Badge color="blue">Possible attributes</Badge>
 <ul>
   <li>
-    <Attribute>href</Attribute> &mdash; the base URL
+    <Attribute>href=[...]</Attribute> &mdash; the base URL
   </li>
   <li>
-    <Attribute>target</Attribute> &mdash; where to open it (
+    <Attribute>target=[...]</Attribute> &mdash; where to open it (
     <a href="/web/html/html-attributes-recurring#target">read here</a>)
   </li>
 </ul>
@@ -124,11 +124,11 @@ Specifies relationship with other document. (Normally used to load CSS.)
 <Badge color="blue">Common attributes</Badge>
 <ul>
   <li>
-    <Attribute>href</Attribute> &mdash; URL of the linked resource
+    <Attribute>href=[...]</Attribute> &mdash; URL of the linked resource
   </li>
   <li>
-    <Attribute>rel</Attribute> &mdash; relation of the linked document to this document. Can be (not
-    exhaustive):
+    <Attribute>rel=[...]</Attribute> &mdash; relation of the linked document to this document. Can
+    be (not exhaustive):
     <ul>
       <li>
         <code>stylesheet</code> <i>(it's a CSS for this page)</i>
@@ -156,22 +156,23 @@ Specifies relationship with other document. (Normally used to load CSS.)
     </ul>
   </li>
   <li>
-    <Attribute>media</Attribute> &mdash; only load this resource if the media query matches (e.g.{' '}
-    <code>print</code> or <code>screen and (min-width: 600px)</code>)
+    <Attribute>media=[...]</Attribute> &mdash; only load this resource if the media query matches
+    (e.g. <code>print</code> or <code>screen and (min-width: 600px)</code>)
   </li>
 </ul>
 
 <Badge color="blue">Attributes related to security</Badge>
 <ul>
   <li>
-    <Attribute>integrity</Attribute> &mdash; hash of resource to make sure it hasn't been tampered
+    <Attribute>integrity=[...]</Attribute> &mdash; hash of resource to make sure it hasn't been
+    tampered
   </li>
   <li>
-    <Attribute>crossorigin</Attribute> &mdash;{' '}
+    <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
     <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
   </li>
   <li>
-    <Attribute>referrerpolicy</Attribute> &mdash;{' '}
+    <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
     <a href="web/html/html-attributes-recurring#referrerpolicy"> read here</a>
   </li>
 </ul>
@@ -181,7 +182,8 @@ Specifies relationship with other document. (Normally used to load CSS.)
 </Badge>
 <ul>
   <li>
-    <Attribute>hreflang</Attribute> &mdash; tells the language of the linked resource (e.g. "en-US")
+    <Attribute>hreflang=[...]</Attribute> &mdash; tells the language of the linked resource (e.g.
+    "en-US")
   </li>
 </ul>
 
@@ -190,7 +192,7 @@ Specifies relationship with other document. (Normally used to load CSS.)
 </Badge>
 <ul>
   <li>
-    <Attribute>as</Attribute> &mdash; what you would have put as "rel" if you didn't put
+    <Attribute>as=[...]</Attribute> &mdash; what you would have put as "rel" if you didn't put
     preload/prefetch
   </li>
 </ul>
@@ -200,11 +202,11 @@ Specifies relationship with other document. (Normally used to load CSS.)
 </Badge>
 <ul>
   <li>
-    <Attribute>imagesrcset</Attribute> &mdash; <code>srcset</code> value of an{' '}
+    <Attribute>imagesrcset=[...]</Attribute> &mdash; <code>srcset</code> value of an{' '}
     <code>&lt;img srcset="..." sizes="..."&gt;</code> you want to preload
   </li>
   <li>
-    <Attribute>imagesizes</Attribute> &mdash; <code>sizes</code> value of an{' '}
+    <Attribute>imagesizes=[...]</Attribute> &mdash; <code>sizes</code> value of an{' '}
     <code>&lt;img srcset="..." sizes="..."&gt;</code> you want to preload
   </li>
 </ul>
@@ -234,18 +236,20 @@ to configure how social media sites display the thumbnail of your page.
 
 <ul>
   <li>
-    <Attribute>name</Attribute> &mdash; Key like <code>author</code> or <code>description</code> (
+    <Attribute>name=[...]</Attribute> &mdash; Key like <code>author</code> or{' '}
+    <code>description</code> (
     <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name">
       see here for the list
     </a>
     )
   </li>
   <li>
-    <Attribute>http-equiv</Attribute> &mdash; Key to simulate HTTP response header, like{' '}
+    <Attribute>http-equiv=[...]</Attribute> &mdash; Key to simulate HTTP response header, like{' '}
     <code>content-security-policy</code> or <code>content-type</code>
   </li>
   <li>
-    <Attribute>content</Attribute> &mdash; value for <code>name</code> or <code>http-equiv</code>
+    <Attribute>content=[...]</Attribute> &mdash; value for <code>name</code> or{' '}
+    <code>http-equiv</code>
   </li>
 </ul>
 
@@ -253,8 +257,8 @@ to configure how social media sites display the thumbnail of your page.
 
 <ul>
   <li>
-    <Attribute>charset</Attribute> &mdash; What character encoding to use. Only <code>utf-8</code>{' '}
-    is valid.
+    <Attribute>charset=[...]</Attribute> &mdash; What character encoding to use. Only{' '}
+    <code>utf-8</code> is valid.
   </li>
 </ul>
 
@@ -284,11 +288,11 @@ Defines the style (CSS) for the page. You can place this anywhere (even in `<bod
 
 <ul>
   <li>
-    <Attribute>media</Attribute> &mdash; The media to which the style is applied, e.g.{' '}
+    <Attribute>media=[...]</Attribute> &mdash; The media to which the style is applied, e.g.{' '}
     <code>screen and (max-width: 600px)</code>
   </li>
   <li>
-    <Attribute>nonce</Attribute> &mdash; Nonce for{' '}
+    <Attribute>nonce=[...]</Attribute> &mdash; Nonce for{' '}
     <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">
       CSP
     </a>
