@@ -156,6 +156,11 @@ ul {
   margin-top: var(--spacing-m);
   margin-bottom: var(--spacing-m);
 }
+ol {
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+}
+
 ul ul {
   list-style-type: circle;
 }
