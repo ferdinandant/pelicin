@@ -189,6 +189,16 @@ th {
   background-color: var(--color-gray-1);
 }
 
+tbody th {
+  background-color: transparent;
+}
+thead th,
+thead td,
+tfoot th,
+tfoot td {
+  background-color: var(--color-gray-1);
+}
+
 table p,
 table ul,
 table ol,

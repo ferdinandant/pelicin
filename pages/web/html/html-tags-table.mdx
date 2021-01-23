@@ -36,7 +36,11 @@ These are the HTML tags you use to make tables.
       text: 'Tag',
       key: 'tag',
       formatContent: (tag) => {
-        const specialMapping = {};
+        const specialMapping = {
+          thead: 'thead-tbody-and-tfoot',
+          tbody: 'thead-tbody-and-tfoot',
+          tfoot: 'thead-tbody-and-tfoot',
+        };
         return (
           <>
             <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
@@ -87,6 +91,21 @@ These are the HTML tags you use to make tables.
       tag: 'td',
       type: 'other',
       description: 'Represents table data cell',
+    },
+    {
+      tag: 'thead',
+      type: 'other',
+      description: 'Defines rows that are part of table header',
+    },
+    {
+      tag: 'tbody',
+      type: 'other',
+      description: 'Defines rows that are part of table body',
+    },
+    {
+      tag: 'tfoot',
+      type: 'other',
+      description: 'Defines rows that are part of table footer',
     },
   ]}
 />
@@ -161,7 +180,8 @@ Defines a <em>table header</em> cell.
     (e.g. for screen readers)
   </li>
   <li>
-    <Attribute>scope=[...]</Attribute> &mdash; Can be:
+    <Attribute>scope=[...]</Attribute> &mdash; adds semantic info: what's the scope of the header
+    cell. Can be:
     <ul>
       <li>
         <code>row</code> <i>(the header is associated with this row)</i>
@@ -181,9 +201,8 @@ Defines a <em>table header</em> cell.
     </ul>
   </li>
   <li>
-    <Attribute>headers=[...]</Attribute> &mdash; assuming this cell has parent header cell(s), this
-    is the space-separated <code>id</code> values of its <code>{`<th id="...">`}</code> parent
-    header cell(s). See example below.
+    <Attribute>headers=[...]</Attribute> &mdash; adds semantic info: what are the <code>id</code>'s
+    of the this cell's parent <code>{`<th id="...">`}</code> cells (separated by space).
   </li>
 </ul>
 
@@ -201,13 +220,109 @@ Defines a <em>table header</em> cell.
 
 <!-- prettier-ignore -->
 <LightBox label="Preview">
+  <table>
+    <tr>
+      <th id="name" scope="colgroup" colspan="2">Name</th>
+    </tr>
+    <tr>
+      <th scope="col" headers="name">First Name</th>
+      <th scope="col" headers="name">Last Name</th>
+    </tr>
+  </table>
+</LightBox>
+
+## `<td>`
+
+Defines a <em>table data</em> cell.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>colspan=[...]</Attribute> &mdash; how many columns the cell extends to
+  </li>
+  <li>
+    <Attribute>rowspan=[...]</Attribute> &mdash; how many rows the cell extends to
+  </li>
+</ul>
+
+<Badge color="blue">Obscure attributes</Badge>
+<ul>
+  <li>
+    <Attribute>headers=[...]</Attribute> &mdash; adds semantic info: what are the <code>id</code>'s
+    of the this cell's parent <code>{`<th id="...">`}</code> cells (separated by space).
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<table>
   <tr>
-    <th id="name" scope="colgroup" colspan="2">Name</th>
+    <td colspan="2" rowspan="2" style="background-color: #eeeeee">1</td>
+    <td>2</td>
   </tr>
   <tr>
-    <th scope="col" headers="name">First Name</th>
-    <th scope="col" headers="name">Last Name</th>
+    <td>3</td>
   </tr>
+  <tr>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+  </tr>
+</table>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+<table>
+  <tr>
+    <td colspan="2" rowspan="2" style={{backgroundColor: '#eeeeee'}}>1</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+  </tr>
+</table>
+</LightBox>
+
+## `<thead>`, `<tbody>`, and `<tfoot>`
+
+Add semantic which rows are part of the <em>table header</em>, <em>table body</em>, and <em>table footer</em>. (On their own they don't do anything.)
+
+<!-- prettier-ignore -->
+```html
+<table>
+  <thead>
+    <tr><th>Name</th><th>Test 1</th><th>Test 2</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>James</th><td>80</td><td>90</td></tr>
+    <tr><th>Bond</th><td>70</td><td>100</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Average</th><td>75</td><td>95</td></tr>
+  </tfoot>
+</table>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+<table>
+  <thead>
+    <tr><th>Name</th><th>Test 1</th><th>Test 2</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>James</th><td>80</td><td>90</td></tr>
+    <tr><th>Bond</th><td>70</td><td>100</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Average</th><td>75</td><td>95</td></tr>
+  </tfoot>
+</table>
 </LightBox>
 
 ## References
