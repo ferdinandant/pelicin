@@ -22,10 +22,7 @@ These are the HTML tags you use to make lists.
       text: 'Tag',
       key: 'tag',
       formatContent: (tag) => {
-        const specialMapping = {
-          div: 'div-and-span',
-          span: 'div-and-span',
-        };
+        const specialMapping = {};
         return (
           <>
             <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
@@ -43,8 +40,10 @@ These are the HTML tags you use to make lists.
       formatContent: (type) => {
         return type === 'block' ? (
           <Badge color="red">Block</Badge>
-        ) : (
+        ) : type === 'inline' ? (
           <Badge color="blue">Inline</Badge>
+        ) : (
+          <Badge color="gray">Other</Badge>
         );
       },
       width: 80,
@@ -67,7 +66,7 @@ These are the HTML tags you use to make lists.
     },
     {
       tag: 'li',
-      type: 'block',
+      type: 'other',
       description: <>Used to create list item</>,
     },
   ]}

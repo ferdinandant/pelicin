@@ -47,8 +47,10 @@ These are the most common HTML tags. You would put these inside `<body>`, since 
       formatContent: (type) => {
         return type === 'block' ? (
           <Badge color="red">Block</Badge>
-        ) : (
+        ) : type === 'inline' ? (
           <Badge color="blue">Inline</Badge>
+        ) : (
+          <Badge color="gray">Other</Badge>
         );
       },
       width: 80,
