@@ -1,0 +1,138 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+
+export const Attribute = (props) => (
+  <strong>
+    <code>{props.children}</code>
+  </strong>
+);
+
+<MetadataConfigurer title="HTML Tags: Media" dateCreated="2021-01-22" />
+
+# HTML Tags: Media
+
+These are the HTML tags related to embedding media (picture, video, sound, etc).
+
+<FixedColumnWidthTable
+  tableStyle={{
+    fontSize: '0.9em',
+  }}
+  headers={[
+    {
+      text: 'Tag',
+      key: 'tag',
+      formatContent: (tag) => {
+        const specialMapping = {};
+        return (
+          <>
+            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
+              <code>&lt;{tag}&gt;</code>
+            </a>
+          </>
+        );
+      },
+      width: 100,
+    },
+    {
+      text: 'Type',
+      key: 'type',
+      formatContent: (type) => {
+        return type === 'block' ? (
+          <Badge color="red">Block</Badge>
+        ) : type === 'inline' ? (
+          <Badge color="blue">Inline</Badge>
+        ) : (
+          <Badge color="gray">Other</Badge>
+        );
+      },
+      width: 80,
+    },
+    {
+      text: 'Description',
+      key: 'description',
+    },
+  ]}
+  contents={[
+    {
+      tag: 'img',
+      type: 'inline',
+      description: 'Embeds image',
+    },
+    {
+      tag: 'audio',
+      type: 'inline',
+      description: 'Embeds audio',
+    },
+    {
+      tag: 'video',
+      type: 'inline',
+      description: 'Embeds video',
+    },
+    {
+      tag: 'map',
+      type: 'other',
+      description: '-',
+    },
+    {
+      tag: 'area',
+      type: 'other',
+      description: '-',
+    },
+    {
+      tag: 'track',
+      type: 'other',
+      description: '-',
+    },
+  ]}
+/>
+
+## `<img>`
+
+Embeds image
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>alt=[...]</Attribute> &mdash; alternative text describing the image (for screen
+    readers).
+  </li>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; image URL source
+  </li>
+  <li>
+    <Attribute>width=[...]</Attribute> &mdash; width of image in pixels
+  </li>
+  <li>
+    <Attribute>height=[...]</Attribute> &mdash; height of image in pixels
+  </li>
+  <li>
+    <Attribute>reversed</Attribute> &mdash; start numbering in reverse order
+  </li>
+</ul>
+
+```html
+<ul>
+  <li>Apple</li>
+  <li>Banana</li>
+  <li>Orange</li>
+</ul>
+```
+
+<LightBox label="Preview">
+  <ul>
+    <li>Apple</li>
+    <li>Banana</li>
+    <li>Orange</li>
+  </ul>
+</LightBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element#image_and_multimedia`,
+    },
+  ]}
+></References>
