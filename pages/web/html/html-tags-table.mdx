@@ -1,0 +1,462 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, FixedColumnWidthTable, LightBox, NoteBox, Badge } from '@pelicin/components';
+
+export const Attribute = (props) => (
+  <strong>
+    <code>{props.children}</code>
+  </strong>
+);
+
+<MetadataConfigurer title="HTML Tags: Table" dateCreated="2021-01-22" />
+
+# HTML Tags: Table
+
+<NoteBox type="info">
+  <p>
+    The only essential things on this page are:
+    <ul>
+      <li>
+        <code>{`<table>`}</code>, <code>{`<tr>`}</code>, <code>{`<th>`}</code>, <code>{`<td>`}</code>
+      </li>
+      <li>
+        <code>{`colspan`}</code> and <code>{`rowspan`}</code> attributes
+      </li>
+    </ul>
+  </p>
+</NoteBox>
+
+These are the HTML tags you use to make tables.
+
+<FixedColumnWidthTable
+  tableStyle={{
+    fontSize: '0.9em',
+  }}
+  headers={[
+    {
+      text: 'Tag',
+      key: 'tag',
+      formatContent: (tag) => {
+        const specialMapping = {
+          thead: 'thead-tbody-and-tfoot',
+          tbody: 'thead-tbody-and-tfoot',
+          tfoot: 'thead-tbody-and-tfoot',
+        };
+        return (
+          <>
+            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
+              <code>&lt;{tag}&gt;</code>
+            </a>
+          </>
+        );
+      },
+      width: 100,
+    },
+    {
+      text: 'Type',
+      key: 'type',
+      formatContent: (type) => {
+        return type === 'block' ? (
+          <Badge color="red">Block</Badge>
+        ) : type === 'inline' ? (
+          <Badge color="blue">Inline</Badge>
+        ) : (
+          <Badge color="gray">Other</Badge>
+        );
+      },
+      width: 80,
+    },
+    {
+      text: 'Description',
+      key: 'description',
+    },
+  ]}
+  contents={[
+    {
+      tag: 'table',
+      type: 'block',
+      description: 'Represents table',
+    },
+    {
+      tag: 'tr',
+      type: 'other',
+      description: 'Represents table row',
+    },
+    {
+      tag: 'th',
+      type: 'other',
+      description: 'Represents table header cell',
+    },
+    {
+      tag: 'td',
+      type: 'other',
+      description: 'Represents table data cell',
+    },
+    {
+      tag: 'thead',
+      type: 'other',
+      description: "Defines the row group that comprises the table's header (column header rows)",
+    },
+    {
+      tag: 'tbody',
+      type: 'other',
+      description: "Defines the row group that comprises the table's body",
+    },
+    {
+      tag: 'tfoot',
+      type: 'other',
+      description: "Defines the row group that comprises the table's footer (summarys rows)",
+    },
+    {
+      tag: 'colgroup',
+      type: 'other',
+      description: 'Defines a column group',
+    },
+    {
+      tag: 'col',
+      type: 'other',
+      description: 'Defines column that is part of a column group',
+    },
+    {
+      tag: 'caption',
+      type: 'other',
+      description: 'Adds table caption',
+    },
+  ]}
+/>
+
+## `<table>`
+
+Represents table.
+
+```html
+<table>
+  <tr>
+    <th>No.</th>
+    <th>Name</th>
+    <th>Address</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>John Doe</td>
+    <td>Sydney, Australia</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Takara Tomy</td>
+    <td>Kyushu, Japan</td>
+  </tr>
+</table>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Name</th>
+      <th>Address</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>John Doe</td>
+      <td>Sydney, Australia</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Takara Tomy</td>
+      <td>Kyushu, Japan</td>
+    </tr>
+  </table>
+</LightBox>
+
+## `<tr>`
+
+Represents <em>table row</em> (row of cells in table).
+
+## `<th>`
+
+Defines a <em>table header</em> cell.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>colspan=[...]</Attribute> &mdash; how many columns the cell extends to
+  </li>
+  <li>
+    <Attribute>rowspan=[...]</Attribute> &mdash; how many rows the cell extends to
+  </li>
+</ul>
+
+<Badge color="blue">Obscure attributes</Badge>
+<ul>
+  <li>
+    <Attribute>abbr=[...]</Attribute> &mdash; short abbreviated description of the cell's content
+    (e.g. for screen readers)
+  </li>
+  <li>
+    <Attribute>scope=[...]</Attribute> &mdash; adds semantic info: what's the scope of the header
+    cell. Can be:
+    <ul>
+      <li>
+        <code>row</code> <i>(the header is associated with this row)</i>
+      </li>
+      <li>
+        <code>col</code> <i>(the header is associated with this column)</i>
+      </li>
+      <li>
+        <code>rowgroup</code> <i>(the header is associated with a group of rows)</i>
+      </li>
+      <li>
+        <code>colgroup</code> <i>(the header is associated with a group of columns)</i>
+      </li>
+      <li>
+        <code>auto</code> <i>(the default value)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>headers=[...]</Attribute> &mdash; adds semantic info: what are the <code>id</code>'s
+    of the this cell's parent <code>{`<th id="...">`}</code> cells (separated by space).
+  </li>
+</ul>
+
+```html
+<table>
+  <tr>
+    <th id="name" scope="colgroup" colspan="2">Name</th>
+  </tr>
+  <tr>
+    <th scope="col" headers="name">First Name</th>
+    <th scope="col" headers="name">Last Name</th>
+  </tr>
+</table>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+  <table>
+    <tr>
+      <th id="name" scope="colgroup" colspan="2">Name</th>
+    </tr>
+    <tr>
+      <th scope="col" headers="name">First Name</th>
+      <th scope="col" headers="name">Last Name</th>
+    </tr>
+  </table>
+</LightBox>
+
+## `<td>`
+
+Defines a <em>table data</em> cell.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>colspan=[...]</Attribute> &mdash; how many columns the cell extends to
+  </li>
+  <li>
+    <Attribute>rowspan=[...]</Attribute> &mdash; how many rows the cell extends to
+  </li>
+</ul>
+
+<Badge color="blue">Obscure attributes</Badge>
+<ul>
+  <li>
+    <Attribute>headers=[...]</Attribute> &mdash; adds semantic info: what are the <code>id</code>'s
+    of the this cell's parent <code>{`<th id="...">`}</code> cells (separated by space).
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<table>
+  <tr>
+    <td colspan="2" rowspan="2" style="background-color: #ffdddd">1</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+  </tr>
+</table>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+  <table>
+    <tr>
+      <td colspan="2" rowspan="2" style={{backgroundColor: '#ffdddd'}}>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+  </table>
+</LightBox>
+
+## `<thead>`, `<tbody>`, and `<tfoot>`
+
+Add semantics: which rows are part of the <em>table header</em>, <em>table body</em>, and <em>table footer</em>. (On their own they don't do anything.)
+
+<!-- prettier-ignore -->
+```html
+<table>
+  <thead>
+    <tr><th>Name</th><th>Test 1</th><th>Test 2</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>James</th><td>80</td><td>90</td></tr>
+    <tr><th>Bond</th><td>70</td><td>100</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Average</th><td>75</td><td>95</td></tr>
+  </tfoot>
+</table>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Test 1</th><th>Test 2</th></tr>
+    </thead>
+    <tbody>
+      <tr><th>James</th><td>80</td><td>90</td></tr>
+      <tr><th>Bond</th><td>70</td><td>100</td></tr>
+    </tbody>
+    <tfoot>
+      <tr><th>Average</th><td>75</td><td>95</td></tr>
+    </tfoot>
+  </table>
+</LightBox>
+
+## `<colgroup>` and `<col>`
+
+Add semantics: declares which columns form a <em>column group</em>.
+
+You normally put `<col>` inside `<colgroup>` to signify that those columns have the same semantics.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>span=[...]</Attribute> &mdash; how many columns the <code>{`<colgroup>`}</code> or{' '}
+    <code>{`<col>`}</code> spans.
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<table>
+  <colgroup>
+    <col style="background-color: #ffdddd"/>
+    <col style="background-color: #ddffdd"/>
+    <col span="2" style="background-color: #ddddff"/>
+  </colgroup>
+  <tr>
+    <th>ISBN</th><th>Title</th><th>Old Price</th><th>New Price</th>
+  </tr>
+  <tr>
+    <td>1234567</td><td>My First HTML</td><td>$10</td><td>$15</td>
+  </tr>
+  <tr>
+    <td>1234568</td><td>My First CSS</td><td>$12</td><td>$16</td>
+  </tr>
+</table>
+```
+
+<LightBox label="Preview">
+  <table>
+    <colgroup>
+      <col style={{ backgroundColor: '#ffdddd' }} />
+      <col style={{ backgroundColor: '#ddffdd' }} />
+      <col span="2" style={{ backgroundColor: '#ddddff' }} />
+    </colgroup>
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Old Price</th>
+      <th>New Price</th>
+    </tr>
+    <tr>
+      <td>1234567</td>
+      <td>My First HTML</td>
+      <td>$10</td>
+      <td>$15</td>
+    </tr>
+    <tr>
+      <td>1234568</td>
+      <td>My First CSS</td>
+      <td>$12</td>
+      <td>$16</td>
+    </tr>
+  </table>
+</LightBox>
+
+## `<caption>`
+
+Adds table caption.
+
+<!-- prettier-ignore -->
+```html
+<table>
+  <caption>Pokémon Evolution</caption>
+  <tr>
+    <th>Basic</th>
+    <th>Stage 1</th>
+    <th>Stage 2</th>
+  </tr>
+  <tr>
+    <td>Charmander</td>
+    <td>Charmeleon</td>
+    <td>Charlizard</td>
+  </tr>
+</table>
+```
+
+<LightBox label="Preview">
+  <table>
+    <caption>Pokémon Evolution</caption>
+    <tr>
+      <th>Basic</th>
+      <th>Stage 1</th>
+      <th>Stage 2</th>
+    </tr>
+    <tr>
+      <td>Charmander</td>
+      <td>Charmeleon</td>
+      <td>Charlizard</td>
+    </tr>
+  </table>
+</LightBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+    {
+      text: '<th> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th`,
+    },
+    {
+      text: 'HTML <th> headers Attribute (W3Schools)',
+      link: `https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_th_headers`,
+    },
+    {
+      text: 'HTML <colgroup> Tag (W3Schools)',
+      link: `https://www.w3schools.com/tags/tag_colgroup.asp`,
+    },
+  ]}
+></References>

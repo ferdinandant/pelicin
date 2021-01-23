@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import classNames from 'classnames';
 import { debounce } from 'debounce';
 
@@ -21,7 +21,7 @@ type TOCSidebarItemProps = {
   onClickSidebarItem: (anchorHash: string) => void;
 };
 
-const ANCHOR_VIEWED_TOP_THRESHOLD_PX = 100;
+const ANCHOR_VIEWED_THRESHOLD_VH = 1 / 3;
 
 const SCROLL_EVENT_COOLDOWN_MS = 50;
 
@@ -77,7 +77,7 @@ function TOCSidebarContent() {
     };
   }, []);
 
-  function handleScroll() {
+  const handleScroll = useCallback(() => {
     const currentTs = Date.now();
     const lastClickSidebarItemTs = lastClickSidebarItemTsRef.current;
     let newOnScreenAnchorHash = anchorHashes[0];
@@ -94,19 +94,23 @@ function TOCSidebarContent() {
       if (!element) {
         continue;
       }
-      if (rect.top <= ANCHOR_VIEWED_TOP_THRESHOLD_PX) {
+      const threshold = ANCHOR_VIEWED_THRESHOLD_VH * window.innerHeight;
+      if (rect.top <= threshold) {
         newOnScreenAnchorHash = anchorHash;
       } else {
         break;
       }
     }
     setOnScreenAnchorHash(newOnScreenAnchorHash);
-  }
+  }, [lastClickSidebarItemTsRef, typeof window !== 'undefined' && window.innerHeight]);
 
-  function handleClickSidebarItem(anchorHash) {
-    lastClickSidebarItemTsRef.current = Date.now();
-    setOnScreenAnchorHash(anchorHash);
-  }
+  const handleClickSidebarItem = useCallback(
+    (anchorHash) => {
+      lastClickSidebarItemTsRef.current = Date.now();
+      setOnScreenAnchorHash(anchorHash);
+    },
+    [lastClickSidebarItemTsRef]
+  );
 
   return (
     <>
@@ -219,9 +223,10 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
         a.active::before {
           content: '';
           height: 100%;
-          left: -1px;
+          left: -2px;
           position: absolute;
-          border-left: 6px solid ${accentColor};
+          border-right: 6px solid ${accentColor};
+          border-radius: var(--border-radius-normal);
         }
       `}</style>
     </>

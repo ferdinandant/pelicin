@@ -1,0 +1,205 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+
+export const Attribute = (props) => (
+  <strong>
+    <code>{props.children}</code>
+  </strong>
+);
+
+<MetadataConfigurer title="HTML Tags: List" dateCreated="2021-01-22" />
+
+# HTML Tags: List
+
+These are the HTML tags you use to make lists.
+
+<FixedColumnWidthTable
+  tableStyle={{
+    fontSize: '0.9em',
+  }}
+  headers={[
+    {
+      text: 'Tag',
+      key: 'tag',
+      formatContent: (tag) => {
+        const specialMapping = {};
+        return (
+          <>
+            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
+              <code>&lt;{tag}&gt;</code>
+            </a>
+          </>
+        );
+      },
+      width: 100,
+    },
+    {
+      text: 'Type',
+      key: 'type',
+      formatContent: (type) => {
+        return type === 'block' ? (
+          <Badge color="red">Block</Badge>
+        ) : type === 'inline' ? (
+          <Badge color="blue">Inline</Badge>
+        ) : (
+          <Badge color="gray">Other</Badge>
+        );
+      },
+      width: 80,
+    },
+    {
+      text: 'Description',
+      key: 'description',
+    },
+  ]}
+  contents={[
+    {
+      tag: 'ul',
+      type: 'block',
+      description: <>Used to create unordered list</>,
+    },
+    {
+      tag: 'ol',
+      type: 'block',
+      description: <>Used to create ordered list</>,
+    },
+    {
+      tag: 'li',
+      type: 'other',
+      description: <>Used to create list item</>,
+    },
+  ]}
+/>
+
+## `<ul>`
+
+Creates <dfn>unordered list</dfn> (unnumbered).
+
+```html
+<ul>
+  <li>Apple</li>
+  <li>Banana</li>
+  <li>Orange</li>
+</ul>
+```
+
+<LightBox label="Preview">
+  <ul>
+    <li>Apple</li>
+    <li>Banana</li>
+    <li>Orange</li>
+  </ul>
+</LightBox>
+
+## `<ol>`
+
+Creates <dfn>ordered list</dfn> (numbered).
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>type=[...]</Attribute> &mdash; numbering type. Can be:
+    <ul>
+      <li>
+        <code>1</code> <i>(numbers: 1, 2, 3, ...)</i>
+      </li>
+      <li>
+        <code>a</code> <i>(lowercase letters: a, b, c, ...)</i>
+      </li>
+      <li>
+        <code>A</code> <i>(uppercase letters: A, B, C, ...)</i>
+      </li>
+      <li>
+        <code>i</code> <i>(lowercase Roman: i, ii, iii, ...)</i>
+      </li>
+      <li>
+        <code>I</code> <i>(uppercase Roman: I, II, III, ...)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>start=[...]</Attribute> &mdash; from what number the list starts (always use arabic
+    numeral like 1, 2, 3 for the value regardless of <code>type</code>)
+  </li>
+  <li>
+    <Attribute>reversed</Attribute> &mdash; start numbering in reverse order
+  </li>
+</ul>
+
+```html
+<ol>
+  <li>One</li>
+  <li>Two</li>
+  <li>Three</li>
+</ol>
+```
+
+<LightBox label="Preview">
+  <ol>
+    <li>One</li>
+    <li>Two</li>
+    <li>Three</li>
+  </ol>
+</LightBox>
+
+## `<li>`
+
+Defines <dfn>list item</dfn>. It must be put inside `<ol>` or `<ul>`.
+
+You can create nested list by putting `<ol>` or `<ul>` inside `<li>`.
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>value=[...]</Attribute> &mdash; set current numeral value for <code>&lt;ol&gt;</code>{' '}
+    (always use arabic numeral like 1, 2, 3 for the value). The next list item will continue
+    numbering from this value.
+  </li>
+</ul>
+
+```html
+<ol type="I">
+  <li value="3">third item</li>
+  <li>fourth item</li>
+  <li>
+    fifth item
+    <ul>
+      <li>subitem A</li>
+      <li>subitem B</li>
+    </ul>
+  </li>
+</ol>
+```
+
+<LightBox label="Preview">
+  <ol type="I">
+    <li value="3">third item</li>
+    <li>fourth item</li>
+    <li>
+      fifth item
+      <ul>
+        <li>subitem A</li>
+        <li>subitem B</li>
+      </ul>
+    </li>
+  </ol>
+</LightBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+    {
+      text: '<ol>: The Ordered List element (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol`,
+    },
+    {
+      text: '<li> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li`,
+    },
+  ]}
+></References>

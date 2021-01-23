@@ -31,6 +31,14 @@ const chapters: TopicChapters = [
         title: 'HTML Tags: The Basics',
         path: '/web/html/html-tags-basics'
       },
+      {
+        title: 'HTML Tags: List',
+        path: '/web/html/html-tags-list'
+      },
+      {
+        title: 'HTML Tags: Table',
+        path: '/web/html/html-tags-table'
+      },
     ]
   },
   {

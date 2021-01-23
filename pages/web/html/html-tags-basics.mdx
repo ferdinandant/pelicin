@@ -1,5 +1,5 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+import { References, FixedColumnWidthTable, NoteBox, LightBox, Badge } from '@pelicin/components';
 
 export const Attribute = (props) => (
   <strong>
@@ -7,11 +7,15 @@ export const Attribute = (props) => (
   </strong>
 );
 
-<MetadataConfigurer title="List of HTML Tags" dateCreated="2021-01-22" />
+<MetadataConfigurer title="HTML Tags: The Basics" dateCreated="2021-01-22" />
 
 # HTML Tags: The Basics
 
-This is the most common HTML tags you will use. You would put these inside `<body>`, since they correspond to the content of your web page.
+These are the most common HTML tags. You would put these inside `<body>`, since they correspond to the content of your web page.
+
+- <dfn>Block-level elements</dfn> will be placed in their own line
+
+- <dfn>Inline elements</dfn> will flow in-line with the surrounding text
 
 <FixedColumnWidthTable
   tableStyle={{
@@ -34,7 +38,6 @@ This is the most common HTML tags you will use. You would put these inside `<bod
           </>
         );
       },
-      contentStyle: { verticalAlign: 'top' },
       width: 100,
     },
     {
@@ -43,8 +46,10 @@ This is the most common HTML tags you will use. You would put these inside `<bod
       formatContent: (type) => {
         return type === 'block' ? (
           <Badge color="red">Block</Badge>
-        ) : (
+        ) : type === 'inline' ? (
           <Badge color="blue">Inline</Badge>
+        ) : (
+          <Badge color="gray">Other</Badge>
         );
       },
       width: 80,
@@ -148,9 +153,12 @@ This is the most common HTML tags you will use. You would put these inside `<bod
 
 ## `<div>` and `<span>`
 
-`<div>` is used to create generic <dfn>block-level container</dfn>, which means the content inside it will take the whole line.
+`<div>` is used to create generic <dfn>block-level container</dfn>, which means it will take the whole horizontal space of its parent
+(it will be on its new line).
 
-`<span>` is used to create generic <dfn>inline container</dfn>, which means the content inside it will flow with the current line of text.
+`<span>` is used to create generic <dfn>inline container</dfn>, which means it will flow with the current line of text.
+
+These containers by themselves will not change how the content is displayed; you will normally use this for layouting and styling with CSS.
 
 ```html
 <!-- div creates its own line -->
@@ -233,16 +241,16 @@ Creates <dfn>anchors</dfn> and hyperlinks.
 <Badge color="blue">Possible attributes</Badge>
 <ul>
   <li>
-    <Attribute>href</Attribute> &mdash; where the link points to
+    <Attribute>href=[...]</Attribute> &mdash; where the link points to
   </li>
   <li>
-    <Attribute>target</Attribute> &mdash; where to open it (
+    <Attribute>target=[...]</Attribute> &mdash; where to open it (
     <a href="/web/html/html-attributes-recurring#target">read here</a>)
   </li>
   <li>
-    <Attribute>download</Attribute> &mdash; instead of opening the link, prompt the user to download
-    it. If value is given, it will be the name of the downloaded file. (Only works for same-origin
-    URLs, or <code>blob:</code> and <code>data:</code> schemes)
+    <Attribute>download=[...]</Attribute> &mdash; instead of opening the link, prompt the user to
+    download it. If value is not empty, it will be the name of the downloaded file. (Only works for
+    same-origin URLs, or <code>blob:</code> and <code>data:</code> schemes)
   </li>
 </ul>
 
@@ -315,26 +323,26 @@ Renders text with <em>strikethrough</em>.
 
 ## `<sub>`
 
-Renders text as <em>subscript</em>.
+Renders text as <em>subscript</em>
 
 ```html
-I'm a <sub>subscript</sub>.
+I'm a <sub>subscript</sub>
 ```
 
 <LightBox label="Preview">
-  I'm a <sub>subscript</sub>.
+  I'm a <sub>subscript</sub>
 </LightBox>
 
 ## `<sup>`
 
-Renders text as <em>superscript</em>.
+Renders text as <em>superscript</em>
 
 ```html
-I'm a <sub>superscript</sub>.
+I'm a <sup>superscript</sup>
 ```
 
 <LightBox label="Preview">
-  I'm a <sub>superscript</sub>.
+  I'm a <sup>superscript</sup>
 </LightBox>
 
 ## References

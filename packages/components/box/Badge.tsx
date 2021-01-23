@@ -21,6 +21,10 @@ export default function Badge(props: Props) {
         .badge :global(code) {
           background-color: transparent;
         }
+        .badge.gray {
+          background-color: var(--color-gray-1);
+          color: var(--color-gray-4);
+        }
         .badge.blue {
           background-color: var(--color-blue-1);
           color: var(--color-blue-4);
