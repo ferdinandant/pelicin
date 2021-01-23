@@ -177,6 +177,8 @@ li {
 
 table {
   width: 100%;
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
 }
 
 th,
@@ -204,6 +206,10 @@ table ul,
 table ol,
 table pre {
   margin-top: var(--spacing-s);
+  margin-bottom: var(--spacing-s);
+}
+
+caption {
   margin-bottom: var(--spacing-s);
 }
 

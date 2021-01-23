@@ -49,7 +49,6 @@ These are the HTML tags you use to make tables.
           </>
         );
       },
-      contentStyle: { verticalAlign: 'top' },
       width: 100,
     },
     {
@@ -95,17 +94,32 @@ These are the HTML tags you use to make tables.
     {
       tag: 'thead',
       type: 'other',
-      description: 'Defines rows that are part of table header',
+      description: "Defines the row group that comprises the table's header (column header rows)",
     },
     {
       tag: 'tbody',
       type: 'other',
-      description: 'Defines rows that are part of table body',
+      description: "Defines the row group that comprises the table's body",
     },
     {
       tag: 'tfoot',
       type: 'other',
-      description: 'Defines rows that are part of table footer',
+      description: "Defines the row group that comprises the table's footer (summarys rows)",
+    },
+    {
+      tag: 'colgroup',
+      type: 'other',
+      description: 'Defines a column group',
+    },
+    {
+      tag: 'col',
+      type: 'other',
+      description: 'Defines column that is part of a column group',
+    },
+    {
+      tag: 'caption',
+      type: 'other',
+      description: 'Adds table caption',
     },
   ]}
 />
@@ -257,7 +271,7 @@ Defines a <em>table data</em> cell.
 ```html
 <table>
   <tr>
-    <td colspan="2" rowspan="2" style="background-color: #eeeeee">1</td>
+    <td colspan="2" rowspan="2" style="background-color: #ffdddd">1</td>
     <td>2</td>
   </tr>
   <tr>
@@ -273,25 +287,25 @@ Defines a <em>table data</em> cell.
 
 <!-- prettier-ignore -->
 <LightBox label="Preview">
-<table>
-  <tr>
-    <td colspan="2" rowspan="2" style={{backgroundColor: '#eeeeee'}}>1</td>
-    <td>2</td>
-  </tr>
-  <tr>
-    <td>3</td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>5</td>
-    <td>6</td>
-  </tr>
-</table>
+  <table>
+    <tr>
+      <td colspan="2" rowspan="2" style={{backgroundColor: '#ffdddd'}}>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+  </table>
 </LightBox>
 
 ## `<thead>`, `<tbody>`, and `<tfoot>`
 
-Add semantic which rows are part of the <em>table header</em>, <em>table body</em>, and <em>table footer</em>. (On their own they don't do anything.)
+Add semantics: which rows are part of the <em>table header</em>, <em>table body</em>, and <em>table footer</em>. (On their own they don't do anything.)
 
 <!-- prettier-ignore -->
 ```html
@@ -311,18 +325,117 @@ Add semantic which rows are part of the <em>table header</em>, <em>table body</e
 
 <!-- prettier-ignore -->
 <LightBox label="Preview">
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Test 1</th><th>Test 2</th></tr>
+    </thead>
+    <tbody>
+      <tr><th>James</th><td>80</td><td>90</td></tr>
+      <tr><th>Bond</th><td>70</td><td>100</td></tr>
+    </tbody>
+    <tfoot>
+      <tr><th>Average</th><td>75</td><td>95</td></tr>
+    </tfoot>
+  </table>
+</LightBox>
+
+## `<colgroup>` and `<col>`
+
+Add semantics: declares which columns form a <em>column group</em>.
+
+You normally put `<col>` inside `<colgroup>` to signify that those columns have the same semantics.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>span=[...]</Attribute> &mdash; how many columns the <code>{`<colgroup>`}</code> or{' '}
+    <code>{`<col>`}</code> spans.
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
 <table>
-  <thead>
-    <tr><th>Name</th><th>Test 1</th><th>Test 2</th></tr>
-  </thead>
-  <tbody>
-    <tr><th>James</th><td>80</td><td>90</td></tr>
-    <tr><th>Bond</th><td>70</td><td>100</td></tr>
-  </tbody>
-  <tfoot>
-    <tr><th>Average</th><td>75</td><td>95</td></tr>
-  </tfoot>
+  <colgroup>
+    <col style="background-color: #ffdddd"/>
+    <col style="background-color: #ddffdd"/>
+    <col span="2" style="background-color: #ddddff"/>
+  </colgroup>
+  <tr>
+    <th>ISBN</th><th>Title</th><th>Old Price</th><th>New Price</th>
+  </tr>
+  <tr>
+    <td>1234567</td><td>My First HTML</td><td>$10</td><td>$15</td>
+  </tr>
+  <tr>
+    <td>1234568</td><td>My First CSS</td><td>$12</td><td>$16</td>
+  </tr>
 </table>
+```
+
+<LightBox label="Preview">
+  <table>
+    <colgroup>
+      <col style={{ backgroundColor: '#ffdddd' }} />
+      <col style={{ backgroundColor: '#ddffdd' }} />
+      <col span="2" style={{ backgroundColor: '#ddddff' }} />
+    </colgroup>
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Old Price</th>
+      <th>New Price</th>
+    </tr>
+    <tr>
+      <td>1234567</td>
+      <td>My First HTML</td>
+      <td>$10</td>
+      <td>$15</td>
+    </tr>
+    <tr>
+      <td>1234568</td>
+      <td>My First CSS</td>
+      <td>$12</td>
+      <td>$16</td>
+    </tr>
+  </table>
+</LightBox>
+
+## `<caption>`
+
+Adds table caption.
+
+<!-- prettier-ignore -->
+```html
+<table>
+  <caption>Pokémon Evolution</caption>
+  <tr>
+    <th>Basic</th>
+    <th>Stage 1</th>
+    <th>Stage 2</th>
+  </tr>
+  <tr>
+    <td>Charmander</td>
+    <td>Charmeleon</td>
+    <td>Charlizard</td>
+  </tr>
+</table>
+```
+
+<LightBox label="Preview">
+  <table>
+    <caption>Pokémon Evolution</caption>
+    <tr>
+      <th>Basic</th>
+      <th>Stage 1</th>
+      <th>Stage 2</th>
+    </tr>
+    <tr>
+      <td>Charmander</td>
+      <td>Charmeleon</td>
+      <td>Charlizard</td>
+    </tr>
+  </table>
 </LightBox>
 
 ## References
@@ -340,6 +453,10 @@ Add semantic which rows are part of the <em>table header</em>, <em>table body</e
     {
       text: 'HTML <th> headers Attribute (W3Schools)',
       link: `https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_th_headers`,
+    },
+    {
+      text: 'HTML <colgroup> Tag (W3Schools)',
+      link: `https://www.w3schools.com/tags/tag_colgroup.asp`,
     },
   ]}
 ></References>
