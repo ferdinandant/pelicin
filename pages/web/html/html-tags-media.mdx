@@ -71,17 +71,21 @@ These are the HTML tags related to embedding media (picture, video, sound, etc).
     {
       tag: 'map',
       type: 'other',
-      description: '-',
+      description: 'Defines an image map',
     },
     {
       tag: 'area',
       type: 'other',
-      description: '-',
+      description: 'Defines an area inside an image map',
     },
     {
       tag: 'track',
       type: 'other',
-      description: '-',
+      description: (
+        <>
+          Specifies subtitle for <code>{`<audio>`}</code> or <code>{`<video>`}</code>
+        </>
+      ),
     },
   ]}
 />
@@ -551,6 +555,63 @@ When given `href` attribute, the area represents a hyperlink.
     width="260"
     height="232"
   />
+</LightBox>
+
+## track
+
+Specifies <dfn>timed text tracks</dfn> ("subtitles") for `<audio>` or `<video>`. The format is [WebVTT](https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API) (`.vtt` files).
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; URL to the VTT file. Must be on the same origin as the
+    document, unless <code>crossorigin</code> attribute is set on the parent <code>{`<audio>`}</code>{' '}
+    or <code>{`<video>`}</code>
+  </li>
+  <li>
+    <Attribute>srclang=[...]</Attribute> &mdash; language of the text track (e.g. <code>en</code>)
+  </li>
+  <li>
+    <Attribute>label=[...]</Attribute> &mdash; title of the text track (shown when listing available
+    text tracks)
+  </li>
+  <li>
+    <Attribute>default</Attribute> &mdash; indicates that this is the default text track
+  </li>
+  <li>
+    <Attribute>kind=[...]</Attribute> &mdash; signifies what kind of text track this is. Can be:
+    <ul>
+      <li>
+        <code>subtitles</code>
+      </li>
+      <li>
+        <code>captions</code>
+      </li>
+      <li>
+        <code>descriptions</code>
+      </li>
+      <li>
+        <code>chapters</code>
+      </li>
+      <li>
+        <code>metadata</code>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+```html
+<!-- Video and subtitle source: small.mp4 -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track -->
+<video controls src="/res/web/html/friday.mp4" width="400">
+  <track default src="/res/web/html/friday.vtt" srclang="en" label="English" />
+</video>
+```
+
+<LightBox label="Preview">
+  <video controls src="/res/web/html/friday.mp4" width="400">
+    <track default src="/res/web/html/friday.vtt" srclang="en" label="English" />
+  </video>
 </LightBox>
 
 ## References
