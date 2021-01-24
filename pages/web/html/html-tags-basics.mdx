@@ -86,6 +86,11 @@ These are the most common HTML tags. You would put these inside `<body>`, since 
       description: <>Used to create horizontal ruler</>,
     },
     {
+      tag: 'br',
+      type: 'inline',
+      description: <>Used to insert line break</>,
+    },
+    {
       tag: 'a',
       type: 'inline',
       description: (
@@ -234,6 +239,23 @@ one two three
   one two three
 </LightBox>
 
+## `<br>`
+
+Inserts <dfn>line break</dfn>.
+
+<!-- prettier-ignore -->
+```html
+<p>Lorem ipsum<br>dolor sit amet</p>
+```
+
+<LightBox label="Preview">
+  <p>
+    Lorem ipsum
+    <br />
+    dolor sit amet
+  </p>
+</LightBox>
+
 ## `<a>`
 
 Creates <dfn>anchors</dfn> and hyperlinks.
@@ -271,7 +293,7 @@ Creates <dfn>anchors</dfn> and hyperlinks.
 <!-- prettier-ignore -->
 <LightBox label="Preview">
   <p>To search the internet, <a href="https://google.com" target="_blank">click here</a>!</p>
-  <p>Taken from MDN site: <a href="/site/skulls.png" download>Download an image?</a></p>
+  <p>Taken from MDN site: <a href="/res/web/html/mdx-info2.png" download>Download an image?</a></p>
   <h1 style={{ border: 'none', margin: '16px 0 0', padding: 0, }} id="my-anchor">My Anchor</h1>
   <p>Click <a href="#my-anchor">here</a> to go to my-anchor</p>
 </LightBox>

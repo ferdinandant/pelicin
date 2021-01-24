@@ -190,10 +190,11 @@ Embeds image.
   </li>
 </ul>
 
+<!-- prettier-ignore -->
 ```html
 <!-- Image source: -->
 <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area -->
-<img src="/res/web/html/mdn-info.png" width="150" />
+<img src="/res/web/html/mdn-info.png" width="150">
 ```
 
 <LightBox label="Preview">
@@ -263,11 +264,17 @@ Embeds audio.
 ```html
 <!-- Audio source: 決定、ボタン押下5 -->
 <!-- https://soundeffect-lab.info/sound/button/ -->
-<audio controls src="/res/web/html/chime.mp3" />
+<audio controls src="/res/web/html/chime.mp3"></audio>
 ```
 
 <LightBox label="Preview">
-  <audio controls currentTime="1" src="/res/web/html/chime.mp3" />
+  <audio controls currentTime="1" src="/res/web/html/chime.mp3"></audio>
+
+  <audio
+    controls
+    src="/media/cc0-audio/t-rex-roar.mp3">
+  Your browser does not support the <code>audio</code> element.
+  </audio>
 </LightBox>
 
 ## `<video>`
@@ -285,13 +292,13 @@ Embeds video.
 </ul>
 
 ```html
-<!-- Audio source: 決定、ボタン押下5 -->
-<!-- https://soundeffect-lab.info/sound/button/ -->
-<audio controls src="/res/web/html/chime.mp3" />
+<!-- Video source: small.mp4 -->
+<!-- http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5 -->
+<video controls src="/res/web/html/lego.mp4"></video>
 ```
 
 <LightBox label="Preview">
-  <audio controls currentTime="1" src="/res/web/html/chime.mp3" />
+  <video controls src="/res/web/html/lego.mp4"></video>
 </LightBox>
 
 ## References
