@@ -7,7 +7,7 @@ export const Attribute = (props) => (
   </strong>
 );
 
-<MetadataConfigurer title="HTML Tags: Media" dateCreated="2021-01-22" />
+<MetadataConfigurer title="HTML Tags: Media" dateCreated="2021-01-24" />
 
 # HTML Tags: Media
 
@@ -88,7 +88,7 @@ These are the HTML tags related to embedding media (picture, video, sound, etc).
 
 ## `<img>`
 
-Embeds image
+Embeds image.
 
 <Badge color="blue">Common attributes</Badge>
 <ul>
@@ -105,25 +105,98 @@ Embeds image
   <li>
     <Attribute>height=[...]</Attribute> &mdash; height of image in pixels
   </li>
+</ul>
+
+<Badge color="blue">Attributes related to loading</Badge>
+<ul>
   <li>
-    <Attribute>reversed</Attribute> &mdash; start numbering in reverse order
+    <Attribute>decoding=[...]</Attribute> &mdash; hints when/how to decode the image (i.e., when/how
+    the browser should translate the image data to something it can show on screen). Can be:
+    <ul>
+      <li>
+        <code>sync</code> <i>(decode the image synchronously with page render)</i>
+      </li>
+      <li>
+        <code>async</code> <i>(decode the image asynchronously with page render)</i>
+      </li>
+      <li>
+        <code>auto</code> <i>(let the browser decide)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>loading=[...]</Attribute> &mdash; Indicates when to load the image
+    <ul>
+      <li>
+        <code>eager</code> <i>(loads the image immediately)</i>
+      </li>
+      <li>
+        <code>lazy</code> <i>(loads the image when it's close to being visible on screen)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>srcset=[...]</Attribute> &mdash; comma-separated list of possible sources to load the
+    image. Use one of the following format:
+    <ul>
+      <li>
+        <code>image-small.jpg 240w, image-medium 300w, image-large.jpg 720w"</code>, where the
+        number before "w" is the image's width (the browser will pick which one to load based on the
+        value of <code>sizes</code>)
+      </li>
+      <li>
+        <code>image-small.jpg, image-medium 1.5x, image-large.jpg 2x</code>, where the number before
+        "x" is the pixel density (defaulting to <code>1x</code> if the number is not given; the
+        browser will pick which one to load based on the device's pixel density)
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>sizes=[...]</Attribute> &mdash; not required if you use the "x" descriptor in{' '}
+    <code>srcset</code>. Otherwise, it uses the following format:
+    <ul>
+      <li>
+        <code>(min-width: 960px) 720px, 100vw</code> (comma-separated list of media query and which
+        image size to pick, plus default image size to pick).
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to map</Badge>
+<ul>
+  <li>
+    <Attribute>ismap</Attribute> &mdash; indicates that the image is part of{' '}
+    <a href="https://en.wikipedia.org/wiki/Image_map#Server-side">server-side image map</a> (only
+    makes sense if the image is a children of <code>{`<a href="...">`}</code>). When the image is
+    clicked, the browser will send the coordinates where the image was clicked.
+  </li>
+  <li>
+    <Attribute>usemap=[...]</Attribute> &mdash; points to the <code>name</code> of a{' '}
+    <a href="https://en.wikipedia.org/wiki/Image_map#Client-side">client-side image map</a> ( <code>{`<map name="...">`}</code>
+    ) associated with the image.
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to security</Badge>
+<ul>
+  <li>
+    <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
+  </li>
+  <li>
+    <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
+    <a href="web/html/html-attributes-recurring#referrerpolicy"> read here</a>
   </li>
 </ul>
 
 ```html
-<ul>
-  <li>Apple</li>
-  <li>Banana</li>
-  <li>Orange</li>
-</ul>
+<!-- Source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/map -->
+<img src="/content/web/html/mdn-info2.png" width="150" />
 ```
 
 <LightBox label="Preview">
-  <ul>
-    <li>Apple</li>
-    <li>Banana</li>
-    <li>Orange</li>
-  </ul>
+  <img src="/content/web/html/mdn-info2.png" width="150" />
 </LightBox>
 
 ## References
@@ -133,6 +206,27 @@ Embeds image
     {
       text: 'HTML elements reference (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element#image_and_multimedia`,
+    },
+    {
+      text: 'Responsive images (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images`,
+    },
+    {
+      text:
+        'Top tips for web performance: Use srcset to automatically choose the right image size (web.dev)',
+      link: `https://web.dev/use-srcset-to-automatically-choose-the-right-image/#what-about-pixel-density`,
+    },
+    {
+      text: 'Synchronous / Asynchronous Image Decode using〈img decoding〉Attribute',
+      link: `https://usefulangle.com/post/277/img-decoding-attribute`,
+    },
+    {
+      text: 'Image decoding on the web',
+      link: `https://dexecure.com/blog/image-decoding/`,
+    },
+    {
+      text: 'Responsive images with srcset and sizes (Medium)',
+      link: `https://medium.com/@woutervanderzee/responsive-images-with-srcset-and-sizes-fc434845e948`,
     },
   ]}
 ></References>
