@@ -1,0 +1,651 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+
+export const Attribute = (props) => (
+  <strong>
+    <code>{props.children}</code>
+  </strong>
+);
+
+<MetadataConfigurer title="HTML Tags: Media" dateCreated="2021-01-24" />
+
+# HTML Tags: Media
+
+These are the HTML tags related to embedding media (picture, video, sound, etc).
+
+<FixedColumnWidthTable
+  tableStyle={{
+    fontSize: '0.9em',
+  }}
+  headers={[
+    {
+      text: 'Tag',
+      key: 'tag',
+      formatContent: (tag) => {
+        const specialMapping = {};
+        return (
+          <>
+            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
+              <code>&lt;{tag}&gt;</code>
+            </a>
+          </>
+        );
+      },
+      width: 100,
+    },
+    {
+      text: 'Type',
+      key: 'type',
+      formatContent: (type) => {
+        return type === 'block' ? (
+          <Badge color="red">Block</Badge>
+        ) : type === 'inline' ? (
+          <Badge color="blue">Inline</Badge>
+        ) : (
+          <Badge color="gray">Other</Badge>
+        );
+      },
+      width: 80,
+    },
+    {
+      text: 'Description',
+      key: 'description',
+    },
+  ]}
+  contents={[
+    {
+      tag: 'img',
+      type: 'inline',
+      description: 'Embeds image',
+    },
+    {
+      tag: 'audio',
+      type: 'inline',
+      description: 'Embeds audio',
+    },
+    {
+      tag: 'video',
+      type: 'inline',
+      description: 'Embeds video',
+    },
+    {
+      tag: 'map',
+      type: 'other',
+      description: 'Defines an image map',
+    },
+    {
+      tag: 'area',
+      type: 'other',
+      description: 'Defines an area inside an image map',
+    },
+    {
+      tag: 'track',
+      type: 'other',
+      description: (
+        <>
+          Specifies subtitle for <code>{`<audio>`}</code> or <code>{`<video>`}</code>
+        </>
+      ),
+    },
+  ]}
+/>
+
+## `<img>`
+
+Embeds image.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>alt=[...]</Attribute> &mdash; alternative text describing the image (for screen
+    readers).
+  </li>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; image URL source
+  </li>
+  <li>
+    <Attribute>width=[...]</Attribute> &mdash; width of image in pixels
+  </li>
+  <li>
+    <Attribute>height=[...]</Attribute> &mdash; height of image in pixels
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to loading</Badge>
+<ul>
+  <li>
+    <Attribute>decoding=[...]</Attribute> &mdash; hints when/how to decode the image (i.e., when/how
+    the browser should translate the image data to something it can show on screen). Can be:
+    <ul>
+      <li>
+        <code>sync</code> <i>(decode the image synchronously with page render)</i>
+      </li>
+      <li>
+        <code>async</code> <i>(decode the image asynchronously with page render)</i>
+      </li>
+      <li>
+        <code>auto</code> <i>(let the browser decide)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>loading=[...]</Attribute> &mdash; Indicates when to load the image
+    <ul>
+      <li>
+        <code>eager</code> <i>(loads the image immediately)</i>
+      </li>
+      <li>
+        <code>lazy</code> <i>(loads the image when it's close to being visible on screen)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>srcset=[...]</Attribute> &mdash; comma-separated list of possible sources to load the
+    image. Use one of the following format:
+    <ul>
+      <li>
+        <code>image-small.jpg 240w, image-medium 300w, image-large.jpg 720w"</code>, where the
+        number before "w" is the image's width (the browser will pick which one to load based on the
+        value of <code>sizes</code>)
+      </li>
+      <li>
+        <code>image-small.jpg, image-medium 1.5x, image-large.jpg 2x</code>, where the number before
+        "x" is the pixel density (defaulting to <code>1x</code> if the number is not given; the
+        browser will pick which one to load based on the device's pixel density)
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>sizes=[...]</Attribute> &mdash; not required if you use the "x" descriptor in{' '}
+    <code>srcset</code>. Otherwise, it uses the following format:
+    <ul>
+      <li>
+        <code>(min-width: 960px) 720px, 100vw</code> (comma-separated list of media query and which
+        image size to pick, plus default image size to pick).
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to map</Badge>
+<ul>
+  <li>
+    <Attribute>ismap</Attribute> &mdash; indicates that the image is part of{' '}
+    <a href="https://en.wikipedia.org/wiki/Image_map#Server-side">server-side image map</a> (only
+    makes sense if the image is a children of <code>{`<a href="...">`}</code>). When the image is
+    clicked, the browser will send the coordinates where the image was clicked.
+  </li>
+  <li>
+    <Attribute>usemap=[...]</Attribute> &mdash; points to the <code>name</code> of a{' '}
+    <a href="https://en.wikipedia.org/wiki/Image_map#Client-side">client-side image map</a> ( <code>{`<map name="...">`}</code>
+    ) associated with the image.
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to security</Badge>
+<ul>
+  <li>
+    <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
+  </li>
+  <li>
+    <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#referrerpolicy"> read here</a>
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<!-- Image source: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area -->
+<img src="/res/web/html/mdn-info.png" width="150">
+```
+
+<LightBox label="Preview">
+  <img src="/res/web/html/mdn-info.png" width="150" />
+</LightBox>
+
+## `<audio>`
+
+Embeds audio.
+
+Instead of providing `src` directly, you can also provide multiple sources with children `<source src="..." type="...">` tags. The browser will use the first one it understands.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; audio URL source
+  </li>
+  <li>
+    <Attribute>controls</Attribute> &mdash; display audio controls (play/pause button, volume, etc.)
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to playback</Badge>
+<ul>
+  <li>
+    <Attribute>autoplay</Attribute> &mdash; begin playing audio ASAP, without waiting for the entire
+    audio file to finish downloading
+  </li>
+  <li>
+    <Attribute>muted</Attribute> &mdash; set the default audio volume to mute
+  </li>
+  <li>
+    <Attribute>loop</Attribute> &mdash; replay audio when it reaches the end
+  </li>
+  <li>
+    <Attribute>currentTime</Attribute> &mdash; for JavaScript: get/set current playback position
+  </li>
+  <li>
+    <Attribute>duration</Attribute> &mdash; for JavaScript: get audio length
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to loading</Badge>
+<ul>
+  <li>
+    <Attribute>preload=[...]</Attribute> &mdash; hints the browser what should be preloaded. Can be:
+    <ul>
+      <li>
+        <code>auto</code> <i>(preload everything)</i>
+      </li>
+      <li>
+        <code>metadata</code> <i>(preload only audio metadata, e.g. length)</i>
+      </li>
+      <li>
+        <code>metadata</code> <i>(don't preload anything)</i>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to security</Badge>
+<ul>
+  <li>
+    <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<!-- Audio source: 決定、ボタン押下5 -->
+<!-- https://soundeffect-lab.info/sound/button/ -->
+<audio controls src="/res/web/html/chime.mp3"></audio>
+<br>
+
+<!-- Sample with <sources> -->
+<audio controls>
+  <source src="/res/web/html/chime.mp3" type="audio/mpeg" />
+  <source src="/res/web/html/chime.ogg" type="audio/ogg" />
+  <p>Your browser doesn't support HTML5 audio.</p>
+</audio>
+```
+
+<LightBox label="Preview">
+  <audio controls currentTime="1" src="/res/web/html/chime.mp3"></audio>
+  <br />
+  <audio controls>
+    <source src="/res/web/html/chime.mp3" type="audio/mpeg" />
+    <source src="/res/web/html/chime.ogg" type="audio/ogg" />
+    <p>Your browser doesn't support HTML5 audio.</p>
+  </audio>
+</LightBox>
+
+## `<video>`
+
+Embeds video.
+
+Instead of providing `src` directly, you can also provide multiple sources with children `<source src="..." type="...">` tags. The browser will use the first one it understands.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; video URL source
+  </li>
+  <li>
+    <Attribute>controls</Attribute> &mdash; display video controls (play/pause button, volume, etc.)
+  </li>
+  <li>
+    <Attribute>width=[...]</Attribute> &mdash; width of video display area in pixels
+  </li>
+  <li>
+    <Attribute>height=[...]</Attribute> &mdash; height of video display area in pixels
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to playback</Badge>
+<ul>
+  <li>
+    <Attribute>autoplay</Attribute> &mdash; begin playing video ASAP, without waiting for the entire
+    video file to finish downloading
+  </li>
+  <li>
+    <Attribute>muted</Attribute> &mdash; set the default video volume to mute
+  </li>
+  <li>
+    <Attribute>loop</Attribute> &mdash; replay video when it reaches the end
+  </li>
+  <li>
+    <Attribute>playsinline</Attribute> &mdash; play the video "inline" within the video display area
+    (don't play it fullscreen like mobile browsers normally do)
+  </li>
+  <li>
+    <Attribute>currentTime</Attribute> &mdash; for JavaScript: get/set current playback position
+  </li>
+  <li>
+    <Attribute>buffered</Attribute> &mdash; for JavaScript: get time ranges of the buffered area
+  </li>
+  <li>
+    <Attribute>duration</Attribute> &mdash; for JavaScript: get audio length
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to loading</Badge>
+<ul>
+  <li>
+    <Attribute>poster=[...]</Attribute> &mdash; URL of an image to be shown while the video is
+    downloading. (By default, browsers use the first video frame.)
+  </li>
+  <li>
+    <Attribute>preload=[...]</Attribute> &mdash; hints the browser what should be preloaded. Can be:
+    <ul>
+      <li>
+        <code>auto</code> <i>(preload everything)</i>
+      </li>
+      <li>
+        <code>metadata</code> <i>(preload only video metadata, e.g. length)</i>
+      </li>
+      <li>
+        <code>metadata</code> <i>(don't preload anything)</i>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to security</Badge>
+<ul>
+  <li>
+    <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<!-- Video source: small.mp4 -->
+<!-- http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5 -->
+<video controls src="/res/web/html/lego.mp4" width="200"></video>
+<br>
+
+<!-- Sample with <sources> -->
+<video controls width="200">
+  <source src="/res/web/html/lego.mp4" type="audio/mp4" />
+  <source src="/res/web/html/lego.webm" type="audio/webm" />
+  <p>Your browser doesn't support HTML5 video.</p>
+</video>
+```
+
+<LightBox label="Preview">
+  <video controls src="/res/web/html/lego.mp4" width="200"></video>
+  <br />
+  <video controls width="200">
+    <source src="/res/web/html/lego.mp4" type="audio/mp4" />
+    <source src="/res/web/html/lego.webm" type="audio/webm" />
+    <p>Your browser doesn't support HTML5 video.</p>
+  </video>
+</LightBox>
+
+## `<map>`
+
+Defines an <dfn>image map</dfn> (clickable link areas in image).
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of map
+  </li>
+</ul>
+
+## `<area>`
+
+Defines an area inside an image map.
+
+When given `href` attribute, the area represents a hyperlink.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>alt=[...]</Attribute> &mdash; alternative text describing the area
+  </li>
+  <li>
+    <Attribute>href=[...]</Attribute> &mdash; target URL when the area is clicked
+  </li>
+  <li>
+    <Attribute>target=[...]</Attribute> &mdash; where to open the target URL (
+    <a href="/web/html/html-attributes-recurring#target">read here</a>)
+  </li>
+  <li>
+    <Attribute>shape=[...]</Attribute> &mdash; defines the shape of the area. Can be:
+    <ul>
+      <li>
+        <code>rect</code> <i>(indicates the area is a rectangle)</i>
+      </li>
+      <li>
+        <code>cicle</code> <i>(indicates the area is a circle)</i>
+      </li>
+      <li>
+        <code>poly</code> <i>(indicates the area is a polygon)</i>
+      </li>
+      <li>
+        <code>default</code> <i>(indicates the area is the rest of the undefined regions)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>coords=[...]</Attribute> &mdash; defines the coordinates of <code>shape</code>:
+    <ul>
+      <li>
+        if <code>shape="rect"</code>, the value is <code>x1,y1,x2,y2</code>, which defines the
+        top-left and bottom-right corner of the rectangle
+      </li>
+      <li>
+        if <code>shape="cicle"</code>, the value is <code>x,y,radius</code>, which defines the
+        circle center and the radius
+      </li>
+      <li>
+        if <code>shape="poly"</code>, the value is <code>x1,y1,x2,y2,...,xn,yn</code> which defines
+        the coordinates of the polygon
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<Badge color="blue">Less common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>download=[...]</Attribute> &mdash; instead of opening the link, prompt the user to
+    download it. If value is not empty, it will be the name of the downloaded file. (Only works for
+    same-origin URLs, or <code>blob:</code> and <code>data:</code> schemes)
+  </li>
+  <li>
+    <Attribute>ping=[...]</Attribute> &mdash; list of space-separated URLs to which the browser will
+    send <code>PING</code> POST requests when the hyperlink is followed (usable for tracking).
+  </li>
+  <li>
+    <Attribute>hreflang=[...]</Attribute> &mdash; indicates the language of the linked resource
+    (e.g. <code>en-US</code>)
+  </li>
+  <li>
+    <Attribute>rel=[...]</Attribute> &mdash; relation of the linked resource (
+    <a href="/web/html/html-attributes-recurring#rel">read here</a>)
+  </li>
+  <li>
+    <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#referrerpolicy"> read here</a>
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<!-- Map definition -->
+<map name="infographic">
+  <area
+    shape="poly"
+    coords="130,147,200,107,254,219,130,228"
+    href="https://developer.mozilla.org/docs/Web/HTML"
+    target="_blank"
+    alt="HTML"
+  />
+  <area
+    shape="poly"
+    coords="130,147,130,228,6,219,59,107"
+    href="https://developer.mozilla.org/docs/Web/CSS"
+    target="_blank"
+    alt="CSS"
+  />
+  <area
+    shape="poly"
+    coords="130,147,200,107,130,4,59,107"
+    href="https://developer.mozilla.org/docs/Web/JavaScript"
+    target="_blank"
+    alt="JavaScript"
+  />
+</map>
+
+<!-- Image source: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/map -->
+<img
+  usemap="#infographic"
+  src="/res/web/html/mdn-info2.png"
+  alt="MDN infographic"
+  width="260"
+  height="232"
+/>
+```
+
+<LightBox label="Preview">
+  <map name="infographic">
+    <area
+      shape="poly"
+      coords="130,147,200,107,254,219,130,228"
+      href="https://developer.mozilla.org/docs/Web/HTML"
+      target="_blank"
+      alt="HTML"
+    />
+    <area
+      shape="poly"
+      coords="130,147,130,228,6,219,59,107"
+      href="https://developer.mozilla.org/docs/Web/CSS"
+      target="_blank"
+      alt="CSS"
+    />
+    <area
+      shape="poly"
+      coords="130,147,200,107,130,4,59,107"
+      href="https://developer.mozilla.org/docs/Web/JavaScript"
+      target="_blank"
+      alt="JavaScript"
+    />
+  </map>
+  <img
+    usemap="#infographic"
+    src="/res/web/html/mdn-info2.png"
+    alt="MDN infographic"
+    width="260"
+    height="232"
+  />
+</LightBox>
+
+## track
+
+Specifies <dfn>timed text tracks</dfn> ("subtitles") for `<audio>` or `<video>`. The format is [WebVTT](https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API) (`.vtt` files).
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; URL to the VTT file. Must be on the same origin as the
+    document, unless <code>crossorigin</code> attribute is set on the parent <code>{`<audio>`}</code>{' '}
+    or <code>{`<video>`}</code>
+  </li>
+  <li>
+    <Attribute>srclang=[...]</Attribute> &mdash; language of the text track (e.g. <code>en</code>)
+  </li>
+  <li>
+    <Attribute>label=[...]</Attribute> &mdash; title of the text track (shown when listing available
+    text tracks)
+  </li>
+  <li>
+    <Attribute>default</Attribute> &mdash; indicates that this is the default text track
+  </li>
+  <li>
+    <Attribute>kind=[...]</Attribute> &mdash; signifies what kind of text track this is. Can be:
+    <ul>
+      <li>
+        <code>subtitles</code>
+      </li>
+      <li>
+        <code>captions</code>
+      </li>
+      <li>
+        <code>descriptions</code>
+      </li>
+      <li>
+        <code>chapters</code>
+      </li>
+      <li>
+        <code>metadata</code>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+```html
+<!-- Video and subtitle source: small.mp4 -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track -->
+<video controls src="/res/web/html/friday.mp4" width="400">
+  <track default src="/res/web/html/friday.vtt" srclang="en" label="English" />
+</video>
+```
+
+<LightBox label="Preview">
+  <video controls src="/res/web/html/friday.mp4" width="400">
+    <track default src="/res/web/html/friday.vtt" srclang="en" label="English" />
+  </video>
+</LightBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element#image_and_multimedia`,
+    },
+    {
+      text: 'Responsive images (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images`,
+    },
+    {
+      text:
+        'Top tips for web performance: Use srcset to automatically choose the right image size (web.dev)',
+      link: `https://web.dev/use-srcset-to-automatically-choose-the-right-image/#what-about-pixel-density`,
+    },
+    {
+      text: 'Synchronous / Asynchronous Image Decode using〈img decoding〉Attribute',
+      link: `https://usefulangle.com/post/277/img-decoding-attribute`,
+    },
+    {
+      text: 'Image decoding on the web',
+      link: `https://dexecure.com/blog/image-decoding/`,
+    },
+    {
+      text: 'Responsive images with srcset and sizes (Medium)',
+      link: `https://medium.com/@woutervanderzee/responsive-images-with-srcset-and-sizes-fc434845e948`,
+    },
+    {
+      text: "What Does 'playsinline' Mean in Web Video? (CSS-Tricks)",
+      link: `https://css-tricks.com/what-does-playsinline-mean-in-web-video/`,
+    },
+  ]}
+></References>
