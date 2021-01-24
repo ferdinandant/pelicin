@@ -205,6 +205,8 @@ Embeds image.
 
 Embeds audio.
 
+Instead of providing `src` directly, you can also provide multiple sources with children `<source src="..." type="...">` tags. The browser will use the first one it understands.
+
 <Badge color="blue">Common attributes</Badge>
 <ul>
   <li>
@@ -261,25 +263,36 @@ Embeds audio.
   </li>
 </ul>
 
+<!-- prettier-ignore -->
 ```html
 <!-- Audio source: 決定、ボタン押下5 -->
 <!-- https://soundeffect-lab.info/sound/button/ -->
 <audio controls src="/res/web/html/chime.mp3"></audio>
+<br>
+
+<!-- Sample with <sources> -->
+<audio controls>
+  <source src="/res/web/html/chime.mp3" type="audio/mpeg" />
+  <source src="/res/web/html/chime.ogg" type="audio/ogg" />
+  <p>Your browser doesn't support HTML5 audio.</p>
+</audio>
 ```
 
 <LightBox label="Preview">
   <audio controls currentTime="1" src="/res/web/html/chime.mp3"></audio>
-
-  <audio
-    controls
-    src="/media/cc0-audio/t-rex-roar.mp3">
-  Your browser does not support the <code>audio</code> element.
+  <br />
+  <audio controls>
+    <source src="/res/web/html/chime.mp3" type="audio/mpeg" />
+    <source src="/res/web/html/chime.ogg" type="audio/ogg" />
+    <p>Your browser doesn't support HTML5 audio.</p>
   </audio>
 </LightBox>
 
 ## `<video>`
 
 Embeds video.
+
+Instead of providing `src` directly, you can also provide multiple sources with children `<source src="..." type="...">` tags. The browser will use the first one it understands.
 
 <Badge color="blue">Common attributes</Badge>
 <ul>
@@ -289,16 +302,94 @@ Embeds video.
   <li>
     <Attribute>controls</Attribute> &mdash; display video controls (play/pause button, volume, etc.)
   </li>
+  <li>
+    <Attribute>width=[...]</Attribute> &mdash; width of video display area in pixels
+  </li>
+  <li>
+    <Attribute>height=[...]</Attribute> &mdash; height of video display area in pixels
+  </li>
 </ul>
 
+<Badge color="blue">Attributes related to playback</Badge>
+<ul>
+  <li>
+    <Attribute>autoplay</Attribute> &mdash; begin playing video ASAP, without waiting for the entire
+    video file to finish downloading
+  </li>
+  <li>
+    <Attribute>muted</Attribute> &mdash; set the default video volume to mute
+  </li>
+  <li>
+    <Attribute>loop</Attribute> &mdash; replay video when it reaches the end
+  </li>
+  <li>
+    <Attribute>playsinline</Attribute> &mdash; play the video "inline" within the video display area
+    (don't play it fullscreen like mobile browsers normally do)
+  </li>
+  <li>
+    <Attribute>currentTime</Attribute> &mdash; for JavaScript: get/set current playback position
+  </li>
+  <li>
+    <Attribute>buffered</Attribute> &mdash; for JavaScript: get time ranges of the buffered area
+  </li>
+  <li>
+    <Attribute>duration</Attribute> &mdash; for JavaScript: get audio length
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to loading</Badge>
+<ul>
+  <li>
+    <Attribute>poster=[...]</Attribute> &mdash; URL of an image to be shown while the video is
+    downloading. (By default, browsers use the first video frame.)
+  </li>
+  <li>
+    <Attribute>preload=[...]</Attribute> &mdash; hints the browser what should be preloaded. Can be:
+    <ul>
+      <li>
+        <code>auto</code> <i>(preload everything)</i>
+      </li>
+      <li>
+        <code>metadata</code> <i>(preload only video metadata, e.g. length)</i>
+      </li>
+      <li>
+        <code>metadata</code> <i>(don't preload anything)</i>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to security</Badge>
+<ul>
+  <li>
+    <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
 ```html
 <!-- Video source: small.mp4 -->
 <!-- http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5 -->
-<video controls src="/res/web/html/lego.mp4"></video>
+<video controls src="/res/web/html/lego.mp4" width="200"></video>
+<br>
+
+<!-- Sample with <sources> -->
+<video controls width="200">
+  <source src="/res/web/html/lego.mp4" type="audio/mp4" />
+  <source src="/res/web/html/lego.webm" type="audio/webm" />
+  <p>Your browser doesn't support HTML5 video.</p>
+</video>
 ```
 
 <LightBox label="Preview">
-  <video controls src="/res/web/html/lego.mp4"></video>
+  <video controls src="/res/web/html/lego.mp4" width="200"></video>
+  <br />
+  <video controls width="200">
+    <source src="/res/web/html/lego.mp4" type="audio/mp4" />
+    <source src="/res/web/html/lego.webm" type="audio/webm" />
+    <p>Your browser doesn't support HTML5 video.</p>
+  </video>
 </LightBox>
 
 ## References
@@ -329,6 +420,10 @@ Embeds video.
     {
       text: 'Responsive images with srcset and sizes (Medium)',
       link: `https://medium.com/@woutervanderzee/responsive-images-with-srcset-and-sizes-fc434845e948`,
+    },
+    {
+      text: "What Does 'playsinline' Mean in Web Video? (CSS-Tricks)",
+      link: `https://css-tricks.com/what-does-playsinline-mean-in-web-video/`,
     },
   ]}
 ></References>
