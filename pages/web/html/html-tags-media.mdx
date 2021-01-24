@@ -191,12 +191,107 @@ Embeds image.
 </ul>
 
 ```html
-<!-- Source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/map -->
-<img src="/content/web/html/mdn-info2.png" width="150" />
+<!-- Image source: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area -->
+<img src="/res/web/html/mdn-info.png" width="150" />
 ```
 
 <LightBox label="Preview">
-  <img src="/content/web/html/mdn-info2.png" width="150" />
+  <img src="/res/web/html/mdn-info.png" width="150" />
+</LightBox>
+
+## `<audio>`
+
+Embeds audio.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; audio URL source
+  </li>
+  <li>
+    <Attribute>controls</Attribute> &mdash; display audio controls (play/pause button, volume, etc.)
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to playback</Badge>
+<ul>
+  <li>
+    <Attribute>autoplay</Attribute> &mdash; begin playing audio ASAP, without waiting for the entire
+    audio file to finish downloading
+  </li>
+  <li>
+    <Attribute>muted</Attribute> &mdash; set the default audio volume to mute
+  </li>
+  <li>
+    <Attribute>loop</Attribute> &mdash; replay audio when it reaches the end
+  </li>
+  <li>
+    <Attribute>currentTime</Attribute> &mdash; for JavaScript: get/set current playback position
+  </li>
+  <li>
+    <Attribute>duration</Attribute> &mdash; for JavaScript: get audio length
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to loading</Badge>
+<ul>
+  <li>
+    <Attribute>preload=[...]</Attribute> &mdash; hints the browser what should be preloaded. Can be:
+    <ul>
+      <li>
+        <code>auto</code> <i>(preload everything)</i>
+      </li>
+      <li>
+        <code>metadata</code> <i>(preload only audio metadata, e.g. length)</i>
+      </li>
+      <li>
+        <code>metadata</code> <i>(don't preload anything)</i>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to security</Badge>
+<ul>
+  <li>
+    <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
+  </li>
+</ul>
+
+```html
+<!-- Audio source: 決定、ボタン押下5 -->
+<!-- https://soundeffect-lab.info/sound/button/ -->
+<audio controls src="/res/web/html/chime.mp3" />
+```
+
+<LightBox label="Preview">
+  <audio controls currentTime="1" src="/res/web/html/chime.mp3" />
+</LightBox>
+
+## `<video>`
+
+Embeds video.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; video URL source
+  </li>
+  <li>
+    <Attribute>controls</Attribute> &mdash; display video controls (play/pause button, volume, etc.)
+  </li>
+</ul>
+
+```html
+<!-- Audio source: 決定、ボタン押下5 -->
+<!-- https://soundeffect-lab.info/sound/button/ -->
+<audio controls src="/res/web/html/chime.mp3" />
+```
+
+<LightBox label="Preview">
+  <audio controls currentTime="1" src="/res/web/html/chime.mp3" />
 </LightBox>
 
 ## References
