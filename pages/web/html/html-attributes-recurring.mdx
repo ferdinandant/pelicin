@@ -1,5 +1,5 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, NoteBox } from '@pelicin/components';
+import { References, NoteBox, Badge } from '@pelicin/components';
 
 <MetadataConfigurer title="Recurring HTML Attributes" dateCreated="2021-01-17" />
 
@@ -37,9 +37,7 @@ Defines how the browser should make the request in terms of CORS. Possible value
 
 Whether or not the browser should include the `Referer` header when making the request. Possible values:
 
-<div style={{ color: 'var(--color-red-6)' }}>
-  <strong>No-referrer:</strong>
-</div>
+<Badge color="red">No-referrer</Badge>
 <ul>
   <li>
     <strong>
@@ -58,9 +56,7 @@ Whether or not the browser should include the `Referer` header when making the r
   </li>
 </ul>
 
-<div style={{ color: 'var(--color-red-6)' }}>
-  <strong>Origin:</strong>
-</div>
+<Badge color="red">Origin</Badge>
 <ul>
   <li>
     <strong>
@@ -88,10 +84,7 @@ Whether or not the browser should include the `Referer` header when making the r
   </li>
 </ul>
 
-<div style={{ color: 'var(--color-red-6)' }}>
-  <strong>Strict Origin:</strong>
-</div>
-
+<Badge color="red">Strict origin</Badge>
 <ul>
   <li>
     <strong>
@@ -113,9 +106,7 @@ Whether or not the browser should include the `Referer` header when making the r
   </li>
 </ul>
 
-<div style={{ color: 'var(--color-red-6)' }}>
-  <strong>Badass mode:</strong>
-</div>
+<Badge color="red">Badass mode</Badge>
 <ul>
   <li>
     <strong>

@@ -186,7 +186,7 @@ Embeds image.
   </li>
   <li>
     <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
-    <a href="web/html/html-attributes-recurring#referrerpolicy"> read here</a>
+    <a href="/web/html/html-attributes-recurring#referrerpolicy"> read here</a>
   </li>
 </ul>
 
@@ -390,6 +390,167 @@ Instead of providing `src` directly, you can also provide multiple sources with 
     <source src="/res/web/html/lego.webm" type="audio/webm" />
     <p>Your browser doesn't support HTML5 video.</p>
   </video>
+</LightBox>
+
+## `<map>`
+
+Defines an <dfn>image map</dfn> (clickable link areas in image).
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of map
+  </li>
+</ul>
+
+## `<area>`
+
+Defines an area inside an image map.
+
+When given `href` attribute, the area represents a hyperlink.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>alt=[...]</Attribute> &mdash; alternative text describing the area
+  </li>
+  <li>
+    <Attribute>href=[...]</Attribute> &mdash; target URL when the area is clicked
+  </li>
+  <li>
+    <Attribute>target=[...]</Attribute> &mdash; where to open the target URL (
+    <a href="/web/html/html-attributes-recurring#target">read here</a>)
+  </li>
+  <li>
+    <Attribute>shape=[...]</Attribute> &mdash; defines the shape of the area. Can be:
+    <ul>
+      <li>
+        <code>rect</code> <i>(indicates the area is a rectangle)</i>
+      </li>
+      <li>
+        <code>cicle</code> <i>(indicates the area is a circle)</i>
+      </li>
+      <li>
+        <code>poly</code> <i>(indicates the area is a polygon)</i>
+      </li>
+      <li>
+        <code>default</code> <i>(indicates the area is the rest of the undefined regions)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>coords=[...]</Attribute> &mdash; defines the coordinates of <code>shape</code>:
+    <ul>
+      <li>
+        if <code>shape="rect"</code>, the value is <code>x1,y1,x2,y2</code>, which defines the
+        top-left and bottom-right corner of the rectangle
+      </li>
+      <li>
+        if <code>shape="cicle"</code>, the value is <code>x,y,radius</code>, which defines the
+        circle center and the radius
+      </li>
+      <li>
+        if <code>shape="poly"</code>, the value is <code>x1,y1,x2,y2,...,xn,yn</code> which defines
+        the coordinates of the polygon
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<Badge color="blue">Less common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>download=[...]</Attribute> &mdash; instead of opening the link, prompt the user to
+    download it. If value is not empty, it will be the name of the downloaded file. (Only works for
+    same-origin URLs, or <code>blob:</code> and <code>data:</code> schemes)
+  </li>
+  <li>
+    <Attribute>ping=[...]</Attribute> &mdash; list of space-separated URLs to which the browser will
+    send <code>PING</code> POST requests when the hyperlink is followed (usable for tracking).
+  </li>
+  <li>
+    <Attribute>hreflang=[...]</Attribute> &mdash; indicates the language of the linked resource
+    (e.g. <code>en-US</code>)
+  </li>
+  <li>
+    <Attribute>rel=[...]</Attribute> &mdash; relation of the linked resource (
+    <a href="/web/html/html-attributes-recurring#rel">read here</a>)
+  </li>
+  <li>
+    <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#referrerpolicy"> read here</a>
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<!-- Map definition -->
+<map name="infographic">
+  <area
+    shape="poly"
+    coords="130,147,200,107,254,219,130,228"
+    href="https://developer.mozilla.org/docs/Web/HTML"
+    target="_blank"
+    alt="HTML"
+  />
+  <area
+    shape="poly"
+    coords="130,147,130,228,6,219,59,107"
+    href="https://developer.mozilla.org/docs/Web/CSS"
+    target="_blank"
+    alt="CSS"
+  />
+  <area
+    shape="poly"
+    coords="130,147,200,107,130,4,59,107"
+    href="https://developer.mozilla.org/docs/Web/JavaScript"
+    target="_blank"
+    alt="JavaScript"
+  />
+</map>
+
+<!-- Image source: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/map -->
+<img
+  usemap="#infographic"
+  src="/res/web/html/mdn-info2.png"
+  alt="MDN infographic"
+  width="260"
+  height="232"
+/>
+```
+
+<LightBox label="Preview">
+  <map name="infographic">
+    <area
+      shape="poly"
+      coords="130,147,200,107,254,219,130,228"
+      href="https://developer.mozilla.org/docs/Web/HTML"
+      target="_blank"
+      alt="HTML"
+    />
+    <area
+      shape="poly"
+      coords="130,147,130,228,6,219,59,107"
+      href="https://developer.mozilla.org/docs/Web/CSS"
+      target="_blank"
+      alt="CSS"
+    />
+    <area
+      shape="poly"
+      coords="130,147,200,107,130,4,59,107"
+      href="https://developer.mozilla.org/docs/Web/JavaScript"
+      target="_blank"
+      alt="JavaScript"
+    />
+  </map>
+  <img
+    usemap="#infographic"
+    src="/res/web/html/mdn-info2.png"
+    alt="MDN infographic"
+    width="260"
+    height="232"
+  />
 </LightBox>
 
 ## References

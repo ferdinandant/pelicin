@@ -260,7 +260,7 @@ Inserts <dfn>line break</dfn>.
 
 Creates <dfn>anchors</dfn> and hyperlinks.
 
-<Badge color="blue">Possible attributes</Badge>
+<Badge color="blue">Common attributes</Badge>
 <ul>
   <li>
     <Attribute>href=[...]</Attribute> &mdash; where the link points to
@@ -269,10 +269,30 @@ Creates <dfn>anchors</dfn> and hyperlinks.
     <Attribute>target=[...]</Attribute> &mdash; where to open it (
     <a href="/web/html/html-attributes-recurring#target">read here</a>)
   </li>
+</ul>
+
+<Badge color="blue">Less common attributes</Badge>
+<ul>
   <li>
     <Attribute>download=[...]</Attribute> &mdash; instead of opening the link, prompt the user to
     download it. If value is not empty, it will be the name of the downloaded file. (Only works for
     same-origin URLs, or <code>blob:</code> and <code>data:</code> schemes)
+  </li>
+  <li>
+    <Attribute>ping=[...]</Attribute> &mdash; list of space-separated URLs to which the browser will
+    send <code>PING</code> POST requests when the hyperlink is followed (usable for tracking).
+  </li>
+  <li>
+    <Attribute>hreflang=[...]</Attribute> &mdash; indicates the language of the linked resource
+    (e.g. <code>en-US</code>)
+  </li>
+  <li>
+    <Attribute>rel=[...]</Attribute> &mdash; relation of the linked resource (
+    <a href="/web/html/html-attributes-recurring#rel">read here</a>)
+  </li>
+  <li>
+    <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#referrerpolicy"> read here</a>
   </li>
 </ul>
 
