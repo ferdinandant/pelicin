@@ -129,7 +129,7 @@ The possible values depend on how `rel` was used:
 
 ### `rel` of `<link>`
 
-<Badge color="red">Metadata</Badge>
+<Badge color="red">Link to other page</Badge>
 <ul>
   <li>
     <strong>
@@ -271,6 +271,102 @@ The possible values depend on how `rel` was used:
 
 ### `rel` of `<a>` or `<area>`
 
+<Badge color="red">Link to other page</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>author</code>
+    </strong>{' '}
+    &mdash; indicates link to the author of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>alternate</code>
+    </strong>{' '}
+    &mdash; indicates link to the an alternative version of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>bookmark</code>
+    </strong>{' '}
+    &mdash; indicates permalink to the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>help</code>
+    </strong>{' '}
+    &mdash; indicates link to the help page of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>license</code>
+    </strong>{' '}
+    &mdash; indicates link to the license page of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>search</code>
+    </strong>{' '}
+    &mdash; indicates link to the search page of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>next</code>
+    </strong>{' '}
+    &mdash; indicates link to the next document (in series) of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>prev</code>
+    </strong>{' '}
+    &mdash; indicates link to the previous document (in series) of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>tag</code>
+    </strong>{' '}
+    &mdash; indicates link to a tag page that applies to the current document/section (e.g. link to
+    the "fiction" or "nonfiction" tag of a book)
+  </li>
+</ul>
+
+<Badge color="red">Annotation</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>external</code>
+    </strong>{' '}
+    &mdash; indicates that the link is pointing to an external site
+  </li>
+  <li>
+    <strong>
+      <code>nofollow</code>
+    </strong>{' '}
+    &mdash; indicates that the author does not endorse the link (tells search engine crawlers to
+    ignore the link)
+  </li>
+  <li>
+    <strong>
+      <code>noreferrer</code>
+    </strong>{' '}
+    &mdash; Don't include <code>Referer</code> header when navigating; behaves like{' '}
+    <code>noopener</code>
+  </li>
+  <li>
+    <strong>
+      <code>noopener</code>
+    </strong>{' '}
+    &mdash; On the target URL, sets <code>window.opener</code> to <code>null</code> (for security)
+  </li>
+  <li>
+    <strong>
+      <code>opener</code>
+    </strong>{' '}
+    &mdash; On the target URL, gives access to <code>window.opener</code> (may allow{' '}
+    <a href="https://mathiasbynens.github.io/rel-noopener/">phising attacks</a>)
+  </li>
+</ul>
+
 ### `rel` of `<form>`
 
 ## `target`
@@ -340,6 +436,10 @@ Targets where to open a link. Possible values:
     {
       text: 'Prefetch & preconnect-dns priority',
       link: `https://responsivedesign.is/articles/prefetch-preconnect-dns-priority/`,
+    },
+    {
+      text: 'rel="tag"',
+      link: `https://microformats.org/wiki/rel-tag`,
     },
   ]}
 ></References>
