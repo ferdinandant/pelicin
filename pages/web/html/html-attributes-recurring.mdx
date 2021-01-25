@@ -119,7 +119,7 @@ Whether or not the browser should include the `Referer` header when making the r
 
 ## `rel`
 
-Defines relation of the linked resource to the document.
+Defines relation of the linked resource to the document. When specifying more than one, separate using space.
 
 The possible values depend on how `rel` was used:
 
@@ -330,7 +330,7 @@ The possible values depend on how `rel` was used:
   </li>
 </ul>
 
-<Badge color="red">Annotation</Badge>
+<Badge color="red">Link annotation</Badge>
 <ul>
   <li>
     <strong>
@@ -368,6 +368,77 @@ The possible values depend on how `rel` was used:
 </ul>
 
 ### `rel` of `<form>`
+
+<Badge color="red">Link to other page</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>help</code>
+    </strong>{' '}
+    &mdash; ???
+  </li>
+  <li>
+    <strong>
+      <code>license</code>
+    </strong>{' '}
+    &mdash; ???
+  </li>
+  <li>
+    <strong>
+      <code>search</code>
+    </strong>{' '}
+    &mdash; ???
+  </li>
+  <li>
+    <strong>
+      <code>next</code>
+    </strong>{' '}
+    &mdash; ???
+  </li>
+  <li>
+    <strong>
+      <code>prev</code>
+    </strong>{' '}
+    &mdash; ???
+  </li>
+</ul>
+
+<Badge color="red">Link annotation</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>external</code>
+    </strong>{' '}
+    &mdash; indicates that the form is submitting to an external site
+  </li>
+  <li>
+    <strong>
+      <code>nofollow</code>
+    </strong>{' '}
+    &mdash; indicates that the author does not endorse the link (tells search engine crawlers to
+    ignore the link)
+  </li>
+  <li>
+    <strong>
+      <code>noreferrer</code>
+    </strong>{' '}
+    &mdash; Don't include <code>Referer</code> header when submitting; behaves like{' '}
+    <code>noopener</code>
+  </li>
+  <li>
+    <strong>
+      <code>noopener</code>
+    </strong>{' '}
+    &mdash; On the target URL, sets <code>window.opener</code> to <code>null</code> (for security)
+  </li>
+  <li>
+    <strong>
+      <code>opener</code>
+    </strong>{' '}
+    &mdash; On the target URL, gives access to <code>window.opener</code> (may allow{' '}
+    <a href="https://mathiasbynens.github.io/rel-noopener/">phising attacks</a>)
+  </li>
+</ul>
 
 ## `target`
 
@@ -440,6 +511,10 @@ Targets where to open a link. Possible values:
     {
       text: 'rel="tag"',
       link: `https://microformats.org/wiki/rel-tag`,
+    },
+    {
+      text: 'HTML: Living Standard: 4.6.6 Link types',
+      link: `https://html.spec.whatwg.org/multipage/links.html#linkTypes`,
     },
   ]}
 ></References>
