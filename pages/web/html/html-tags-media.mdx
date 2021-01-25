@@ -69,6 +69,16 @@ These are the HTML tags related to embedding media (picture, video, sound, etc).
       description: 'Embeds video',
     },
     {
+      tag: 'picture',
+      type: 'inline',
+      description: 'Defines different alternative versions of an image',
+    },
+    {
+      tag: 'source',
+      type: 'other',
+      description: 'Specifies a media source',
+    },
+    {
       tag: 'map',
       type: 'other',
       description: 'Defines an image map',
@@ -396,6 +406,83 @@ Instead of providing `src` directly, you can also provide multiple sources with 
   </video>
 </LightBox>
 
+## `<picture>`
+
+Works like `<img srcset="..." sizes="...">`, but semantically, instead of giving sources of an image in <em>different resolutions</em>, you give sources of an image in <em>different versions</em>.
+
+(E.g., instead of just resizing the image for smaller screens, you crop out the less relevant part for display on smaller screens.)
+
+<!-- prettier-ignore -->
+```html
+<!-- Image sources: -->
+<!-- https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images -->
+<!-- Try resizing your browser's window width to around 800px -->
+<picture>
+  <source media="(max-width: 799px)" srcset="/res/web/html/elva-480w-close-portrait.jpg">
+  <source media="(min-width: 800px)" srcset="/res/web/html/elva-800w.jpg">
+  <img src="/res/web/html/elva-800w.jpg" width="200" alt="Chris standing up holding his daughter Elva">
+</picture>
+```
+
+<LightBox label="Preview">
+  <picture>
+    <source media="(max-width: 799px)" srcset="/res/web/html/elva-480w-close-portrait.jpg" />
+    <source media="(min-width: 800px)" srcset="/res/web/html/elva-800w.jpg" />
+    <img
+      src="/res/web/html/elva-800w.jpg"
+      alt="Chris standing up holding his daughter Elva"
+      width="200"
+    />
+  </picture>
+</LightBox>
+
+## `<source>`
+
+Specifies a media source inside `<picture>`, `<audio>`, or `<video>`.
+
+<Badge color="blue">
+  Attributes when it's child of <code>{`<picture>`}</code>
+</Badge>
+<ul>
+  <li>
+    <Attribute>media=[...]</Attribute> &mdash; media query, e.g. <code>(max-width: 799px)</code>
+  </li>
+  <li>
+    <Attribute>srcset=[...]</Attribute> &mdash; comma-separated list of possible sources to load the
+    image. Use one of the following format:
+    <ul>
+      <li>
+        <code>image-small.jpg 240w, image-medium 300w, image-large.jpg 720w"</code>, where the
+        number before "w" is the image's width (the browser will pick which one to load based on the
+        value of <code>sizes</code>)
+      </li>
+      <li>
+        <code>image-small.jpg, image-medium 1.5x, image-large.jpg 2x</code>, where the number before
+        "x" is the pixel density (defaulting to <code>1x</code> if the number is not given; the
+        browser will pick which one to load based on the device's pixel density)
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>sizes=[...]</Attribute> &mdash; e.g. <code>(min-width: 960px) 720px, 100vw</code>{' '}
+    (comma-separated list of media query and which image size to pick, plus default image size to
+    pick).
+  </li>
+</ul>
+
+<Badge color="blue">
+  Attributes when it's child of <code>{`<audio>`}</code> or <code>{`<video>`}</code>
+</Badge>
+<ul>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; URL of the media
+  </li>
+  <li>
+    <Attribute>type=[...]</Attribute> &mdash; MIME type of the media (e.g. <code>video/mp4</code>),
+    optionally with a codecs parameter (e.g. <code>audio/ogg; codecs=vorbis</code>).
+  </li>
+</ul>
+
 ## `<map>`
 
 Defines an <dfn>image map</dfn> (clickable link areas in image).
@@ -557,7 +644,7 @@ When given `href` attribute, the area represents a hyperlink.
   />
 </LightBox>
 
-## track
+## `<track>`
 
 Specifies <dfn>timed text tracks</dfn> ("subtitles") for `<audio>` or `<video>`. The format is [WebVTT](https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API) (`.vtt` files).
 

@@ -119,13 +119,326 @@ Whether or not the browser should include the `Referer` header when making the r
 
 ## `rel`
 
-Defines relation of the linked resource to the document.
+Defines relation of the linked resource to the document. When specifying more than one, separate using space.
 
-The possible values depends on how `rel` was used:
+The possible values depend on how `rel` was used:
 
 - `<link rel="...">`
 - `<a rel="...">` or `<area rel="...">`,
 - `<form rel="...">`
+
+### `rel` of `<link>`
+
+<Badge color="red">Link to other page</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>author</code>
+    </strong>{' '}
+    &mdash; link to the author
+  </li>
+  <li>
+    <strong>
+      <code>canonical</code>
+    </strong>{' '}
+    &mdash; link to the preferred URL for this document
+  </li>
+  <li>
+    <strong>
+      <code>alternate</code>
+    </strong>{' '}
+    &mdash; link to the alternate representation of this document, e.g.
+    <ul>
+      <li>
+        <code>{`<link rel="alternate" href="www.example.com/jp-jp" hreflang="jp-jp"`}</code>
+      </li>
+      <li>
+        <code>{`<link rel="alternate" type="application/atom+xml" href="posts.xml" title="Blog">`}</code>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <strong>
+      <code>help</code>
+    </strong>{' '}
+    &mdash; link to help page of this document
+  </li>
+  <li>
+    <strong>
+      <code>license</code>
+    </strong>{' '}
+    &mdash; link to license page of this document
+  </li>
+  <li>
+    <strong>
+      <code>search</code>
+    </strong>{' '}
+    &mdash; link to search page of this document
+  </li>
+  <li>
+    <strong>
+      <code>next</code>
+    </strong>{' '}
+    &mdash; link to the next document in series
+  </li>
+  <li>
+    <strong>
+      <code>prev</code>
+    </strong>{' '}
+    &mdash; link to the previous document in series
+  </li>
+  <li>
+    <strong>
+      <code>pingback</code>
+    </strong>{' '}
+    &mdash; link to the{' '}
+    <a href="https://wordpress.stackexchange.com/questions/116079/what-is-rel-pingback-and-what-is-the-use-of-this-in-my-website">
+      pingback server
+    </a>{' '}
+    of this document (e.g., on Wordpress, if somebody writes a link to your post, Wordpress will try
+    to contact the pingback server of your post to let you know that somebody has put down a link to
+    your post)
+  </li>
+  <li>
+    <strong>
+      <code>manifest</code>
+    </strong>{' '}
+    &mdash; link to <a href="https://developer.mozilla.org/en-US/docs/Web/Manifest">PWA manifest</a>
+  </li>
+</ul>
+
+<Badge color="red">Performance</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>dns-prefetch</code>
+    </strong>{' '}
+    &mdash; tells the browser to preemptively perform DNS resolution for the target origin
+  </li>
+  <li>
+    <strong>
+      <code>preconnect</code>
+    </strong>{' '}
+    &mdash; tells the browser to preemptively connect to the target origin (this does DNS
+    resolution, TLS negotiation, and TCP handshake)
+  </li>
+  <li>
+    <strong>
+      <code>prefetch</code>
+    </strong>{' '}
+    &mdash; tells the browser that it <em>should</em> fetch and cache the target resource because
+    it's likely to be used in the followup navigation
+  </li>
+  <li>
+    <strong>
+      <code>preload</code>
+    </strong>{' '}
+    &mdash; tells the browser that it <em>must</em> fetch and cache the target resource because it's
+    likely to be used in the current navigation
+  </li>
+  <li>
+    <strong>
+      <code>prerender</code>
+    </strong>{' '}
+    &mdash; tells the browser that it should fetch and process the target resource (e.g. fetch its
+    subresources or perform rendering off-screen) because it's likely to be used in the followup
+    navigation
+  </li>
+  <li>
+    <strong>
+      <code>modulepreload</code>
+    </strong>{' '}
+    &mdash; for JS modules: tells the browser to preemptively fetch the script (and its
+    dependencies) and store it in the document's module map for later evaluation.
+  </li>
+</ul>
+
+<Badge color="red">Resource type</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>icon</code>
+    </strong>{' '}
+    &mdash; loads favicon
+  </li>
+  <li>
+    <strong>
+      <code>stylesheet</code>
+    </strong>{' '}
+    &mdash; loads CSS
+  </li>
+</ul>
+
+### `rel` of `<a>` or `<area>`
+
+<Badge color="red">Link to other page</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>author</code>
+    </strong>{' '}
+    &mdash; indicates link to the author of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>alternate</code>
+    </strong>{' '}
+    &mdash; indicates link to the an alternative version of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>bookmark</code>
+    </strong>{' '}
+    &mdash; indicates permalink to the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>help</code>
+    </strong>{' '}
+    &mdash; indicates link to the help page of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>license</code>
+    </strong>{' '}
+    &mdash; indicates link to the license page of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>search</code>
+    </strong>{' '}
+    &mdash; indicates link to the search page of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>next</code>
+    </strong>{' '}
+    &mdash; indicates link to the next document (in series) of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>prev</code>
+    </strong>{' '}
+    &mdash; indicates link to the previous document (in series) of the current document/section
+  </li>
+  <li>
+    <strong>
+      <code>tag</code>
+    </strong>{' '}
+    &mdash; indicates link to a tag page that applies to the current document/section (e.g. link to
+    the "fiction" or "nonfiction" tag of a book)
+  </li>
+</ul>
+
+<Badge color="red">Link annotation</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>external</code>
+    </strong>{' '}
+    &mdash; indicates that the link is pointing to an external site
+  </li>
+  <li>
+    <strong>
+      <code>nofollow</code>
+    </strong>{' '}
+    &mdash; indicates that the author does not endorse the link (tells search engine crawlers to
+    ignore the link)
+  </li>
+  <li>
+    <strong>
+      <code>noreferrer</code>
+    </strong>{' '}
+    &mdash; Don't include <code>Referer</code> header when navigating; behaves like{' '}
+    <code>noopener</code>
+  </li>
+  <li>
+    <strong>
+      <code>noopener</code>
+    </strong>{' '}
+    &mdash; On the target URL, sets <code>window.opener</code> to <code>null</code> (for security)
+  </li>
+  <li>
+    <strong>
+      <code>opener</code>
+    </strong>{' '}
+    &mdash; On the target URL, gives access to <code>window.opener</code> (may allow{' '}
+    <a href="https://mathiasbynens.github.io/rel-noopener/">phising attacks</a>)
+  </li>
+</ul>
+
+### `rel` of `<form>`
+
+<Badge color="red">Link to other page</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>help</code>
+    </strong>{' '}
+    &mdash; ???
+  </li>
+  <li>
+    <strong>
+      <code>license</code>
+    </strong>{' '}
+    &mdash; ???
+  </li>
+  <li>
+    <strong>
+      <code>search</code>
+    </strong>{' '}
+    &mdash; ???
+  </li>
+  <li>
+    <strong>
+      <code>next</code>
+    </strong>{' '}
+    &mdash; ???
+  </li>
+  <li>
+    <strong>
+      <code>prev</code>
+    </strong>{' '}
+    &mdash; ???
+  </li>
+</ul>
+
+<Badge color="red">Link annotation</Badge>
+<ul>
+  <li>
+    <strong>
+      <code>external</code>
+    </strong>{' '}
+    &mdash; indicates that the form is submitting to an external site
+  </li>
+  <li>
+    <strong>
+      <code>nofollow</code>
+    </strong>{' '}
+    &mdash; indicates that the author does not endorse the link (tells search engine crawlers to
+    ignore the link)
+  </li>
+  <li>
+    <strong>
+      <code>noreferrer</code>
+    </strong>{' '}
+    &mdash; Don't include <code>Referer</code> header when submitting; behaves like{' '}
+    <code>noopener</code>
+  </li>
+  <li>
+    <strong>
+      <code>noopener</code>
+    </strong>{' '}
+    &mdash; On the target URL, sets <code>window.opener</code> to <code>null</code> (for security)
+  </li>
+  <li>
+    <strong>
+      <code>opener</code>
+    </strong>{' '}
+    &mdash; On the target URL, gives access to <code>window.opener</code> (may allow{' '}
+    <a href="https://mathiasbynens.github.io/rel-noopener/">phising attacks</a>)
+  </li>
+</ul>
 
 ## `target`
 
@@ -180,8 +493,28 @@ Targets where to open a link. Possible values:
       link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy`,
     },
     {
+      text: 'HTML attribute: rel (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel`,
+    },
+    {
       text: 'Referrer Policy: W3C Candidate Recommendation, 26 January 2017',
       link: `https://www.w3.org/TR/referrer-policy/`,
+    },
+    {
+      text: 'What is rel=“pingback”, and what is the use of this in my website? (Stack Exchange)',
+      link: `https://wordpress.stackexchange.com/questions/116079/what-is-rel-pingback-and-what-is-the-use-of-this-in-my-website`,
+    },
+    {
+      text: 'Prefetch & preconnect-dns priority',
+      link: `https://responsivedesign.is/articles/prefetch-preconnect-dns-priority/`,
+    },
+    {
+      text: 'rel="tag"',
+      link: `https://microformats.org/wiki/rel-tag`,
+    },
+    {
+      text: 'HTML: Living Standard: 4.6.6 Link types',
+      link: `https://html.spec.whatwg.org/multipage/links.html#linkTypes`,
     },
   ]}
 ></References>
