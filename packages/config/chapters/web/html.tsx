@@ -49,9 +49,13 @@ const chapters: TopicChapters = [
     chapter: 'HTML Attributes',
     children: [
       {
+        title: 'Global HTML Attributes',
+        path: '/web/html/html-attributes-global'
+      },
+      {
         title: 'Recurring HTML Attributes',
         path: '/web/html/html-attributes-recurring'
-      }
+      },
     ]
   }
 ];
