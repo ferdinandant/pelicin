@@ -7,6 +7,7 @@ export { default as Image } from './article/Image';
 // Box
 export { default as NoteBox } from './box/NoteBox';
 export { default as LightBox } from './box/LightBox';
+export { default as TodoBox } from './box/TodoBox';
 export { default as Badge } from './box/Badge';
 
 // Icon
