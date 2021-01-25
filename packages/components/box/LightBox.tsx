@@ -50,7 +50,7 @@ export default function LightBox(props: Props) {
         }
         .container.red .label {
           background-color: var(--color-red-2);
-        }s
+        }
       `}</style>
     </>
   );
