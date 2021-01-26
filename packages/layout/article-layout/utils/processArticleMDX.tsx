@@ -37,7 +37,11 @@ function processChild(child: ReactNode, index = 0) {
     const { className, children: codeString } = childrenProps || {};
     if (className && className.startsWith('language-')) {
       const language = className.replace('language-', '');
-      return <SyntaxHighlighter language={language}>{codeString}</SyntaxHighlighter>;
+      return (
+        <SyntaxHighlighter key={index} language={language}>
+          {codeString}
+        </SyntaxHighlighter>
+      );
     }
   }
 
