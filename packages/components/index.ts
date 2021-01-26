@@ -18,3 +18,6 @@ export { default as Latex } from './math/Latex';
 
 // Table
 export { default as FixedColumnWidthTable } from './table/FixedColumnWidthTable';
+
+// List
+export { default as BasicList } from './list/BasicList';

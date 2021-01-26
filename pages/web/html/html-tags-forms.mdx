@@ -1,5 +1,12 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, LightBox, NoteBox, Badge } from '@pelicin/components';
+import {
+  References,
+  FixedColumnWidthTable,
+  LightBox,
+  NoteBox,
+  Badge,
+  BasicList,
+} from '@pelicin/components';
 
 export const Attribute = (props) => (
   <strong>
@@ -214,6 +221,23 @@ Creates interactive form input.
         description: (
           <>
             <p>Single-line text input (default)</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+               <>
+                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>dirname=[...]</Attribute> (like <code>name</code>, but this would be the directionality
+                field name of the input; the directionaly field value would be <code>ltr</code> or <code>rtl</code>,
+                set by the browser)
+              </>,
+              <>
+                <Attribute>pattern=[...]</Attribute> (regex)
+              </>,
+              <>
+                <Attribute>placeholder=[...]</Attribute>
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="text" value="test" />,
@@ -223,6 +247,18 @@ Creates interactive form input.
         description: (
           <>
             <p>Password input</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>pattern=[...]</Attribute> (regex)
+              </>,
+              <>
+                <Attribute>placeholder=[...]</Attribute>
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="password" value="test" />,
@@ -234,6 +270,15 @@ Creates interactive form input.
             <p>
               Like <code>text</code>, but input pattern is validated
             </p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>placeholder=[...]</Attribute>
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="url" />,
@@ -245,6 +290,12 @@ Creates interactive form input.
             <p>
               Like <code>text</code>, but input pattern is validated
             </p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>multiple</Attribute> (allow multiple values)
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="email" />,
@@ -256,6 +307,18 @@ Creates interactive form input.
             <p>
               Like <code>text</code>, but for phone input (uses phone keypad in some devices)
             </p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>pattern=[...]</Attribute> (regex)
+              </>,
+              <>
+                <Attribute>placeholder=[...]</Attribute>
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="tel" value="123-456-7890" />,
@@ -267,6 +330,19 @@ Creates interactive form input.
             <p>
               Like <code>text</code>, but for search query (displays search icon in some devices)
             </p>
+            <BasicList items={[
+              <>
+                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>placeholder=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>dirname=[...]</Attribute> (like <code>name</code>, but this would be the directionality
+                field name of the input; the directionaly field value would be <code>ltr</code> or <code>rtl</code>,
+                set by the browser)
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="search" />,
@@ -276,6 +352,12 @@ Creates interactive form input.
         description: (
           <>
             <p>Checkbox input</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>checked</Attribute>
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="checkbox" />,
@@ -287,6 +369,12 @@ Creates interactive form input.
             <p>
               Radio input (only one radio input with the same <code>name</code> can be selected)
             </p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>checked</Attribute>
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="radio" />,
@@ -305,6 +393,12 @@ Creates interactive form input.
         description: (
           <>
             <p>Number selector</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>min=[...]</Attribute>, <Attribute>max=[...]</Attribute>, <Attribute>step=[...]</Attribute>
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="number" />,
@@ -314,6 +408,12 @@ Creates interactive form input.
         description: (
           <>
             <p>Range selector</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>min=[...]</Attribute>, <Attribute>max=[...]</Attribute>, <Attribute>step=[...]</Attribute>
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="range" />,
@@ -323,6 +423,22 @@ Creates interactive form input.
         description: (
           <>
             <p>File selector</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList
+              items={[
+                <>
+                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>,{' '}
+                  <code>audio/mp3</code>, or <code>audio/*</code>)
+                </>,
+                <>
+                  <Attribute>capture=[...]</Attribute> (which camera to use, e.g. <code>user</code>{' '}
+                  for front camera, <code>environment</code> for back camera)
+                </>,
+                <>
+                  <Attribute>multiple</Attribute> (allow multiple values)
+                </>,
+              ]}
+            />
           </>
         ),
         preview: <input type="file" />,
@@ -334,7 +450,7 @@ Creates interactive form input.
             <p>Date selector</p>
           </>
         ),
-        preview: <input type="date" />,
+        preview: <input type="date" value="2017-06-01" />,
       },
       {
         type: 'time',
@@ -343,7 +459,7 @@ Creates interactive form input.
             <p>Time selector</p>
           </>
         ),
-        preview: <input type="time" />,
+        preview: <input type="time" value="13:30" />,
       },
       {
         type: 'datetime-local',
@@ -352,7 +468,7 @@ Creates interactive form input.
             <p>Date and time selector</p>
           </>
         ),
-        preview: <input type="datetime-local" />,
+        preview: <input type="datetime-local" value="2017-06-01T08:30" />,
       },
       {
         type: 'month',
@@ -361,7 +477,7 @@ Creates interactive form input.
             <p>Month and year selector</p>
           </>
         ),
-        preview: <input type="month" />,
+        preview: <input type="month" value="2017-06" />,
       },
       {
         type: 'week',
@@ -370,7 +486,7 @@ Creates interactive form input.
             <p>Week and year selector</p>
           </>
         ),
-        preview: <input type="week" />,
+        preview: <input type="week" value="2017-W01" />,
       },
       {
         type: 'button',
@@ -381,7 +497,7 @@ Creates interactive form input.
             </p>
           </>
         ),
-        preview: <input type="button" />,
+        preview: <input type="button" value="Click me!"/>,
       },
       {
         type: 'reset',
@@ -397,6 +513,14 @@ Creates interactive form input.
         description: (
           <>
             <p>Renders a submit button</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>formaction=[...]</Attribute>, <Attribute>formmethod=[...]</Attribute>,{' '}
+                <Attribute>formtarget=[...]</Attribute>, <Attribute>formenctype=[...]</Attribute>,{' '}
+                <Attribute>formnovalidate</Attribute>
+              </>,
+            ]} />
           </>
         ),
         preview: <input type="submit" />,
@@ -406,9 +530,21 @@ Creates interactive form input.
         description: (
           <>
             <p>Renders a graphical submit button</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>src=[...]</Attribute>, <Attribute>alt=[...]</Attribute>,{' '}
+                <Attribute>height=[...]</Attribute>, <Attribute>width=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>formaction=[...]</Attribute>, <Attribute>formmethod=[...]</Attribute>,{' '}
+                <Attribute>formtarget=[...]</Attribute>, <Attribute>formenctype=[...]</Attribute>,{' '}
+                <Attribute>formnovalidate</Attribute>
+              </>,
+            ]} />
           </>
         ),
-        preview: <input type="image" />,
+        preview: <input type="image" src="/res/web/html/submit-btn.png" alt="Submit" />,
       },
       {
         type: 'hidden',
@@ -423,7 +559,8 @@ Creates interactive form input.
         preview: <input type="hidden" />,
       },
     ]}
-  />
+/>
+
 </small>
 
 ## References
