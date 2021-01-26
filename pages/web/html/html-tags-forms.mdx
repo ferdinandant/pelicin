@@ -65,6 +65,16 @@ These are the HTML tags you use to make forms and their content.
       type: 'block',
       description: <>Represents a form</>,
     },
+    {
+      tag: 'input',
+      type: 'inline',
+      description: <>Creates an interactive input field</>,
+    },
+    {
+      tag: 'output',
+      type: 'inline',
+      description: <>Creates an output container</>,
+    },
   ]}
 />
 
@@ -145,7 +155,7 @@ Represents a <em>form</em>.
 
 ## `<input>`
 
-Creates interactive form input.
+Creates an interactive input field.
 
 <Badge color="blue">Common attributes (apply to most, if not all)</Badge>
 <ul>
@@ -589,6 +599,50 @@ Creates interactive form input.
 </small>
 
 ## `<output>`
+
+Creates an output container. Its value/content is <em>not</em> submitted during form submission.
+
+Does nothing by itself; you will need to implement the behavior using JavaScript.
+
+<Badge color="blue">Common attributes (apply to most, if not all)</Badge>
+<ul>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of this output
+  </li>
+  <li>
+    <Attribute>for=[...]</Attribute> &mdash; space-separated <code>id</code>'s of <code>{`<input id="...">`}</code>{' '}
+    elements that contribute to the output
+  </li>
+  <li>
+    <Attribute>form=[...]</Attribute> &mdash; associates this output to an <code>{`<form id="...">`}</code>{' '}
+    element with the given <code>id</code> (allows you to place the output anywhere in the document)
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<!-- TIL: Accesing `<span id="xxx">` node can be via `xxx` variable in JS,
+although probably it would be better to use `document.getElementById` -->
+
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output -->
+<form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
+  <input type="range" id="b" name="b" value="50"> +
+  <input type="number" id="a" name="a" value="10"> =
+  <output name="result" for="a b">60</output>
+</form>
+```
+
+<!-- TODO: install sanitizer -->
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+  <div dangerouslySetInnerHTML={{__html: `
+    <form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
+      <input type="range" id="b" name="b" value="50"> +
+      <input type="number" id="a" name="a" value="10"> =
+      <output name="result" for="a b">60</output>
+    </form>
+  `}} />
+</LightBox>
 
 ## References
 
