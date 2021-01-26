@@ -29,6 +29,7 @@ export default function MainContainer(props: Props) {
       <style jsx>{`
         main {
           width: 100%;
+          overflow: auto;
         }
         .breadcrumbContainer {
           display: none;
