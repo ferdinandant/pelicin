@@ -29,6 +29,7 @@ export default function MainContainer(props: Props) {
       <style jsx>{`
         main {
           width: 100%;
+          overflow: auto;
         }
         .breadcrumbContainer {
           display: none;
@@ -39,6 +40,7 @@ export default function MainContainer(props: Props) {
           flex-direction: row;
         }
         article {
+          box-shadow: 0 0 var(--spacing-xxl) var(--color-gray-1);
           padding: var(--spacing-xl) var(--spacing-xxl);
           width: 100%;
           max-width: 800px;
@@ -55,6 +57,9 @@ export default function MainContainer(props: Props) {
           }
         }
         @media (max-width: ${SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX}px) {
+          article {
+            box-shadow: none;
+          }
           .breadcrumbContainer {
             display: block;
             padding: var(--spacing-xl) var(--spacing-xxl);

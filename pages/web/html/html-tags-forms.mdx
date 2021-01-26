@@ -1,0 +1,148 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+
+export const Attribute = (props) => (
+  <strong>
+    <code>{props.children}</code>
+  </strong>
+);
+
+<MetadataConfigurer title="HTML Tags: Forms" dateCreated="2021-01-26" />
+
+# HTML Tags: Forms
+
+These are the HTML tags you use to make forms and their content.
+
+<FixedColumnWidthTable
+  tableStyle={{
+    fontSize: '0.9em',
+  }}
+  headers={[
+    {
+      text: 'Tag',
+      key: 'tag',
+      formatContent: (tag) => {
+        const specialMapping = {};
+        return (
+          <>
+            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
+              <code>&lt;{tag}&gt;</code>
+            </a>
+          </>
+        );
+      },
+      width: 100,
+    },
+    {
+      text: 'Type',
+      key: 'type',
+      formatContent: (type) => {
+        return type === 'block' ? (
+          <Badge color="red">Block</Badge>
+        ) : type === 'inline' ? (
+          <Badge color="blue">Inline</Badge>
+        ) : (
+          <Badge color="gray">Other</Badge>
+        );
+      },
+      width: 80,
+    },
+    {
+      text: 'Description',
+      key: 'description',
+    },
+  ]}
+  contents={[
+    {
+      tag: 'form',
+      type: 'block',
+      description: <>Represents a form</>,
+    },
+  ]}
+/>
+
+## `<form>`
+
+Represents a <em>form</em>.
+
+<Badge color="blue">Attributes related to submission</Badge>
+<ul>
+  <li>
+    <Attribute>action=[...]</Attribute> &mdash; the URL to which the form is submitted (which URL
+    performs some action on the form data)
+  </li>
+  <li>
+    <Attribute>method=[...]</Attribute> &mdash; the HTTP method with which the form is submitted;
+    specify either <code>post</code> or <code>get</code>
+  </li>
+  <li>
+    <Attribute>enctype=[...]</Attribute> &mdash; if <code>method="post"</code>, this specifies the
+    MIME type of the form submission. Can be:
+    <ul>
+      <li>
+        <code>application/x-www-form-urlencoded</code> <i>(the default value)</i>
+      </li>
+      <li>
+        <code>multipart/form-data</code>{' '}
+        <i>
+          (use if there is any <code>{`<input type="file">`}</code>)
+        </i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>novalidate</Attribute> &mdash; don't validate form before being submitted
+  </li>
+  <li>
+    <Attribute>target=[...]</Attribute> &mdash; where to display the response (
+    <a href="/web/html/html-attributes-recurring#target">read here</a>)
+  </li>
+</ul>
+
+<Badge color="blue">Other attributes</Badge>
+<ul>
+  <li>
+    <Attribute>accept-charset=[...]</Attribute> &mdash; space-separated character encodings the
+    server accepts, e.g. <code>utf-8</code>
+  </li>
+  <li>
+    <Attribute>autocomplete=[...]</Attribute> &mdash; indicates whether input fields can be
+    autocompleted by the browser; specify either <code>on</code> or <code>off</code>
+  </li>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of the form (must be unique)
+  </li>
+  <li>
+    <Attribute>rel=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#rel">read here</a>
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<form method="post" action="/login">
+  Username: <input type="text"><br>
+  Password: <input type="password"><br>
+  <input type="submit" value="Login">
+</form>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+  <form method="post" action="/login">
+    Username: <input name="username" type="text" /><br/>
+    Password: <input name="password" type="password" /><br/>
+    <input type="submit" value="Login" />
+  </form>
+</LightBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+  ]}
+></References>
