@@ -38,7 +38,7 @@ export default function TOCSidebar() {
 
       <style jsx>{`
         aside {
-          position: sticky;
+          position: fixed;
           box-sizing: content-box;
           top: calc(var(--header-height) + 24px);
           height: calc(100vh - var(--header-height) - 48px);
