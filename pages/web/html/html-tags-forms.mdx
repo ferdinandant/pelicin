@@ -1,5 +1,12 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+import {
+  References,
+  FixedColumnWidthTable,
+  LightBox,
+  NoteBox,
+  Badge,
+  BasicList,
+} from '@pelicin/components';
 
 export const Attribute = (props) => (
   <strong>
@@ -135,6 +142,426 @@ Represents a <em>form</em>.
     <input type="submit" value="Login" />
   </form>
 </LightBox>
+
+## `<input>`
+
+Creates interactive form input.
+
+<Badge color="blue">Common attributes (apply to most, if not all)</Badge>
+<ul>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of this input
+  </li>
+  <li>
+    <Attribute>value=[...]</Attribute> &mdash; value of this input
+  </li>
+  <li>
+    <Attribute>type=[...]</Attribute> &mdash; type of this input, read next section
+  </li>
+  <li>
+    <Attribute>autofocus</Attribute> &mdash; sets focus on input when the page has finished loading
+  </li>
+  <li>
+    <Attribute>disabled</Attribute> &mdash; disables input (the user cannot interact with it)
+  </li>
+  <li>
+    <Attribute>readonly</Attribute> &mdash; makes the user unable to change this input's value
+  </li>
+  <li>
+    <Attribute>required</Attribute> &mdash; forces the user to specify this input's value before
+    submitting the form
+  </li>
+  <li>
+    <Attribute>autocomplete=[...]</Attribute> &mdash; hints if the browser can autofill this input;
+    specify either <code>on</code> or <code>off</code>
+  </li>
+  <li>
+    <Attribute>form=[...]</Attribute> &mdash; associates this input to an <code>{`<form id="...">`}</code>{' '}
+    element with the given <code>id</code> (allows you to place the input anywhere in the document)
+  </li>
+  <li>
+    <Attribute>list=[...]</Attribute> &mdash; associates this input to an <code>{`<datalist id="...">`}</code>{' '}
+    element with the given <code>id</code>.
+  </li>
+</ul>
+
+<Badge color="red">
+  Possible <code>type</code> values
+</Badge>
+<NoteBox>It's advised to see the following table using Chrome for the best support.</NoteBox>
+
+<small style={{ display: 'block', overflow: 'auto' }}>
+  <FixedColumnWidthTable
+    tableStyle={{ minWidth: 600 }}
+    headers={[
+      {
+        text: 'Type',
+        key: 'type',
+        width: 100,
+        formatContent: (type) => {
+          return <code>{type}</code>;
+        },
+      },
+      {
+        text: 'Description',
+        key: 'description',
+      },
+      {
+        text: (
+          <>
+            Preview of <code>{`<input type="...">`}</code>
+          </>
+        ),
+        key: 'preview',
+      },
+    ]}
+    contents={[
+      {
+        type: 'text',
+        description: (
+          <>
+            <p>Single-line text input (default)</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+               <>
+                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>dirname=[...]</Attribute> (like <code>name</code>, but this would be the directionality
+                field name of the input; the directionaly field value would be <code>ltr</code> or <code>rtl</code>,
+                set by the browser)
+              </>,
+              <>
+                <Attribute>pattern=[...]</Attribute> (regex)
+              </>,
+              <>
+                <Attribute>placeholder=[...]</Attribute>
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="text" value="test" />,
+      },
+      {
+        type: 'password',
+        description: (
+          <>
+            <p>Password input</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>pattern=[...]</Attribute> (regex)
+              </>,
+              <>
+                <Attribute>placeholder=[...]</Attribute>
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="password" value="test" />,
+      },
+      {
+        type: 'url',
+        description: (
+          <>
+            <p>
+              Like <code>text</code>, but input pattern is validated
+            </p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>placeholder=[...]</Attribute>
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="url" />,
+      },
+      {
+        type: 'email',
+        description: (
+          <>
+            <p>
+              Like <code>text</code>, but input pattern is validated
+            </p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>multiple</Attribute> (allow multiple values)
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="email" />,
+      },
+      {
+        type: 'tel',
+        description: (
+          <>
+            <p>
+              Like <code>text</code>, but for phone input (uses phone keypad in some devices)
+            </p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>pattern=[...]</Attribute> (regex)
+              </>,
+              <>
+                <Attribute>placeholder=[...]</Attribute>
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="tel" value="123-456-7890" />,
+      },
+      {
+        type: 'search',
+        description: (
+          <>
+            <p>
+              Like <code>text</code>, but for search query (displays search icon in some devices)
+            </p>
+            <BasicList items={[
+              <>
+                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>placeholder=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>dirname=[...]</Attribute> (like <code>name</code>, but this would be the directionality
+                field name of the input; the directionaly field value would be <code>ltr</code> or <code>rtl</code>,
+                set by the browser)
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="search" />,
+      },
+      {
+        type: 'checkbox',
+        description: (
+          <>
+            <p>Checkbox input</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>checked</Attribute>
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="checkbox" />,
+      },
+      {
+        type: 'radio',
+        description: (
+          <>
+            <p>
+              Radio input (only one radio input with the same <code>name</code> can be selected)
+            </p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>checked</Attribute>
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="radio" />,
+      },
+      {
+        type: 'color',
+        description: (
+          <>
+            <p>Color selector</p>
+          </>
+        ),
+        preview: <input type="color" />,
+      },
+      {
+        type: 'number',
+        description: (
+          <>
+            <p>Number selector</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>min=[...]</Attribute>, <Attribute>max=[...]</Attribute>, <Attribute>step=[...]</Attribute>
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="number" />,
+      },
+      {
+        type: 'range',
+        description: (
+          <>
+            <p>Range selector</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>min=[...]</Attribute>, <Attribute>max=[...]</Attribute>, <Attribute>step=[...]</Attribute>
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="range" />,
+      },
+      {
+        type: 'file',
+        description: (
+          <>
+            <p>File selector</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList
+              items={[
+                <>
+                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>,{' '}
+                  <code>audio/mp3</code>, or <code>audio/*</code>)
+                </>,
+                <>
+                  <Attribute>capture=[...]</Attribute> (which camera to use, e.g. <code>user</code>{' '}
+                  for front camera, <code>environment</code> for back camera)
+                </>,
+                <>
+                  <Attribute>multiple</Attribute> (allow multiple values)
+                </>,
+              ]}
+            />
+          </>
+        ),
+        preview: <input type="file" />,
+      },
+      {
+        type: 'date',
+        description: (
+          <>
+            <p>Date selector</p>
+          </>
+        ),
+        preview: <input type="date" value="2017-06-01" />,
+      },
+      {
+        type: 'time',
+        description: (
+          <>
+            <p>Time selector</p>
+          </>
+        ),
+        preview: <input type="time" value="13:30" />,
+      },
+      {
+        type: 'datetime-local',
+        description: (
+          <>
+            <p>Date and time selector</p>
+          </>
+        ),
+        preview: <input type="datetime-local" value="2017-06-01T08:30" />,
+      },
+      {
+        type: 'month',
+        description: (
+          <>
+            <p>Month and year selector</p>
+          </>
+        ),
+        preview: <input type="month" value="2017-06" />,
+      },
+      {
+        type: 'week',
+        description: (
+          <>
+            <p>Week and year selector</p>
+          </>
+        ),
+        preview: <input type="week" value="2017-W01" />,
+      },
+      {
+        type: 'button',
+        description: (
+          <>
+            <p>
+              Renders a button (use of <code>{`<button>`}</code> tag is preferred)
+            </p>
+          </>
+        ),
+        preview: <input type="button" value="Click me!"/>,
+      },
+      {
+        type: 'reset',
+        description: (
+          <>
+            <p>Renders a reset button (resets the form to its default values)</p>
+          </>
+        ),
+        preview: <input type="reset" />,
+      },
+      {
+        type: 'submit',
+        description: (
+          <>
+            <p>Renders a submit button</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>formaction=[...]</Attribute>, <Attribute>formmethod=[...]</Attribute>,{' '}
+                <Attribute>formtarget=[...]</Attribute>, <Attribute>formenctype=[...]</Attribute>,{' '}
+                <Attribute>formnovalidate</Attribute>
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="submit" />,
+      },
+      {
+        type: 'image',
+        description: (
+          <>
+            <p>Renders a graphical submit button</p>
+            <Badge color="blue">Additional attributes</Badge>
+            <BasicList items={[
+              <>
+                <Attribute>src=[...]</Attribute>, <Attribute>alt=[...]</Attribute>,{' '}
+                <Attribute>height=[...]</Attribute>, <Attribute>width=[...]</Attribute>
+              </>,
+              <>
+                <Attribute>formaction=[...]</Attribute>, <Attribute>formmethod=[...]</Attribute>,{' '}
+                <Attribute>formtarget=[...]</Attribute>, <Attribute>formenctype=[...]</Attribute>,{' '}
+                <Attribute>formnovalidate</Attribute>
+              </>,
+            ]} />
+          </>
+        ),
+        preview: <input type="image" src="/res/web/html/submit-btn.png" alt="Submit" />,
+      },
+      {
+        type: 'hidden',
+        description: (
+          <>
+            <p>
+              Renders a hidden input (the control isnot displayed to the user, but the value will
+              still be sent on submission)
+            </p>
+          </>
+        ),
+        preview: <input type="hidden" />,
+      },
+    ]}
+/>
+
+</small>
 
 ## References
 
