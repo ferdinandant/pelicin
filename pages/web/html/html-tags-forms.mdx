@@ -7,6 +7,7 @@ import {
   Badge,
   BasicList,
   GenericInput,
+  TodoBox,
 } from '@pelicin/components';
 
 export const Attribute = (props) => (
@@ -30,7 +31,10 @@ These are the HTML tags you use to make forms and their content.
       text: 'Tag',
       key: 'tag',
       formatContent: (tag) => {
-        const specialMapping = {};
+        const specialMapping = {
+          fieldset: 'fieldset-and-legend',
+          legend: 'fieldset-and-legend',
+        };
         return (
           <>
             <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
@@ -518,8 +522,8 @@ Creates an interactive input field.
             <BasicList
               items={[
                 <>
-                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>,{' '}
-                  <code>audio/mp3</code>, or <code>audio/*</code>)
+                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>
+                  , <code>audio/mp3</code>, or <code>audio/*</code>)
                 </>,
                 <>
                   <Attribute>capture=[...]</Attribute> (which camera to use, e.g. <code>user</code>{' '}
@@ -733,9 +737,11 @@ You refer to this element by giving this element's `id` in `<input list="...">`.
   </datalist>
 </LightBox>
 
-## `<fieldset>`
+## `<fieldset>` and `<legend>`
 
-Groups fields together.
+`<fieldset>` groups fields together.
+
+`<legend>` represents the caption of a `<fieldset>`.
 
 <!-- prettier-ignore -->
 ```html
@@ -759,20 +765,36 @@ Groups fields together.
 <LightBox label="Preview">
   <fieldset>
     <legend>Choose your favorite monster</legend>
-    <input type="radio" name="monster" id="kraken" />
+    <input style={{ marginRight: 10 }} type="radio" name="monster" id="kraken" />
     <label htmlFor="kraken">Kraken</label>
     <br />
-    <input type="radio" name="monster" id="sasquatch" />
+    <input style={{ marginRight: 10 }} type="radio" name="monster" id="sasquatch" />
     <label htmlFor="sasquatch">Sasquatch</label>
     <br />
-    <input type="radio" name="monster" id="mothman" />
+    <input style={{ marginRight: 10 }} type="radio" name="monster" id="mothman" />
     <label htmlFor="mothman">Mothman</label>
   </fieldset>
 </LightBox>
 
-## `<legend>`
+## `<select>` and `<optgroup>`
 
-Represents the caption of a `<fieldset>`.
+<TodoBox />
+
+## `<button>`
+
+<TodoBox />
+
+## `<meter>`
+
+<TodoBox />
+
+## `<progress>`
+
+<TodoBox />
+
+## `<textarea>`
+
+<TodoBox />
 
 ## References
 
