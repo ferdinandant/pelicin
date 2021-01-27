@@ -7,7 +7,7 @@ import { References, NoteBox, Badge } from '@pelicin/components';
 
 Some HTML attributes are recurring in more than one type of elements. They are described here.
 
-## `crossorigin`
+## `crossorigin=[...]`
 
 Defines how the browser should make the request in terms of CORS. Possible values:
 
@@ -33,7 +33,13 @@ Defines how the browser should make the request in terms of CORS. Possible value
 
 <strong>Note:</strong> <dfn>Credentials</dfn> are cookies, authorization headers, or TLS client certificates.
 
-## `referrerpolicy`
+## `form=[...]`
+
+Which `id` of `<form id="...">` this form item is associated with.
+
+(Allows you to place the form item anywhere in the page, not necessarily as the children of said `<form>`.)
+
+## `referrerpolicy=[...]`
 
 Whether or not the browser should include the `Referer` header when making the request. Possible values:
 
@@ -117,7 +123,7 @@ Whether or not the browser should include the `Referer` header when making the r
   </li>
 </ul>
 
-## `rel`
+## `rel=[...]`
 
 Defines relation of the linked resource to the document. When specifying more than one, separate using space.
 
@@ -440,7 +446,7 @@ The possible values depend on how `rel` was used:
   </li>
 </ul>
 
-## `target`
+## `target=[...]`
 
 Targets where to open a link. Possible values:
 

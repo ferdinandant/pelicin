@@ -6,6 +6,8 @@ import {
   NoteBox,
   Badge,
   BasicList,
+  GenericInput,
+  TodoBox,
 } from '@pelicin/components';
 
 export const Attribute = (props) => (
@@ -29,7 +31,10 @@ These are the HTML tags you use to make forms and their content.
       text: 'Tag',
       key: 'tag',
       formatContent: (tag) => {
-        const specialMapping = {};
+        const specialMapping = {
+          fieldset: 'fieldset-and-legend',
+          legend: 'fieldset-and-legend',
+        };
         return (
           <>
             <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
@@ -64,6 +69,45 @@ These are the HTML tags you use to make forms and their content.
       tag: 'form',
       type: 'block',
       description: <>Represents a form</>,
+    },
+    {
+      tag: 'label',
+      type: 'inline',
+      description: <>Represents the caption of a form field</>,
+    },
+    {
+      tag: 'input',
+      type: 'inline',
+      description: <>Creates an interactive input field</>,
+    },
+    {
+      tag: 'output',
+      type: 'inline',
+      description: <>Creates an output container</>,
+    },
+    {
+      tag: 'datalist',
+      type: 'other',
+      description: (
+        <>
+          Contains a set of <code>{`<option>`}</code> elements that represents
+          permissible/recommended options for a field.
+        </>
+      ),
+    },
+    {
+      tag: 'fieldset',
+      type: 'block',
+      description: <>Groups fields together</>,
+    },
+    {
+      tag: 'legend',
+      type: 'block',
+      description: (
+        <>
+          Represents the caption of a <code>{`<fieldset>`}</code>.
+        </>
+      ),
     },
   ]}
 />
@@ -143,9 +187,37 @@ Represents a <em>form</em>.
   </form>
 </LightBox>
 
+## `<label>`
+
+Represents the caption of a form field.
+
+It's not a normal text &mdash; if you click on a label, the associated form field will receive focus.
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>for=[...]</Attribute> &mdash; <code>id</code> of a form item to be associated with.
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<div>
+  <input type="checkbox" name="peas" id="peas">
+  <label for="peas">I agree with the terms and conditions</label>
+</div>
+```
+
+<LightBox label="Preview">
+  <div>
+    <input type="checkbox" name="peas" id="peas" style={{ marginRight: 10 }} />
+    <label htmlFor="peas">I agree with the terms and conditions</label>
+  </div>
+</LightBox>
+
 ## `<input>`
 
-Creates interactive form input.
+Creates an interactive input field.
 
 <Badge color="blue">Common attributes (apply to most, if not all)</Badge>
 <ul>
@@ -176,12 +248,13 @@ Creates interactive form input.
     specify either <code>on</code> or <code>off</code>
   </li>
   <li>
-    <Attribute>form=[...]</Attribute> &mdash; associates this input to an <code>{`<form id="...">`}</code>{' '}
-    element with the given <code>id</code> (allows you to place the input anywhere in the document)
+    <Attribute>form=[...]</Attribute> &mdash; <code>id</code> of a <code>{`<form id="...">`}</code>{' '}
+    this element is associated with (
+    <a href="/web/html/html-attributes-recurring#form">read here</a>)
   </li>
   <li>
-    <Attribute>list=[...]</Attribute> &mdash; associates this input to an <code>{`<datalist id="...">`}</code>{' '}
-    element with the given <code>id</code>.
+    <Attribute>list=[...]</Attribute> &mdash; <code>id</code> of a <code>{`<datalist id="...">`}</code>{' '}
+    this element is associated with
   </li>
 </ul>
 
@@ -222,25 +295,27 @@ Creates interactive form input.
           <>
             <p>Single-line text input (default)</p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-               <>
-                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
-              </>,
-              <>
-                <Attribute>dirname=[...]</Attribute> (like <code>name</code>, but this would be the directionality
-                field name of the input; the directionaly field value would be <code>ltr</code> or <code>rtl</code>,
-                set by the browser)
-              </>,
-              <>
-                <Attribute>pattern=[...]</Attribute> (regex)
-              </>,
-              <>
-                <Attribute>placeholder=[...]</Attribute>
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+                </>,
+                <>
+                  <Attribute>dirname=[...]</Attribute> (like <code>name</code>, but this would be
+                  the directionality field name of the input; the directionaly field value would be{' '}
+                  <code>ltr</code> or <code>rtl</code>, set by the browser)
+                </>,
+                <>
+                  <Attribute>pattern=[...]</Attribute> (regex)
+                </>,
+                <>
+                  <Attribute>placeholder=[...]</Attribute>
+                </>,
+              ]}
+            />
           </>
         ),
-        preview: <input type="text" value="test" />,
+        preview: <GenericInput type="text" value="test" />,
       },
       {
         type: 'password',
@@ -248,20 +323,22 @@ Creates interactive form input.
           <>
             <p>Password input</p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-              <>
-                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
-              </>,
-              <>
-                <Attribute>pattern=[...]</Attribute> (regex)
-              </>,
-              <>
-                <Attribute>placeholder=[...]</Attribute>
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+                </>,
+                <>
+                  <Attribute>pattern=[...]</Attribute> (regex)
+                </>,
+                <>
+                  <Attribute>placeholder=[...]</Attribute>
+                </>,
+              ]}
+            />
           </>
         ),
-        preview: <input type="password" value="test" />,
+        preview: <GenericInput type="password" value="test" />,
       },
       {
         type: 'url',
@@ -271,17 +348,19 @@ Creates interactive form input.
               Like <code>text</code>, but input pattern is validated
             </p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-              <>
-                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
-              </>,
-              <>
-                <Attribute>placeholder=[...]</Attribute>
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+                </>,
+                <>
+                  <Attribute>placeholder=[...]</Attribute>
+                </>,
+              ]}
+            />
           </>
         ),
-        preview: <input type="url" />,
+        preview: <GenericInput type="url" />,
       },
       {
         type: 'email',
@@ -291,14 +370,16 @@ Creates interactive form input.
               Like <code>text</code>, but input pattern is validated
             </p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-              <>
-                <Attribute>multiple</Attribute> (allow multiple values)
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>multiple</Attribute> (allow multiple values)
+                </>,
+              ]}
+            />
           </>
         ),
-        preview: <input type="email" />,
+        preview: <GenericInput type="email" />,
       },
       {
         type: 'tel',
@@ -308,20 +389,22 @@ Creates interactive form input.
               Like <code>text</code>, but for phone input (uses phone keypad in some devices)
             </p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-              <>
-                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
-              </>,
-              <>
-                <Attribute>pattern=[...]</Attribute> (regex)
-              </>,
-              <>
-                <Attribute>placeholder=[...]</Attribute>
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+                </>,
+                <>
+                  <Attribute>pattern=[...]</Attribute> (regex)
+                </>,
+                <>
+                  <Attribute>placeholder=[...]</Attribute>
+                </>,
+              ]}
+            />
           </>
         ),
-        preview: <input type="tel" value="123-456-7890" />,
+        preview: <GenericInput type="tel" value="123-456-7890" />,
       },
       {
         type: 'search',
@@ -330,22 +413,24 @@ Creates interactive form input.
             <p>
               Like <code>text</code>, but for search query (displays search icon in some devices)
             </p>
-            <BasicList items={[
-              <>
-                <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
-              </>,
-              <>
-                <Attribute>placeholder=[...]</Attribute>
-              </>,
-              <>
-                <Attribute>dirname=[...]</Attribute> (like <code>name</code>, but this would be the directionality
-                field name of the input; the directionaly field value would be <code>ltr</code> or <code>rtl</code>,
-                set by the browser)
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>minlength=[...]</Attribute>, <Attribute>maxlength=[...]</Attribute>
+                </>,
+                <>
+                  <Attribute>placeholder=[...]</Attribute>
+                </>,
+                <>
+                  <Attribute>dirname=[...]</Attribute> (like <code>name</code>, but this would be
+                  the directionality field name of the input; the directionaly field value would be{' '}
+                  <code>ltr</code> or <code>rtl</code>, set by the browser)
+                </>,
+              ]}
+            />
           </>
         ),
-        preview: <input type="search" />,
+        preview: <GenericInput type="search" />,
       },
       {
         type: 'checkbox',
@@ -353,14 +438,16 @@ Creates interactive form input.
           <>
             <p>Checkbox input</p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-              <>
-                <Attribute>checked</Attribute>
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>checked</Attribute>
+                </>,
+              ]}
+            />
           </>
         ),
-        preview: <input type="checkbox" />,
+        preview: <GenericInput type="checkbox" />,
       },
       {
         type: 'radio',
@@ -370,14 +457,16 @@ Creates interactive form input.
               Radio input (only one radio input with the same <code>name</code> can be selected)
             </p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-              <>
-                <Attribute>checked</Attribute>
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>checked</Attribute>
+                </>,
+              ]}
+            />
           </>
         ),
-        preview: <input type="radio" />,
+        preview: <GenericInput type="radio" />,
       },
       {
         type: 'color',
@@ -394,14 +483,17 @@ Creates interactive form input.
           <>
             <p>Number selector</p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-              <>
-                <Attribute>min=[...]</Attribute>, <Attribute>max=[...]</Attribute>, <Attribute>step=[...]</Attribute>
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>min=[...]</Attribute>, <Attribute>max=[...]</Attribute>,{' '}
+                  <Attribute>step=[...]</Attribute>
+                </>,
+              ]}
+            />
           </>
         ),
-        preview: <input type="number" />,
+        preview: <GenericInput type="number" />,
       },
       {
         type: 'range',
@@ -409,14 +501,17 @@ Creates interactive form input.
           <>
             <p>Range selector</p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-              <>
-                <Attribute>min=[...]</Attribute>, <Attribute>max=[...]</Attribute>, <Attribute>step=[...]</Attribute>
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>min=[...]</Attribute>, <Attribute>max=[...]</Attribute>,{' '}
+                  <Attribute>step=[...]</Attribute>
+                </>,
+              ]}
+            />
           </>
         ),
-        preview: <input type="range" />,
+        preview: <GenericInput type="range" />,
       },
       {
         type: 'file',
@@ -427,8 +522,8 @@ Creates interactive form input.
             <BasicList
               items={[
                 <>
-                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>,{' '}
-                  <code>audio/mp3</code>, or <code>audio/*</code>)
+                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>
+                  , <code>audio/mp3</code>, or <code>audio/*</code>)
                 </>,
                 <>
                   <Attribute>capture=[...]</Attribute> (which camera to use, e.g. <code>user</code>{' '}
@@ -441,7 +536,7 @@ Creates interactive form input.
             />
           </>
         ),
-        preview: <input type="file" />,
+        preview: <GenericInput type="file" />,
       },
       {
         type: 'date',
@@ -450,7 +545,7 @@ Creates interactive form input.
             <p>Date selector</p>
           </>
         ),
-        preview: <input type="date" value="2017-06-01" />,
+        preview: <GenericInput type="date" value="2017-06-01" />,
       },
       {
         type: 'time',
@@ -459,7 +554,7 @@ Creates interactive form input.
             <p>Time selector</p>
           </>
         ),
-        preview: <input type="time" value="13:30" />,
+        preview: <GenericInput type="time" value="13:30" />,
       },
       {
         type: 'datetime-local',
@@ -468,7 +563,7 @@ Creates interactive form input.
             <p>Date and time selector</p>
           </>
         ),
-        preview: <input type="datetime-local" value="2017-06-01T08:30" />,
+        preview: <GenericInput type="datetime-local" value="2017-06-01T08:30" />,
       },
       {
         type: 'month',
@@ -477,7 +572,7 @@ Creates interactive form input.
             <p>Month and year selector</p>
           </>
         ),
-        preview: <input type="month" value="2017-06" />,
+        preview: <GenericInput type="month" value="2017-06" />,
       },
       {
         type: 'week',
@@ -486,7 +581,7 @@ Creates interactive form input.
             <p>Week and year selector</p>
           </>
         ),
-        preview: <input type="week" value="2017-W01" />,
+        preview: <GenericInput type="week" value="2017-W01" />,
       },
       {
         type: 'button',
@@ -497,7 +592,7 @@ Creates interactive form input.
             </p>
           </>
         ),
-        preview: <input type="button" value="Click me!"/>,
+        preview: <input type="button" value="Click me!" />,
       },
       {
         type: 'reset',
@@ -514,13 +609,15 @@ Creates interactive form input.
           <>
             <p>Renders a submit button</p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-              <>
-                <Attribute>formaction=[...]</Attribute>, <Attribute>formmethod=[...]</Attribute>,{' '}
-                <Attribute>formtarget=[...]</Attribute>, <Attribute>formenctype=[...]</Attribute>,{' '}
-                <Attribute>formnovalidate</Attribute>
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>formaction=[...]</Attribute>, <Attribute>formmethod=[...]</Attribute>,{' '}
+                  <Attribute>formtarget=[...]</Attribute>, <Attribute>formenctype=[...]</Attribute>,{' '}
+                  <Attribute>formnovalidate</Attribute>
+                </>,
+              ]}
+            />
           </>
         ),
         preview: <input type="submit" />,
@@ -531,17 +628,19 @@ Creates interactive form input.
           <>
             <p>Renders a graphical submit button</p>
             <Badge color="blue">Additional attributes</Badge>
-            <BasicList items={[
-              <>
-                <Attribute>src=[...]</Attribute>, <Attribute>alt=[...]</Attribute>,{' '}
-                <Attribute>height=[...]</Attribute>, <Attribute>width=[...]</Attribute>
-              </>,
-              <>
-                <Attribute>formaction=[...]</Attribute>, <Attribute>formmethod=[...]</Attribute>,{' '}
-                <Attribute>formtarget=[...]</Attribute>, <Attribute>formenctype=[...]</Attribute>,{' '}
-                <Attribute>formnovalidate</Attribute>
-              </>,
-            ]} />
+            <BasicList
+              items={[
+                <>
+                  <Attribute>src=[...]</Attribute>, <Attribute>alt=[...]</Attribute>,{' '}
+                  <Attribute>height=[...]</Attribute>, <Attribute>width=[...]</Attribute>
+                </>,
+                <>
+                  <Attribute>formaction=[...]</Attribute>, <Attribute>formmethod=[...]</Attribute>,{' '}
+                  <Attribute>formtarget=[...]</Attribute>, <Attribute>formenctype=[...]</Attribute>,{' '}
+                  <Attribute>formnovalidate</Attribute>
+                </>,
+              ]}
+            />
           </>
         ),
         preview: <input type="image" src="/res/web/html/submit-btn.png" alt="Submit" />,
@@ -551,7 +650,7 @@ Creates interactive form input.
         description: (
           <>
             <p>
-              Renders a hidden input (the control isnot displayed to the user, but the value will
+              Renders a hidden input (the control is not displayed to the user, but the value will
               still be sent on submission)
             </p>
           </>
@@ -559,9 +658,143 @@ Creates interactive form input.
         preview: <input type="hidden" />,
       },
     ]}
-/>
-
+  />
 </small>
+
+## `<output>`
+
+Creates an output container. Its value/content is <em>not</em> submitted during form submission.
+
+Does nothing by itself; you will need to implement the behavior using JavaScript.
+
+<Badge color="blue">Common attributes (apply to most, if not all)</Badge>
+<ul>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of this output
+  </li>
+  <li>
+    <Attribute>for=[...]</Attribute> &mdash; space-separated <code>id</code>'s of <code>{`<input id="...">`}</code>{' '}
+    elements that contribute to the output
+  </li>
+  <li>
+    <Attribute>form=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#form">read here</a>
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<!-- TIL: Accesing `<span id="xxx">` node can be via `xxx` variable in JS,
+although probably it would be better to use `document.getElementById` -->
+
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output -->
+<form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
+  <input type="range" id="b" name="b" value="50"> +
+  <input type="number" id="a" name="a" value="10"> =
+  <output name="result" for="a b">60</output>
+</form>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+  <div dangerouslySetInnerHTML={{__html: `
+    <form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
+      <input type="range" id="b" name="b" value="50"> +
+      <input type="number" id="a" name="a" value="10"> =
+      <output name="result" for="a b">60</output>
+    </form>
+  `}} />
+</LightBox>
+
+## `<datalist>`
+
+Contains a set of `<option>` elements that represents permissible/recommended options for a field.
+
+You refer to this element by giving this element's `id` in `<input list="...">`.
+
+<!-- prettier-ignore -->
+```html
+<!-- input -->
+<label for="ice-cream-choice">Choose a flavor (try double-clicking below):</label><br>
+<input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice">
+
+<!-- data list -->
+<datalist id="ice-cream-flavors">
+  <option value="Chocolate">
+  <option value="Strawberry">
+  <option value="Vanilla">
+</datalist>
+```
+
+<LightBox label="Preview">
+  <label htmlFor="chosen-flavor">Choose a flavor (try double-clicking below):</label><br/>
+  <input list="flavors" id="chosen-flavor" name="chosen-flavor"/>
+
+  <datalist id="flavors">
+    <option value="Chocolate"/>
+    <option value="Strawberry"/>
+    <option value="Vanilla"/>
+  </datalist>
+</LightBox>
+
+## `<fieldset>` and `<legend>`
+
+`<fieldset>` groups fields together.
+
+`<legend>` represents the caption of a `<fieldset>`.
+
+<!-- prettier-ignore -->
+```html
+<form>
+  <fieldset>
+    <!-- legend -->
+    <legend>Choose your favorite monster</legend>
+    <!-- options -->
+    <input type="radio" name="monster" id="kraken">
+    <label for="kraken">Kraken</label>
+    <br>
+    <input type="radio" name="monster" id="sasquatch">
+    <label for="sasquatch">Sasquatch</label>
+    <br>
+    <input type="radio" name="monster" id="mothman">
+    <label for="mothman">Mothman</label>
+  </fieldset>
+</form>
+```
+
+<LightBox label="Preview">
+  <fieldset>
+    <legend>Choose your favorite monster</legend>
+    <input style={{ marginRight: 10 }} type="radio" name="monster" id="kraken" />
+    <label htmlFor="kraken">Kraken</label>
+    <br />
+    <input style={{ marginRight: 10 }} type="radio" name="monster" id="sasquatch" />
+    <label htmlFor="sasquatch">Sasquatch</label>
+    <br />
+    <input style={{ marginRight: 10 }} type="radio" name="monster" id="mothman" />
+    <label htmlFor="mothman">Mothman</label>
+  </fieldset>
+</LightBox>
+
+## `<select>` and `<optgroup>`
+
+<TodoBox />
+
+## `<button>`
+
+<TodoBox />
+
+## `<meter>`
+
+<TodoBox />
+
+## `<progress>`
+
+<TodoBox />
+
+## `<textarea>`
+
+<TodoBox />
 
 ## References
 
