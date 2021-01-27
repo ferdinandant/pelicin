@@ -6,12 +6,10 @@ const group: TopicGroup = {
   groupDescription: (
     <p>
       Various web development essentials curated from{' '}
-      <a href="https://developer.mozilla.org/en-US/docs/Learn">MDN</a> and{' '}
-      <cite>
-        <a href="https://frontendmasters.com/books/front-end-handbook/2019/#1.2">
-          Front End Developer Handbook 2019
-        </a>{' '}
-      </cite>
+      <a href="https://developer.mozilla.org/en-US/docs/Learn">MDN</a>. You may also want to look at{' '}
+      <a href="https://frontendmasters.com/books/front-end-handbook/2019/#1.2">
+        Front End Developer Handbook 2019
+      </a>{' '}
       by Frontend Masters.
     </p>
   ),
@@ -21,6 +19,7 @@ const group: TopicGroup = {
       topics: [
         {
           title: 'HTML',
+          description: 'Reference summary from MDN',
           path: '/web/html/introduction',
         },
       ],
