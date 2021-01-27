@@ -153,6 +153,34 @@ Represents a <em>form</em>.
   </form>
 </LightBox>
 
+## `<label>`
+
+Represents caption of a form field.
+
+It's not a normal text &mdash; if you click on a label, the associated form field will receive focus.
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>for=[...]</Attribute> &mdash; <code>id</code> of a form item to be associated with.
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<div>
+  <input type="checkbox" name="peas" id="peas">
+  <label for="peas">I agree with the terms and conditions</label>
+</div>
+```
+
+<LightBox label="Preview">
+  <div>
+    <input type="checkbox" name="peas" id="peas" style={{ marginRight: 10 }} />
+    <label htmlFor="peas">I agree with the terms and conditions</label>
+  </div>
+</LightBox>
+
 ## `<input>`
 
 Creates an interactive input field.
@@ -186,12 +214,13 @@ Creates an interactive input field.
     specify either <code>on</code> or <code>off</code>
   </li>
   <li>
-    <Attribute>form=[...]</Attribute> &mdash; associates this input to an <code>{`<form id="...">`}</code>{' '}
-    element with the given <code>id</code> (allows you to place the input anywhere in the document)
+    <Attribute>form=[...]</Attribute> &mdash; <code>id</code> of a <code>{`<form id="...">`}</code>{' '}
+    this element is associated with (
+    <a href="/web/html/html-attributes-recurring#form">read here</a>)
   </li>
   <li>
-    <Attribute>list=[...]</Attribute> &mdash; associates this input to an <code>{`<datalist id="...">`}</code>{' '}
-    element with the given <code>id</code>.
+    <Attribute>list=[...]</Attribute> &mdash; <code>id</code> of a <code>{`<datalist id="...">`}</code>{' '}
+    this element is associated with
   </li>
 </ul>
 
@@ -614,8 +643,8 @@ Does nothing by itself; you will need to implement the behavior using JavaScript
     elements that contribute to the output
   </li>
   <li>
-    <Attribute>form=[...]</Attribute> &mdash; associates this output to an <code>{`<form id="...">`}</code>{' '}
-    element with the given <code>id</code> (allows you to place the output anywhere in the document)
+    <Attribute>form=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#form">read here</a>
   </li>
 </ul>
 
