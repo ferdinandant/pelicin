@@ -67,6 +67,11 @@ These are the HTML tags you use to make forms and their content.
       description: <>Represents a form</>,
     },
     {
+      tag: 'label',
+      type: 'inline',
+      description: <>Represents the caption of a form field</>,
+    },
+    {
       tag: 'input',
       type: 'inline',
       description: <>Creates an interactive input field</>,
@@ -75,6 +80,30 @@ These are the HTML tags you use to make forms and their content.
       tag: 'output',
       type: 'inline',
       description: <>Creates an output container</>,
+    },
+    {
+      tag: 'datalist',
+      type: 'other',
+      description: (
+        <>
+          Contains a set of <code>{`<option>`}</code> elements that represents
+          permissible/recommended options for a field.
+        </>
+      ),
+    },
+    {
+      tag: 'fieldset',
+      type: 'block',
+      description: <>Groups fields together</>,
+    },
+    {
+      tag: 'legend',
+      type: 'block',
+      description: (
+        <>
+          Represents the caption of a <code>{`<fieldset>`}</code>.
+        </>
+      ),
     },
   ]}
 />
@@ -156,7 +185,7 @@ Represents a <em>form</em>.
 
 ## `<label>`
 
-Represents caption of a form field.
+Represents the caption of a form field.
 
 It's not a normal text &mdash; if you click on a label, the associated form field will receive focus.
 
@@ -662,7 +691,6 @@ although probably it would be better to use `document.getElementById` -->
 </form>
 ```
 
-<!-- TODO: install sanitizer -->
 <!-- prettier-ignore -->
 <LightBox label="Preview">
   <div dangerouslySetInnerHTML={{__html: `
@@ -673,6 +701,78 @@ although probably it would be better to use `document.getElementById` -->
     </form>
   `}} />
 </LightBox>
+
+## `<datalist>`
+
+Contains a set of `<option>` elements that represents permissible/recommended options for a field.
+
+You refer to this element by giving this element's `id` in `<input list="...">`.
+
+<!-- prettier-ignore -->
+```html
+<!-- input -->
+<label for="ice-cream-choice">Choose a flavor (try double-clicking below):</label><br>
+<input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice">
+
+<!-- data list -->
+<datalist id="ice-cream-flavors">
+  <option value="Chocolate">
+  <option value="Strawberry">
+  <option value="Vanilla">
+</datalist>
+```
+
+<LightBox label="Preview">
+  <label htmlFor="chosen-flavor">Choose a flavor (try double-clicking below):</label><br/>
+  <input list="flavors" id="chosen-flavor" name="chosen-flavor"/>
+
+  <datalist id="flavors">
+    <option value="Chocolate"/>
+    <option value="Strawberry"/>
+    <option value="Vanilla"/>
+  </datalist>
+</LightBox>
+
+## `<fieldset>`
+
+Groups fields together.
+
+<!-- prettier-ignore -->
+```html
+<form>
+  <fieldset>
+    <!-- legend -->
+    <legend>Choose your favorite monster</legend>
+    <!-- options -->
+    <input type="radio" name="monster" id="kraken">
+    <label for="kraken">Kraken</label>
+    <br>
+    <input type="radio" name="monster" id="sasquatch">
+    <label for="sasquatch">Sasquatch</label>
+    <br>
+    <input type="radio" name="monster" id="mothman">
+    <label for="mothman">Mothman</label>
+  </fieldset>
+</form>
+```
+
+<LightBox label="Preview">
+  <fieldset>
+    <legend>Choose your favorite monster</legend>
+    <input type="radio" name="monster" id="kraken" />
+    <label htmlFor="kraken">Kraken</label>
+    <br />
+    <input type="radio" name="monster" id="sasquatch" />
+    <label htmlFor="sasquatch">Sasquatch</label>
+    <br />
+    <input type="radio" name="monster" id="mothman" />
+    <label htmlFor="mothman">Mothman</label>
+  </fieldset>
+</LightBox>
+
+## `<legend>`
+
+Represents the caption of a `<fieldset>`.
 
 ## References
 
