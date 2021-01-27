@@ -10,6 +10,9 @@ export { default as LightBox } from './box/LightBox';
 export { default as TodoBox } from './box/TodoBox';
 export { default as Badge } from './box/Badge';
 
+// Form
+export { default as GenericInput } from './form/GenericInput';
+
 // Icon
 export { default as Icon } from './icon/Icon';
 

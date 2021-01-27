@@ -6,6 +6,7 @@ import {
   NoteBox,
   Badge,
   BasicList,
+  GenericInput,
 } from '@pelicin/components';
 
 export const Attribute = (props) => (
@@ -281,7 +282,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="text" value="test" />,
+        preview: <GenericInput type="text" value="test" />,
       },
       {
         type: 'password',
@@ -304,7 +305,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="password" value="test" />,
+        preview: <GenericInput type="password" value="test" />,
       },
       {
         type: 'url',
@@ -326,7 +327,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="url" />,
+        preview: <GenericInput type="url" />,
       },
       {
         type: 'email',
@@ -345,7 +346,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="email" />,
+        preview: <GenericInput type="email" />,
       },
       {
         type: 'tel',
@@ -370,7 +371,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="tel" value="123-456-7890" />,
+        preview: <GenericInput type="tel" value="123-456-7890" />,
       },
       {
         type: 'search',
@@ -396,7 +397,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="search" />,
+        preview: <GenericInput type="search" />,
       },
       {
         type: 'checkbox',
@@ -413,7 +414,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="checkbox" />,
+        preview: <GenericInput type="checkbox" />,
       },
       {
         type: 'radio',
@@ -432,7 +433,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="radio" />,
+        preview: <GenericInput type="radio" />,
       },
       {
         type: 'color',
@@ -459,7 +460,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="number" />,
+        preview: <GenericInput type="number" />,
       },
       {
         type: 'range',
@@ -477,7 +478,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="range" />,
+        preview: <GenericInput type="range" />,
       },
       {
         type: 'file',
@@ -488,8 +489,8 @@ Creates an interactive input field.
             <BasicList
               items={[
                 <>
-                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>
-                  , <code>audio/mp3</code>, or <code>audio/*</code>)
+                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>,{' '}
+                  <code>audio/mp3</code>, or <code>audio/*</code>)
                 </>,
                 <>
                   <Attribute>capture=[...]</Attribute> (which camera to use, e.g. <code>user</code>{' '}
@@ -502,7 +503,7 @@ Creates an interactive input field.
             />
           </>
         ),
-        preview: <input type="file" />,
+        preview: <GenericInput type="file" />,
       },
       {
         type: 'date',
@@ -511,7 +512,7 @@ Creates an interactive input field.
             <p>Date selector</p>
           </>
         ),
-        preview: <input type="date" value="2017-06-01" />,
+        preview: <GenericInput type="date" value="2017-06-01" />,
       },
       {
         type: 'time',
@@ -520,7 +521,7 @@ Creates an interactive input field.
             <p>Time selector</p>
           </>
         ),
-        preview: <input type="time" value="13:30" />,
+        preview: <GenericInput type="time" value="13:30" />,
       },
       {
         type: 'datetime-local',
@@ -529,7 +530,7 @@ Creates an interactive input field.
             <p>Date and time selector</p>
           </>
         ),
-        preview: <input type="datetime-local" value="2017-06-01T08:30" />,
+        preview: <GenericInput type="datetime-local" value="2017-06-01T08:30" />,
       },
       {
         type: 'month',
@@ -538,7 +539,7 @@ Creates an interactive input field.
             <p>Month and year selector</p>
           </>
         ),
-        preview: <input type="month" value="2017-06" />,
+        preview: <GenericInput type="month" value="2017-06" />,
       },
       {
         type: 'week',
@@ -547,7 +548,7 @@ Creates an interactive input field.
             <p>Week and year selector</p>
           </>
         ),
-        preview: <input type="week" value="2017-W01" />,
+        preview: <GenericInput type="week" value="2017-W01" />,
       },
       {
         type: 'button',
