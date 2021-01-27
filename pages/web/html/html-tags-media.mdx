@@ -293,7 +293,7 @@ Instead of providing `src` directly, you can also provide multiple sources with 
 ```
 
 <LightBox label="Preview">
-  <audio controls currentTime="1" src="/res/web/html/chime.mp3"></audio>
+  <audio controls src="/res/web/html/chime.mp3"></audio>
   <br />
   <audio controls>
     <source src="/res/web/html/chime.mp3" type="audio/mpeg" />
@@ -426,8 +426,8 @@ Works like `<img srcset="..." sizes="...">`, but semantically, instead of giving
 
 <LightBox label="Preview">
   <picture>
-    <source media="(max-width: 799px)" srcset="/res/web/html/elva-480w-close-portrait.jpg" />
-    <source media="(min-width: 800px)" srcset="/res/web/html/elva-800w.jpg" />
+    <source media="(max-width: 799px)" srcSet="/res/web/html/elva-480w-close-portrait.jpg" />
+    <source media="(min-width: 800px)" srcSet="/res/web/html/elva-800w.jpg" />
     <img
       src="/res/web/html/elva-800w.jpg"
       alt="Chris standing up holding his daughter Elva"
@@ -636,7 +636,7 @@ When given `href` attribute, the area represents a hyperlink.
     />
   </map>
   <img
-    usemap="#infographic"
+    useMap="#infographic"
     src="/res/web/html/mdn-info2.png"
     alt="MDN infographic"
     width="260"
@@ -697,7 +697,7 @@ Specifies <dfn>timed text tracks</dfn> ("subtitles") for `<audio>` or `<video>`.
 
 <LightBox label="Preview">
   <video controls src="/res/web/html/friday.mp4" width="400">
-    <track default src="/res/web/html/friday.vtt" srclang="en" label="English" />
+    <track default src="/res/web/html/friday.vtt" srcLang="en" label="English" />
   </video>
 </LightBox>
 
