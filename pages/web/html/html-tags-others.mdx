@@ -1,0 +1,72 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  FixedColumnWidthTable,
+  LightBox,
+  HTMLTagsIndexTable,
+  DocumentationList,
+  Image,
+  Code,
+} from '@pelicin/components';
+
+<MetadataConfigurer title="HTML Tags: Others" dateCreated="2021-01-31" />
+
+# HTML Tags: Others
+
+These are the rest of the HTML tags.
+
+<HTMLTagsIndexTable
+  specialMapping={{}}
+  tags={[
+    {
+      tag: 'blockquote',
+      type: 'block',
+      description: 'Represents a quotation block',
+    },
+    {
+      tag: 'dd',
+      type: 'block',
+      description: 'Represents a definition list',
+    },
+    {
+      tag: 'dt',
+      type: 'block',
+      description: 'Represents a definition term',
+    },
+    {
+      tag: 'dd',
+      type: 'block',
+      description: 'Represents a definition description',
+    },
+    {
+      tag: 'figure',
+      type: 'block',
+      description: 'Represents self-contained content',
+    },
+    {
+      tag: 'figcaption',
+      type: 'block',
+      description: (
+        <>
+          Represents caption for <Code str="<figure>" />
+        </>
+      ),
+    },
+    {
+      tag: 'pre',
+      type: 'block',
+      description: 'Represents a preformatted text (displayed as-is)',
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+  ]}
+></References>

@@ -55,6 +55,10 @@ const chapters: TopicChapters = [
         title: 'HTML Tags: Sectioning',
         path: '/web/html/html-tags-sectioning'
       },
+      {
+        title: 'HTML Tags: Others',
+        path: '/web/html/html-tags-others'
+      },
     ]
   },
   {
