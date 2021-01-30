@@ -8,7 +8,7 @@ type Header = {
   key: string;
   text: string | ReactNode;
   formatContent?: (content: string | ReactNode) => string | ReactNode;
-  contentStyle: CSSProperties;
+  contentStyle?: CSSProperties;
   width?: number;
 };
 

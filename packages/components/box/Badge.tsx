@@ -1,8 +1,10 @@
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 
+export type BadgeColor = 'gray' | 'red' | 'yellow' | 'green' | 'blue';
+
 type Props = {
-  color: 'gray' | 'red' | 'yellow' | 'green' | 'blue';
+  color: BadgeColor;
   children: ReactNode;
 };
 

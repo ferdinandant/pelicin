@@ -42,7 +42,6 @@ export default function Image(props: Props) {
           text-align: center;
         }
         .caption {
-          margin-top: calc(-1 * var(--spacing-xs));
           text-align: center;
         }
         .captionContent {
