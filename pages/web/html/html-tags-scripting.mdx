@@ -1,0 +1,224 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+
+export const Attribute = (props) => (
+  <strong>
+    <code>{props.children}</code>
+  </strong>
+);
+
+<MetadataConfigurer title="HTML Tags: Scripting" dateCreated="2021-01-30" />
+
+# HTML Tags: Scripting
+
+These are the HTML tags you use to embed scripts.
+
+<FixedColumnWidthTable
+  tableStyle={{
+    fontSize: '0.9em',
+  }}
+  headers={[
+    {
+      text: 'Tag',
+      key: 'tag',
+      formatContent: (tag) => {
+        const specialMapping = {};
+        return (
+          <>
+            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
+              <code>&lt;{tag}&gt;</code>
+            </a>
+          </>
+        );
+      },
+      width: 100,
+    },
+    {
+      text: 'Type',
+      key: 'type',
+      formatContent: (type) => {
+        return type === 'block' ? (
+          <Badge color="red">Block</Badge>
+        ) : type === 'inline' ? (
+          <Badge color="blue">Inline</Badge>
+        ) : (
+          <Badge color="gray">Other</Badge>
+        );
+      },
+      width: 80,
+    },
+    {
+      text: 'Description',
+      key: 'description',
+    },
+  ]}
+  contents={[
+    {
+      tag: 'script',
+      type: 'other',
+      description: 'Embeds JavaScript to page',
+    },
+    {
+      tag: 'noscript',
+      type: 'inline',
+      description: 'Contains HTML to display if scripting is disabled',
+    },
+    {
+      tag: 'canvas',
+      type: 'inline',
+      description: 'Used to draw graphics with canvas scripting API or WebGL API',
+    },
+  ]}
+/>
+
+## `<script>`
+
+Embeds JavaScript to page.
+
+You can put the script inline between `<script>...</script>`, or import it from an external source using `<script src="...">`.
+
+You can put `<script>` inside `<head>`, but if you load an external script this way,
+the browser will wait until the script is loaded and executed before continuing to parse the rest of the HTML
+(see <a href="https://web.dev/render-blocking-resources/">Render-Blocking JavaScript</a>).
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; URL to the external script
+  </li>
+  <li>
+    <Attribute>type=[...]</Attribute> &mdash; type of the script represented. Can be:
+    <ul>
+      <li>
+        <code>text/javascript</code>, or its equivalents, or omitted entirely{' '}
+        <i>
+          (doesn't do anything as it's inferred by default; HTML5 specification urges you to not
+          write it.)
+        </i>
+      </li>
+      <li>
+        <code>module</code>{' '}
+        <i>
+          (causes the code to be treated as JavaScript module; allows you to use the{' '}
+          <code>import</code> and <code>export</code> syntax.)
+        </i>
+      </li>
+      <li>
+        other values{' '}
+        <i>
+          (the <code>{`<script>`}</code> content will be treated as a data block, which will not be
+          processed by the browser.)
+        </i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>nomodule</Attribute> &mdash; indicates that the script should not be executed in
+    browsers that support JavaScript module (can be used to serve fallback scripts in older
+    browsers).
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to loading</Badge>
+<ul>
+  <li>
+    <Attribute>async=[...]</Attribute> &mdash; fetch the script in parallel to parsing
+    (asynchronously), and execute it as soon as it is available.
+  </li>
+  <li>
+    <Attribute>defer=[...]</Attribute> &mdash; fetch the script in parallel to parsing
+    (asynchronously), and execute it in order of appearance when the document has finished parsing
+    (this will block <code>DOMContentLoaded</code> event until the deferred script has finished
+    executing)
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to security</Badge>
+<ul>
+  <li>
+    <Attribute>integrity=[...]</Attribute> &mdash; hash of resource to make sure it hasn't been
+    tampered
+  </li>
+  <li>
+    <Attribute>nonce=[...]</Attribute> &mdash; Nonce for <code>script-src</code>{' '}
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src">
+      CSP
+    </a>
+  </li>
+  <li>
+    <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#crossorigin">read here</a>
+  </li>
+  <li>
+    <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#referrerpolicy">read here</a>
+  </li>
+</ul>
+
+```html
+<!-- Inline script -->
+<script>
+  alert('Hello World!');
+</script>
+
+<!-- Loading external script -->
+<script src="script.js"></script>
+```
+
+## `<noscript>`
+
+HTML to display if scripting is disabled.
+
+```html
+<p>Try disabling JavaScript on your browser:</p>
+<noscript>
+  Your browser does not support JavaScript!
+</noscript>
+```
+
+<LightBox label="Preview">
+  <p style={{ marginBottom: 0 }}>Try disabling JavaScript on your browser:</p>
+  <noscript>Your browser does not support JavaScript!</noscript>
+</LightBox>
+
+## `<canvas>`
+
+Used to draw graphics with <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">canvas scripting API</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">WebGL API</a>.
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>height=[...]</Attribute> &mdash; height of canvas
+  </li>
+  <li>
+    <Attribute>width=[...]</Attribute> &mdash; width of canvas
+  </li>
+</ul>
+
+```html
+<canvas width="300" height="300">
+  An alternative text describing what your canvas displays.
+</canvas>
+
+<script>
+  const canvas = document.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'green';
+  ctx.fillRect(10, 10, 100, 100);
+</script>
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+    {
+      text: 'Eliminate Render-Blocking JavaScript with Async and Defer: Async vs Defer',
+      link: `https://www.digitalocean.com/community/tutorials/html-defer-async`,
+    },
+  ]}
+></References>

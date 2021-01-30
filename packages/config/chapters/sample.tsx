@@ -1,3 +1,4 @@
+import React from 'react';
 import { TopicChapters } from '@pelicin/config';
 import { Latex } from '@pelicin/components';
 

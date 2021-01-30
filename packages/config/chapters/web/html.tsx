@@ -47,6 +47,10 @@ const chapters: TopicChapters = [
         title: 'HTML Tags: Forms',
         path: '/web/html/html-tags-forms'
       },
+      {
+        title: 'HTML Tags: Scripting',
+        path: '/web/html/html-tags-scripting'
+      },
     ]
   },
   {
