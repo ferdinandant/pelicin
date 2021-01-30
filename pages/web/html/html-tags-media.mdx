@@ -112,6 +112,15 @@ These are the HTML tags related to embedding media (picture, video, sound, etc).
       type: 'inline',
       description: 'Represents any external resource',
     },
+    {
+      tag: 'param',
+      type: 'other',
+      description: (
+        <>
+          Defines a parameter for <code>{`<object>`}</code>
+        </>
+      ),
+    },
   ]}
 />
 
@@ -764,10 +773,10 @@ Represents nested <dfn>browsing context</dfn>. (Browsing context is the environm
     <Attribute>srcdoc=[...]</Attribute> &mdash; overrides <code>src</code>
   </li>
   <li>
-    <Attribute>height=[...]</Attribute> &mdash; height of frame
+    <Attribute>height=[...]</Attribute> &mdash; height of the frame
   </li>
   <li>
-    <Attribute>width=[...]</Attribute> &mdash; width of frame
+    <Attribute>width=[...]</Attribute> &mdash; width of the frame
   </li>
   <li>
     <Attribute>name=[...]</Attribute> &mdash; name of the frame (can be referenced by the{' '}
@@ -822,6 +831,68 @@ Represents nested <dfn>browsing context</dfn>. (Browsing context is the environm
 ## `<object>`
 
 Represents an external resource (which can be treated as an image, a nested browsing context, or a resource to be handled by a plugin).
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>data=[...]</Attribute> &mdash; URL to the resource
+  </li>
+  <li>
+    <Attribute>type=[...]</Attribute> &mdash; MIME type of the object (must be specified)
+  </li>
+  <li>
+    <Attribute>height=[...]</Attribute> &mdash; displayed height of the object
+  </li>
+  <li>
+    <Attribute>width=[...]</Attribute> &mdash; displayed width of the object
+  </li>
+  <li>
+    <Attribute>usemap=[...]</Attribute> &mdash; points to the <code>name</code> of a{' '}
+    <a href="https://en.wikipedia.org/wiki/Image_map#Client-side">client-side image map</a> ( <code>{`<map name="...">`}</code>
+    ) associated with the object.
+  </li>
+</ul>
+
+<Badge color="blue">Questionable attributes</Badge>
+<ul>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of the a valid browsing context (for what?)
+  </li>
+  <li>
+    <Attribute>form=[...]</Attribute> &mdash; <code>id</code> of a <code>{`<form id="...">`}</code>{' '}
+    this object is associated with (for what?)
+  </li>
+</ul>
+
+```html
+<object data="/res/sample/hello-world.pdf" type="application/pdf"></object>
+```
+
+<LightBox label="Preview">
+  <object data="/res/sample/hello-world.pdf" typemustmatch type="video/mp4"></object>
+</LightBox>
+
+## `<param>`
+
+Defines a parameter for `<object>`.
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of the parameter
+  </li>
+  <li>
+    <Attribute>value=[...]</Attribute> &mdash; value of the parameter
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<!-- Embed a flash movie with parameters -->
+<object data="movie.swf" type="application/x-shockwave-flash">
+  <param name="foo" value="bar">
+</object>
+```
 
 ## References
 
