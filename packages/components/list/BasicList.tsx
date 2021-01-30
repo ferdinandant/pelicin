@@ -14,11 +14,6 @@ export default function BasicList(props: Props) {
           return <li key={index}>{item}</li>;
         })}
       </ul>
-
-      <style jsx>{`
-        li {
-        }
-      `}</style>
     </>
   );
 }

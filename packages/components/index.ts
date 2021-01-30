@@ -3,12 +3,14 @@ export { default as Heading } from './article/Heading';
 export { default as References } from './article/References';
 export { default as SyntaxHighlighter } from './article/SyntaxHighlighter';
 export { default as Image } from './article/Image';
+export { default as Code } from './article/Code';
 
 // Box
 export { default as NoteBox } from './box/NoteBox';
 export { default as LightBox } from './box/LightBox';
 export { default as TodoBox } from './box/TodoBox';
 export { default as Badge } from './box/Badge';
+export type { BadgeColor } from './box/Badge';
 
 // Form
 export { default as GenericInput } from './form/GenericInput';
@@ -21,6 +23,8 @@ export { default as Latex } from './math/Latex';
 
 // Table
 export { default as FixedColumnWidthTable } from './table/FixedColumnWidthTable';
+export { default as HTMLTagsIndexTable } from './table/HTMLTagsIndexTable';
 
 // List
 export { default as BasicList } from './list/BasicList';
+export { default as DocumentationList } from './list/DocumentationList';

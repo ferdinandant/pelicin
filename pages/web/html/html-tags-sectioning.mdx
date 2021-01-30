@@ -1,0 +1,133 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  FixedColumnWidthTable,
+  LightBox,
+  HTMLTagsIndexTable,
+  DocumentationList,
+  Image,
+  Code,
+} from '@pelicin/components';
+
+<MetadataConfigurer title="HTML Tags: Sectioning" dateCreated="2021-01-31" />
+
+# HTML Tags: Sectioning
+
+These tags allows organization of a web page into logical sections.
+
+You can technically use the generic `<div>` tag everywhere, but that could make your web page harder to parse (e.g. by assistive technologies) and organize.
+
+<HTMLTagsIndexTable
+  specialMapping={{
+    header: 'header-footer-main-aside-nav-section-article',
+    footer: 'header-footer-main-aside-nav-section-article',
+    main: 'header-footer-main-aside-nav-section-article',
+    aside: 'header-footer-main-aside-nav-section-article',
+    nav: 'header-footer-main-aside-nav-section-article',
+    section: 'header-footer-main-aside-nav-section-article',
+    article: 'header-footer-main-aside-nav-section-article',
+  }}
+  tags={[
+    {
+      tag: 'header',
+      type: 'block',
+      description: <>Represents web header</>,
+    },
+    {
+      tag: 'footer',
+      type: 'block',
+      description: <>Represents web footer</>,
+    },
+    {
+      tag: 'main',
+      type: 'block',
+      description: (
+        <>
+          Represents dominant content of <Code str={`<body>`} />
+        </>
+      ),
+    },
+    {
+      tag: 'aside',
+      type: 'block',
+      description: (
+        <>Represents content that is indirectly related to the main content (e.g. sidebar)</>
+      ),
+    },
+    {
+      tag: 'nav',
+      type: 'block',
+      description: <>Represents navigation links (e.g. menu)</>,
+    },
+    {
+      tag: 'section',
+      type: 'block',
+      description: <>Represents a standalone section</>,
+    },
+    {
+      tag: 'article',
+      type: 'block',
+      description: <>Represents a self-contained composition that is independently distributable</>,
+    },
+    {
+      tag: 'address',
+      type: 'block',
+      description: <>Represents a contact information</>,
+    },
+  ]}
+/>
+
+## Sectioning elements: `<header>`, `<footer>`, `<main>`, `<aside>`, `<nav>`, `<section>`, `<article>`
+
+The following image illustrates a possible organization of a web page using content sectioning tags.
+
+<Image
+  path="/res/web/html/semantic-blocks-example.png"
+  caption={
+    <>
+      (
+      <a href="https://uxdesign.cc/semantic-html-the-foundation-of-web-accessibility-e5bbecad7c17">
+        Misbahu S. Zubair, uxdesign.cc
+      </a>
+      )
+    </>
+  }
+/>
+
+## `<address>`
+
+Represents a contact information.
+
+<!-- prettier-ignore -->
+```html
+Contact the author of this page:<br>
+<address>
+  <a href="mailto:jim@rock.com">jim@rock.com</a><br>
+  <a href="tel:+13115552368">(311) 555-2368</a>
+</address>
+```
+
+<LightBox label="Preview">
+  Contact the author of this page:
+  <br />
+  <address>
+    <a href="mailto:jim@rock.com">jim@rock.com</a>
+    <br />
+    <a href="tel:+13115552368">(311) 555-2368</a>
+  </address>
+</LightBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+    {
+      text: 'Semantic HTML: the foundation of web accessibility',
+      link: `https://uxdesign.cc/semantic-html-the-foundation-of-web-accessibility-e5bbecad7c17`,
+    },
+  ]}
+></References>
