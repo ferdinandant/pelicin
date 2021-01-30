@@ -146,6 +146,16 @@ These are the HTML tags you use to make forms and their content.
       type: 'inline',
       description: <>Creates a multiline textbox.</>,
     },
+    {
+      tag: 'meter',
+      type: 'inline',
+      description: <>Creates a meter</>,
+    },
+    {
+      tag: 'progress',
+      type: 'inline',
+      description: <>Creates a progress bar</>,
+    },
   ]}
 />
 
@@ -1093,11 +1103,70 @@ Creates a multiline textbox.
 
 ## `<meter>`
 
-<TodoBox />
+Creates a meter.
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>value</Attribute> &mdash; current meter value
+  </li>
+  <li>
+    <Attribute>min</Attribute> &mdash; minimum value
+  </li>
+  <li>
+    <Attribute>max</Attribute> &mdash; maximum value
+  </li>
+  <li>
+    <Attribute>low</Attribute> &mdash; threshold to indicate low meter value
+  </li>
+  <li>
+    <Attribute>high</Attribute> &mdash; threshold to indicate low meter value
+  </li>
+  <li>
+    <Attribute>optimum</Attribute> &mdash; optimum meter value
+  </li>
+  <li>
+    <Attribute>form=[...]</Attribute> &mdash; <code>id</code> of a <code>{`<form id="...">`}</code>{' '}
+    this element is associated with (
+    <a href="/web/html/html-attributes-recurring#form">read here</a>)
+  </li>
+</ul>
+
+```html
+<meter value="50" min="0" max="100" low="33" high="66" optimum="80">
+  50/100
+</meter>
+```
+
+<LightBox label="Preview">
+  <meter value="50" min="0" max="100" low="33" high="66" optimum="80">
+    50/100
+  </meter>
+</LightBox>
 
 ## `<progress>`
 
-<TodoBox />
+Creates a progress bar.
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>value</Attribute> &mdash; current progres bar value
+  </li>
+  <li>
+    <Attribute>max</Attribute> &mdash; maximum progress bar value
+  </li>
+</ul>
+
+```html
+<progress value="70" max="100">70%</progress>
+```
+
+<LightBox label="Preview">
+  <progress value="70" max="100">
+    70%
+  </progress>
+</LightBox>
 
 ## References
 
