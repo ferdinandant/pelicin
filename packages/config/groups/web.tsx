@@ -19,7 +19,7 @@ const group: TopicGroup = {
       topics: [
         {
           title: 'HTML',
-          description: 'Reference summary from MDN',
+          description: 'Comprehensive reference summary from MDN',
           path: '/web/html/introduction',
         },
       ],
