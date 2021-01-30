@@ -91,7 +91,7 @@ These are the HTML tags you use to make forms and their content.
       description: (
         <>
           Contains a set of <code>{`<option>`}</code> elements that represents
-          permissible/recommended options for a field.
+          permissible/recommended options for a field
         </>
       ),
     },
@@ -105,9 +105,46 @@ These are the HTML tags you use to make forms and their content.
       type: 'block',
       description: (
         <>
-          Represents the caption of a <code>{`<fieldset>`}</code>.
+          Represents the caption of a <code>{`<fieldset>`}</code>
         </>
       ),
+    },
+    {
+      tag: 'select',
+      type: 'inline',
+      description: (
+        <>
+          Represents the caption of a <code>{`<fieldset>`}</code>
+        </>
+      ),
+    },
+    {
+      tag: 'optgroup',
+      type: 'other',
+      description: (
+        <>
+          Represents the caption of a <code>{`<fieldset>`}</code>
+        </>
+      ),
+    },
+    {
+      tag: 'option',
+      type: 'other',
+      description: (
+        <>
+          Represents an option inside <code>{`<select>`}</code> or <code>{`<datalist>`}</code>
+        </>
+      ),
+    },
+    {
+      tag: 'button',
+      type: 'inline',
+      description: <>Creates a button.</>,
+    },
+    {
+      tag: 'textarea',
+      type: 'inline',
+      description: <>Creates a multiline textbox.</>,
     },
   ]}
 />
@@ -522,8 +559,8 @@ Creates an interactive input field.
             <BasicList
               items={[
                 <>
-                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>
-                  , <code>audio/mp3</code>, or <code>audio/*</code>)
+                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>,{' '}
+                  <code>audio/mp3</code>, or <code>audio/*</code>)
                 </>,
                 <>
                   <Attribute>capture=[...]</Attribute> (which camera to use, e.g. <code>user</code>{' '}
@@ -748,51 +785,317 @@ You refer to this element by giving this element's `id` in `<input list="...">`.
 <form>
   <fieldset>
     <!-- legend -->
-    <legend>Choose your favorite monster</legend>
+    <legend>Choose your move</legend>
     <!-- options -->
-    <input type="radio" name="monster" id="kraken">
-    <label for="kraken">Kraken</label>
+    <input type="radio" name="move" id="scissors">
+    <label for="scissors">Scissors</label>
     <br>
-    <input type="radio" name="monster" id="sasquatch">
-    <label for="sasquatch">Sasquatch</label>
+    <input type="radio" name="move" id="rock">
+    <label for="rock">Rock</label>
     <br>
-    <input type="radio" name="monster" id="mothman">
-    <label for="mothman">Mothman</label>
+    <input type="radio" name="move" id="paper">
+    <label for="paper">Paper</label>
   </fieldset>
 </form>
 ```
 
 <LightBox label="Preview">
-  <fieldset>
-    <legend>Choose your favorite monster</legend>
-    <input style={{ marginRight: 10 }} type="radio" name="monster" id="kraken" />
-    <label htmlFor="kraken">Kraken</label>
+  <fieldset style={{ padding: 10 }}>
+    <legend>Choose your move</legend>
+    <input style={{ marginRight: 10 }} type="radio" name="move" id="scissors" />
+    <label htmlFor="scissors">Scissors</label>
     <br />
-    <input style={{ marginRight: 10 }} type="radio" name="monster" id="sasquatch" />
-    <label htmlFor="sasquatch">Sasquatch</label>
+    <input style={{ marginRight: 10 }} type="radio" name="move" id="rock" />
+    <label htmlFor="rock">Rock</label>
     <br />
-    <input style={{ marginRight: 10 }} type="radio" name="monster" id="mothman" />
-    <label htmlFor="mothman">Mothman</label>
+    <input style={{ marginRight: 10 }} type="radio" name="move" id="paper" />
+    <label htmlFor="paper">Paper</label>
   </fieldset>
 </LightBox>
 
-## `<select>` and `<optgroup>`
+## `<select>`
 
-<TodoBox />
+Creates a dropdown selection.
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of this input
+  </li>
+  <li>
+    <Attribute>autofocus</Attribute> &mdash; sets focus on input when the page has finished loading
+  </li>
+  <li>
+    <Attribute>disabled</Attribute> &mdash; disables input (the user cannot interact with it)
+  </li>
+  <li>
+    <Attribute>required</Attribute> &mdash; forces the user to specify this input's value before
+    submitting the form
+  </li>
+  <li>
+    <Attribute>autocomplete=[...]</Attribute> &mdash; hints if the browser can autofill this input;
+    specify either <code>on</code> or <code>off</code>
+  </li>
+  <li>
+    <Attribute>form=[...]</Attribute> &mdash; <code>id</code> of a <code>{`<form id="...">`}</code>{' '}
+    this element is associated with (
+    <a href="/web/html/html-attributes-recurring#form">read here</a>)
+  </li>
+  <li>
+    <Attribute>multiple</Attribute> &mdash; allows selecting multiple values
+  </li>
+  <li>
+    <Attribute>size=[...]</Attribute> &mdash; if <code>multiple</code> is specified, controls how
+    many options in the scrolling list box are visible at one time
+  </li>
+</ul>
+
+```html
+<select name="pet">
+  <option value="">--- Please choose a pet ---</option>
+  <option value="cat">Cat</option>
+  <option value="dog">Dog</option>
+</select>
+```
+
+<LightBox label="Preview">
+  <select name="pet" id="pet-selection">
+    <option value="">--- Please choose a pet ---</option>
+    <option value="cat">Cat</option>
+    <option value="dog">Dog</option>
+  </select>
+</LightBox>
+
+## `<optgroup>`
+
+Represents grouped options in `<select>`.
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>label=[...]</Attribute> &mdash; label of this group
+  </li>
+  <li>
+    <Attribute>disabled</Attribute> &mdash; disables all options in this group
+  </li>
+</ul>
+
+```html
+<select id="meal">
+  <option>--- Select a meal ---</option>
+  <optgroup label="Vegetables">
+    <option>Salad</option>
+    <option>Potato</option>
+  </optgroup>
+  <optgroup label="Meat">
+    <option>Pork</option>
+    <option>Beef</option>
+  </optgroup>
+</select>
+```
+
+<LightBox label="Preview">
+  <select id="meal">
+    <option>--- Select a meal ---</option>
+    <optgroup label="Vegetables">
+      <option>Salad</option>
+      <option>Potato</option>
+    </optgroup>
+    <optgroup label="Meat">
+      <option>Pork</option>
+      <option>Beef</option>
+    </optgroup>
+  </select>
+</LightBox>
+
+## `<option>`
+
+Represents an option inside `<select>` or `<datalist>`.
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>value=[...]</Attribute> &mdash; value of the option (to be sent if the option is
+    selected). If omitted, the value is taken from the tag's content.
+  </li>
+  <li>
+    <Attribute>label=[...]</Attribute> &mdash; label of the option (the one displayed to the user).
+    If omitted, the value is taken from the tag's content.
+  </li>
+  <li>
+    <Attribute>disabled</Attribute> &mdash; makes option unselectable
+  </li>
+  <li>
+    <Attribute>selected</Attribute> &mdash; makes option selected by default
+  </li>
+</ul>
 
 ## `<button>`
 
-<TodoBox />
+Creates a button.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>type=[...]</Attribute> &mdash; type of the button. Can be:
+    <ul>
+      <li>
+        <code>submit</code>{' '}
+        <i>
+          (default: behaves like <code>{`<input type="submit">`}</code>)
+        </i>
+      </li>
+      <li>
+        <code>reset</code>{' '}
+        <i>
+          (behaves like <code>{`<input type="reset">`}</code>)
+        </i>
+      </li>
+      <li>
+        <code>button</code> <i>(behaves like normal button)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; if <code>type="submit"</code>, this is name of the
+    button when the form is submitted using this button
+  </li>
+  <li>
+    <Attribute>value=[...]</Attribute> &mdash; if <code>type="submit"</code>, this is value of the
+    button when the form is submitted using this button
+  </li>
+  <li>
+    <Attribute>autofocus</Attribute> &mdash; sets focus on button when the page has finished loading
+  </li>
+  <li>
+    <Attribute>disabled</Attribute> &mdash; disables button (the user cannot interact with it)
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to form</Badge>
+<ul>
+  <li>
+    <Attribute>form=[...]</Attribute> &mdash; <code>id</code> of a <code>{`<form id="...">`}</code>{' '}
+    this element is associated with (
+    <a href="/web/html/html-attributes-recurring#form">read here</a>)
+  </li>
+  <li>
+    <Attribute>formaction=[...]</Attribute> &mdash; overrides <code>{`<form action="...">`}</code>
+  </li>
+  <li>
+    <Attribute>formmethod=[...]</Attribute> &mdash; overrides <code>{`<form method="...">`}</code>
+  </li>
+  <li>
+    <Attribute>formenctype=[...]</Attribute> &mdash; overrides <code>{`<form enctype="...">`}</code>
+  </li>
+  <li>
+    <Attribute>formnovalidate</Attribute> &mdash; overrides <code>{`<form novalidate>`}</code>
+  </li>
+  <li>
+    <Attribute>formtarget=[...]</Attribute> &mdash; overrides <code>{`<form target="...">`}</code>
+  </li>
+</ul>
+
+```html
+<button type="button">Click me</button>
+```
+
+<LightBox label="Preview">
+  <button type="button">Click me</button>
+</LightBox>
+
+## `<textarea>`
+
+Creates a multiline textbox.
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of this input
+  </li>
+  <li>
+    <Attribute>placeholder=[...]</Attribute> &mdash; hint text to show when input is empty
+  </li>
+  <li>
+    <Attribute>cols=[...]</Attribute> &mdash; width of input in character width
+  </li>
+  <li>
+    <Attribute>rows=[...]</Attribute> &mdash; height of input in lines
+  </li>
+  <li>
+    <Attribute>disabled</Attribute> &mdash; disables input (the user cannot interact with it)
+  </li>
+  <li>
+    <Attribute>readonly</Attribute> &mdash; makes the user unable to change this input's value
+  </li>
+</ul>
+
+<Badge color="blue">Less common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>autofocus</Attribute> &mdash; sets focus on input when the page has finished loading
+  </li>
+  <li>
+    <Attribute>autocomplete=[...]</Attribute> &mdash; hints if the browser can autofill this input;
+    specify either <code>on</code> or <code>off</code>
+  </li>
+  <li>
+    <Attribute>spellcheck=[...]</Attribute> &mdash; controls spellcheck; specify either{' '}
+    <code>on</code>, <code>off</code>, or <code>default</code>
+  </li>
+  <li>
+    <Attribute>wrap=[...]</Attribute> &mdash; controls line wrap. For both values, the browser
+    ensures all line breaks consist of CR+LF pair. Can be:
+    <ul>
+      <li>
+        <code>hard</code>{' '}
+        <i>
+          (insert line breaks for lines exceeding <code>cols</code>)
+        </i>
+      </li>
+      <li>
+        <code>soft</code> <i>(do not insert additional line breaks)</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <Attribute>form=[...]</Attribute> &mdash; <code>id</code> of a <code>{`<form id="...">`}</code>{' '}
+    this element is associated with (
+    <a href="/web/html/html-attributes-recurring#form">read here</a>)
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to validation</Badge>
+<ul>
+  <li>
+    <Attribute>required</Attribute> &mdash; forces the user to specify this input's value before
+    submitting the form
+  </li>
+  <li>
+    <Attribute>minlength</Attribute> &mdash; minimum number of characters
+  </li>
+  <li>
+    <Attribute>maxlength</Attribute> &mdash; maximum number of characters
+  </li>
+</ul>
+
+```html
+<textarea name="description" rows="5" cols="33">
+  Good product
+</textarea>
+```
+
+<LightBox label="Preview">
+  <textarea name="description" rows="5" cols="33">
+    Good product
+  </textarea>
+</LightBox>
 
 ## `<meter>`
 
 <TodoBox />
 
 ## `<progress>`
-
-<TodoBox />
-
-## `<textarea>`
 
 <TodoBox />
 
@@ -803,6 +1106,10 @@ You refer to this element by giving this element's `id` in `<input list="...">`.
     {
       text: 'HTML elements reference (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+    {
+      text: "What's the point of the <option> “label” attribute inside <select>? (Stack Overflow)",
+      link: `https://stackoverflow.com/questions/3905984/whats-the-point-of-the-option-label-attribute-inside-select`,
     },
   ]}
 ></References>
