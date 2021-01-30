@@ -97,6 +97,21 @@ These are the HTML tags related to embedding media (picture, video, sound, etc).
         </>
       ),
     },
+    {
+      tag: 'embed',
+      type: 'block',
+      description: 'Embeds external content',
+    },
+    {
+      tag: 'iframe',
+      type: 'inline',
+      description: 'Embeds another HTML page',
+    },
+    {
+      tag: 'object',
+      type: 'inline',
+      description: 'Represents any external resource',
+    },
   ]}
 />
 
@@ -196,11 +211,11 @@ Embeds image.
 <ul>
   <li>
     <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
-    <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
+    <a href="/web/html/html-attributes-recurring#crossorigin">read here</a>
   </li>
   <li>
     <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
-    <a href="/web/html/html-attributes-recurring#referrerpolicy"> read here</a>
+    <a href="/web/html/html-attributes-recurring#referrerpolicy">read here</a>
   </li>
 </ul>
 
@@ -273,7 +288,7 @@ Instead of providing `src` directly, you can also provide multiple sources with 
 <ul>
   <li>
     <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
-    <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
+    <a href="/web/html/html-attributes-recurring#crossorigin">read here</a>
   </li>
 </ul>
 
@@ -281,23 +296,23 @@ Instead of providing `src` directly, you can also provide multiple sources with 
 ```html
 <!-- Audio source: 決定、ボタン押下5 -->
 <!-- https://soundeffect-lab.info/sound/button/ -->
-<audio controls src="/res/web/html/chime.mp3"></audio>
+<audio controls src="/res/sample/chime.mp3"></audio>
 <br>
 
 <!-- Sample with <sources> -->
 <audio controls>
-  <source src="/res/web/html/chime.mp3" type="audio/mpeg" />
-  <source src="/res/web/html/chime.ogg" type="audio/ogg" />
+  <source src="/res/sample/chime.mp3" type="audio/mpeg" />
+  <source src="/res/sample/chime.ogg" type="audio/ogg" />
   <p>Your browser doesn't support HTML5 audio.</p>
 </audio>
 ```
 
 <LightBox label="Preview">
-  <audio controls src="/res/web/html/chime.mp3"></audio>
+  <audio controls src="/res/sample/chime.mp3"></audio>
   <br />
   <audio controls>
-    <source src="/res/web/html/chime.mp3" type="audio/mpeg" />
-    <source src="/res/web/html/chime.ogg" type="audio/ogg" />
+    <source src="/res/sample/chime.mp3" type="audio/mpeg" />
+    <source src="/res/sample/chime.ogg" type="audio/ogg" />
     <p>Your browser doesn't support HTML5 audio.</p>
   </audio>
 </LightBox>
@@ -377,7 +392,7 @@ Instead of providing `src` directly, you can also provide multiple sources with 
 <ul>
   <li>
     <Attribute>crossorigin=[...]</Attribute> &mdash;{' '}
-    <a href="/web/html/html-attributes-recurring#crossorigin"> read here</a>
+    <a href="/web/html/html-attributes-recurring#crossorigin">read here</a>
   </li>
 </ul>
 
@@ -569,7 +584,7 @@ When given `href` attribute, the area represents a hyperlink.
   </li>
   <li>
     <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
-    <a href="/web/html/html-attributes-recurring#referrerpolicy"> read here</a>
+    <a href="/web/html/html-attributes-recurring#referrerpolicy">read here</a>
   </li>
 </ul>
 
@@ -701,6 +716,113 @@ Specifies <dfn>timed text tracks</dfn> ("subtitles") for `<audio>` or `<video>`.
   </video>
 </LightBox>
 
+## `<embed>`
+
+Embeds external content. This content is provided by an external application (e.g. browser plugin).
+
+"Most modern browsers have deprecated and removed support for browser plugins, so relying upon `<embed>` is generally not wise if you want your site to be operable on the average user's browser" (MDN).
+
+<Badge color="blue">Possible attributes</Badge>
+<ul>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; URL to the content
+  </li>
+  <li>
+    <Attribute>type=[...]</Attribute> &mdash; MIME type of the content
+  </li>
+  <li>
+    <Attribute>height=[...]</Attribute> &mdash; displayed height of the content (in pixels)
+  </li>
+  <li>
+    <Attribute>width=[...]</Attribute> &mdash; displayed with of the content (in pixels)
+  </li>
+</ul>
+
+<!-- prettier-ignore -->
+```html
+<!-- Video source: small.mp4 -->
+<!-- http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5 -->
+<embed src="/res/web/html/lego.mp4" type="video/webm" width="250" height="200">
+```
+
+<LightBox label="Preview">
+  <embed type="video/webm" src="/res/web/html/lego.mp4" width="250" height="200" />
+</LightBox>
+
+## `<iframe>`
+
+Embeds another HTML page into current page (as <dfn>inline frame</dfn>).
+
+Represents nested <dfn>browsing context</dfn>. (Browsing context is the environment where a browser displays a [Document](https://developer.mozilla.org/en-US/docs/Web/API/Document). It's normally a tab, a window, or an iframe.)
+
+<Badge color="blue">Common attributes</Badge>
+<ul>
+  <li>
+    <Attribute>src=[...]</Attribute> &mdash; URL of page to embed
+  </li>
+  <li>
+    <Attribute>srcdoc=[...]</Attribute> &mdash; overrides <code>src</code>
+  </li>
+  <li>
+    <Attribute>height=[...]</Attribute> &mdash; height of frame
+  </li>
+  <li>
+    <Attribute>width=[...]</Attribute> &mdash; width of frame
+  </li>
+  <li>
+    <Attribute>name=[...]</Attribute> &mdash; name of the frame (can be referenced by the{' '}
+    <code>target</code> or <code>formtarget</code> attribute of <code>{`<a>`}</code>, <code>{`<form>`}</code>
+    , etc.)
+  </li>
+  <li>
+    <Attribute>loading=[...]</Attribute> &mdash; Indicates when to load the iframe
+    <ul>
+      <li>
+        <code>eager</code> <i>(loads the iframe immediately)</i>
+      </li>
+      <li>
+        <code>lazy</code> <i>(loads the iframe when it's close to being visible on screen)</i>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<Badge color="blue">Attributes related to security</Badge>
+<ul>
+  <li>
+    <Attribute>allow=[...]</Attribute> &mdash;{' '}
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Feature_Policy/Using_Feature_Policy#the_iframe_allow_attribute">
+      feature policy
+    </a>{' '}
+    for the iframe (specifies what features is available to the iframe), e.g.{' '}
+    <code>allow="camera 'none'; microphone 'none'"</code>
+  </li>
+  <li>
+    <Attribute>csp=[...]</Attribute> &mdash; CSP enforced for the iframe (
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-PolicyP">
+      read here
+    </a>
+    ), e.g. <code>csp="default-src 'self'"</code>
+  </li>
+  <li>
+    <Attribute>sandbox=[...]</Attribute> &mdash; applies extra restriction to the iframe. Empty
+    value means restrict everything. Otherwise, the value is space-separated list of something like:{' '}
+    <code>allow-downloads</code>, <code>allow-forms</code>, <code>allow-popups</code>, etc. (
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attributes">
+      read here for the complete list
+    </a>
+    )
+  </li>
+  <li>
+    <Attribute>referrerpolicy=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#referrerpolicy">read here</a>
+  </li>
+</ul>
+
+## `<object>`
+
+Represents an external resource (which can be treated as an image, a nested browsing context, or a resource to be handled by a plugin).
+
 ## References
 
 <References
@@ -733,6 +855,10 @@ Specifies <dfn>timed text tracks</dfn> ("subtitles") for `<audio>` or `<video>`.
     {
       text: "What Does 'playsinline' Mean in Web Video? (CSS-Tricks)",
       link: `https://css-tricks.com/what-does-playsinline-mean-in-web-video/`,
+    },
+    {
+      text: 'Using Feature Policy: The iframe allow attribute (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Feature_Policy/Using_Feature_Policy#the_iframe_allow_attribute`,
     },
   ]}
 ></References>
