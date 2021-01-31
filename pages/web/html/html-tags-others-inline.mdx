@@ -1,0 +1,173 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  FixedColumnWidthTable,
+  LightBox,
+  HTMLTagsIndexTable,
+  DocumentationList,
+  Image,
+  Code,
+} from '@pelicin/components';
+
+<MetadataConfigurer title="HTML Tags: Others – Inline" dateCreated="2021-01-31" />
+
+# HTML Tags: Others – Inline
+
+These are the rest of the HTML block tags.
+
+<HTMLTagsIndexTable
+  specialMapping={{
+    dl: 'dl-dt-and-dd',
+    dd: 'dl-dt-and-dd',
+    dt: 'dl-dt-and-dd',
+    figure: 'figure-and-figcaption',
+    figcaption: 'ficure-and-figcaption',
+  }}
+  tags={[
+    {
+      tag: 'em',
+      type: 'inline',
+      description: 'Represents an emphasis on text',
+    },
+    {
+      tag: 'strong',
+      type: 'inline',
+      description: 'Represents a strong importance on text',
+    },
+    {
+      tag: 'abbr',
+      type: 'inline',
+      description: 'Represents an abbreviation',
+    },
+    {
+      tag: 'cite',
+      type: 'inline',
+      description: 'Represents a citation',
+    },
+    {
+      tag: 'dfn',
+      type: 'inline',
+      description: 'Represents a definition',
+    },
+    {
+      tag: 'mark',
+      type: 'inline',
+      description: 'Represents a marked/highlighted text',
+    },
+    {
+      tag: 'q',
+      type: 'inline',
+      description: 'Represents a short quotation',
+    },
+    {
+      tag: 'small',
+      type: 'inline',
+      description: 'Represents a small print',
+    },
+    {
+      tag: 'time',
+      type: 'inline',
+      description: 'Represents a time',
+    },
+    {
+      tag: 'var',
+      type: 'inline',
+      description: 'Represents a variable (e.g. in math)',
+    },
+    {
+      tag: 'code',
+      type: 'inline',
+      description: 'Represents a fragment of code',
+    },
+    {
+      tag: 'kbd',
+      type: 'inline',
+      description: 'Represents keyboard input',
+    },
+    {
+      tag: 'samp',
+      type: 'inline',
+      description: 'Represents sample program output',
+    },
+    {
+      tag: 'data',
+      type: 'inline',
+      description: 'Associates content with machine-readable data',
+    },
+    {
+      tag: 'bdi',
+      type: 'inline',
+      description: 'Isolates directionality of text',
+    },
+    {
+      tag: 'bdo',
+      type: 'inline',
+      description: 'Overrides directionality of text',
+    },
+    {
+      tag: 'ruby',
+      type: 'inline',
+      description: 'Represents small annotations for text (e.g. a pronunciation guide)',
+    },
+    {
+      tag: 'rt',
+      type: 'inline',
+      description: 'Represents a ruby text',
+    },
+    {
+      tag: 'rp',
+      type: 'inline',
+      description: 'Represents a ruby fallback parenthesis',
+    },
+    {
+      tag: 'wbr',
+      type: 'inline',
+      description: 'Denotes a word-break oppurtunity',
+    },
+  ]}
+/>
+
+## `<em>`
+
+Represents an emphasis on text. Usually rendered as an italic text.
+
+- `<em>` represents stress emphasis of its contents
+
+- `<i>` represents text that is set off from the normal prose (e.g. a foreign word, fictional character thoughts, etc.)
+
+- `<cite>` should be use for any title of work (e.g. book/movie title)
+
+```html
+Stealing my lunch will <em>not</em> be forgiven.
+```
+
+<LightBox label="Preview">
+  Stealing my lunch will <em>not</em> be forgiven.
+</LightBox>
+
+## `<strong>`
+
+Represents a strong importance on text. Usually rendered as a bold text.
+
+- `<strong>` represents content with strong importance
+
+- `<b>` is used to draw attention to text without indicating that it's more important
+
+```html
+<strong>Warning!</strong> This is <strong>very dangerous.</strong>
+```
+
+## References
+
+<LightBox label="Preview">
+  <strong>Warning!</strong> This is <strong>very dangerous.</strong>
+</LightBox>
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+  ]}
+></References>
