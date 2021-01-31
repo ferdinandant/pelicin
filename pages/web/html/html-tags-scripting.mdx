@@ -63,11 +63,6 @@ These are the HTML tags you use to embed scripts.
       type: 'inline',
       description: 'Contains HTML to display if scripting is disabled',
     },
-    {
-      tag: 'canvas',
-      type: 'inline',
-      description: 'Used to draw graphics with canvas scripting API or WebGL API',
-    },
   ]}
 />
 
@@ -180,33 +175,6 @@ HTML to display if scripting is disabled.
   <p style={{ marginBottom: 0 }}>Try disabling JavaScript on your browser:</p>
   <noscript>Your browser does not support JavaScript!</noscript>
 </LightBox>
-
-## `<canvas>`
-
-Used to draw graphics with <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">canvas scripting API</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">WebGL API</a>.
-
-<Badge color="blue">Possible attributes</Badge>
-<ul>
-  <li>
-    <Attribute>height=[...]</Attribute> &mdash; height of the canvas
-  </li>
-  <li>
-    <Attribute>width=[...]</Attribute> &mdash; width of the canvas
-  </li>
-</ul>
-
-```html
-<canvas width="300" height="300">
-  An alternative text describing what your canvas displays.
-</canvas>
-
-<script>
-  const canvas = document.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = 'green';
-  ctx.fillRect(10, 10, 100, 100);
-</script>
-```
 
 ## References
 
