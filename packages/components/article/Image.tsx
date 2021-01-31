@@ -28,31 +28,10 @@ export default function Image(props: Props) {
 
   return (
     <>
-      <div className="imageContainer">
+      <figure>
         <img width={width} src={path} alt={parsedAlt} />
-      </div>
-      {caption && (
-        <div className="caption ">
-          <div className="captionContent">{caption}</div>
-        </div>
-      )}
-
-      <style jsx>{`
-        .imageContainer {
-          text-align: center;
-        }
-        .caption {
-          text-align: center;
-        }
-        .captionContent {
-          font-size: var(--font-size-small);
-          background-color: var(--color-gray-1);
-          color: var(--color-gray-4);
-          display: inline-block;
-          padding: var(--spacing-xs) var(--spacing-m);
-          border-radius: var(--border-radius-normal);
-        }
-      `}</style>
+        {caption && <figcaption>{caption}</figcaption>}
+      </figure>
     </>
   );
 }

@@ -76,6 +76,7 @@ export default function ChapterSidebarContent() {
         a.active {
           background-color: ${mainColor}22;
           padding: var(--spacing-xs) var(--spacing-ms);
+          margin: calc(-1 * var(--spacing-xs)) 0;
           border-radius: var(--border-radius-normal);
         }
       `}</style>

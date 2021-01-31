@@ -222,3 +222,48 @@ hr {
   border-bottom: 2px solid var(--color-gray-3);
   margin: var(--spacing-m) 0;
 }
+
+blockquote {
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+  font-style: italic;
+  border-left: var(--spacing-s) solid var(--color-gray-1);
+  padding-left: var(--spacing-m);
+}
+
+/* Definition list */
+dt {
+  margin-top: var(--spacing-m);
+  font-weight: 700;
+}
+dt:first-child {
+  margin-top: 0;
+}
+dd {
+  margin-left: var(--spacing-l);
+}
+
+/* Figure */
+figure {
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+figcaption {
+  font-size: var(--font-size-small);
+  background-color: var(--color-gray-1);
+  color: var(--color-gray-4);
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-m);
+  border-radius: var(--border-radius-normal);
+}
+figcaption:first-child {
+  margin-bottom: var(--spacing-s);
+}
+figcaption:last-child {
+  margin-top: var(--spacing-s);
+}

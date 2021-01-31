@@ -1,0 +1,184 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  FixedColumnWidthTable,
+  LightBox,
+  HTMLTagsIndexTable,
+  DocumentationList,
+  Image,
+  Code,
+} from '@pelicin/components';
+
+<MetadataConfigurer title="HTML Tags: Others – Block" dateCreated="2021-01-31" />
+
+# HTML Tags: Others – Block
+
+These are the rest of the HTML block tags.
+
+<HTMLTagsIndexTable
+  specialMapping={{
+    dl: 'dl-dt-and-dd',
+    dd: 'dl-dt-and-dd',
+    dt: 'dl-dt-and-dd',
+    figure: 'figure-and-figcaption',
+    figcaption: 'ficure-and-figcaption',
+  }}
+  tags={[
+    {
+      tag: 'blockquote',
+      type: 'block',
+      description: 'Represents a quotation block',
+    },
+    {
+      tag: 'pre',
+      type: 'block',
+      description: 'Represents a preformatted text (displayed as-is)',
+    },
+    {
+      tag: 'dd',
+      type: 'block',
+      description: 'Represents a definition list',
+    },
+    {
+      tag: 'dt',
+      type: 'block',
+      description: 'Represents a definition term',
+    },
+    {
+      tag: 'dd',
+      type: 'block',
+      description: 'Represents a definition description',
+    },
+    {
+      tag: 'figure',
+      type: 'block',
+      description: 'Represents a self-contained content',
+    },
+    {
+      tag: 'figcaption',
+      type: 'block',
+      description: (
+        <>
+          Represents caption for <Code str="<figure>" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+## `<blockquote>`
+
+Represents a quotation block.
+
+<DocumentationList
+  label="Possible attributes"
+  items={[{ name: 'cite=[...]', description: 'URL to the source of quotation' }]}
+/>
+
+```html
+<blockquote>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+  labore et dolore magna aliqua.
+</blockquote>
+```
+
+<LightBox label="Preview">
+  <blockquote>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua.
+  </blockquote>
+</LightBox>
+
+## `<pre>`
+
+Represents a <dfn>preformatted text</dfn>.
+
+The text will be displayed as typed in the HTML file.
+
+```html
+<pre>
+Roses are red,
+  Violets are blue,
+Sugar is sweet,
+  And so are you. 
+</pre>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+<pre>{`
+Roses are red,
+  Violets are blue,
+Sugar is sweet,
+  And so are you. 
+`.trim()}</pre>
+</LightBox>
+
+## `<dl>`, `<dt>`, and `<dd>`
+
+`<dl>` represents a <dfn>definition list</dfn>.
+
+`<dt>` represents a <dfn>definition term</dfn> in a `<dl>`.
+
+`<dd>` represents a <dfn>definition description</dfn> in a `<dl>`.
+
+```html
+<!-- source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl -->
+<dl>
+  <dt>Beast of Bodmin</dt>
+  <dd>A large feline inhabiting Bodmin Moor.</dd>
+
+  <dt>Morgawr</dt>
+  <dd>A sea serpent.</dd>
+
+  <dt>Owlman</dt>
+  <dd>A giant owl-like creature.</dd>
+</dl>
+```
+
+<LightBox label="Preview">
+  <dl>
+    <dt>Beast of Bodmin</dt>
+    <dd>A large feline inhabiting Bodmin Moor.</dd>
+    <dt>Morgawr</dt>
+    <dd>A sea serpent.</dd>
+    <dt>Owlman</dt>
+    <dd>A giant owl-like creature.</dd>
+  </dl>
+</LightBox>
+
+## `<figure>` and `<figcaption>`
+
+`<figure>` represents a self-contained content.
+
+`<figcaption>` represents caption for `<figure>`.
+
+<!-- prettier-ignore -->
+```html
+<figure>
+    <img src="/res/web/html/lucas-benjamin-unsplash.jpg" alt="An abstract photo"/>
+    <figcaption>A photo by Lucas Benjamin - Unsplash</figcaption>
+  </figure>
+```
+
+<LightBox label="Preview">
+  <figure>
+    <img
+      style={{ width: 300 }}
+      src="/res/web/html/lucas-benjamin-unsplash.jpg"
+      alt="An abstract photo"
+    />
+    <figcaption>A photo by Lucas Benjamin - Unsplash</figcaption>
+  </figure>
+</LightBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+  ]}
+></References>

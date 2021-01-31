@@ -1,0 +1,520 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  FixedColumnWidthTable,
+  LightBox,
+  HTMLTagsIndexTable,
+  DocumentationList,
+  Image,
+  Code,
+} from '@pelicin/components';
+
+<MetadataConfigurer title="HTML Tags: Others – Inline" dateCreated="2021-01-31" />
+
+# HTML Tags: Others – Inline
+
+These are the rest of the HTML block tags.
+
+<HTMLTagsIndexTable
+  specialMapping={{
+    dl: 'dl-dt-and-dd',
+    dd: 'dl-dt-and-dd',
+    dt: 'dl-dt-and-dd',
+    figure: 'figure-and-figcaption',
+    figcaption: 'ficure-and-figcaption',
+    ruby: 'ruby-rt-and-rp',
+    rt: 'ruby-rt-and-rp',
+    rb: 'ruby-rt-and-rp',
+  }}
+  tags={[
+    {
+      tag: 'em',
+      type: 'inline',
+      description: 'Represents an emphasis on text',
+    },
+    {
+      tag: 'strong',
+      type: 'inline',
+      description: 'Represents a strong importance on text',
+    },
+    {
+      tag: 'abbr',
+      type: 'inline',
+      description: 'Represents an abbreviation',
+    },
+    {
+      tag: 'cite',
+      type: 'inline',
+      description: 'Represents a citation',
+    },
+    {
+      tag: 'dfn',
+      type: 'inline',
+      description: 'Represents a definition',
+    },
+    {
+      tag: 'mark',
+      type: 'inline',
+      description: 'Represents a marked/highlighted text',
+    },
+    {
+      tag: 'q',
+      type: 'inline',
+      description: 'Represents a short quotation',
+    },
+    {
+      tag: 'small',
+      type: 'inline',
+      description: 'Represents a small print',
+    },
+    {
+      tag: 'time',
+      type: 'inline',
+      description: 'Represents a time',
+    },
+    {
+      tag: 'var',
+      type: 'inline',
+      description: 'Represents a variable (e.g. in math)',
+    },
+    {
+      tag: 'code',
+      type: 'inline',
+      description: 'Represents a fragment of code',
+    },
+    {
+      tag: 'kbd',
+      type: 'inline',
+      description: 'Represents a keyboard input',
+    },
+    {
+      tag: 'samp',
+      type: 'inline',
+      description: 'Represents a sample program output',
+    },
+    {
+      tag: 'data',
+      type: 'inline',
+      description: 'Associates content with machine-readable data',
+    },
+    {
+      tag: 'bdi',
+      type: 'inline',
+      description: 'Isolates the directionality of a text',
+    },
+    {
+      tag: 'bdo',
+      type: 'inline',
+      description: 'Overrides the directionality of a text',
+    },
+    {
+      tag: 'ruby',
+      type: 'inline',
+      description: 'Represents small annotations for a text (e.g. a pronunciation guide)',
+    },
+    {
+      tag: 'rt',
+      type: 'inline',
+      description: 'Represents a ruby text',
+    },
+    {
+      tag: 'rp',
+      type: 'inline',
+      description: 'Represents a ruby fallback parenthesis',
+    },
+    {
+      tag: 'wbr',
+      type: 'inline',
+      description: 'Denotes a word-break oppurtunity',
+    },
+  ]}
+/>
+
+## `<em>`
+
+Represents an emphasis on text. Usually rendered as an italic text.
+
+- `<em>` represents stress emphasis of its contents
+
+- `<i>` represents text that is set off from the normal prose (e.g. a foreign word, fictional character thoughts, etc.)
+
+- `<cite>` should be use for any title of work (e.g. book/movie title)
+
+```html
+Stealing my lunch will <em>not</em> be forgiven.
+```
+
+<LightBox label="Preview">
+  Stealing my lunch will <em>not</em> be forgiven.
+</LightBox>
+
+## `<strong>`
+
+Represents a strong importance on text. Usually rendered as a bold text.
+
+- `<strong>` represents content with strong importance
+
+- `<b>` is used to draw attention to text without indicating that it's more important
+
+```html
+<strong>Warning!</strong> This is <strong>very dangerous.</strong>
+```
+
+<LightBox label="Preview">
+  <strong>Warning!</strong> This is <strong>very dangerous.</strong>
+</LightBox>
+
+## `<abbr>`
+
+Represents an abbreviation.
+
+```html
+You can use <abbr title="Cascading Style Sheets">CSS</abbr> to style your{' '}
+<abbr title="HyperText Markup Language">HTML</abbr>.
+```
+
+<LightBox label="Preview">
+  You can use <abbr title="Cascading Style Sheets">CSS</abbr> to style your{' '}
+  <abbr title="HyperText Markup Language">HTML</abbr>.
+</LightBox>
+
+## `<cite>`
+
+Represents a citation
+
+<!-- prettier-ignore -->
+```html
+More information can be found in <cite>[ISO-0000]</cite>.
+```
+
+<LightBox label="Preview">
+  More information can be found in <cite>[ISO-0000]</cite>.
+</LightBox>
+
+## `<dfn>`
+
+Represents a definition (a term being defined).
+
+<!-- prettier-ignore -->
+```html
+A <dfn id="def-validator">validator</dfn> is a program
+that checks for syntax errors in code or documents.
+```
+
+<LightBox label="Preview">
+  A <dfn id="def-validator">validator</dfn> is a program that checks for syntax errors in code or
+  documents.
+</LightBox>
+
+## `<mark>`
+
+Represents a marked/highlighted text.
+
+```html
+The following is clear: <mark>my lunch was stolen</mark>.
+```
+
+<LightBox label="Preview">
+  The following is clear: <mark>my lunch was stolen</mark>.
+</LightBox>
+
+## `<q>`
+
+Represents a short quotation.
+
+<DocumentationList
+  label="Possible attributes"
+  items={[{ name: 'cite=[...]', description: 'URL to the source of quotation' }]}
+/>
+
+```html
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q -->
+When Dave asks HAL to open the pod bay door, HAL answers:
+<q cite="https://www.imdb.com/title/tt0062622/quotes/qt0396921"
+  >I'm sorry, Dave. I'm afraid I can't do that.</q
+>
+```
+
+<LightBox label="Preview">
+  When Dave asks HAL to open the pod bay door, HAL answers:{' '}
+  <q cite="https://www.imdb.com/title/tt0062622/quotes/qt0396921">
+    I'm sorry, Dave. I'm afraid I can't do that.
+  </q>
+</LightBox>
+
+## `<small>`
+
+Represents a small print.
+
+```html
+<p>Feel the power*</p>
+<small>*) Batteries not included</small>
+```
+
+<LightBox label="Preview">
+  <p>Feel the power*</p>
+  <small>*) Batteries not included.</small>
+</LightBox>
+
+## `<time>`
+
+Represents a specific period in time. It may specify:
+
+- a time on a 24-hour clock, e.g. `14:54:39`
+- a precise date in the Gregorian calendar (with optional time and timezone information), e.g. `2011-11-18T14:54:39.929-04:00`
+- a valid time duration, e.g. `PT2H30M`
+
+<DocumentationList
+  label="Possible attributes"
+  items={[
+    {
+      name: 'datetime=[...]',
+      description: (
+        <>
+          a date and/or time value in any of the{' '}
+          <a href="https://www.w3schools.com/tags/att_time_datetime.asp">valid formats</a>
+        </>
+      ),
+    },
+  ]}
+/>
+
+```html
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time -->
+<p>
+  The Cure will be celebrating their 40th anniversary on
+  <time datetime="2018-07-07">July 7</time> in London's Hyde Park.
+</p>
+<p>
+  The concert starts at <time datetime="20:00">20:00</time> and you'll be able to enjoy the band for
+  at least <time datetime="PT2H30M">2h 30m</time>.
+</p>
+```
+
+<LightBox label="Preview">
+  <p>
+    The Cure will be celebrating their 40th anniversary on
+    <time datetime="2018-07-07">July 7</time> in London's Hyde Park.
+  </p>
+  <p>
+    The concert starts at <time datetime="20:00">20:00</time> and you'll be able to enjoy the band
+    for at least <time datetime="PT2H30M">2h 30m</time>.
+  </p>
+</LightBox>
+
+## `<var>`
+
+Represents a variable (e.g. in math).
+
+```html
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/var -->
+The volume of a box is <var>l</var> × <var>w</var> × <var>h</var>, where <var>l</var> represents the
+length, <var>w</var> the width and <var>h</var> the height of the box.
+```
+
+<LightBox label="Preview">
+  The volume of a box is <var>l</var> × <var>w</var> × <var>h</var>, where <var>l</var> represents
+  the length, <var>w</var> the width and <var>h</var> the height of the box.
+</LightBox>
+
+## `<code>`
+
+Represents a fragment of code.
+
+```html
+<code>var</code> and <code>let</code> are used to a declare variable.
+```
+
+<LightBox label="Preview">
+  <code>var</code> and <code>let</code> are used to a declare variable.
+</LightBox>
+
+## `<kbd>`
+
+Represents a keyboard input.
+
+```html
+Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> to do a hard refresh.
+```
+
+<LightBox label="Preview">
+  Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> to do a hard refresh.
+</LightBox>
+
+## `<samp>`
+
+Represents a sample program output.
+
+<!-- prettier-ignore -->
+```html
+<samp>
+  Keyboard not found<br>
+  Press F1 to continue
+</samp>
+```
+
+<LightBox label="Preview">
+  <samp>
+    Keyboard not found
+    <br />
+    Press F1 to continue
+  </samp>
+</LightBox>
+
+## `<data>`
+
+Associates content with machine-readable data
+
+<!-- prettier-ignore -->
+```html
+<!-- Example: associates product name with product number -->
+<p>New Products:</p>
+<ul>
+  <li><data value="398">Book A</data></li>
+  <li><data value="399">Book B</data></li>
+  <li><data value="400">CD Cassette</data></li>
+</ul>
+```
+
+<LightBox label="Preview">
+  <p>New Products:</p>
+  <ul>
+    <li style={{ marginTop: 0, marginBottom: 0 }}>
+      <data value="398">Book A</data>
+    </li>
+    <li style={{ marginTop: 0, marginBottom: 0 }}>
+      <data value="399">Book B</data>
+    </li>
+    <li style={{ marginTop: 0, marginBottom: 0 }}>
+      <data value="400">CD Cassette</data>
+    </li>
+  </ul>
+</LightBox>
+
+## `<bdi>`
+
+<em>Bidirectional Isolate</em>: isolates the directionality of a text from the surrounding text.
+
+(Prevents directionality of the text inside `<bdi>` from influencing the directionality of the surrounding text, and vice-versa.
+Useful when LTR text is likely to meet RTL text.)
+
+<!-- prettier-ignore -->
+```html
+  <!-- without bdi -->
+  <ul>
+    <li><span>اَلأَعْشَى</span> - 1st place</li>
+    <li><span>Jerry Cruncher</span> - 2nd place</li>
+  </ul>
+
+  <!-- with bdi -->
+  <ul>
+    <li><bdi>اَلأَعْشَى</bdi> - 1st place</li>
+    <li><bdi>Jerry Cruncher</bdi> - 2nd place</li>
+  </ul>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+  <ul>
+    <li><span>اَلأَعْشَى</span> - 1st place</li>
+    <li><span>Jerry Cruncher</span> - 2nd place</li>
+  </ul>
+  <ul>
+    <li><bdi>اَلأَعْشَى</bdi> - 1st place</li>
+    <li><bdi>Jerry Cruncher</bdi> - 2nd place</li>
+  </ul>
+</LightBox>
+
+## `<bdo>`
+
+<em>Bidirectional override</em>: overrides the directionality of a text.
+
+<DocumentationList
+  label="Possible attributes"
+  items={[
+    {
+      name: 'dir=[...]',
+      description: 'directionality of text. Can be:',
+      subitems: [
+        {
+          name: 'ltr',
+          description: 'left-to-right',
+        },
+        {
+          name: 'rtl',
+          description: 'right-to-left',
+        },
+      ],
+    },
+  ]}
+/>
+
+```html
+<bdo dir="rtl">ABCDEF</bdo>
+```
+
+<LightBox label="Preview">
+  <bdo dir="rtl">ABCDEF</bdo>
+</LightBox>
+
+## `<ruby>`, `<rt>`, and `<rp>`
+
+`<ruby>` represents small annotations for a text (e.g. a pronunciation guide for East Asian languages).
+
+`<rt>` represents the <dfn>ruby text</dfn>.
+
+`<rp>` represents the <dfn>ruby fallback parenthesis</dfn> that gets displayed on non-supporting browser.
+
+<!-- prettier-ignore -->
+```html
+<ruby>
+  漢<rp>(</rp><rt>かん</rt><rp>)</rp>
+  字<rp>(</rp><rt>じ</rt><rp>)</rp>
+</ruby>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+  <ruby>
+    漢<rp>(</rp><rt>かん</rt><rp>)</rp>
+    字<rp>(</rp><rt>じ</rt><rp>)</rp>
+  </ruby>
+</LightBox>
+
+## `<wbr>`
+
+Denotes a word-break oppurtunity.
+
+<!-- prettier-ignore -->
+```html
+<!-- without wbr -->
+<div style="width: 200; background-color: #ffdddd">
+  <p>Fernstraßenbauprivatfinanzierungsgesetz</p>
+</div>
+
+<!-- with wbr -->
+<div style="width: 200; background-color: #ddddff">
+  <p>Fernstraßen<wbr>bau<wbr>privat<wbr>finanzierungs<wbr>gesetz</p>
+</div>
+```
+
+<!-- prettier-ignore -->
+<LightBox label="Preview">
+  <div style={{width: 200, backgroundColor: '#ffdddd'}}>
+    <p>Fernstraßenbauprivatfinanzierungsgesetz</p>
+  </div>
+  <div style={{width: 200, backgroundColor: '#ddddff'}}>
+    <p>Fernstraßen<wbr/>bau<wbr/>privat<wbr/>finanzierungs<wbr/>gesetz</p>
+  </div>
+</LightBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+  ]}
+></References>
