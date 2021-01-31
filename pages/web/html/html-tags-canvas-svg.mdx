@@ -1,0 +1,168 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  FixedColumnWidthTable,
+  LightBox,
+  NoteBox,
+  HTMLTagsIndexTable,
+  DocumentationList,
+  Code,
+} from '@pelicin/components';
+
+export const Attribute = (props) => (
+  <strong>
+    <code>{props.children}</code>
+  </strong>
+);
+
+<MetadataConfigurer title="HTML Tags: Canvas and SVG" dateCreated="2021-02-01" />
+
+# HTML Tags: Canvas and SVG
+
+These are the HTML tags you use to make graphics.
+
+<HTMLTagsIndexTable
+  tags={[
+    {
+      tag: 'canvas',
+      type: 'inline',
+      description: 'Used to draw graphics with canvas scripting API or WebGL API',
+    },
+    {
+      tag: 'svg',
+      type: 'inline',
+      description: 'Used to draw graphics using SVG',
+    },
+  ]}
+/>
+
+## `<canvas>`
+
+Used to draw graphics with <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">canvas scripting API</a>
+or <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">WebGL API</a>.
+
+<DocumentationList
+  label="Possible attributes"
+  items={[
+    {
+      name: 'height=[...]',
+      description: 'height of the canvas',
+    },
+    {
+      name: 'width=[...]',
+      description: 'width of the canvas',
+    },
+  ]}
+/>
+
+```html
+<canvas width="300" height="300">
+  An alternative text describing what your canvas displays.
+</canvas>
+
+<script>
+  const canvas = document.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'green';
+  ctx.fillRect(10, 10, 100, 100);
+</script>
+```
+
+## `<svg>`
+
+Used to draw graphics using <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg">SVG</a>.
+
+An `<svg>` tag defines a new coordinate system and viewport.
+
+<NoteBox type="info">
+  <b>NOTE:</b> The <Code str="xmlns" /> attribute is only required on the outermost svg element of
+  SVG documents. It is unnecessary for inner svg elements or inside HTML documents.
+</NoteBox>
+
+<DocumentationList
+  label="Possible attributes"
+  items={[
+    {
+      name: 'viewbox=[...]',
+      description: (
+        <>
+          the SVG viewport coordinates, i.e. <Code str="minX minY width height" />
+        </>
+      ),
+    },
+    {
+      name: 'height=[...]',
+      description: 'the displayed height (viewport height)',
+    },
+    {
+      name: 'width=[...]',
+      description: 'the displayed width (viewport width)',
+    },
+    {
+      name: 'x=[...]',
+      description: (
+        <>
+          at which x coordinate a nested <Code str={`<svg>`} /> should be put (no effect if given to
+          the outhermost <Code str={`<svg>`} />)
+        </>
+      ),
+    },
+    {
+      name: 'y=[...]',
+      description: (
+        <>
+          at which y coordinate a nested <Code str={`<svg>`} /> should be put (no effect if given to
+          the outhermost <Code str={`<svg>`} />)
+        </>
+      ),
+    },
+    {
+      name: 'preserveAspectRatio=[...]',
+      description: (
+        <>
+          indicates how to fit the viewbox (internal coordinate system) to the viewport (the
+          displayed width and height). The default value is <Code str={`xMidYMid meet`} />. (
+          <a src="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio">
+            See possible values here
+          </a>
+          )
+        </>
+      ),
+    },
+  ]}
+/>
+
+```html
+<svg viewBox="0 0 300 100" stroke="orange" fill="yellow">
+  <circle cx="50" cy="50" r="40" />
+  <circle cx="150" cy="50" r="20" />
+  <svg viewBox="0 0 10 10" x="200" width="100">
+    <circle cx="5" cy="5" r="4" />
+  </svg>
+</svg>
+```
+
+<LightBox label="Preview">
+  <svg viewBox="0 0 300 100" stroke="orange" fill="yellow">
+    <circle cx="50" cy="50" r="40" />
+    <circle cx="150" cy="50" r="20" />
+    <svg viewBox="0 0 10 10" x="200" width="100" y="0">
+      <circle cx="5" cy="5" r="4" />
+    </svg>
+  </svg>
+</LightBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTML elements reference (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`,
+    },
+    {
+      text: 'Eliminate Render-Blocking JavaScript with Async and Defer: Async vs Defer',
+      link: `https://www.digitalocean.com/community/tutorials/html-defer-async`,
+    },
+  ]}
+></References>

@@ -56,6 +56,10 @@ const chapters: TopicChapters = [
         path: '/web/html/html-tags-sectioning'
       },
       {
+        title: 'HTML Tags: Canvas and SVG',
+        path: '/web/html/html-tags-canvas-svg'
+      },
+      {
         title: 'HTML Tags: Others – Block',
         path: '/web/html/html-tags-others-block'
       },
