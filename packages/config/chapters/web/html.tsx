@@ -73,6 +73,10 @@ const chapters: TopicChapters = [
         path: '/web/html/html-attributes-global'
       },
       {
+        title: 'ARIA HTML Attributes',
+        path: '/web/html/html-attributes-aria'
+      },
+      {
         title: 'Recurring HTML Attributes',
         path: '/web/html/html-attributes-recurring'
       },
