@@ -32,7 +32,11 @@ export default function DocumentationList(props: Props) {
 
   return (
     <>
-      {label && <Badge color={labelColor}>{label}</Badge>}
+      {label && (
+        <p>
+          <Badge color={labelColor}>{label}</Badge>
+        </p>
+      )}
       {renderItems(items)}
     </>
   );
@@ -46,8 +50,16 @@ function renderItems(items: Array<Item>, level = 0) {
         const name = 'name' in item ? item.name : null;
         const nameSpecial = 'nameSpecial' in item ? item.nameSpecial : null;
         const renderedName = nameSpecial || <code>{name}</code>;
-        const renderedDescription = level === 0 ? description : <i>{description}</i>;
-        const renderedSubitems = subitems && renderItems(subitems);
+        const renderedDescription =
+          level === 0 ? (
+            description
+          ) : (
+            <>
+              {' '}
+              <i>({description})</i>
+            </>
+          );
+        const renderedSubitems = subitems && renderItems(subitems, level + 1);
         const separator = level === 0 ? ' — ' : null;
 
         return (
