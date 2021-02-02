@@ -1,4 +1,5 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import {
   Breadcrumb,
   TOCSidebar,
@@ -10,6 +11,10 @@ import {
 type Props = {
   children: React.ReactNode;
 };
+
+const SlidingTOCSidebar = dynamic(() => import('./components/SlidingTOCSidebar'), {
+  ssr: false,
+});
 
 export default function MainContainer(props: Props) {
   return (
@@ -23,6 +28,9 @@ export default function MainContainer(props: Props) {
           <div className="sectionSidebarContainer">
             <TOCSidebar />
           </div>
+        </div>
+        <div className="slidingTOCContainer">
+          <SlidingTOCSidebar />
         </div>
       </main>
 
@@ -39,6 +47,10 @@ export default function MainContainer(props: Props) {
           display: flex;
           flex-direction: row;
         }
+        .slidingTOCContainer {
+          display: none;
+        }
+
         article {
           box-shadow: 0 0 var(--spacing-xxl) var(--color-gray-1);
           padding: var(--spacing-xl) var(--spacing-xxl);
@@ -54,6 +66,9 @@ export default function MainContainer(props: Props) {
         @media (max-width: ${SHOW_TOC_SIDEBAR_BREAKPOINT_PX}px) {
           .sectionSidebarContainer {
             display: none;
+          }
+          .slidingTOCContainer {
+            display: block;
           }
         }
         @media (max-width: ${SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX}px) {

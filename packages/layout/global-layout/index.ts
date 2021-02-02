@@ -4,6 +4,7 @@ export { default as CenteredContainer } from './CenteredContainer';
 
 // Contexts
 export * from './contexts/HamburgerToggleContext';
+export * from './contexts/TOCToggleContext';
 export * from './contexts/MetadataContext';
 
 // Utils
