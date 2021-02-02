@@ -17,8 +17,6 @@ type Props = {
   pageProps: any;
 };
 
-const useFontAwesomePaths = new Set([]);
-
 const useSyntaxHighlighterPaths = new Set(['/web', '/sample']);
 
 const useLatexPaths = new Set(['/sample']);
@@ -39,7 +37,6 @@ function MyApp(props: Props) {
   const { pathname } = useRouter();
   const pathPrefixes = getPathPrefixes(pathname);
 
-  const useFontAwesome = checkShouldEnableFeature(useFontAwesomePaths, pathPrefixes);
   const useSyntaxHighlighter = checkShouldEnableFeature(useSyntaxHighlighterPaths, pathPrefixes);
   const useLatex = checkShouldEnableFeature(useLatexPaths, pathPrefixes);
 
@@ -55,14 +52,12 @@ function MyApp(props: Props) {
           rel="stylesheet"
         />
         {/* Font awesome */}
-        {useFontAwesome && (
-          <link
-            rel="stylesheet"
-            href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-            integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
-            crossOrigin="anonymous"
-          />
-        )}
+        <link
+          rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+          integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+          crossOrigin="anonymous"
+        />
         {/* Katex (LaTeX displayer) */}
         {useLatex && (
           <link

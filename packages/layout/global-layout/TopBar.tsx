@@ -4,7 +4,9 @@ import classNames from 'classnames';
 import { useTopicConfig } from '@pelicin/config';
 import {
   SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX,
+  SHOW_TOC_SIDEBAR_BREAKPOINT_PX,
   useHamburgerToggle,
+  useTOCToggle,
   getBreadcrumbSegments,
 } from '@pelicin/layout';
 
@@ -14,6 +16,7 @@ import {
 
 type Props = {
   showHamburgerToggle?: boolean;
+  showTOCToggle?: boolean;
 };
 
 // ================================================================================
@@ -21,9 +24,9 @@ type Props = {
 // ================================================================================
 
 export default function TopBar(props: Props) {
-  const { showHamburgerToggle } = props;
+  const { showHamburgerToggle, showTOCToggle } = props;
   const { basePath, mainColor, accentColor, topicTitle } = useTopicConfig();
-
+  const { isToggled: isTOCToggled, setIsToggled: setIsTOCToggled } = useTOCToggle();
   const {
     isToggled: isHamburgerToggled,
     setIsToggled: setIsHamburgerToggled,
@@ -37,11 +40,16 @@ export default function TopBar(props: Props) {
     setIsHamburgerToggled(!isHamburgerToggled);
   }
 
+  function handleClickTOCToggle() {
+    setIsTOCToggled(!isTOCToggled);
+  }
+
   const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
 
   return (
     <>
       <header>
+        {/* Hamburger toggle */}
         {showHamburgerToggle && (
           <button
             className={classNames(['hamburgerToggle', { active: isHamburgerToggled }])}
@@ -55,6 +63,7 @@ export default function TopBar(props: Props) {
           </button>
         )}
 
+        {/* Breadcrumb */}
         <nav>
           <a href="/" className="logo">
             pelicin
@@ -69,6 +78,15 @@ export default function TopBar(props: Props) {
             );
           })}
         </nav>
+
+        {/* Right buttons */}
+        <span className="buttonsContainer">
+          {showTOCToggle && (
+            <span className="tocToggleIcon">
+              <i className="fas fa-align-right" onClick={handleClickTOCToggle} />
+            </span>
+          )}
+        </span>
       </header>
 
       <style jsx>{`
@@ -103,11 +121,6 @@ export default function TopBar(props: Props) {
         .hamburgerToggle:hover {
           border: 1px solid rgba(255, 255, 255, 0.6);
         }
-        @media (max-width: ${SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX}px) {
-          .breadcrumbItem {
-            display: none;
-          }
-        }
         @media (min-width: ${SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX}px) {
           .hamburgerToggle {
             display: none;
@@ -141,6 +154,26 @@ export default function TopBar(props: Props) {
           opacity: 0.5;
           font-size: 22px;
           content: '/';
+        }
+        @media (max-width: ${SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX}px) {
+          .breadcrumbItem {
+            display: none;
+          }
+        }
+
+        /* Right buttons */
+        .buttonsContainer {
+          position: absolute;
+          right: var(--spacing-ms);
+        }
+        .buttonsContainer i {
+          display: inline-block;
+          padding: var(--spacing-s);
+        }
+        @media (min-width: ${SHOW_TOC_SIDEBAR_BREAKPOINT_PX}px) {
+          .tocToggleIcon {
+            display: none;
+          }
         }
       `}</style>
     </>

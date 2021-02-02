@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Breadcrumb,
   TOCSidebar,
+  SlidingTOCSidebar,
   SHOW_CHAPTER_SIDEBAR_BREAKPOINT_PX,
   SHOW_TOC_SIDEBAR_BREAKPOINT_PX,
   REDUCE_PADDING_BREAKPOINT_PX,
@@ -23,6 +24,9 @@ export default function MainContainer(props: Props) {
           <div className="sectionSidebarContainer">
             <TOCSidebar />
           </div>
+        </div>
+        <div>
+          <SlidingTOCSidebar />
         </div>
       </main>
 

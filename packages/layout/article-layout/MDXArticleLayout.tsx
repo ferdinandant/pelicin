@@ -50,7 +50,7 @@ export default function MDXArticleLayout(props: Props) {
     <TopicConfigProvider value={topicConfig}>
       <TopicChaptersProvider topicKey={topicKey}>
         <HamburgerToggleProvider>
-          <TopBar showHamburgerToggle />
+          <TopBar showHamburgerToggle showTOCToggle />
           <MDXProvider components={components}>{children}</MDXProvider>
         </HamburgerToggleProvider>
       </TopicChaptersProvider>
