@@ -8,6 +8,7 @@ export { default as ChapterSidebar } from './components/ChapterSidebar';
 export { default as HamburgerChapterSidebar } from './components/HamburgerChapterSidebar';
 export { default as ChapterSidebarContent } from './components/ChapterSidebarContent';
 export { default as TOCSidebar } from './components/TOCSidebar';
+export { default as TOCSidebarContent } from './components/TOCSidebarContent';
 export { default as SlidingTOCSidebar } from './components/SlidingTOCSidebar';
 
 // Contexts
