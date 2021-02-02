@@ -83,7 +83,10 @@ export default function TopBar(props: Props) {
         <span className="buttonsContainer">
           {showTOCToggle && (
             <span className="tocToggleIcon">
-              <i className="fas fa-align-right" onClick={handleClickTOCToggle} />
+              <i
+                className={classNames(['fas fa-align-right', { active: isTOCToggled }])}
+                onClick={handleClickTOCToggle}
+              />
             </span>
           )}
         </span>
@@ -169,6 +172,14 @@ export default function TopBar(props: Props) {
         .buttonsContainer i {
           display: inline-block;
           padding: var(--spacing-s);
+          cursor: pointer;
+          border-radius: var(--border-radius-normal);
+          transition: background-color 0.3s, color 0.3s;
+        }
+        .buttonsContainer i:hover,
+        .buttonsContainer i.active {
+          background-color: var(--color-gray-1);
+          color: var(--color-gray-9);
         }
         @media (min-width: ${SHOW_TOC_SIDEBAR_BREAKPOINT_PX}px) {
           .tocToggleIcon {

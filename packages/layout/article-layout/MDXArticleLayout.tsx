@@ -13,6 +13,7 @@ import {
   ArticleTOCProvider,
   ChapterSidebar,
   HamburgerToggleProvider,
+  TOCToggleProvider,
   MainContainer,
   getArticleTOC,
   processArticleMDX,
@@ -50,8 +51,10 @@ export default function MDXArticleLayout(props: Props) {
     <TopicConfigProvider value={topicConfig}>
       <TopicChaptersProvider topicKey={topicKey}>
         <HamburgerToggleProvider>
-          <TopBar showHamburgerToggle showTOCToggle />
-          <MDXProvider components={components}>{children}</MDXProvider>
+          <TOCToggleProvider>
+            <TopBar showHamburgerToggle showTOCToggle />
+            <MDXProvider components={components}>{children}</MDXProvider>
+          </TOCToggleProvider>
         </HamburgerToggleProvider>
       </TopicChaptersProvider>
     </TopicConfigProvider>
