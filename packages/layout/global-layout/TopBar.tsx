@@ -176,7 +176,9 @@ export default function TopBar(props: Props) {
           border-radius: var(--border-radius-normal);
           transition: background-color 0.3s, color 0.3s;
         }
-        .buttonsContainer i:hover,
+        .buttonsContainer i:hover {
+          background-color: #ffffff44;
+        }
         .buttonsContainer i.active {
           background-color: var(--color-gray-1);
           color: var(--color-gray-9);
