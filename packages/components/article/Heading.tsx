@@ -27,7 +27,7 @@ export default function Heading(props: Props) {
         ) : (
           <>
             {anchor && <a className="anchor" id={anchor} />}
-            <a className="hashLink" aria-hidden href={`#${anchor}`} />
+            <a className="hashLink" tabIndex={-1} aria-hidden href={`#${anchor}`} />
             {children}
           </>
         )}

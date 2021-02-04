@@ -12,7 +12,7 @@ const SLIDE_ANIMATION_DURATION_MS = 300;
 const FADE_ANIMATIOM_DURATION_MS = 200;
 
 const HIDDEN_X_VALUE = 'calc(100vw - 0px)';
-const SHOWED_X_VALUE = 'calc(100vw - 240px)';
+const SHOWED_X_VALUE = 'calc(100vw - 280px)';
 
 const HIDDEN_BG_VALUE = 'rgba(0, 0, 0, 0)';
 const SHOWED_BG_VALUE = 'rgba(0, 0, 0, 0.6)';

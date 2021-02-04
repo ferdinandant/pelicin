@@ -1,16 +1,405 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, TodoBox, Badge } from '@pelicin/components';
+import {
+  References,
+  TodoBox,
+  Badge,
+  LightBox,
+  DocumentationList,
+  Code,
+  NoteBox,
+} from '@pelicin/components';
 
 <MetadataConfigurer title="Global HTML Attributes" dateCreated="2021-01-26" />
 
 # Global HTML Attributes
 
-<TodoBox />
-
 <dfn>Global attributes</dfn> are attributes common to all HTML elements. They can be used on all elements,
 although they may have no effect on some elements.
 
 This list will exclude ARIA and event handler attributes.
+
+## Common Attributes
+
+### `id=[...]`
+
+Unique ID of element (for selection with CSS or JS).
+
+### `class=[...]`
+
+Space-separated list of classes (for selection with CSS or JS).
+
+### `data-*=[...]`
+
+Reserved for custom attributes.
+
+You can put anything for `*`, e.g. `data-chunk-id`.
+
+### `style=[...]`
+
+Puts inline CSS on element.
+
+```html
+<p style="color: red">Hello world!</p>
+```
+
+<LightBox label="preview">
+  <p style={{ color: 'red' }}>Hello world!</p>
+</LightBox>
+
+### `hidden`
+
+Hides the element. The browser will not render such element.
+
+## Attributes Related to Localization
+
+### `dir=[...]`
+
+Marks directionality of text.
+
+<DocumentationList
+  items={[
+    {
+      name: 'ltr',
+      description: 'Marks the text left-to-right, like English',
+    },
+    {
+      name: 'rtl',
+      description: 'Marks the text right-to-left, like Arabic',
+    },
+    {
+      name: 'auto',
+      description: 'Let the browser decide',
+    },
+  ]}
+/>
+
+### `translate=[...]`
+
+Controls if the text content of an element should be translated (e.g. by Google Translate). Specify `yes` or `no`.
+
+```html
+<!-- Do not translate the company's name -->
+<footer>
+  <small>© 2020 <span translate="no">BrandName</span></small>
+</footer>
+```
+
+## Attributes Related to UI and Accessibility
+
+<NoteBox type="warning">
+  Keyboard navigation may not work as intended on Mac's Firefox. You may first need to enable it
+  from{' '}
+  <a href="https://stackoverflow.com/questions/3846868/why-wont-tabindex-work-with-firefox">
+    System Preferences
+  </a>
+  .
+</NoteBox>
+
+### `accesskey=[...]`
+
+Customizes keyboard shortcut for the current element.
+
+The way to activate the shortcut depends on the browser and the OS ([see here](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey)).
+For starters, you can try <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>[accesskey]</kbd> or <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>[accesskey]</kbd>.
+
+```html
+<button accesskey="s" onclick="alert('Hello')">
+  Try "Alt + Shift + S"
+</button>
+```
+
+<LightBox label="Preview">
+  <button accesskey="s" onClick={() => alert('Hello')}>
+    Try "Alt + Shift + S"
+  </button>
+</LightBox>
+
+### `autocapitalize=[...]`
+
+Controls how text input is automatically capitalized as it is entered by the user.
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: (
+        <>
+          <Code str="off" /> or <Code str="none" />
+        </>
+      ),
+      description: "Don't auto capitalize",
+    },
+    {
+      nameSpecial: (
+        <>
+          <Code str="on" /> or <Code str="sentences" />
+        </>
+      ),
+      description: 'Capitalize the first letter of each sentence',
+    },
+    {
+      name: 'word',
+      description: 'Capitalize the first letter of each word',
+    },
+    {
+      name: 'characters',
+      description: 'Capitalize everything',
+    },
+  ]}
+/>
+
+### `contenteditable=[...]`
+
+Indicates if the element should be editable by the user.
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: (
+        <>
+          <Code str="true" /> or empty string
+        </>
+      ),
+      description: 'element must be editable',
+    },
+    {
+      name: 'false',
+      description: 'element must not be editable',
+    },
+  ]}
+/>
+
+```html
+<blockquote contenteditable="true">
+  You can edit this quote!
+</blockquote>
+```
+
+<LightBox label="Preview">
+  <blockquote contenteditable="true">You can edit this quote!</blockquote>
+</LightBox>
+
+### `draggable=[...]`
+
+Indicates if the element should be draggable using the [Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API). Specify `true` or `false`.
+
+### `enterkeyhint=[...]`
+
+Hints what action label/icon to present for the enter key on virtual keyboards.
+
+<DocumentationList
+  items={[
+    {
+      name: 'enter',
+      description: 'expected behavior: inserts newline',
+    },
+    {
+      name: 'done',
+      description: 'expected behavior: closes keyboard (nothing else to do)',
+    },
+    {
+      name: 'go',
+      description: 'expected behavior: brings user to the typed item',
+    },
+    {
+      name: 'next',
+      description: 'expected behavior: focus on the next field that accepts text',
+    },
+    {
+      name: 'previous',
+      description: 'expected behavior: focus on the previous field that accepts text',
+    },
+    {
+      name: 'search',
+      description: 'expected behavior: brings user to the search result',
+    },
+    {
+      name: 'send',
+      description: 'expected behavior: sends typed item to the target',
+    },
+  ]}
+/>
+
+<!-- prettier-ignore -->
+```html
+<input enterkeyhint="search">
+```
+
+<LightBox label="Preview">
+  <input enterkeyhint="go" />
+</LightBox>
+
+### `spellcheck=[...]`
+
+Controls spellcheck enabled or disabled for the element. Specify `true` or `false`.
+
+### `tabindex=[...]`
+
+Marks that the element can be focused.
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: 'negative value',
+      description:
+        'the element should be focusable, but should not be reachable via sequential keyboard navigation',
+    },
+    {
+      name: '0',
+      description:
+        'the element should be focusable and reachable via sequential keyboard navigation, but its relative order is defined by the platform convention',
+    },
+    {
+      nameSpecial: 'positive value',
+      description: (
+        <>
+          the element should be focusable and reachable via sequential keyboard navigation; the
+          order in which the elements are focused is the increasing value of the{' '}
+          <Code str="tabindex" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<LightBox label="preview">
+  <a href="#ONE" tabIndex="1">
+    One
+  </a>
+</LightBox>
+
+### `title=[...]`
+
+Advisory text to display (usually as a tooltip).
+
+```html
+<abbr title="HyperText Transfer Protocol">HTML</abbr> is poop.
+```
+
+<LightBox label="preview">
+  <abbr title="HyperText Transfer Protocol">HTML</abbr> is poop.
+</LightBox>
+
+## Attributes Related to Web Components (Shadow DOM, etc.)
+
+<TodoBox />
+
+### `is=[...]`
+
+Make standard HTML element to behave like a registered <dfn>custom built-in element</dfn>. (The custom built-in element would be defined in JavaScript.)
+
+```html
+<!-- Defining custom built-in element: `word-count` -->
+<script>
+  class WordCount extends HTMLParagraphElement {
+    ...
+  }
+  customElements.define('word-count', WordCount, { extends: 'p' });
+</script>
+
+<!-- This is a `word-count` custom element -->
+<!-- its implementation is defined in the JS above, -->
+<!-- and it extends the regular <p> element -->
+<p is="word-count"></p>
+```
+
+### `part=[...]`
+
+### `exportparts=[...]`
+
+### `slot=[...]`
+
+## Attributes Related to Microdata Feature
+
+<blockquote>
+  <p>
+    <strong>From HTML Living Standard:</strong> Sometimes, it is desirable to annotate content with
+    specific machine-readable labels, e.g. to allow generic scripts to provide services that are
+    customized to the page.
+  </p>
+  <p>
+    For this purpose, authors can use the microdata features described in this section. Microdata
+    allows nested groups of name-value pairs to be added to documents, in parallel with the existing
+    content.
+  </p>
+</blockquote>
+
+At the high level, microdata consists of a group of name-value pairs. The groups are called <dfn>items</dfn>, and each name-value pair is a <dfn>property</dfn>.
+
+### `itemscope`
+
+Defines a microdata item.
+
+### `itemtype=[...]`
+
+Specifies the URL of the <dfn>vocabulary</dfn> that will be used to define item properties.
+
+Google and other major search engines support the [schema.org](https://schema.org/Thing) vocabulary for structured data (MDN).
+
+```html
+<!-- See https://schema.org/Product -->
+<!-- for defined values of `itemprop=[...]` -->
+<div itemscope itemtype="http://schema.org/Product">
+  <span itemprop="brand">ACME</span>
+  <span itemprop="name">Executive Anvil</span>
+</div>
+```
+
+### `itemprop=[...]`
+
+Defines a property of an item.
+
+When the property value is a URL, it is expressed using:
+
+- the `<a>` element and its `href` attribute,
+- the `<img>` element and its `src` attribute, or
+- other elements that link to or embed external resources.
+
+When a string value is in some machine-readable format unsuitable for human consumption, it is expressed using:
+
+- the `<data>` element and its `value` attribute (with the human-readable version given in the element's content).
+
+<!-- prettier-ignore -->
+```html
+<div itemscope>
+ <p>My name is <span itemprop="name">Elizabeth</span>.</p>
+</div>
+
+<div itemscope>
+  <img itemprop="image" src="google-logo.png" alt="Google">
+</div>
+
+<h1 itemscope>
+ <data itemprop="product-id" value="9678AOU879">The Instigator 2000</data>
+</h1>
+```
+
+### `itemref=[...]`
+
+Space-separated id's of elements whose properties are to be associated with this item. (Used when said elements are not descendants of this item.)
+
+```html
+<!-- Associate 'a' and 'b' with this item. -->
+<!-- It will inherit property `name` and `band`. -->
+<div itemscope id="amanda" itemref="a b"></div>
+
+<!-- Definition of 'a' elsewhere -->
+<p id="a">Name: <span itemprop="name">Amanda</span></p>
+<!-- Definition of 'b' elsewhere -->
+<div id="b" itemprop="band" itemscope itemref="c"></div>
+```
+
+### `itemid=[...]`
+
+Gives unique identifier to an item. The value should be a URL or a URN. (`itemscope` and `itemtype` must be defined for such item.)
+
+<!-- prettier-ignore -->
+```html
+<dl itemscope
+  itemtype="http://vocab.example.net/book"
+  itemid="urn:isbn:0-330-34032-8">
+  ...
+</dl>
+```
 
 ## References
 
@@ -19,6 +408,18 @@ This list will exclude ARIA and event handler attributes.
     {
       text: 'Global attributes (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes`,
+    },
+    {
+      text: 'Using custom elements (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements`,
+    },
+    {
+      text: "Why Won't Tabindex Work with Firefox?",
+      link: 'https://stackoverflow.com/questions/3846868/why-wont-tabindex-work-with-firefox',
+    },
+    {
+      text: 'HTML: Living Standard — Last Updated 4 February 2021',
+      link: 'https://html.spec.whatwg.org/multipage/microdata.html#microdata',
     },
   ]}
 ></References>
