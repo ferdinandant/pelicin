@@ -231,6 +231,15 @@ blockquote {
   padding-left: var(--spacing-m);
 }
 
+kbd {
+  background: linear-gradient(var(--color-gray-0), var(--color-gray-1));
+  padding: var(--spacing-xxs) var(--spacing-xs);
+  border: 1px solid var(--color-gray-2);
+  border-bottom-width: 2px;
+  border-radius: var(--border-radius-normal);
+  font-size: 0.9em;
+}
+
 /* Definition list */
 dt {
   margin-top: var(--spacing-m);
