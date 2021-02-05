@@ -1,14 +1,89 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, TodoBox, Badge } from '@pelicin/components';
+import { References, TodoBox, Badge, NoteBox, Image } from '@pelicin/components';
 
 <MetadataConfigurer title="ARIA HTML Attributes" dateCreated="2021-02-01" />
 
 # ARIA HTML Attributes
 
-<TodoBox />
+<NoteBox type="info">
+  <p>
+    ARIA was created based on HTML4 specification. Many of the "widgets" defined in ARIA were later
+    incorporated into HTML5.
+  </p>
+  <p>
+    <strong>
+      For such elements where the semantically correct HTML5 elements exists, developers should use
+      them over AIRA.
+    </strong>
+  </p>
+</NoteBox>
 
 <dfn>ARIA</dfn> (Accessible Rich Internet Applications) is a set of attributes intended to make web content
 and web applications more accessible to people with disabilities.
+
+## Types of ARIA attributes
+
+The ARIA specification is split up into three different types of attributes:
+
+- Role attributes &mdash; describe widgets that aren't otherwise available in HTML4 (e.g. sliders, menu bars, tabs, and dialogs)
+- Property attributes &mdash; describe characteristics of these widgets (e.g. if they are draggable, have a required element, or have a popup associated with them)
+- State attributes &mdash; describe the current interaction state of an element (e.g. busy, disabled, selected, or hidden).
+
+## Using ARIA
+
+Just use `role=[...]` from any of the non-italicized class name below. (Right-click and select "View Image" to see the image larger.)
+
+The italicized class names are called <dfn>abstract roles</dfn>; they are the base classes from which state attributes and property attributes can be inherited. They should not appear on your HTML.
+
+<Image
+  path="/res/web/html/rdf_model.png"
+  caption="ARIA role class diagram"
+  sourceString="w3.org"
+  sourceLink="https://www.w3.org/TR/wai-aria-1.2/img/rdf_model"
+/>
+
+Here's an example from MDN.
+
+```html
+<!-- Now *these* are Tabs! -->
+<!-- We've added role attributes to describe the tab list and each tab. -->
+<ol role="tablist">
+  <li id="ch1Tab" role="tab">
+    <a href="#ch1Panel">Chapter 1</a>
+  </li>
+  <li id="ch2Tab" role="tab">
+    <a href="#ch2Panel">Chapter 2</a>
+  </li>
+  <li id="quizTab" role="tab">
+    <a href="#quizPanel">Quiz</a>
+  </li>
+</ol>
+
+<div>
+  <!-- Notice the role and aria-labelledby attributes we've added to describe these panels. -->
+  <div id="ch1Panel" role="tabpanel" aria-labelledby="ch1Tab">Chapter 1 content goes here</div>
+  <div id="ch2Panel" role="tabpanel" aria-labelledby="ch2Tab">Chapter 2 content goes here</div>
+  <div id="quizPanel" role="tabpanel" aria-labelledby="quizTab">Quiz content goes here</div>
+</div>
+```
+
+For more information on what each role/property/state attribute means, you can consult [this
+resource](https://www.w3.org/TR/wai-aria-1.2). Just search for:
+
+- <strong>
+    <code>[roleName] (role)</code>
+  </strong> (e.g. <code>tab (role)</code>) &mdash; to look for the description for the role, as well
+  as state and property attributes in can take
+
+- <strong>
+    <code>[name] (property)</code>
+  </strong> (e.g. <code>aria-labelledby (role)</code>) &mdash; to look for the description on a
+  property attribute
+
+- <strong>
+    <code>[name] (state)</code>
+  </strong> (e.g. <code>aria-current (state)</code>) &mdash; to look for the description on a state
+  attribute
 
 ## References
 
@@ -17,6 +92,18 @@ and web applications more accessible to people with disabilities.
     {
       text: 'ARIA (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA`,
+    },
+    {
+      text: 'An overview of accessible web applications and widgets (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/Accessibility/An_overview_of_accessible_web_applications_and_widgets`,
+    },
+    {
+      text: 'Accessible Rich Internet Applications (WAI-ARIA) 1.2',
+      link: `https://www.w3.org/TR/wai-aria-1.2`,
+    },
+    {
+      text: 'WAI-ARIA Taxonomy',
+      link: `https://www.w3.org/TR/wai-aria-1.2/img/rdf_model`,
     },
   ]}
 ></References>
