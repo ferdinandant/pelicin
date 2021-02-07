@@ -18,6 +18,12 @@ const map: Record<string, CoreTopicConfig> = {
     mainColor: '#e34c26',
     accentColor: '#d43560',
   },
+  '/web/css': {
+    topicKey: 'web/css',
+    topicTitle: 'CSS',
+    mainColor: '#563d7c',
+    accentColor: '#9f4a84',
+  },
 
   // Sample & default
   '/sample': {

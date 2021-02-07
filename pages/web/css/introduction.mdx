@@ -1,0 +1,59 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, Image, NoteBox, LightBox } from '@pelicin/components';
+
+<MetadataConfigurer title="Intro to CSS" dateCreated="2021-02-06" />
+
+# Intro to CSS
+
+<NoteBox type="default">CSS = Cascading Style Sheets</NoteBox>
+
+CSS allows you to _style_ HTML elements, defining how they should look like.
+
+# CSS Syntax
+
+Each CSS rule has the following:
+
+- one or more <dfn>selector</dfn> (this indicates which HTML elements should be affected by the rule)
+- one or more <dfn>property-value pairs</dfn> (this defines what the rule does)
+
+<Image
+  path="/res/web/css/css-rule.png"
+  caption="Basic CSS syntax: selector, property, and value."
+/>
+
+Anything between `/*` and `*/` are comments and do nothing.
+
+# Example
+
+<!-- prettier-ignore -->
+```html
+<style>
+  b {
+    color: red;
+    font-size: 24px;
+  }
+  i, u {
+    color: green;
+  }
+</style>
+
+<b>one</b>
+<i>two</i>
+<u>three</u>
+```
+
+<LightBox label="Preview">
+  <style>
+    b {'{'}
+      color: red;
+      font-size: 24px;
+    {'}'}
+    i, u {'{'}
+      color: green
+    {'}'}
+  </style>
+
+  <b>one</b>{' '}
+  <i>two</i>{' '}
+  <u>three</u>
+</LightBox>

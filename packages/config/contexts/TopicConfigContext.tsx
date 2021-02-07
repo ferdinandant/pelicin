@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { TopicKey, TopicConfig } from '@pelicin/config';
+import React, { useContext } from 'react';
+import { TopicConfig } from '@pelicin/config';
 
 // ================================================================================
 // TYPES/CONST
