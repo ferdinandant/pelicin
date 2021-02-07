@@ -9,7 +9,7 @@ import { References, Image, NoteBox, LightBox } from '@pelicin/components';
 
 CSS allows you to _style_ HTML elements, defining how they should look like.
 
-## CSS Syntax
+# CSS Syntax
 
 Each CSS rule has the following:
 
@@ -23,7 +23,7 @@ Each CSS rule has the following:
 
 Anything between `/*` and `*/` are comments and do nothing.
 
-## Example
+# Example
 
 <!-- prettier-ignore -->
 ```html
@@ -48,18 +48,16 @@ Anything between `/*` and `*/` are comments and do nothing.
 
 <LightBox label="Preview">
   <style>
-    #preview b {'{'}
+    b {'{'}
       color: red;
       font-size: 24px;
     {'}'}
-    #preview i, #preview u {'{'}
+    i, u {'{'}
       color: green
     {'}'}
   </style>
 
-  <span id="preview">
-    <b>one</b>{' '}
-    <i>two</i>{' '}
-    <u>three</u>
-  </span>
+  <b>one</b>{' '}
+  <i>two</i>{' '}
+  <u>three</u>
 </LightBox>
