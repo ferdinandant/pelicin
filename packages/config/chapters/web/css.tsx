@@ -8,6 +8,10 @@ const chapters: TopicChapters = [
         title: 'Introduction',
         path: '/web/css/introduction',
       },
+      {
+        title: 'Embedding CSS',
+        path: '/web/css/embedding-css',
+      },
     ],
   },
 ];

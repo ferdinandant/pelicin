@@ -1,7 +1,6 @@
 // Article
 export { default as Heading } from './article/Heading';
 export { default as References } from './article/References';
-export { default as SyntaxHighlighter } from './article/SyntaxHighlighter';
 export { default as Image } from './article/Image';
 export { default as Code } from './article/Code';
 
@@ -11,6 +10,10 @@ export { default as LightBox } from './box/LightBox';
 export { default as TodoBox } from './box/TodoBox';
 export { default as Badge } from './box/Badge';
 export type { BadgeColor } from './box/Badge';
+
+// Code
+export { default as SyntaxHighlighter } from './code/SyntaxHighlighter';
+export { default as WebEditor } from './code/WebEditor';
 
 // Form
 export { default as GenericInput } from './form/GenericInput';

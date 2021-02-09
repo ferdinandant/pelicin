@@ -1,63 +1,35 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, Image, NoteBox, LightBox } from '@pelicin/components';
+import { References, NoteBox, WebEditor } from '@pelicin/components';
 
-<MetadataConfigurer title="Intro to CSS" dateCreated="2021-02-06" />
+<MetadataConfigurer title="Template" dateCreated="2021-02-08" />
 
-# Intro to CSS
+# Embedding CSS
 
-<NoteBox type="default">CSS = Cascading Style Sheets</NoteBox>
+There are three ways to apply CSS to an HTML documeny.
 
-CSS allows you to _style_ HTML elements, defining how they should look like.
+## External Stylesheet
 
-# CSS Syntax
+Use `<link rel="stylesheet" href="...">` to load CSS externally. This is by far the preferred method of loading CSS.
 
-Each CSS rule has the following:
+## Internal Stylesheet
 
-- one or more <dfn>selectors</dfn> (these indicate which HTML elements should be affected by the rule)
-- one or more <dfn>declarations</dfn> in the form of <dfn>property-value pairs</dfn> (these define what the rule does)
+Use `<style>` to specify and apply CSS to the same HTML document.
 
-<Image
-  path="/res/web/css/css-rule.png"
-  caption="Basic CSS syntax: selector, property, and value."
-/>
+## Inline Stylesheet
 
-Anything between `/*` and `*/` are comments and do nothing.
+<NoteBox type="warning">You should avoid using this method.</NoteBox>
 
-# Example
+Use the `style="..."` global attribute to apply CSS to a single HTML element. (You no longer write the selectors.)
 
-<!-- prettier-ignore -->
-```html
-<!-- Style -->
-<style>
-  /* Make all <b> red and 24px */
-  b {
-    color: red;
-    font-size: 24px;
-  }
-  /* Make all <i> and <u> green */
-  i, u {
-    color: green;
-  }
-</style>
+<WebEditor html="aaa" />
 
-<!-- Content -->
-<b>one</b>
-<i>two</i>
-<u>three</u>
-```
+## References
 
-<LightBox label="Preview">
-  <style>
-    b {'{'}
-      color: red;
-      font-size: 24px;
-    {'}'}
-    i, u {'{'}
-      color: green
-    {'}'}
-  </style>
-
-  <b>one</b>{' '}
-  <i>two</i>{' '}
-  <u>three</u>
-</LightBox>
+<References
+  references={[
+    {
+      text: 'How CSS is structured (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/How_CSS_is_structured`,
+    },
+  ]}
+></References>
