@@ -1,0 +1,42 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, NoteBox, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Template" dateCreated="2021-02-08" />
+
+# Embedding CSS
+
+There are three ways to apply CSS to an HTML document.
+
+## External Stylesheet
+
+Use `<link rel="stylesheet" href="...">` to load CSS externally. This is by far the preferred method of loading CSS.
+
+## Internal Stylesheet
+
+Use `<style>` to specify and apply CSS to the same HTML document.
+
+## Inline Stylesheet
+
+<NoteBox type="warning">You should avoid using this method.</NoteBox>
+
+Use the `style="..."` global attribute to apply CSS to a single HTML element. (You no longer write the selectors.)
+
+<WebEditor
+  html={smartTrim(`
+    <p style="color: red">
+      Lorem ipsum dolor sit amet
+    </p>
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'How CSS is structured (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/How_CSS_is_structured`,
+    },
+  ]}
+></References>

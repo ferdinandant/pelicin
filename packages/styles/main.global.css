@@ -103,7 +103,8 @@ h6 {
 /* -------------------------------------------------------------------------- */
 
 pre,
-code {
+code,
+textarea {
   font-family: source-code-pro, 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
 }
 
@@ -124,8 +125,8 @@ pre {
   color: var(--color-gray-2) !important;
   font-size: var(--font-size-small);
   line-height: 1.4;
-  /* Adapting color with highlight.js theme */
-  background-color: #282c34;
+  /* adapting to prism.js okaida theme */
+  background-color: #272822;
   scrollbar-color: var(--color-gray-6) transparent;
 }
 pre code {
@@ -133,6 +134,7 @@ pre code {
   background-color: transparent !important;
   overflow: visible !important;
   padding: 0 !important;
+  font-size: var(--font-size-small);
 }
 
 /* -------------------------------------------------------------------------- */

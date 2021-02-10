@@ -22,6 +22,10 @@ const group: TopicGroup = {
           description: 'Comprehensive reference summary from MDN',
           path: '/web/html/introduction',
         },
+        {
+          title: 'CSS',
+          path: '/web/css/introduction',
+        },
       ],
     },
   ],
