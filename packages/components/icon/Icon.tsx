@@ -1,8 +1,10 @@
+import React, { CSSProperties } from 'react';
 import classNames from 'classnames';
 
 type Props = {
   name: string;
-  variant: 'fas' | 'fab';
+  variant?: 'fas' | 'fab';
+  style?: CSSProperties;
 };
 
 /**
@@ -12,7 +14,7 @@ type Props = {
  * @example
  * <Icon name="camera" />
  */
-export default function Icon(props) {
-  const { name, variant = 'fas', style = {} } = props;
+export default function Icon(props: Props) {
+  const { name, variant = 'fas', style } = props;
   return <i className={classNames([variant, `fa-${name}`])} style={style} aria-hidden />;
 }

@@ -18,6 +18,7 @@ export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
             language="css"
             code={cssContent}
             onCodeChange={(code) => setCSSContent(code)}
+            onReset={() => setCSSContent(css)}
           />
         </div>
       )}
@@ -27,6 +28,7 @@ export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
             language="html"
             code={htmlContent}
             onCodeChange={(code) => setHTMLContent(code)}
+            onReset={() => setHTMLContent(html)}
           />
         </div>
       )}

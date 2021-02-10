@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Editor from 'react-simple-code-editor';
 import classNames from 'classnames';
 
+import { Icon } from '@pelicin/components';
+
 // ================================================================================
 // TYPES/CONST
 // ================================================================================
@@ -9,7 +11,8 @@ import classNames from 'classnames';
 type Props = {
   language: string;
   code: string;
-  onCodeChange: (newCode: string) => void;
+  onCodeChange?: (newCode: string) => void;
+  onReset?: () => void;
 };
 
 const languageToColor = {
@@ -21,7 +24,7 @@ const languageToColor = {
 // MAIN
 // ================================================================================
 
-export default function SyntaxEditor({ language, code, onCodeChange }: Props) {
+export default function SyntaxEditor({ language, code, onCodeChange, onReset }: Props) {
   const prism: any = typeof window !== 'undefined' && (window as any).Prism;
   const bannerColor = languageToColor[language] || 'gray';
 
@@ -35,11 +38,21 @@ export default function SyntaxEditor({ language, code, onCodeChange }: Props) {
 
   return (
     <>
-      <div className={classNames(['banner', bannerColor])}>{language.toUpperCase()}</div>
+      {/* Banner */}
+      <div className={classNames(['banner', bannerColor])}>
+        <span className="language">{language.toUpperCase()}</span>
+        <span className="iconBar">
+          <span className="icon" onClick={() => onReset && onReset()}>
+            <Icon name="sync" />
+          </span>
+        </span>
+      </div>
+
+      {/* Editor */}
       {isHighlighterReady ? (
         <Editor
           value={code}
-          onValueChange={(code) => onCodeChange(code)}
+          onValueChange={(code) => onCodeChange && onCodeChange(code)}
           highlight={(code) => prism.highlight(code, prism && prism.languages[language])}
           padding={12}
           style={{
@@ -63,10 +76,24 @@ export default function SyntaxEditor({ language, code, onCodeChange }: Props) {
           border-top-right-radius: var(--border-radius-normal);
           padding: var(--spacing-xs) 12px;
           font-size: var(--font-size-tiny);
-          font-weight: 800;
           background-color: var(--color-gray-7);
           color: var(--color-gray-2);
         }
+        .language {
+          font-weight: 800;
+        }
+        .iconBar {
+          float: right;
+        }
+        .icon {
+          opacity: 0.6;
+          transition: opacity ease 0.3s;
+          cursor: pointer;
+        }
+        .icon:hover {
+          opacity: 1;
+        }
+
         pre {
           margin-top: 0;
           border-top-left-radius: 0;
