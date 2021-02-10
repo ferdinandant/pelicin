@@ -1,38 +1,44 @@
 import React, { useState } from 'react';
-import Editor from 'react-simple-code-editor';
-
-import { SyntaxEditor } from '@pelicin/components';
+import { SyntaxEditor, LightBox } from '@pelicin/components';
 
 type Props = {
   html: string;
   css: string;
 };
 
-export default function HTMLCSSEditor({ html, css }: Props) {
-  const prism: any = typeof window !== 'undefined' && (window as any).Prism;
-
+export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
   const [htmlContent, setHTMLContent] = useState(html);
   const [cssContent, setCSSContent] = useState(css);
 
   return (
     <>
       {css && (
-        <SyntaxEditor
-          language="css"
-          code={cssContent}
-          onCodeChange={(code) => setCSSContent(code)}
-        />
+        <div className="editor">
+          <SyntaxEditor
+            language="css"
+            code={cssContent}
+            onCodeChange={(code) => setCSSContent(code)}
+          />
+        </div>
       )}
-
       {html && (
-        <SyntaxEditor
-          language="css"
-          code={htmlContent}
-          onCodeChange={(code) => setCSSContent(code)}
-        />
+        <div className="editor">
+          <SyntaxEditor
+            language="html"
+            code={htmlContent}
+            onCodeChange={(code) => setHTMLContent(code)}
+          />
+        </div>
       )}
+      <LightBox containerStyle={{ marginTop: 'var(--spacing-s)' }} label="Preview">
+        <style dangerouslySetInnerHTML={{ __html: cssContent }} />
+        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+      </LightBox>
 
       <style jsx>{`
+        .editor {
+          margin-top: var(--spacing-xs);
+        }
         .banner {
           border-top-left-radius: var(--border-radius-normal);
           border-top-right-radius: var(--border-radius-normal);

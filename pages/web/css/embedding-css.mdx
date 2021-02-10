@@ -1,5 +1,6 @@
 import { MetadataConfigurer } from '@pelicin/layout';
 import { References, NoteBox, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Template" dateCreated="2021-02-08" />
 
@@ -21,7 +22,13 @@ Use `<style>` to specify and apply CSS to the same HTML document.
 
 Use the `style="..."` global attribute to apply CSS to a single HTML element. (You no longer write the selectors.)
 
-<WebEditor html="aaa" />
+<WebEditor
+  html={smartTrim(`
+    <p style="color: red">
+      Lorem ipsum dolor sit amet
+    </p>
+  `)}
+/>
 
 ## References
 

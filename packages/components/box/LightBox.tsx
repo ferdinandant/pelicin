@@ -1,17 +1,18 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, CSSProperties } from 'react';
 import classNames from 'classnames';
 
 type Props = {
-  color: 'gray' | 'blue' | 'red';
+  color?: 'gray' | 'blue' | 'red';
   label?: ReactNode;
   children: ReactNode;
+  containerStyle?: CSSProperties;
 };
 
 export default function LightBox(props: Props) {
-  const { children, color = 'gray', label } = props;
+  const { children, color = 'gray', label, containerStyle } = props;
   return (
     <>
-      <div className={classNames(['container', color])}>
+      <div style={containerStyle} className={classNames(['container', color])}>
         {label && <div className="label">{label}</div>}
         <div className="content">{children}</div>
       </div>
