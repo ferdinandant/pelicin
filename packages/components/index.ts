@@ -13,6 +13,7 @@ export type { BadgeColor } from './box/Badge';
 
 // Code
 export { default as SyntaxHighlighter } from './code/SyntaxHighlighter';
+export { default as SyntaxEditor } from './code/SyntaxEditor';
 export { default as WebEditor } from './code/WebEditor';
 
 // Form
