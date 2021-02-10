@@ -69,10 +69,10 @@ function MyApp(props: Props) {
         )}
         {/* Highlight.js (Syntax Highlighter) */}
         {useSyntaxHighlighter && (
-          <link
-            rel="stylesheet"
-            href="https://highlightjs.org/static/demo/styles/atom-one-dark.css"
-          />
+          <>
+            <link rel="stylesheet" href="/lib/prism/prism.css" />
+            <script defer src="/lib/prism/prism.js" data-manual />
+          </>
         )}
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-0Q02ZPV32H" />
