@@ -134,6 +134,7 @@ pre code {
   background-color: transparent !important;
   overflow: visible !important;
   padding: 0 !important;
+  font-size: var(--font-size-small);
 }
 
 /* -------------------------------------------------------------------------- */

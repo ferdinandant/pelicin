@@ -44,7 +44,7 @@ export default function SyntaxEditor({ language, code, onCodeChange }: Props) {
           padding={12}
           style={{
             fontFamily: "source-code-pro, 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace",
-            fontSize: 'var(--font-size-tiny)',
+            fontSize: 'var(--font-size-small)',
             backgroundColor: '#272822',
             borderBottomLeftRadius: 'var(--border-radius-normal)',
             borderBottomRightRadius: 'var(--border-radius-normal)',
