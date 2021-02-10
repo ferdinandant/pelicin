@@ -17,7 +17,7 @@ export default function SyntaxHighlighter(props: Props) {
   const { language = 'none', children: code } = props;
   const prismInstance: any = typeof window !== 'undefined' && (window as any).Prism;
 
-  const [highlightedCode, setHighlightedCode] = useState(escapeCode(code));
+  const [highlightedCode, setHighlightedCode] = useState(null);
 
   useEffect(() => {
     if (prismInstance) {
@@ -27,6 +27,11 @@ export default function SyntaxHighlighter(props: Props) {
     }
   }, []);
 
+  if (!highlightedCode) {
+    <pre>
+      <code className={`language-${language}`}>{code}</code>
+    </pre>;
+  }
   return (
     <pre>
       <code
@@ -37,23 +42,4 @@ export default function SyntaxHighlighter(props: Props) {
       />
     </pre>
   );
-}
-
-// ================================================================================
-// HANDLERS
-// ================================================================================
-
-function escapeCode(code) {
-  return code.replace(/[&<>]/g, (char) => {
-    switch (char) {
-      case '&':
-        return '&amp;';
-      case '<':
-        return '&lt;';
-      case '>':
-        return '&gt;';
-      default:
-        return char;
-    }
-  });
 }
