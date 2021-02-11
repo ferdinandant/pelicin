@@ -1,5 +1,5 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+import { References, HTMLTagsIndexTable, LightBox, Badge } from '@pelicin/components';
 
 export const Attribute = (props) => (
   <strong>
@@ -13,46 +13,8 @@ export const Attribute = (props) => (
 
 These are the HTML tags related to embedding media (picture, video, sound, etc).
 
-<FixedColumnWidthTable
-  tableStyle={{
-    fontSize: '0.9em',
-  }}
-  headers={[
-    {
-      text: 'Tag',
-      key: 'tag',
-      formatContent: (tag) => {
-        const specialMapping = {};
-        return (
-          <>
-            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
-              <code>&lt;{tag}&gt;</code>
-            </a>
-          </>
-        );
-      },
-      width: 100,
-    },
-    {
-      text: 'Type',
-      key: 'type',
-      formatContent: (type) => {
-        return type === 'block' ? (
-          <Badge color="red">Block</Badge>
-        ) : type === 'inline' ? (
-          <Badge color="blue">Inline</Badge>
-        ) : (
-          <Badge color="gray">Other</Badge>
-        );
-      },
-      width: 80,
-    },
-    {
-      text: 'Description',
-      key: 'description',
-    },
-  ]}
-  contents={[
+<HTMLTagsIndexTable
+  tags={[
     {
       tag: 'img',
       type: 'inline',

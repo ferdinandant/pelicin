@@ -1,5 +1,5 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, LightBox, NoteBox, Badge } from '@pelicin/components';
+import { References, HTMLTagsIndexTable, LightBox, NoteBox, Badge } from '@pelicin/components';
 
 export const Attribute = (props) => (
   <strong>
@@ -27,52 +27,15 @@ export const Attribute = (props) => (
 
 These are the HTML tags you use to make tables.
 
-<FixedColumnWidthTable
-  tableStyle={{
-    fontSize: '0.9em',
+<HTMLTagsIndexTable
+  specialMapping={{
+    thead: 'thead-tbody-and-tfoot',
+    tbody: 'thead-tbody-and-tfoot',
+    tfoot: 'thead-tbody-and-tfoot',
+    colgroup: 'colgroup-and-col',
+    col: 'colgroup-and-col',
   }}
-  headers={[
-    {
-      text: 'Tag',
-      key: 'tag',
-      formatContent: (tag) => {
-        const specialMapping = {
-          thead: 'thead-tbody-and-tfoot',
-          tbody: 'thead-tbody-and-tfoot',
-          tfoot: 'thead-tbody-and-tfoot',
-          colgroup: 'colgroup-and-col',
-          col: 'colgroup-and-col',
-        };
-        return (
-          <>
-            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
-              <code>&lt;{tag}&gt;</code>
-            </a>
-          </>
-        );
-      },
-      width: 100,
-    },
-    {
-      text: 'Type',
-      key: 'type',
-      formatContent: (type) => {
-        return type === 'block' ? (
-          <Badge color="red">Block</Badge>
-        ) : type === 'inline' ? (
-          <Badge color="blue">Inline</Badge>
-        ) : (
-          <Badge color="gray">Other</Badge>
-        );
-      },
-      width: 80,
-    },
-    {
-      text: 'Description',
-      key: 'description',
-    },
-  ]}
-  contents={[
+  tags={[
     {
       tag: 'table',
       type: 'block',

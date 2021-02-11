@@ -1,13 +1,13 @@
 import { MetadataConfigurer } from '@pelicin/layout';
 import {
   References,
-  FixedColumnWidthTable,
   LightBox,
   NoteBox,
   Badge,
   BasicList,
   GenericInput,
   TodoBox,
+  HTMLTagsIndexTable,
 } from '@pelicin/components';
 
 export const Attribute = (props) => (
@@ -22,49 +22,12 @@ export const Attribute = (props) => (
 
 These are the HTML tags you use to make forms and their content.
 
-<FixedColumnWidthTable
-  tableStyle={{
-    fontSize: '0.9em',
+<HTMLTagsIndexTable
+  spacialMapping={{
+    fieldset: 'fieldset-and-legend',
+    legend: 'fieldset-and-legend',
   }}
-  headers={[
-    {
-      text: 'Tag',
-      key: 'tag',
-      formatContent: (tag) => {
-        const specialMapping = {
-          fieldset: 'fieldset-and-legend',
-          legend: 'fieldset-and-legend',
-        };
-        return (
-          <>
-            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
-              <code>&lt;{tag}&gt;</code>
-            </a>
-          </>
-        );
-      },
-      width: 100,
-    },
-    {
-      text: 'Type',
-      key: 'type',
-      formatContent: (type) => {
-        return type === 'block' ? (
-          <Badge color="red">Block</Badge>
-        ) : type === 'inline' ? (
-          <Badge color="blue">Inline</Badge>
-        ) : (
-          <Badge color="gray">Other</Badge>
-        );
-      },
-      width: 80,
-    },
-    {
-      text: 'Description',
-      key: 'description',
-    },
-  ]}
-  contents={[
+  tags={[
     {
       tag: 'form',
       type: 'block',
@@ -569,8 +532,8 @@ Creates an interactive input field.
             <BasicList
               items={[
                 <>
-                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>,{' '}
-                  <code>audio/mp3</code>, or <code>audio/*</code>)
+                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>
+                  , <code>audio/mp3</code>, or <code>audio/*</code>)
                 </>,
                 <>
                   <Attribute>capture=[...]</Attribute> (which camera to use, e.g. <code>user</code>{' '}

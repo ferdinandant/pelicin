@@ -1,5 +1,5 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, NoteBox, LightBox, Badge } from '@pelicin/components';
+import { References, NoteBox, LightBox, HTMLTagsIndexTable, Badge } from '@pelicin/components';
 
 export const Attribute = (props) => (
   <strong>
@@ -17,49 +17,12 @@ These are the most common HTML tags. You would put these inside `<body>`, since 
 
 - <dfn>Inline elements</dfn> will flow in-line with the surrounding text
 
-<FixedColumnWidthTable
-  tableStyle={{
-    fontSize: '0.9em',
+<HTMLTagsIndexTable
+  specialMapping={{
+    div: 'div-and-span',
+    span: 'div-and-span',
   }}
-  headers={[
-    {
-      text: 'Tag',
-      key: 'tag',
-      formatContent: (tag) => {
-        const specialMapping = {
-          div: 'div-and-span',
-          span: 'div-and-span',
-        };
-        return (
-          <>
-            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
-              <code>&lt;{tag}&gt;</code>
-            </a>
-          </>
-        );
-      },
-      width: 100,
-    },
-    {
-      text: 'Type',
-      key: 'type',
-      formatContent: (type) => {
-        return type === 'block' ? (
-          <Badge color="red">Block</Badge>
-        ) : type === 'inline' ? (
-          <Badge color="blue">Inline</Badge>
-        ) : (
-          <Badge color="gray">Other</Badge>
-        );
-      },
-      width: 80,
-    },
-    {
-      text: 'Description',
-      key: 'description',
-    },
-  ]}
-  contents={[
+  tags={[
     {
       tag: 'div',
       type: 'block',
