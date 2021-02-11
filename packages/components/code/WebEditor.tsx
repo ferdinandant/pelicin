@@ -32,7 +32,7 @@ export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
           />
         </div>
       )}
-      <LightBox containerStyle={{ marginTop: 'var(--spacing-s)' }} label="Preview">
+      <LightBox containerStyle={{ marginTop: 'var(--spacing-m)' }} label="Preview">
         <style dangerouslySetInnerHTML={{ __html: cssContent }} />
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </LightBox>
@@ -51,7 +51,7 @@ export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
           color: var(--color-gray-2);
         }
         .banner:not(:first-child) {
-          margin-top: var(--spacing-s);
+          margin-top: var(--spacing-m);
         }
 
         .banner.red {
