@@ -34,7 +34,7 @@ export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
       )}
 
       <div className="previewBanner">
-        <Icon name="eye" /> | <span className="label">LIVE PREVIEW</span>
+        <Icon name="eye" /> | <span className="label">PREVIEW</span>
       </div>
       <div className="previewContainer">
         <style dangerouslySetInnerHTML={{ __html: cssContent }} />
