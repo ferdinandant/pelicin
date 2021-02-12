@@ -1,5 +1,6 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, HTMLTagsIndexTable, LightBox, NoteBox, Badge } from '@pelicin/components';
+import { References, HTMLTagsIndexTable, NoteBox, Badge, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 export const Attribute = (props) => (
   <strong>
@@ -93,46 +94,27 @@ These are the HTML tags you use to make tables.
 
 Represents a table.
 
-```html
-<table>
-  <tr>
-    <th>No.</th>
-    <th>Name</th>
-    <th>Address</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>John Doe</td>
-    <td>Sydney, Australia</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>Takara Tomy</td>
-    <td>Kyushu, Japan</td>
-  </tr>
-</table>
-```
-
-<!-- prettier-ignore -->
-<LightBox label="Preview">
-  <table>
-    <tr>
-      <th>No.</th>
-      <th>Name</th>
-      <th>Address</th>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>John Doe</td>
-      <td>Sydney, Australia</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Takara Tomy</td>
-      <td>Kyushu, Japan</td>
-    </tr>
-  </table>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <table>
+      <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Address</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>John Doe</td>
+        <td>Sydney, Australia</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Takara Tomy</td>
+        <td>Kyushu, Japan</td>
+      </tr>
+    </table>
+  `)}
+/>
 
 ## `<tr>`
 
@@ -185,30 +167,19 @@ Defines a <em>table header</em> cell.
   </li>
 </ul>
 
-```html
-<table>
-  <tr>
-    <th id="name" scope="colgroup" colspan="2">Name</th>
-  </tr>
-  <tr>
-    <th scope="col" headers="name">First Name</th>
-    <th scope="col" headers="name">Last Name</th>
-  </tr>
-</table>
-```
-
-<!-- prettier-ignore -->
-<LightBox label="Preview">
-  <table>
-    <tr>
-      <th id="name" scope="colgroup" colspan="2">Name</th>
-    </tr>
-    <tr>
-      <th scope="col" headers="name">First Name</th>
-      <th scope="col" headers="name">Last Name</th>
-    </tr>
-  </table>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <table>
+      <tr>
+        <th id="name" scope="colgroup" colspan="2">Name</th>
+      </tr>
+      <tr>
+        <th scope="col" headers="name">First Name</th>
+        <th scope="col" headers="name">Last Name</th>
+      </tr>
+    </table>
+  `)}
+/>
 
 ## `<td>`
 
@@ -232,77 +203,45 @@ Defines a <em>table data</em> cell.
   </li>
 </ul>
 
-<!-- prettier-ignore -->
-```html
-<table>
-  <tr>
-    <td colspan="2" rowspan="2" style="background-color: #ffdddd">1</td>
-    <td>2</td>
-  </tr>
-  <tr>
-    <td>3</td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>5</td>
-    <td>6</td>
-  </tr>
-</table>
-```
-
-<!-- prettier-ignore -->
-<LightBox label="Preview">
-  <table>
-    <tr>
-      <td colspan="2" rowspan="2" style={{backgroundColor: '#ffdddd'}}>1</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>5</td>
-      <td>6</td>
-    </tr>
-  </table>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <table>
+      <tr>
+        <td colspan="2" rowspan="2" style="background-color: #ffdddd">1</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+      </tr>
+    </table>
+  `)}
+/>
 
 ## `<thead>`, `<tbody>`, and `<tfoot>`
 
 Add semantics: which rows are part of the <em>table header</em>, <em>table body</em>, and <em>table footer</em>. (On their own they don't do anything.)
 
-<!-- prettier-ignore -->
-```html
-<table>
-  <thead>
-    <tr><th>Name</th><th>Test 1</th><th>Test 2</th></tr>
-  </thead>
-  <tbody>
-    <tr><th>James</th><td>80</td><td>90</td></tr>
-    <tr><th>Bond</th><td>70</td><td>100</td></tr>
-  </tbody>
-  <tfoot>
-    <tr><th>Average</th><td>75</td><td>95</td></tr>
-  </tfoot>
-</table>
-```
-
-<!-- prettier-ignore -->
-<LightBox label="Preview">
-  <table>
-    <thead>
-      <tr><th>Name</th><th>Test 1</th><th>Test 2</th></tr>
-    </thead>
-    <tbody>
-      <tr><th>James</th><td>80</td><td>90</td></tr>
-      <tr><th>Bond</th><td>70</td><td>100</td></tr>
-    </tbody>
-    <tfoot>
-      <tr><th>Average</th><td>75</td><td>95</td></tr>
-    </tfoot>
-  </table>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Test 1</th><th>Test 2</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>James</th><td>80</td><td>90</td></tr>
+        <tr><th>Bond</th><td>70</td><td>100</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><th>Average</th><td>75</td><td>95</td></tr>
+      </tfoot>
+    </table>
+  `)}
+/>
 
 ## `<colgroup>` and `<col>`
 
@@ -318,90 +257,48 @@ You normally put `<col>` inside `<colgroup>` to signify that those columns have 
   </li>
 </ul>
 
-<!-- prettier-ignore -->
-```html
-<table>
-  <colgroup>
-    <col style="background-color: #ffdddd"/>
-    <col style="background-color: #ddffdd"/>
-    <col span="2" style="background-color: #ddddff"/>
-  </colgroup>
-  <tr>
-    <th>ISBN</th><th>Title</th><th>Old Price</th><th>New Price</th>
-  </tr>
-  <tr>
-    <td>1234567</td><td>My First HTML</td><td>$10</td><td>$15</td>
-  </tr>
-  <tr>
-    <td>1234568</td><td>My First CSS</td><td>$12</td><td>$16</td>
-  </tr>
-</table>
-```
-
-<LightBox label="Preview">
-  <table>
-    <colgroup>
-      <col style={{ backgroundColor: '#ffdddd' }} />
-      <col style={{ backgroundColor: '#ddffdd' }} />
-      <col span="2" style={{ backgroundColor: '#ddddff' }} />
-    </colgroup>
-    <tr>
-      <th>ISBN</th>
-      <th>Title</th>
-      <th>Old Price</th>
-      <th>New Price</th>
-    </tr>
-    <tr>
-      <td>1234567</td>
-      <td>My First HTML</td>
-      <td>$10</td>
-      <td>$15</td>
-    </tr>
-    <tr>
-      <td>1234568</td>
-      <td>My First CSS</td>
-      <td>$12</td>
-      <td>$16</td>
-    </tr>
-  </table>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <table>
+      <colgroup>
+        <col style="background-color: #ffdddd"/>
+        <col style="background-color: #ddffdd"/>
+        <col span="2" style="background-color: #ddddff"/>
+      </colgroup>
+      <tr>
+        <th>ISBN</th><th>Title</th><th>Old Price</th><th>New Price</th>
+      </tr>
+      <tr>
+        <td>1234567</td><td>My First HTML</td><td>$10</td><td>$15</td>
+      </tr>
+      <tr>
+        <td>1234568</td><td>My First CSS</td><td>$12</td><td>$16</td>
+      </tr>
+    </table>
+  `)}
+/>
 
 ## `<caption>`
 
 Adds table caption.
 
-<!-- prettier-ignore -->
-```html
-<table>
-  <caption>Pokémon Evolution</caption>
-  <tr>
-    <th>Basic</th>
-    <th>Stage 1</th>
-    <th>Stage 2</th>
-  </tr>
-  <tr>
-    <td>Charmander</td>
-    <td>Charmeleon</td>
-    <td>Charlizard</td>
-  </tr>
-</table>
-```
-
-<LightBox label="Preview">
-  <table>
-    <caption>Pokémon Evolution</caption>
-    <tr>
-      <th>Basic</th>
-      <th>Stage 1</th>
-      <th>Stage 2</th>
-    </tr>
-    <tr>
-      <td>Charmander</td>
-      <td>Charmeleon</td>
-      <td>Charlizard</td>
-    </tr>
-  </table>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <table>
+      <caption>Pokémon Evolution</caption>
+      <tr>
+        <th>Basic</th>
+        <th>Stage 1</th>
+        <th>Stage 2</th>
+      </tr>
+      <tr>
+        <td>Charmander</td>
+        <td>Charmeleon</td>
+        <td>Charlizard</td>
+      </tr>
+    </table>
+  `)}
+/>
 
 ## References
 
