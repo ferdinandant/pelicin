@@ -1,5 +1,6 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, HTMLTagsIndexTable, LightBox, Badge } from '@pelicin/components';
+import { References, HTMLTagsIndexTable, WebEditor, Badge } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 export const Attribute = (props) => (
   <strong>
@@ -37,21 +38,15 @@ These are the HTML tags you use to make lists.
 
 Creates an <dfn>unordered list</dfn> (unnumbered).
 
-```html
-<ul>
-  <li>Apple</li>
-  <li>Banana</li>
-  <li>Orange</li>
-</ul>
-```
-
-<LightBox label="Preview">
-  <ul>
-    <li>Apple</li>
-    <li>Banana</li>
-    <li>Orange</li>
-  </ul>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <ul>
+      <li>Apple</li>
+      <li>Banana</li>
+      <li>Orange</li>
+    </ul>
+  `)}
+/>
 
 ## `<ol>`
 
@@ -88,21 +83,15 @@ Creates an <dfn>ordered list</dfn> (numbered).
   </li>
 </ul>
 
-```html
-<ol>
-  <li>One</li>
-  <li>Two</li>
-  <li>Three</li>
-</ol>
-```
-
-<LightBox label="Preview">
-  <ol>
-    <li>One</li>
-    <li>Two</li>
-    <li>Three</li>
-  </ol>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <ol>
+      <li>One</li>
+      <li>Two</li>
+      <li>Three</li>
+    </ol>
+  `)}
+/>
 
 ## `<li>`
 
@@ -119,33 +108,21 @@ You can create nested list by putting `<ol>` or `<ul>` inside `<li>`.
   </li>
 </ul>
 
-```html
-<ol type="I">
-  <li value="3">third item</li>
-  <li>fourth item</li>
-  <li>
-    fifth item
-    <ul>
-      <li>subitem A</li>
-      <li>subitem B</li>
-    </ul>
-  </li>
-</ol>
-```
-
-<LightBox label="Preview">
-  <ol type="I">
-    <li value="3">third item</li>
-    <li>fourth item</li>
-    <li>
-      fifth item
-      <ul>
-        <li>subitem A</li>
-        <li>subitem B</li>
-      </ul>
-    </li>
-  </ol>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <ol type="I">
+      <li value="3">third item</li>
+      <li>fourth item</li>
+      <li>
+        fifth item
+        <ul>
+          <li>subitem A</li>
+          <li>subitem B</li>
+        </ul>
+      </li>
+    </ol>
+  `)}
+/>
 
 ## References
 
