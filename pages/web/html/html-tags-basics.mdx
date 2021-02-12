@@ -1,5 +1,13 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, NoteBox, LightBox, HTMLTagsIndexTable, Badge } from '@pelicin/components';
+import {
+  References,
+  NoteBox,
+  LightBox,
+  HTMLTagsIndexTable,
+  Badge,
+  WebEditor,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 export const Attribute = (props) => (
   <strong>
@@ -128,26 +136,22 @@ These are the most common HTML tags. You would put these inside `<body>`, since 
 
 These containers by themselves will not change how the content is displayed; you will normally use this for layouting and styling with CSS.
 
-```html
-<!-- div creates its own line -->
-<div style="background-color: red; color: white">
-  I'm creating a new line!
-</div>
-
-<!-- span flows inline with the surrounding text -->
-Lorem ipsum
-<span style="background-color: blue; color: white">
-  I'm flowing with the text
-</span>
-dolor sit amet
-```
-
-<LightBox label="Preview">
-  <div style={{ backgroundColor: 'red', color: 'white' }}>I'm creating a new line!</div>
-  Lorem ipsum <span style={{ backgroundColor: 'blue', color: 'white' }}>
-    I'm flowing with the text
-  </span> dolor sit amet
-</LightBox>
+<WebEditor html={smartTrim([
+  `
+    <!-- div creates its own line -->
+    <div style="background-color: red; color: white">
+      I'm creating a new line!
+    </div>
+  `,
+  `
+    <!-- span flows inline with the surrounding text -->
+    Lorem ipsum
+    <span style="background-color: blue; color: white">
+      I'm flowing with the text
+    </span>
+    dolor sit amet
+  `,
+])} />
 
 ## `<h1>` &ndash; `<h6>`
 
@@ -158,66 +162,50 @@ These are used to create <em>headers</em>. They are block-level elements.
 - `<h3>` would be for the sub-subtitle
 - so on and so forth.
 
-```html
-<h1>H1: Nice title</h1>
-<h2>H2: Nice sub-title</h2>
-<h3>H3: Nice sub-sub-title</h3>
-```
-
-<LightBox label="Preview">
-  <h1 style={{ border: 'none', margin: 0, marginBottom: 10, padding: 0 }}>H1: Nice title</h1>
-  <h2 style={{ border: 'none', margin: 0, marginBottom: 10, padding: 0 }}>H2: Nice sub-title</h2>
-  <h3 style={{ border: 'none', margin: 0, padding: 0 }}>H3: Nice sub-sub-title</h3>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <h1>H1: Nice title</h1>
+    <h2>H2: Nice sub-title</h2>
+    <h3>H3: Nice sub-sub-title</h3>
+  `)}
+/>
 
 ## `<p>`
 
 Marks a paragraph. It's a block-level element.
 
-<!-- prettier-ignore -->
-```html
-<p>Lorem ipsum dolor sit amet. Consectetur adipisicing elit.</p>
-<p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-```
-
-<LightBox label="Preview">
-  <p>Lorem ipsum dolor sit amet. Consectetur adipisicing elit.</p>
-  <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <p>Lorem ipsum dolor sit amet. Consectetur adipisicing elit.</p>
+    <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  `)}
+/>
 
 ## `<hr>`
 
 Inserts a <dfn>horizontal ruler</dfn>.
 
-<!-- prettier-ignore -->
-```html
-one two three
-<hr>
-one two three
-```
-
-<LightBox label="Preview">
-  one two three
-  <hr />
-  one two three
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    one two three
+    <hr>
+    one two three
+  `)}
+/>
 
 ## `<br>`
 
 Inserts a <dfn>line break</dfn>.
 
-<!-- prettier-ignore -->
-```html
-<p>Lorem ipsum<br>dolor sit amet</p>
-```
-
-<LightBox label="Preview">
-  <p>
-    Lorem ipsum
-    <br />
-    dolor sit amet
-  </p>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <p>
+      Lorem ipsum
+      <br />
+      dolor sit amet
+    </p>
+  `)}
+/>
 
 ## `<a>`
 
@@ -259,99 +247,83 @@ Creates <dfn>anchors</dfn> and hyperlinks.
   </li>
 </ul>
 
-```html
-<p>To search the internet, <a href="https://google.com">click here</a>!</p>
-
-<!-- Prompts download when clicked -->
-<p>
-  Taken from MDN site:
-  <a href="/res/web/html/mdx-info2.png" download>Download an image?</a>
-</p>
-
-<!-- When clicked, the header will be brought to top of page -->
-<h1 id="my-anchor">My Anchor</h1>
-<p>Click <a href="#my-anchor">here</a> to go to My Anchor</p>
-```
-
-<!-- prettier-ignore -->
-<LightBox label="Preview">
-  <p>To search the internet, <a href="https://google.com" target="_blank">click here</a>!</p>
-  <p>Taken from MDN site: <a href="/res/web/html/mdx-info2.png" download>Download an image?</a></p>
-  <h1 style={{ border: 'none', margin: '16px 0 0', padding: 0, }} id="my-anchor">My Anchor</h1>
-  <p>Click <a href="#my-anchor">here</a> to go to my-anchor</p>
-</LightBox>
+<WebEditor html={smartTrim([
+  `
+    <p>To search the internet, <a href="https://google.com">click here</a>!</p>
+  `,
+  `
+    <!-- Prompts download when clicked -->
+    <p>
+      Taken from MDN site:
+      <a href="/res/web/html/mdx-info2.png" download>Download an image?</a>
+    </p>
+  `,
+  `
+    <!-- When clicked, the header will be brought to top of page -->
+    <h2 id="my-anchor">My Anchor</h2>
+    <p>Click <a href="#my-anchor">here</a> to go to My Anchor</p>
+  `,
+])} />
 
 ## `<b>`
 
 Makes text <em>bold</em>.
 
-```html
-<b>I'm bold!</b>
-```
-
-<LightBox label="Preview">
-  <b>I'm bold!</b>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <b>I'm bold!</b>
+  `)}
+/>
 
 ## `<i>`
 
 Makes text <em>italic</em>.
 
-```html
-<i>I'm italic!</i>
-```
-
-<LightBox label="Preview">
-  <i>I'm italic!</i>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <i>I'm italic!</i>
+  `)}
+/>
 
 ## `<u>`
 
 Makes text <em>underlined</em>.
 
-```html
-<u>I'm underlined!</u>
-```
-
-<LightBox label="Preview">
-  <u>I'm underlined!</u>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <u>I'm underlined!</u>
+  `)}
+/>
 
 ## `<s>`
 
 Renders text with <em>strikethrough</em>.
 
-```html
-<s>I'm struck-through!</s>
-```
-
-<LightBox label="Preview">
-  <s>I'm struck-through!</s>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <s>I'm struck-through!</s>
+  `)}
+/>
 
 ## `<sub>`
 
 Renders text as <em>subscript</em>
 
-```html
-I'm a <sub>subscript</sub>
-```
-
-<LightBox label="Preview">
-  I'm a <sub>subscript</sub>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    I'm a <sub>subscript</sub>
+  `)}
+/>
 
 ## `<sup>`
 
 Renders text as <em>superscript</em>
 
-```html
-I'm a <sup>superscript</sup>
-```
-
-<LightBox label="Preview">
-  I'm a <sup>superscript</sup>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    I'm a <sup>superscript</sup>
+  `)}
+/>
 
 ## References
 
