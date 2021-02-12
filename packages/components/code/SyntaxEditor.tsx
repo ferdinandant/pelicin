@@ -40,7 +40,7 @@ export default function SyntaxEditor({ language, code, onCodeChange, onReset }: 
     <>
       {/* Banner */}
       <div className={classNames(['banner', bannerColor])}>
-        <span className="language">{language.toUpperCase()}</span>
+        <Icon name="edit" /> | <span className="language">{language.toUpperCase()}</span>
         <span className="iconBar">
           <span className="icon" onClick={() => onReset && onReset()}>
             <Icon name="sync" />
@@ -92,6 +92,7 @@ export default function SyntaxEditor({ language, code, onCodeChange, onReset }: 
           opacity: 0.6;
           transition: opacity ease 0.3s;
           cursor: pointer;
+          margin-left: var(--spacing-s);
         }
         .icon:hover {
           opacity: 1;

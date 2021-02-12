@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SyntaxEditor, LightBox } from '@pelicin/components';
+import { SyntaxEditor, Icon } from '@pelicin/components';
 
 type Props = {
   html: string;
@@ -32,35 +32,38 @@ export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
           />
         </div>
       )}
-      <LightBox containerStyle={{ marginTop: 'var(--spacing-m)' }} label="Preview">
+
+      <div className="previewBanner">
+        <Icon name="eye" /> | <span className="label">LIVE PREVIEW</span>
+      </div>
+      <div className="previewContainer">
         <style dangerouslySetInnerHTML={{ __html: cssContent }} />
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-      </LightBox>
+      </div>
 
       <style jsx>{`
-        .editor {
-          margin-top: var(--spacing-xs);
+        .editor:not(:first-child) {
+          margin-top: var(--spacing-m);
         }
-        .banner {
+
+        .previewBanner {
+          margin-top: var(--spacing-m);
           border-top-left-radius: var(--border-radius-normal);
           border-top-right-radius: var(--border-radius-normal);
           padding: var(--spacing-xs) 12px;
           font-size: var(--font-size-tiny);
+          background-color: var(--color-gray-4);
+          color: var(--color-gray-1);
+        }
+        .previewBanner .label {
           font-weight: 800;
-          background-color: var(--color-gray-7);
-          color: var(--color-gray-2);
         }
-        .banner:not(:first-child) {
-          margin-top: var(--spacing-m);
-        }
-
-        .banner.red {
-          background-color: var(--color-red-7);
-          color: var(--color-red-2);
-        }
-        .banner.blue {
-          background-color: var(--color-blue-7);
-          color: var(--color-blue-2);
+        .previewContainer {
+          border: 2px solid var(--color-gray-2);
+          border-top: none;
+          border-bottom-left-radius: var(--border-radius-normal);
+          border-bottom-right-radius: var(--border-radius-normal);
+          padding: var(--spacing-m);
         }
       `}</style>
     </>
