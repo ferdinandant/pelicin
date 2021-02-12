@@ -1,11 +1,11 @@
 import { MetadataConfigurer } from '@pelicin/layout';
 import { References, NoteBox, Badge } from '@pelicin/components';
 
-<MetadataConfigurer title="Recurring HTML Attributes" dateCreated="2021-01-17" />
+<MetadataConfigurer title="Explanation to Recurring HTML Attributes" dateCreated="2021-01-17" />
 
-# Recurring HTML Attributes
+# Explanation to Recurring HTML Attributes
 
-Some HTML attributes are recurring in more than one type of elements. They are described here.
+Some HTML attributes are recurring in more than one type of elements. To save spaces for their (usually long) explanation, they are described here.
 
 ## `crossorigin=[...]`
 
@@ -112,7 +112,7 @@ Whether or not the browser should include the `Referer` header when making the r
   </li>
 </ul>
 
-<Badge color="red">Badass mode</Badge>
+<Badge color="red">Unsafe</Badge>
 <ul>
   <li>
     <strong>
@@ -445,6 +445,37 @@ The possible values depend on how `rel` was used:
     <a href="https://mathiasbynens.github.io/rel-noopener/">phising attacks</a>)
   </li>
 </ul>
+
+## `sizes=[...]`
+
+Defines: for a given screen dimension, how wide is the "slot" for the image (for example, if the image slot is 720px wide, the browser will load the smallest image from `srcset` that is at least 720px wide).
+
+Not required if you used the "x" descriptor in `srcset`.
+
+Sample value:
+
+- <strong>
+    <code>(min-width: 960px) 720px, 100vw</code>
+  </strong> &mdash; it means that if the screen is at least 960px wide, the image slot is 720px wide.
+  Otherwise, the image slot is 100% width of the screen (the definition of <code>100vw</code>).
+
+## `srcset=[...]`
+
+Comma-separated list of possible sources to load an image.
+
+Use one of the following format (given as examples):
+
+- <strong>
+    <code>image-small.jpg 240w, image-medium 300w, image-large.jpg 720w</code>
+  </strong>
+  , where the number before "w" is the image's width (the browser will pick which one to load based on
+  the value of <code>sizes</code> attribute)
+
+- <strong>
+    <code>image-small.jpg, image-medium 1.5x, image-large.jpg 2x</code>
+  </strong>
+  , where the number before "x" is the pixel density (defaulting to 1x if the number is not given; the
+  browser will pick which one to load based on the device's pixel density)
 
 ## `target=[...]`
 

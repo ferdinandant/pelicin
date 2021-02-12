@@ -81,7 +81,7 @@ const chapters: TopicChapters = [
         path: '/web/html/html-attributes-aria'
       },
       {
-        title: 'Recurring HTML Attributes',
+        title: 'Explanation to Recurring HTML Attributes',
         path: '/web/html/html-attributes-recurring'
       },
     ]
