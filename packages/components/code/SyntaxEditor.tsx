@@ -40,7 +40,7 @@ export default function SyntaxEditor({ language, code, onCodeChange, onReset }: 
     <>
       {/* Banner */}
       <div className={classNames(['banner', bannerColor])}>
-        <span className="language">{language.toUpperCase()}</span>
+        <Icon name="edit" /> | <span className="language">{language.toUpperCase()}</span>
         <span className="iconBar">
           <span className="icon" onClick={() => onReset && onReset()}>
             <Icon name="sync" />
@@ -49,26 +49,29 @@ export default function SyntaxEditor({ language, code, onCodeChange, onReset }: 
       </div>
 
       {/* Editor */}
-      {isHighlighterReady ? (
-        <Editor
-          value={code}
-          onValueChange={(code) => onCodeChange && onCodeChange(code)}
-          highlight={(code) => prism.highlight(code, prism && prism.languages[language])}
-          padding={12}
-          style={{
-            fontFamily: "source-code-pro, 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace",
-            fontSize: 'var(--font-size-small)',
-            backgroundColor: '#272822',
-            borderBottomLeftRadius: 'var(--border-radius-normal)',
-            borderBottomRightRadius: 'var(--border-radius-normal)',
-            lineHeight: 1.4,
-          }}
-        />
-      ) : (
-        <pre>
-          <code className={`language-${language}`}>{code}</code>
-        </pre>
-      )}
+      <div className="editor">
+        {isHighlighterReady ? (
+          <Editor
+            value={code}
+            onValueChange={(code) => onCodeChange && onCodeChange(code)}
+            highlight={(code) => prism.highlight(code, prism && prism.languages[language])}
+            padding={12}
+            style={{
+              fontFamily:
+                "source-code-pro, 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace",
+              fontSize: 'var(--font-size-small)',
+              backgroundColor: '#272822',
+              borderBottomLeftRadius: 'var(--border-radius-normal)',
+              borderBottomRightRadius: 'var(--border-radius-normal)',
+              lineHeight: 1.4,
+            }}
+          />
+        ) : (
+          <pre>
+            <code className={`language-${language}`}>{code}</code>
+          </pre>
+        )}
+      </div>
 
       <style jsx>{`
         .banner {
@@ -89,6 +92,7 @@ export default function SyntaxEditor({ language, code, onCodeChange, onReset }: 
           opacity: 0.6;
           transition: opacity ease 0.3s;
           cursor: pointer;
+          margin-left: var(--spacing-s);
         }
         .icon:hover {
           opacity: 1;
@@ -99,7 +103,11 @@ export default function SyntaxEditor({ language, code, onCodeChange, onReset }: 
           border-top-left-radius: 0;
           border-top-right-radius: 0;
         }
+        pre code {
+          white-space: pre-wrap;
+        }
 
+        /* Banner colors */
         .banner.red {
           background-color: var(--color-red-7);
           color: var(--color-red-2);

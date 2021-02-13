@@ -2,12 +2,13 @@ import { MetadataConfigurer } from '@pelicin/layout';
 import {
   References,
   FixedColumnWidthTable,
-  LightBox,
   NoteBox,
   HTMLTagsIndexTable,
   DocumentationList,
+  WebEditor,
   Code,
 } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 export const Attribute = (props) => (
   <strong>
@@ -55,18 +56,28 @@ or <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">WebGL AP
   ]}
 />
 
-```html
-<canvas width="300" height="300">
-  An alternative text describing what your canvas displays.
-</canvas>
-
-<script>
-  const canvas = document.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = 'green';
-  ctx.fillRect(10, 10, 100, 100);
-</script>
-```
+<WebEditor
+  html={smartTrim([
+    `
+      <p>If nothing appears below, <a onclick="location.reload();">refresh</a> the page.</p>
+    `,
+    `
+      <!-- Canvas -->
+      <canvas width="150" height="150">
+        An alternative text describing what your canvas displays.
+      </canvas>
+    `,
+    `
+      <!-- NOTE: Changes to <script> won't be reflected -->
+      <script>
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'green';
+        ctx.fillRect(10, 10, 100, 100);
+      </script>
+    `,
+  ])}
+/>
 
 ## `<svg>`
 
@@ -132,25 +143,17 @@ An `<svg>` tag defines a new coordinate system and viewport.
   ]}
 />
 
-```html
-<svg viewBox="0 0 300 100" stroke="orange" fill="yellow">
-  <circle cx="50" cy="50" r="40" />
-  <circle cx="150" cy="50" r="20" />
-  <svg viewBox="0 0 10 10" x="200" width="100">
-    <circle cx="5" cy="5" r="4" />
-  </svg>
-</svg>
-```
-
-<LightBox label="Preview">
-  <svg viewBox="0 0 300 100" stroke="orange" fill="yellow">
-    <circle cx="50" cy="50" r="40" />
-    <circle cx="150" cy="50" r="20" />
-    <svg viewBox="0 0 10 10" x="200" width="100" y="0">
-      <circle cx="5" cy="5" r="4" />
+<WebEditor
+  html={smartTrim(`
+    <svg viewBox="0 0 300 100" stroke="orange" fill="yellow">
+      <circle cx="50" cy="50" r="40" />
+      <circle cx="150" cy="50" r="20" />
+      <svg viewBox="0 0 10 10" x="200" width="100">
+        <circle cx="5" cy="5" r="4" />
+      </svg>
     </svg>
-  </svg>
-</LightBox>
+  `)}
+/>
 
 ## References
 

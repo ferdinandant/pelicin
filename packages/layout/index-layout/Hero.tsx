@@ -7,11 +7,8 @@ export default function Hero() {
       <div className="hero">
         <div className="heroContent">
           <h1>pelicin!</h1>
-          <p className="description">
-            Ferdinand's study notes and cheatsheets
-            <br />
-            <em>... for general audience like me! :)</em>
-          </p>
+          <hr />
+          <p className="description">Ferdinand's study notes and cheat sheets</p>
           <div className="ctaContainer">
             <a href={`#${INDEX_DOM_ID}`}>Explore</a>
           </div>
@@ -39,6 +36,10 @@ export default function Hero() {
           padding-top: var(--spacing-s);
           color: var(--color-teal-1);
           z-index: 2;
+        }
+        hr {
+          margin: auto;
+          border-bottom: 4px solid var(--color-blue-2);
         }
 
         h1 {

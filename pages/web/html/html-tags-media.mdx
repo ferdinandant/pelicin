@@ -1,5 +1,6 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, LightBox, Badge } from '@pelicin/components';
+import { References, HTMLTagsIndexTable, NoteBox, WebEditor, Badge } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 export const Attribute = (props) => (
   <strong>
@@ -11,48 +12,23 @@ export const Attribute = (props) => (
 
 # HTML Tags: Media
 
+<NoteBox type="info">
+  <p>The essential things on this page are:</p>
+  <ul>
+    <li>
+      <code>{`<img>`}</code>, <code>{`<audio>`}</code>, <code>{`<video>`}</code> to embed multimedia
+      files
+    </li>
+    <li>
+      <code>{`<iframe>`}</code> to embed HTML pages
+    </li>
+  </ul>
+</NoteBox>
+
 These are the HTML tags related to embedding media (picture, video, sound, etc).
 
-<FixedColumnWidthTable
-  tableStyle={{
-    fontSize: '0.9em',
-  }}
-  headers={[
-    {
-      text: 'Tag',
-      key: 'tag',
-      formatContent: (tag) => {
-        const specialMapping = {};
-        return (
-          <>
-            <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
-              <code>&lt;{tag}&gt;</code>
-            </a>
-          </>
-        );
-      },
-      width: 100,
-    },
-    {
-      text: 'Type',
-      key: 'type',
-      formatContent: (type) => {
-        return type === 'block' ? (
-          <Badge color="red">Block</Badge>
-        ) : type === 'inline' ? (
-          <Badge color="blue">Inline</Badge>
-        ) : (
-          <Badge color="gray">Other</Badge>
-        );
-      },
-      width: 80,
-    },
-    {
-      text: 'Description',
-      key: 'description',
-    },
-  ]}
-  contents={[
+<HTMLTagsIndexTable
+  tags={[
     {
       tag: 'img',
       type: 'inline',
@@ -174,30 +150,12 @@ Embeds image.
     </ul>
   </li>
   <li>
-    <Attribute>srcset=[...]</Attribute> &mdash; comma-separated list of possible sources to load the
-    image. Use one of the following format:
-    <ul>
-      <li>
-        <code>image-small.jpg 240w, image-medium 300w, image-large.jpg 720w"</code>, where the
-        number before "w" is the image's width (the browser will pick which one to load based on the
-        value of <code>sizes</code>)
-      </li>
-      <li>
-        <code>image-small.jpg, image-medium 1.5x, image-large.jpg 2x</code>, where the number before
-        "x" is the pixel density (defaulting to <code>1x</code> if the number is not given; the
-        browser will pick which one to load based on the device's pixel density)
-      </li>
-    </ul>
+    <Attribute>srcset=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#srcset">read here</a>
   </li>
   <li>
-    <Attribute>sizes=[...]</Attribute> &mdash; not required if you use the "x" descriptor in{' '}
-    <code>srcset</code>. Otherwise, it uses the following format:
-    <ul>
-      <li>
-        <code>(min-width: 960px) 720px, 100vw</code> (comma-separated list of media query and which
-        image size to pick, plus default image size to pick).
-      </li>
-    </ul>
+    <Attribute>sizes=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#sizes">read here</a>
   </li>
 </ul>
 
@@ -228,16 +186,13 @@ Embeds image.
   </li>
 </ul>
 
-<!-- prettier-ignore -->
-```html
-<!-- Image source: -->
-<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area -->
-<img src="/res/web/html/mdn-info.png" width="150">
-```
-
-<LightBox label="Preview">
-  <img src="/res/web/html/mdn-info.png" width="150" />
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <!-- Image source: -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area -->
+    <img src="/res/web/html/mdn-info.png" width="150">
+  `)}
+/>
 
 ## `<audio>`
 
@@ -301,30 +256,24 @@ Instead of providing `src` directly, you can also provide multiple sources with 
   </li>
 </ul>
 
-<!-- prettier-ignore -->
-```html
-<!-- Audio source: 決定、ボタン押下5 -->
-<!-- https://soundeffect-lab.info/sound/button/ -->
-<audio controls src="/res/sample/chime.mp3"></audio>
-<br>
-
-<!-- Sample with <sources> -->
-<audio controls>
-  <source src="/res/sample/chime.mp3" type="audio/mpeg" />
-  <source src="/res/sample/chime.ogg" type="audio/ogg" />
-  <p>Your browser doesn't support HTML5 audio.</p>
-</audio>
-```
-
-<LightBox label="Preview">
-  <audio controls src="/res/sample/chime.mp3"></audio>
-  <br />
-  <audio controls>
-    <source src="/res/sample/chime.mp3" type="audio/mpeg" />
-    <source src="/res/sample/chime.ogg" type="audio/ogg" />
-    <p>Your browser doesn't support HTML5 audio.</p>
-  </audio>
-</LightBox>
+<WebEditor
+  html={smartTrim([
+    `
+      <!-- Audio source: 決定、ボタン押下5 -->
+      <!-- https://soundeffect-lab.info/sound/button/ -->
+      <audio controls src="/res/sample/chime.mp3"></audio>
+      <br>
+    `,
+    `
+      <!-- Sample with <sources> -->
+      <audio controls>
+        <source src="/res/sample/chime.mp3" type="audio/mpeg" />
+        <source src="/res/sample/chime.ogg" type="audio/ogg" />
+        <p>Your browser doesn't support HTML5 audio.</p>
+      </audio>
+    `,
+  ])}
+/>
 
 ## `<video>`
 
@@ -405,30 +354,24 @@ Instead of providing `src` directly, you can also provide multiple sources with 
   </li>
 </ul>
 
-<!-- prettier-ignore -->
-```html
-<!-- Video source: small.mp4 -->
-<!-- http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5 -->
-<video controls src="/res/web/html/lego.mp4" width="200"></video>
-<br>
-
-<!-- Sample with <sources> -->
-<video controls width="200">
-  <source src="/res/web/html/lego.mp4" type="audio/mp4" />
-  <source src="/res/web/html/lego.webm" type="audio/webm" />
-  <p>Your browser doesn't support HTML5 video.</p>
-</video>
-```
-
-<LightBox label="Preview">
-  <video controls src="/res/web/html/lego.mp4" width="200"></video>
-  <br />
-  <video controls width="200">
-    <source src="/res/web/html/lego.mp4" type="audio/mp4" />
-    <source src="/res/web/html/lego.webm" type="audio/webm" />
-    <p>Your browser doesn't support HTML5 video.</p>
-  </video>
-</LightBox>
+<WebEditor
+  html={smartTrim([
+    `
+      <!-- Video source: small.mp4 -->
+      <!-- http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5 -->
+      <video controls src="/res/web/html/lego.mp4" width="200"></video>
+      <br>
+    `,
+    `
+      <!-- Sample with <sources> -->
+      <video controls width="200">
+        <source src="/res/web/html/lego.mp4" type="audio/mp4" />
+        <source src="/res/web/html/lego.webm" type="audio/webm" />
+        <p>Your browser doesn't support HTML5 video.</p>
+      </video>
+    `,
+  ])}
+/>
 
 ## `<picture>`
 
@@ -436,29 +379,18 @@ Works like `<img srcset="..." sizes="...">`, but semantically, instead of giving
 
 (E.g., instead of just resizing the image for smaller screens, you crop out the less relevant part for display on smaller screens.)
 
-<!-- prettier-ignore -->
-```html
-<!-- Image sources: -->
-<!-- https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images -->
-<!-- Try resizing your browser's window width to around 800px -->
-<picture>
-  <source media="(max-width: 799px)" srcset="/res/web/html/elva-480w-close-portrait.jpg">
-  <source media="(min-width: 800px)" srcset="/res/web/html/elva-800w.jpg">
-  <img src="/res/web/html/elva-800w.jpg" width="200" alt="Chris standing up holding his daughter Elva">
-</picture>
-```
-
-<LightBox label="Preview">
-  <picture>
-    <source media="(max-width: 799px)" srcSet="/res/web/html/elva-480w-close-portrait.jpg" />
-    <source media="(min-width: 800px)" srcSet="/res/web/html/elva-800w.jpg" />
-    <img
-      src="/res/web/html/elva-800w.jpg"
-      alt="Chris standing up holding his daughter Elva"
-      width="200"
-    />
-  </picture>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <!-- Image sources: -->
+    <!-- https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images -->
+    <!-- Try resizing your browser's window width to around 800px -->
+    <picture>
+      <source media="(max-width: 799px)" srcset="/res/web/html/elva-480w-close-portrait.jpg">
+      <source media="(min-width: 800px)" srcset="/res/web/html/elva-800w.jpg">
+      <img src="/res/web/html/elva-800w.jpg" width="200" alt="Chris standing up holding his daughter Elva">
+    </picture>
+  `)}
+/>
 
 ## `<source>`
 
@@ -472,25 +404,12 @@ Specifies a media source inside `<picture>`, `<audio>`, or `<video>`.
     <Attribute>media=[...]</Attribute> &mdash; media query, e.g. <code>(max-width: 799px)</code>
   </li>
   <li>
-    <Attribute>srcset=[...]</Attribute> &mdash; comma-separated list of possible sources to load the
-    image. Use one of the following format:
-    <ul>
-      <li>
-        <code>image-small.jpg 240w, image-medium 300w, image-large.jpg 720w"</code>, where the
-        number before "w" is the image's width (the browser will pick which one to load based on the
-        value of <code>sizes</code>)
-      </li>
-      <li>
-        <code>image-small.jpg, image-medium 1.5x, image-large.jpg 2x</code>, where the number before
-        "x" is the pixel density (defaulting to <code>1x</code> if the number is not given; the
-        browser will pick which one to load based on the device's pixel density)
-      </li>
-    </ul>
+    <Attribute>srcset=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#srcset">read here</a>
   </li>
   <li>
-    <Attribute>sizes=[...]</Attribute> &mdash; e.g. <code>(min-width: 960px) 720px, 100vw</code>{' '}
-    (comma-separated list of media query and which image size to pick, plus default image size to
-    pick).
+    <Attribute>sizes=[...]</Attribute> &mdash;{' '}
+    <a href="/web/html/html-attributes-recurring#sizes">read here</a>
   </li>
 </ul>
 
@@ -510,6 +429,8 @@ Specifies a media source inside `<picture>`, `<audio>`, or `<video>`.
 ## `<map>`
 
 Defines an <dfn>image map</dfn> (clickable link areas in image).
+
+It will contain some `<area>` tags.
 
 <Badge color="blue">Possible attributes</Badge>
 <ul>
@@ -597,76 +518,47 @@ When given `href` attribute, the area represents a hyperlink.
   </li>
 </ul>
 
-<!-- prettier-ignore -->
-```html
-<!-- Map definition -->
-<map name="infographic">
-  <area
-    shape="poly"
-    coords="130,147,200,107,254,219,130,228"
-    href="https://developer.mozilla.org/docs/Web/HTML"
-    target="_blank"
-    alt="HTML"
-  />
-  <area
-    shape="poly"
-    coords="130,147,130,228,6,219,59,107"
-    href="https://developer.mozilla.org/docs/Web/CSS"
-    target="_blank"
-    alt="CSS"
-  />
-  <area
-    shape="poly"
-    coords="130,147,200,107,130,4,59,107"
-    href="https://developer.mozilla.org/docs/Web/JavaScript"
-    target="_blank"
-    alt="JavaScript"
-  />
-</map>
-
-<!-- Image source: -->
-<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/map -->
-<img
-  usemap="#infographic"
-  src="/res/web/html/mdn-info2.png"
-  alt="MDN infographic"
-  width="260"
-  height="232"
+<WebEditor
+  html={smartTrim([
+    `
+      <!-- Map definition -->
+      <map name="infographic">
+        <area
+          shape="poly"
+          coords="130,147,200,107,254,219,130,228"
+          href="https://developer.mozilla.org/docs/Web/HTML"
+          target="_blank"
+          alt="HTML"
+        />
+        <area
+          shape="poly"
+          coords="130,147,130,228,6,219,59,107"
+          href="https://developer.mozilla.org/docs/Web/CSS"
+          target="_blank"
+          alt="CSS"
+        />
+        <area
+          shape="poly"
+          coords="130,147,200,107,130,4,59,107"
+          href="https://developer.mozilla.org/docs/Web/JavaScript"
+          target="_blank"
+          alt="JavaScript"
+        />
+      </map>
+    `,
+    `
+      <!-- Image source: -->
+      <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/map -->
+      <img
+        usemap="#infographic"
+        src="/res/web/html/mdn-info2.png"
+        alt="MDN infographic"
+        width="260"
+        height="232"
+      />
+    `,
+  ])}
 />
-```
-
-<LightBox label="Preview">
-  <map name="infographic">
-    <area
-      shape="poly"
-      coords="130,147,200,107,254,219,130,228"
-      href="https://developer.mozilla.org/docs/Web/HTML"
-      target="_blank"
-      alt="HTML"
-    />
-    <area
-      shape="poly"
-      coords="130,147,130,228,6,219,59,107"
-      href="https://developer.mozilla.org/docs/Web/CSS"
-      target="_blank"
-      alt="CSS"
-    />
-    <area
-      shape="poly"
-      coords="130,147,200,107,130,4,59,107"
-      href="https://developer.mozilla.org/docs/Web/JavaScript"
-      target="_blank"
-      alt="JavaScript"
-    />
-  </map>
-  <img
-    useMap="#infographic"
-    src="/res/web/html/mdn-info2.png"
-    alt="MDN infographic"
-    width="260"
-    height="232"
-  />
-</LightBox>
 
 ## `<track>`
 
@@ -711,23 +603,19 @@ Specifies <dfn>timed text tracks</dfn> ("subtitles") for `<audio>` or `<video>`.
   </li>
 </ul>
 
-```html
-<!-- Video and subtitle source: small.mp4 -->
-<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track -->
-<video controls src="/res/web/html/friday.mp4" width="400">
-  <track default src="/res/web/html/friday.vtt" srclang="en" label="English" />
-</video>
-```
-
-<LightBox label="Preview">
-  <video controls src="/res/web/html/friday.mp4" width="400">
-    <track default src="/res/web/html/friday.vtt" srcLang="en" label="English" />
-  </video>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <!-- Video and subtitle source: small.mp4 -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track -->
+    <video controls src="/res/web/html/friday.mp4" width="400">
+      <track default src="/res/web/html/friday.vtt" srclang="en" label="English" />
+    </video>
+  `)}
+/>
 
 ## `<embed>`
 
-Embeds external content. This content is provided by an external application (e.g. browser plugin).
+Embeds external content. This content is provided by an external application (e.g. browser plugin). If possible, use `<img>`, `<audio>`, or `<video>` instead.
 
 "Most modern browsers have deprecated and removed support for browser plugins, so relying upon `<embed>` is generally not wise if you want your site to be operable on the average user's browser" (MDN).
 
@@ -747,12 +635,13 @@ Embeds external content. This content is provided by an external application (e.
   </li>
 </ul>
 
-<!-- prettier-ignore -->
-```html
-<!-- Video source: small.mp4 -->
-<!-- http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5 -->
-<embed src="/res/web/html/lego.mp4" type="video/webm" width="250" height="200">
-```
+<WebEditor
+  html={smartTrim(`
+    <!-- Image source: -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area -->
+    <embed src="/res/web/html/mdn-info.png" type="image/png" width="150">
+  `)}
+/>
 
 ## `<iframe>`
 
@@ -824,6 +713,12 @@ Represents nested <dfn>browsing context</dfn>. (Browsing context is the environm
   </li>
 </ul>
 
+<WebEditor
+  html={smartTrim(`
+    <iframe width="200" src="https://www.youtube-nocookie.com/embed/gN24W_psMpE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  `)}
+/>
+
 ## `<object>`
 
 Represents an external resource (which can be treated as an image, a nested browsing context, or a resource to be handled by a plugin).
@@ -860,13 +755,11 @@ Represents an external resource (which can be treated as an image, a nested brow
   </li>
 </ul>
 
-```html
-<object data="/res/sample/hello-world.pdf" type="application/pdf"></object>
-```
-
-<LightBox label="Preview">
-  <object data="/res/sample/hello-world.pdf" typemustmatch type="video/mp4"></object>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <object data="/res/sample/hello-world.pdf" type="application/pdf"></object>
+  `)}
+/>
 
 ## `<param>`
 

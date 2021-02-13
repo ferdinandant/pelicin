@@ -1,5 +1,5 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, Badge, NoteBox } from '@pelicin/components';
+import { References, HTMLTagsIndexTable, Badge, NoteBox } from '@pelicin/components';
 
 <MetadataConfigurer title="HTML Tags: Metadata" dateCreated="2021-01-20" />
 
@@ -34,27 +34,8 @@ export const Attribute = (props) => (
 
 This is the list of HTML tags you would normally put inside `<head>`.
 
-<FixedColumnWidthTable
-  tableStyle={{
-    fontSize: '0.9em',
-  }}
-  headers={[
-    {
-      text: 'Tag',
-      key: 'tag',
-      formatContent: (tag) => (
-        <a href={`#${tag}`}>
-          <code>&lt;{tag}&gt;</code>
-        </a>
-      ),
-      width: 100,
-    },
-    {
-      text: 'Description',
-      key: 'description',
-    },
-  ]}
-  contents={[
+<HTMLTagsIndexTable
+  tags={[
     {
       tag: 'base',
       description: 'Defines the base URL for all relative URLs in the page',
