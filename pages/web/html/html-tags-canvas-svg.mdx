@@ -59,13 +59,16 @@ or <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">WebGL AP
 <WebEditor
   html={smartTrim([
     `
-      <canvas width="200" height="200">
+      <p>If nothing appears below, refresh the page.</p>
+    `,
+    `
+      <!-- Canvas -->
+      <canvas width="150" height="150">
         An alternative text describing what your canvas displays.
       </canvas>
     `,
     `
       <!-- NOTE: Changes to <script> won't be reflected -->
-      <!-- If nothing appears, try refreshing the page -->
       <script>
         const canvas = document.querySelector('canvas');
         const ctx = canvas.getContext('2d');
