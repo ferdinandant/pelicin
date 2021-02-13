@@ -1,14 +1,16 @@
 import { MetadataConfigurer } from '@pelicin/layout';
 import {
   References,
-  LightBox,
   NoteBox,
   Badge,
   BasicList,
   GenericInput,
   TodoBox,
   HTMLTagsIndexTable,
+  FixedColumnWidthTable,
+  WebEditor,
 } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 export const Attribute = (props) => (
   <strong>
@@ -179,23 +181,15 @@ Represents a <em>form</em>.
   </li>
 </ul>
 
-<!-- prettier-ignore -->
-```html
-<form method="post" action="/login">
-  Username: <input type="text"><br>
-  Password: <input type="password"><br>
-  <input type="submit" value="Login">
-</form>
-```
-
-<!-- prettier-ignore -->
-<LightBox label="Preview">
-  <form method="post" action="/login">
-    Username: <input name="username" type="text" /><br/>
-    Password: <input name="password" type="password" /><br/>
-    <input type="submit" value="Login" />
-  </form>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <form method="post" action="/login">
+      Username: <input type="text"><br>
+      Password: <input type="password"><br>
+      <input type="submit" value="Login">
+    </form>
+  `)}
+/>
 
 ## `<label>`
 
@@ -210,20 +204,14 @@ It's not a normal text &mdash; if you click on a label, the associated form fiel
   </li>
 </ul>
 
-<!-- prettier-ignore -->
-```html
-<div>
-  <input type="checkbox" name="peas" id="peas">
-  <label for="peas">I agree with the terms and conditions</label>
-</div>
-```
-
-<LightBox label="Preview">
-  <div>
-    <input type="checkbox" name="peas" id="peas" style={{ marginRight: 10 }} />
-    <label htmlFor="peas">I agree with the terms and conditions</label>
-  </div>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <div>
+      <input type="checkbox" name="peas" id="peas">
+      <label for="peas">I agree with the terms and conditions</label>
+    </div>
+  `)}
+/>
 
 ## `<input>`
 
@@ -271,11 +259,15 @@ Creates an interactive input field.
 <Badge color="red">
   Possible <code>type</code> values
 </Badge>
-<NoteBox>It's advised to see the following table using Chrome for the best support.</NoteBox>
+
+It's advised to see the following table using Chrome for the best support.
 
 <small style={{ display: 'block', overflow: 'auto' }}>
   <FixedColumnWidthTable
-    tableStyle={{ minWidth: 600 }}
+    tableStyle={{
+      minWidth: 600,
+      marginTop: 0,
+    }}
     headers={[
       {
         text: 'Type',
@@ -532,8 +524,8 @@ Creates an interactive input field.
             <BasicList
               items={[
                 <>
-                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>
-                  , <code>audio/mp3</code>, or <code>audio/*</code>)
+                  <Attribute>accept=[...]</Attribute> (comma-separated items like: <code>.mp3</code>,{' '}
+                  <code>audio/mp3</code>, or <code>audio/*</code>)
                 </>,
                 <>
                   <Attribute>capture=[...]</Attribute> (which camera to use, e.g. <code>user</code>{' '}
@@ -692,29 +684,22 @@ Does nothing by itself; you will need to implement the behavior using JavaScript
   </li>
 </ul>
 
-<!-- prettier-ignore -->
-```html
-<!-- TIL: Accesing `<span id="xxx">` node can be via `xxx` variable in JS,
-although probably it would be better to use `document.getElementById` -->
-
-<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output -->
-<form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
-  <input type="range" id="b" name="b" value="50"> +
-  <input type="number" id="a" name="a" value="10"> =
-  <output name="result" for="a b">60</output>
-</form>
-```
-
-<!-- prettier-ignore -->
-<LightBox label="Preview">
-  <div dangerouslySetInnerHTML={{__html: `
-    <form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
-      <input type="range" id="b" name="b" value="50"> +
-      <input type="number" id="a" name="a" value="10"> =
-      <output name="result" for="a b">60</output>
-    </form>
-  `}} />
-</LightBox>
+<WebEditor
+  html={smartTrim([
+    `
+      <!-- TIL: Accesing \`<span id="xxx">\` node can be via \`xxx\` variable in JS,
+      although probably it would be better to use \`document.getElementById\` -->
+    `,
+    `
+      <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output -->
+      <form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
+        <input type="range" id="b" name="b" value="50"> +
+        <input type="number" id="a" name="a" value="10"> =
+        <output name="result" for="a b">60</output>
+      </form>
+    `
+  ])}
+/>
 
 ## `<datalist>`
 
@@ -722,30 +707,23 @@ Contains a set of `<option>` elements that represents permissible/recommended op
 
 You refer to this element by giving this element's `id` in `<input list="...">`.
 
-<!-- prettier-ignore -->
-```html
-<!-- input -->
-<label for="ice-cream-choice">Choose a flavor (try double-clicking below):</label><br>
-<input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice">
-
-<!-- data list -->
-<datalist id="ice-cream-flavors">
-  <option value="Chocolate">
-  <option value="Strawberry">
-  <option value="Vanilla">
-</datalist>
-```
-
-<LightBox label="Preview">
-  <label htmlFor="chosen-flavor">Choose a flavor (try double-clicking below):</label><br/>
-  <input list="flavors" id="chosen-flavor" name="chosen-flavor"/>
-
-  <datalist id="flavors">
-    <option value="Chocolate"/>
-    <option value="Strawberry"/>
-    <option value="Vanilla"/>
-  </datalist>
-</LightBox>
+<WebEditor
+  html={smartTrim([
+    `
+      <!-- input -->
+      <label for="ice-cream-choice">Choose a flavor (try double-clicking below):</label><br>
+      <input list="flavors" id="ice-cream-choice" name="ice-cream-choice">
+    `,
+    `
+      <!-- data list -->
+      <datalist id="flavors">
+        <option value="Chocolate"/>
+        <option value="Strawberry"/>
+        <option value="Vanilla"/>
+      </datalist>
+    `
+  ])}
+/>
 
 ## `<fieldset>` and `<legend>`
 
@@ -753,38 +731,25 @@ You refer to this element by giving this element's `id` in `<input list="...">`.
 
 `<legend>` represents the caption of a `<fieldset>`.
 
-<!-- prettier-ignore -->
-```html
-<form>
-  <fieldset>
-    <!-- legend -->
-    <legend>Choose your move</legend>
-    <!-- options -->
-    <input type="radio" name="move" id="scissors">
-    <label for="scissors">Scissors</label>
-    <br>
-    <input type="radio" name="move" id="rock">
-    <label for="rock">Rock</label>
-    <br>
-    <input type="radio" name="move" id="paper">
-    <label for="paper">Paper</label>
-  </fieldset>
-</form>
-```
-
-<LightBox label="Preview">
-  <fieldset style={{ padding: 10 }}>
-    <legend>Choose your move</legend>
-    <input style={{ marginRight: 10 }} type="radio" name="move" id="scissors" />
-    <label htmlFor="scissors">Scissors</label>
-    <br />
-    <input style={{ marginRight: 10 }} type="radio" name="move" id="rock" />
-    <label htmlFor="rock">Rock</label>
-    <br />
-    <input style={{ marginRight: 10 }} type="radio" name="move" id="paper" />
-    <label htmlFor="paper">Paper</label>
-  </fieldset>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <form>
+      <fieldset>
+        <!-- legend -->
+        <legend>Choose your move</legend>
+        <!-- options -->
+        <input type="radio" name="move" id="scissors">
+        <label for="scissors">Scissors</label>
+        <br>
+        <input type="radio" name="move" id="rock">
+        <label for="rock">Rock</label>
+        <br>
+        <input type="radio" name="move" id="paper">
+        <label for="paper">Paper</label>
+      </fieldset>
+    </form>
+  `)}
+/>
 
 ## `<select>`
 
@@ -823,21 +788,15 @@ Creates a dropdown selection.
   </li>
 </ul>
 
-```html
-<select name="pet">
-  <option value="">--- Please choose a pet ---</option>
-  <option value="cat">Cat</option>
-  <option value="dog">Dog</option>
-</select>
-```
-
-<LightBox label="Preview">
-  <select name="pet" id="pet-selection">
-    <option value="">--- Please choose a pet ---</option>
-    <option value="cat">Cat</option>
-    <option value="dog">Dog</option>
-  </select>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <select name="pet">
+      <option value="">--- Please choose a pet ---</option>
+      <option value="cat">Cat</option>
+      <option value="dog">Dog</option>
+    </select>
+  `)}
+/>
 
 ## `<optgroup>`
 
@@ -853,33 +812,21 @@ Represents grouped options in `<select>`.
   </li>
 </ul>
 
-```html
-<select id="meal">
-  <option>--- Select a meal ---</option>
-  <optgroup label="Vegetables">
-    <option>Salad</option>
-    <option>Potato</option>
-  </optgroup>
-  <optgroup label="Meat">
-    <option>Pork</option>
-    <option>Beef</option>
-  </optgroup>
-</select>
-```
-
-<LightBox label="Preview">
-  <select id="meal">
-    <option>--- Select a meal ---</option>
-    <optgroup label="Vegetables">
-      <option>Salad</option>
-      <option>Potato</option>
-    </optgroup>
-    <optgroup label="Meat">
-      <option>Pork</option>
-      <option>Beef</option>
-    </optgroup>
-  </select>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <select id="meal">
+      <option>--- Select a meal ---</option>
+      <optgroup label="Vegetables">
+        <option>Salad</option>
+        <option>Potato</option>
+      </optgroup>
+      <optgroup label="Meat">
+        <option>Pork</option>
+        <option>Beef</option>
+      </optgroup>
+    </select>
+  `)}
+/>
 
 ## `<option>`
 
@@ -969,13 +916,11 @@ Creates a button.
   </li>
 </ul>
 
-```html
-<button type="button">Click me</button>
-```
-
-<LightBox label="Preview">
-  <button type="button">Click me</button>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <button type="button">Click me</button>
+  `)}
+/>
 
 ## `<textarea>`
 
@@ -1052,17 +997,11 @@ Creates a multiline textbox.
   </li>
 </ul>
 
-```html
-<textarea name="description" rows="5" cols="33">
-  Good product
-</textarea>
-```
-
-<LightBox label="Preview">
-  <textarea name="description" rows="5" cols="33">
-    Good product
-  </textarea>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <textarea name="description" rows="5" cols="33">Wow!</textarea>
+  `)}
+/>
 
 ## `<meter>`
 
@@ -1095,17 +1034,13 @@ Creates a meter.
   </li>
 </ul>
 
-```html
-<meter value="50" min="0" max="100" low="33" high="66" optimum="80">
-  50/100
-</meter>
-```
-
-<LightBox label="Preview">
-  <meter value="50" min="0" max="100" low="33" high="66" optimum="80">
-    50/100
-  </meter>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <meter value="50" min="0" max="100" low="33" high="66" optimum="80">
+      50/100
+    </meter>
+  `)}
+/>
 
 ## `<progress>`
 
@@ -1121,15 +1056,11 @@ Creates a progress bar.
   </li>
 </ul>
 
-```html
-<progress value="70" max="100">70%</progress>
-```
-
-<LightBox label="Preview">
-  <progress value="70" max="100">
-    70%
-  </progress>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <progress value="70" max="100">70%</progress>
+  `)}
+/>
 
 ## References
 
