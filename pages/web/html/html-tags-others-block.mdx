@@ -8,6 +8,7 @@ import {
   Code,
   WebEditor,
 } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="HTML Tags: Others – Block" dateCreated="2021-01-31" />
 
@@ -75,19 +76,14 @@ Represents a quotation block.
   items={[{ name: 'cite=[...]', description: 'URL to the source of quotation' }]}
 />
 
-```html
-<blockquote>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-  labore et dolore magna aliqua.
-</blockquote>
-```
-
-<LightBox label="Preview">
-  <blockquote>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua.
-  </blockquote>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <blockquote>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua.
+    </blockquote>
+  `)}
+/>
 
 ## `<pre>`
 
@@ -95,24 +91,16 @@ Represents a <dfn>preformatted text</dfn>.
 
 The text will be displayed as typed in the HTML file.
 
-```html
-<pre>
-Roses are red,
-  Violets are blue,
-Sugar is sweet,
-  And so are you. 
-</pre>
-```
-
-<!-- prettier-ignore -->
-<LightBox label="Preview">
-<pre>{`
-Roses are red,
-  Violets are blue,
-Sugar is sweet,
-  And so are you. 
-`.trim()}</pre>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <pre>
+    Roses are red,
+      Violets are blue,
+    Sugar is sweet,
+      And so are you. 
+    </pre>
+  `)}
+/>
 
 ## `<dl>`, `<dt>`, and `<dd>`
 
@@ -122,30 +110,19 @@ Sugar is sweet,
 
 `<dd>` represents a <dfn>definition description</dfn> in a `<dl>`.
 
-```html
-<!-- source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl -->
-<dl>
-  <dt>Beast of Bodmin</dt>
-  <dd>A large feline inhabiting Bodmin Moor.</dd>
-
-  <dt>Morgawr</dt>
-  <dd>A sea serpent.</dd>
-
-  <dt>Owlman</dt>
-  <dd>A giant owl-like creature.</dd>
-</dl>
-```
-
-<LightBox label="Preview">
-  <dl>
-    <dt>Beast of Bodmin</dt>
-    <dd>A large feline inhabiting Bodmin Moor.</dd>
-    <dt>Morgawr</dt>
-    <dd>A sea serpent.</dd>
-    <dt>Owlman</dt>
-    <dd>A giant owl-like creature.</dd>
-  </dl>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <!-- source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl -->
+    <dl>
+      <dt>Beast of Bodmin</dt>
+      <dd>A large feline inhabiting Bodmin Moor.</dd>
+      <dt>Morgawr</dt>
+      <dd>A sea serpent.</dd>
+      <dt>Owlman</dt>
+      <dd>A giant owl-like creature.</dd>
+    </dl>
+  `)}
+/>
 
 ## `<figure>` and `<figcaption>`
 
@@ -153,24 +130,14 @@ Sugar is sweet,
 
 `<figcaption>` represents caption for `<figure>`.
 
-<!-- prettier-ignore -->
-```html
-<figure>
-    <img src="/res/web/html/lucas-benjamin-unsplash.jpg" alt="An abstract photo"/>
-    <figcaption>A photo by Lucas Benjamin - Unsplash</figcaption>
-  </figure>
-```
-
-<LightBox label="Preview">
-  <figure>
-    <img
-      style={{ width: 300 }}
-      src="/res/web/html/lucas-benjamin-unsplash.jpg"
-      alt="An abstract photo"
-    />
-    <figcaption>A photo by Lucas Benjamin - Unsplash</figcaption>
-  </figure>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    <figure>
+      <img src="/res/web/html/lucas-benjamin-unsplash.jpg" alt="An abstract photo" width="300">
+      <figcaption>A photo by Lucas Benjamin - Unsplash</figcaption>
+    </figure>
+  `)}
+/>
 
 ## References
 
