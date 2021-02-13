@@ -1,5 +1,6 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, HTMLTagsIndexTable, LightBox, Badge } from '@pelicin/components';
+import { References, HTMLTagsIndexTable, WebEditor, Badge } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 export const Attribute = (props) => (
   <strong>
@@ -112,31 +113,37 @@ the browser will wait until the script is loaded and executed before continuing 
   </li>
 </ul>
 
-```html
-<!-- Inline script -->
-<script>
-  alert('Hello World!');
-</script>
-
-<!-- Loading external script -->
-<script src="script.js"></script>
-```
+<WebEditor
+  html={smartTrim([
+    `
+      <!-- NOTE: Changes to <script> won't be reflected -->
+      See the result on your browser's dev console (F12)!
+    `,
+    `
+      <!-- Inline script -->
+      <script>
+        console.log('Hello world!');
+      </script>
+    `,
+    `
+      <!-- Loading external script -->
+      <script src="/res/web/html/sample-script.js"></script>
+    `,
+  ])}
+/>
 
 ## `<noscript>`
 
 HTML to display if scripting is disabled.
 
-```html
-<p>Try disabling JavaScript on your browser:</p>
-<noscript>
-  Your browser does not support JavaScript!
-</noscript>
-```
-
-<LightBox label="Preview">
-  <p style={{ marginBottom: 0 }}>Try disabling JavaScript on your browser:</p>
-  <noscript>Your browser does not support JavaScript!</noscript>
-</LightBox>
+<WebEditor
+  html={smartTrim(`
+    Try disabling JavaScript on your browser:
+    <noscript>
+      Your browser does not support JavaScript!
+    </noscript>
+  `)}
+/>
 
 ## References
 
