@@ -72,7 +72,6 @@ export default function ContentIndex(props: Props) {
 
       <style jsx>{`
         main {
-          border-top: var(--spacing-s) solid var(--color-gray-2);
           width: 100%;
           padding: var(--spacing-xxl) var(--spacing-xl);
           padding-bottom: var(--spacing-xxl);
@@ -82,11 +81,11 @@ export default function ContentIndex(props: Props) {
           margin: auto;
           margin-top: var(--spacing-xl);
         }
-        section:first-child {
-          margin-top: 0;
-        }
 
         /* Header */
+        section h2:first-of-type {
+          margin-top: 0;
+        }
         section h2 {
           margin-left: -10px;
           padding-left: 10px;
