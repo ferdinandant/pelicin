@@ -29,6 +29,9 @@ These are the rest of the HTML block tags.
   }}
   tags={[
     {
+      '@separator': 'Bold/italic equivalents',
+    },
+    {
       tag: 'em',
       type: 'inline',
       description: 'Represents an emphasis on text (italic)',
@@ -37,6 +40,9 @@ These are the rest of the HTML block tags.
       tag: 'strong',
       type: 'inline',
       description: 'Represents a strong importance on text (bold)',
+    },
+    {
+      '@separator': 'Text semantics',
     },
     {
       tag: 'abbr',
@@ -94,9 +100,7 @@ These are the rest of the HTML block tags.
       description: 'Represents a sample program output',
     },
     {
-      tag: 'data',
-      type: 'inline',
-      description: 'Associates content with machine-readable data',
+      '@separator': 'Text directionality',
     },
     {
       tag: 'bdi',
@@ -107,6 +111,9 @@ These are the rest of the HTML block tags.
       tag: 'bdo',
       type: 'inline',
       description: 'Overrides the directionality of a text',
+    },
+    {
+      '@separator': 'Ruby',
     },
     {
       tag: 'ruby',
@@ -122,6 +129,14 @@ These are the rest of the HTML block tags.
       tag: 'rp',
       type: 'inline',
       description: 'Represents a ruby fallback parenthesis',
+    },
+    {
+      '@separator': 'Misc.',
+    },
+    {
+      tag: 'data',
+      type: 'inline',
+      description: 'Associates content with machine-readable data',
     },
     {
       tag: 'wbr',
@@ -319,22 +334,6 @@ Represents a sample program output.
   `)}
 />
 
-## `<data>`
-
-Associates content with machine-readable data.
-
-<WebEditor
-  html={smartTrim(`
-    <!-- Example: associates product name with product number -->
-    <p>New Products:</p>
-    <ul>
-      <li><data value="398">Book A</data></li>
-      <li><data value="399">Book B</data></li>
-      <li><data value="400">CD Cassette</data></li>
-    </ul>
-  `)}
-/>
-
 ## `<bdi>`
 
 <em>Bidirectional Isolate</em>: isolates the directionality of a text from the surrounding text.
@@ -405,6 +404,22 @@ Useful when LTR text is likely to meet RTL text.)
       漢<rp>(</rp><rt>かん</rt><rp>)</rp>
       字<rp>(</rp><rt>じ</rt><rp>)</rp>
     </ruby>
+  `)}
+/>
+
+## `<data>`
+
+Associates content with machine-readable data.
+
+<WebEditor
+  html={smartTrim(`
+    <!-- Example: associates product name with product number -->
+    <p>New Products:</p>
+    <ul>
+      <li><data value="398">Book A</data></li>
+      <li><data value="399">Book B</data></li>
+      <li><data value="400">CD Cassette</data></li>
+    </ul>
   `)}
 />
 

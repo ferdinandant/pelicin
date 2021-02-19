@@ -25,7 +25,7 @@ export const Attribute = (props) => (
 These are the HTML tags you use to make forms and their content.
 
 <HTMLTagsIndexTable
-  spacialMapping={{
+  specialMapping={{
     fieldset: 'fieldset-and-legend',
     legend: 'fieldset-and-legend',
   }}
@@ -34,6 +34,9 @@ These are the HTML tags you use to make forms and their content.
       tag: 'form',
       type: 'block',
       description: <>Represents a form</>,
+    },
+    {
+      '@separator': 'Input/output',
     },
     {
       tag: 'label',
@@ -51,44 +54,16 @@ These are the HTML tags you use to make forms and their content.
       description: <>Creates an output container</>,
     },
     {
-      tag: 'datalist',
-      type: 'other',
-      description: (
-        <>
-          Contains a set of <code>{`<option>`}</code> elements that represents
-          permissible/recommended options for a field
-        </>
-      ),
-    },
-    {
-      tag: 'fieldset',
-      type: 'block',
-      description: <>Groups fields together</>,
-    },
-    {
-      tag: 'legend',
-      type: 'block',
-      description: (
-        <>
-          Represents the caption of a <code>{`<fieldset>`}</code>
-        </>
-      ),
-    },
-    {
       tag: 'select',
       type: 'inline',
-      description: (
-        <>
-          Represents the caption of a <code>{`<fieldset>`}</code>
-        </>
-      ),
+      description: 'Creates a dropdown selection',
     },
     {
       tag: 'optgroup',
       type: 'other',
       description: (
         <>
-          Represents the caption of a <code>{`<fieldset>`}</code>
+          Represents a group of <code>{`<option>`}</code> in <code>{`<select>`}</code>
         </>
       ),
     },
@@ -97,7 +72,7 @@ These are the HTML tags you use to make forms and their content.
       type: 'other',
       description: (
         <>
-          Represents an option inside <code>{`<select>`}</code> or <code>{`<datalist>`}</code>
+          Represents an option inside <code>{`<select>`}</code>
         </>
       ),
     },
@@ -120,6 +95,33 @@ These are the HTML tags you use to make forms and their content.
       tag: 'progress',
       type: 'inline',
       description: <>Creates a progress bar</>,
+    },
+    {
+      tag: 'datalist',
+      type: 'other',
+      description: (
+        <>
+          Contains a set of <code>{`<option>`}</code> elements that represents
+          permissible/recommended options for a field
+        </>
+      ),
+    },
+    {
+      '@separator': 'Fieldset',
+    },
+    {
+      tag: 'fieldset',
+      type: 'block',
+      description: <>Groups fields together</>,
+    },
+    {
+      tag: 'legend',
+      type: 'block',
+      description: (
+        <>
+          Represents the caption of a <code>{`<fieldset>`}</code>
+        </>
+      ),
     },
   ]}
 />
@@ -260,7 +262,7 @@ Creates an interactive input field.
   Possible <code>type</code> values
 </Badge>
 
-It's advised to see the following table using Chrome for the best support.
+<NoteBox>It's advised to see the following table using Chrome for the best support.</NoteBox>
 
 <small style={{ display: 'block', overflow: 'auto' }}>
   <FixedColumnWidthTable
@@ -701,56 +703,6 @@ Does nothing by itself; you will need to implement the behavior using JavaScript
   ])}
 />
 
-## `<datalist>`
-
-Contains a set of `<option>` elements that represents permissible/recommended options for a field.
-
-You refer to this element by giving this element's `id` in `<input list="...">`.
-
-<WebEditor
-  html={smartTrim([
-    `
-      <!-- input -->
-      <label for="ice-cream-choice">Choose a flavor (try double-clicking below):</label><br>
-      <input list="flavors" id="ice-cream-choice" name="ice-cream-choice">
-    `,
-    `
-      <!-- data list -->
-      <datalist id="flavors">
-        <option value="Chocolate"/>
-        <option value="Strawberry"/>
-        <option value="Vanilla"/>
-      </datalist>
-    `
-  ])}
-/>
-
-## `<fieldset>` and `<legend>`
-
-`<fieldset>` groups fields together.
-
-`<legend>` represents the caption of a `<fieldset>`.
-
-<WebEditor
-  html={smartTrim(`
-    <form>
-      <fieldset>
-        <!-- legend -->
-        <legend>Choose your move</legend>
-        <!-- options -->
-        <input type="radio" name="move" id="scissors">
-        <label for="scissors">Scissors</label>
-        <br>
-        <input type="radio" name="move" id="rock">
-        <label for="rock">Rock</label>
-        <br>
-        <input type="radio" name="move" id="paper">
-        <label for="paper">Paper</label>
-      </fieldset>
-    </form>
-  `)}
-/>
-
 ## `<select>`
 
 Creates a dropdown selection.
@@ -1059,6 +1011,56 @@ Creates a progress bar.
 <WebEditor
   html={smartTrim(`
     <progress value="70" max="100">70%</progress>
+  `)}
+/>
+
+## `<datalist>`
+
+Contains a set of `<option>` elements that represents permissible/recommended options for a field.
+
+You refer to this element by giving this element's `id` in `<input list="...">`.
+
+<WebEditor
+  html={smartTrim([
+    `
+      <!-- input -->
+      <label for="ice-cream-choice">Choose a flavor (try double-clicking below):</label><br>
+      <input list="flavors" id="ice-cream-choice" name="ice-cream-choice">
+    `,
+    `
+      <!-- data list -->
+      <datalist id="flavors">
+        <option value="Chocolate"/>
+        <option value="Strawberry"/>
+        <option value="Vanilla"/>
+      </datalist>
+    `
+  ])}
+/>
+
+## `<fieldset>` and `<legend>`
+
+`<fieldset>` groups fields together.
+
+`<legend>` represents the caption of a `<fieldset>`.
+
+<WebEditor
+  html={smartTrim(`
+    <form>
+      <fieldset>
+        <!-- legend -->
+        <legend>Choose your move</legend>
+        <!-- options -->
+        <input type="radio" name="move" id="scissors">
+        <label for="scissors">Scissors</label>
+        <br>
+        <input type="radio" name="move" id="rock">
+        <label for="rock">Rock</label>
+        <br>
+        <input type="radio" name="move" id="paper">
+        <label for="paper">Paper</label>
+      </fieldset>
+    </form>
   `)}
 />
 

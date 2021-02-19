@@ -14,6 +14,15 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  {
+    chapter: 'Selectors',
+    children: [
+      {
+        title: 'CSS Selectors',
+        path: '/web/css/selectors/css-selectors',
+      },
+    ],
+  }
 ];
 
 export default chapters;

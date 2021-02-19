@@ -12,9 +12,31 @@ There are three ways to apply CSS to an HTML document.
 
 Use `<link rel="stylesheet" href="...">` to load CSS externally. This is by far the preferred method of loading CSS.
 
+```html
+<link rel="stylesheet" href="/static/style.css" />
+```
+
 ## Internal Stylesheet
 
 Use `<style>` to specify and apply CSS to the same HTML document.
+
+<WebEditor
+  html={smartTrim([
+    `
+      <style>
+        p.sample {
+          color: gray;
+          margin: 0;
+        }
+      </style>
+    `,
+    `
+      <p class="sample">
+        The sky turns gray.
+      </p>
+    `,
+  ])}
+/>
 
 ## Inline Stylesheet
 
