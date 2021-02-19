@@ -56,11 +56,11 @@ export default function Hero() {
           padding-bottom: 0;
           margin-bottom: var(--spacing-l);
           border-bottom: none;
-          color: var(--color-gray-0);
+          color: var(--color-blue-0);
           text-align: center;
         }
         .logo {
-          color: var(--color-blue-2);
+          color: var(--color-blue-0);
         }
         .description {
           font-size: var(--font-size-title-2);
@@ -117,7 +117,7 @@ export default function Hero() {
           .heroContent {
             padding: var(--spacing-m) var(--spacing-xl);
           }
-          .ctaContainer {
+          .linksContainer {
             margin-top: var(--spacing-xl);
           }
         }
