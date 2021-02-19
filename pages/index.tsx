@@ -1,14 +1,7 @@
 import React from 'react';
 import getConfig from 'next/config';
 
-import {
-  TopBar,
-  Hero,
-  ContentIndex,
-  SiteDescription,
-  SiteDisclaimer,
-  Footer,
-} from '@pelicin/layout';
+import { TopBar, Hero, ContentIndex, Footer } from '@pelicin/layout';
 import { SampleGroup, WebGroup } from '@pelicin/config';
 
 // ================================================================================
