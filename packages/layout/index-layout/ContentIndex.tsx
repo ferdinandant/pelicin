@@ -2,6 +2,7 @@ import React from 'react';
 import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
 import { TopicGroups } from '@pelicin/config';
+import { Badge } from '@pelicin/components';
 import { INDEX_DOM_ID, extractHashFromTitle } from '@pelicin/layout';
 
 // ================================================================================
@@ -38,7 +39,7 @@ export default function ContentIndex(props: Props) {
                   return (
                     <React.Fragment key={`${index}-${sectionTitle}`}>
                       {/* Render section title */}
-                      {sectionTitle && <h3>{sectionTitle}</h3>}
+                      {sectionTitle && <h3 className="badge">{sectionTitle}</h3>}
                       {sectionDescription && <div className="description">{groupDescription}</div>}
                       <ul key={`${index}-${sectionTitle}`}>
                         {topics.map((topic, index) => {
@@ -97,9 +98,15 @@ export default function ContentIndex(props: Props) {
           margin-bottom: var(--spacing-ms);
         }
         section h3 {
+          display: inline-block;
           font-size: var(--font-size-title-3);
-          margin-top: var(--spacing-ms);
-          margin-bottom: var(--spacing-s);
+          margin-top: var(--spacing-s);
+          margin-left: calc(-1 * var(--spacing-ms));
+          margin-bottom: 0;
+          background-color: var(--color-gray-1);
+          color: var(--color-gray-6);
+          padding: var(--spacing-xs) var(--spacing-ms);
+          border-radius: var(--border-radius-normal);
         }
 
         /* Topic item */

@@ -6,16 +6,13 @@ const group: TopicGroup = {
   groupDescription: (
     <p>
       Various web development essentials curated from{' '}
-      <a href="https://developer.mozilla.org/en-US/docs/Learn">MDN</a>. You may also want to look at{' '}
-      <a href="https://frontendmasters.com/books/front-end-handbook/2019/#1.2">
-        Front End Developer Handbook 2019
-      </a>{' '}
-      by Frontend Masters.
+      <a href="https://developer.mozilla.org/en-US/docs/Learn">MDN</a>.
     </p>
   ),
   groupHash: 'web',
   sections: [
     {
+      sectionTitle: 'The Basics',
       topics: [
         {
           title: 'HTML',
@@ -25,6 +22,19 @@ const group: TopicGroup = {
         {
           title: 'CSS',
           path: '/web/css/introduction',
+        },
+      ],
+    },
+    {
+      sectionTitle: 'Other Resources',
+      topics: [
+        {
+          title: 'Front End Developer Handbook 2019',
+          path: 'https://frontendmasters.com/books/front-end-handbook/2019/#1.2',
+        },
+        {
+          title: 'Webgems',
+          path: 'https://webgems.io',
         },
       ],
     },
