@@ -29,8 +29,6 @@ export default function IndexPage() {
     <>
       <TopBar />
       <Hero />
-      <SiteDescription />
-      <SiteDisclaimer />
       <ContentIndex groups={shownGroups} />
       <Footer />
     </>
