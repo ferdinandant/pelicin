@@ -26,13 +26,12 @@ export default function Hero() {
 
       <style jsx>{`
         .hero {
-          height: 60vh;
+          height: 75vh;
           display: flex;
           background-image: linear-gradient(120deg, var(--color-blue-5), var(--color-purple-6));
           background-blend-mode: multiply;
           background-size: cover;
           background-position: center;
-          min-height: 400px;
           align-items: center;
           justify-content: center;
           position: relative;
@@ -42,8 +41,8 @@ export default function Hero() {
         .heroContent {
           flex-basis: 640px;
           box-sizing: content-box;
-          padding: var(--spacing-m) var(--spacing-xxl);
-          padding-top: var(--spacing-s)
+          padding: var(--spacing-xl) var(--spacing-xxl);
+          padding-top: var(--spacing-l)
           z-index: 2;
         }
         hr {
@@ -74,8 +73,11 @@ export default function Hero() {
           text-align: center;
         }
         .linksContainer a {
+          display: inline-block;
           margin-left: var(--spacing-m);
           margin-right: var(--spacing-m);
+          font-size: var(--font-size-title-2);
+          font-weight: 600;
         }
         a.cta {
           display: inline-block;
@@ -84,8 +86,6 @@ export default function Hero() {
           background-color: var(--color-gray-0);
           color: var(--color-blue-5);
           text-decoration: none;
-          font-size: var(--font-size-title-2);
-          font-weight: 600;
           transition: box-shadow 0.2s;
         }
         a.cta:hover {
@@ -93,9 +93,8 @@ export default function Hero() {
           text-decoration: none;
         }
         a.secondary {
-          font-size: var(--font-size-title-2);
-          font-weight: 600;
           color: var(--color-blue-0);
+          padding: var(--spacing-s);
         }
 
         @media (max-width: ${SMALLER_HERO_TEXT_BREAKPOINT_PX}px) {
@@ -105,8 +104,11 @@ export default function Hero() {
           .description {
             font-size: var(--font-size-title-3);
           }
-          a {
+          .linksContainer a {
             font-size: var(--font-size-title-3);
+          }
+          hr {
+            border-bottom: 2px solid var(--color-blue-2);
           }
 
           .hero {

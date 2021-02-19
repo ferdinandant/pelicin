@@ -81,11 +81,11 @@ export default function ContentIndex(props: Props) {
           margin: auto;
           margin-top: var(--spacing-xl);
         }
-        section:first-child {
-          margin-top: 0;
-        }
 
         /* Header */
+        section h2:first-of-type {
+          margin-top: 0;
+        }
         section h2 {
           margin-left: -10px;
           padding-left: 10px;
