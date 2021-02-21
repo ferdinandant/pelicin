@@ -2,7 +2,6 @@ import React from 'react';
 import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
 import { TopicGroups } from '@pelicin/config';
-import { Badge } from '@pelicin/components';
 import { INDEX_DOM_ID, extractHashFromTitle } from '@pelicin/layout';
 
 // ================================================================================

@@ -68,6 +68,7 @@ export default function FixedColumnWidthTable(props: Props) {
 
       <style jsx>{`
         td.separator {
+          box-shadow: 0px 2px 4px #db750055 inset;
           background-color: var(--color-yellow-1);
           color: var(--color-yellow-4);
           font-style: italic;

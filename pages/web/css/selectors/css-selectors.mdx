@@ -2,6 +2,7 @@ import { MetadataConfigurer } from '@pelicin/layout';
 import {
   References,
   Image,
+  Code,
   NoteBox,
   WebEditor,
   TodoBox,
@@ -17,16 +18,160 @@ import { smartTrim } from '@pelicin/utils';
 
 <dfn>CSS selectors</dfn> select which HTML element(s) is affected by a group of CSS rules.
 
+## Basic Selectors
+
 <FixedColumnWidthTable
   headers={[
     {
       key: 'syntax',
       text: 'Syntax',
+      formatContent: (content) => <Code str={content} />,
     },
     {
       key: 'description',
       text: 'Description',
     },
   ]}
-  contents={[]}
+  contents={[
+    {
+      '@separator': 'Basic selectors',
+    },
+    {
+      syntax: '*',
+      description: (
+        <>
+          <b>Universal selector</b> &mdash; selects all elements
+        </>
+      ),
+    },
+    {
+      syntax: 'foo',
+      description: (
+        <>
+          <b>Type selector</b> &mdash; selects all <Code str={`<foo>`} /> elements
+        </>
+      ),
+    },
+    {
+      syntax: '.classname',
+      description: (
+        <>
+          <b>Class selector</b> &mdash; selects all elements whose <Code str={`class="..."`} />{' '}
+          value includes <Code str={`classname`} />
+        </>
+      ),
+    },
+    {
+      syntax: '#idname',
+      description: (
+        <>
+          <b>ID selector</b> &mdash; selects all elements whose <Code str={`id="..."`} /> value is{' '}
+          <Code str={`idname`} />
+        </>
+      ),
+    },
+    {
+      '@separator': 'Attribute selectors',
+    },
+    {
+      syntax: '[attr]',
+      description: (
+        <>
+          Selects all elements that specifies an <Code str={`attr`} /> attribute (set to whatever
+          value)
+        </>
+      ),
+    },
+    {
+      syntax: '[attr="value"]',
+      description: (
+        <>
+          <b>"Exact match"</b> &mdash; selects all elements whose <Code str={`attr="..."`} /> value
+          is exactly <Code str={`value`} />
+        </>
+      ),
+    },
+    {
+      syntax: '[attr~="value"]',
+      description: (
+        <>
+          <b>"Word match"</b> &mdash; selects all elements whose <Code str={`attr="..."`} /> value
+          is a whitespace-separated list of words, one of which is exactly <Code str={`value`} />
+        </>
+      ),
+    },
+    {
+      syntax: '[attr|="value"]',
+      description: (
+        <>
+          <b>"Prefix-hyphen match"</b> &mdash; selects all elements whose{' '}
+          <Code str={`attr="..."`} /> value is <Code str={`value`} /> or begins with{' '}
+          <Code str={`value-`} /> (usually used for language subcode matches)
+        </>
+      ),
+    },
+    {
+      syntax: '[attr^="value"]',
+      description: (
+        <>
+          <b>"Prefix match"</b> &mdash; selects all elements whose <Code str={`attr="..."`} /> value
+          begins with <Code str={`value`} />
+        </>
+      ),
+    },
+    {
+      syntax: '[attr$="value"]',
+      description: (
+        <>
+          <b>"Suffix match"</b> &mdash; selects all elements whose <Code str={`attr="..."`} /> value
+          ends with <Code str={`value`} />
+        </>
+      ),
+    },
+    {
+      syntax: '[attr*="value"]',
+      description: (
+        <>
+          <b>"Substring match"</b> &mdash; selects all elements whose <Code str={`attr="..."`} />{' '}
+          value has the substring <Code str={`value`} />
+        </>
+      ),
+    },
+    {
+      '@separator': 'Attribute selectors — case match',
+    },
+    {
+      syntax: '[... i]',
+      description: (
+        <>
+          E.g. <Code str={`[attr="value" i]`} /> &mdash; make matching <Code str={`value`} /> case
+          insensitive
+        </>
+      ),
+    },
+    {
+      syntax: '[... s]',
+      description: (
+        <>
+          E.g. <Code str={`[attr="value" s]`} /> &mdash; make matching <Code str={`value`} /> case
+          sensitive
+        </>
+      ),
+    },
+  ]}
 />
+
+## References
+
+<References
+  references={[
+    {
+      text: 'CSS selectors (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors`,
+    },
+    {
+      text: 'Attribute selectors (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors`,
+    },
+  ]}
+></References>
