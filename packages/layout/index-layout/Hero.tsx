@@ -27,6 +27,7 @@ export default function Hero() {
       <style jsx>{`
         .hero {
           height: 75vh;
+          min-height: 500px;
           display: flex;
           background-image: linear-gradient(120deg, var(--color-blue-5), var(--color-purple-6));
           background-blend-mode: multiply;
@@ -41,8 +42,7 @@ export default function Hero() {
         .heroContent {
           flex-basis: 640px;
           box-sizing: content-box;
-          padding: var(--spacing-xl) var(--spacing-xxl);
-          padding-top: var(--spacing-l)
+          padding: var(--spacing-l) var(--spacing-xxl);
           z-index: 2;
         }
         hr {
@@ -112,7 +112,7 @@ export default function Hero() {
           }
 
           .hero {
-            min-height: 300px;
+            min-height: 360px;
           }
           .heroContent {
             padding: var(--spacing-m) var(--spacing-xl);

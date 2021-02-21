@@ -2,31 +2,322 @@ import { MetadataConfigurer } from '@pelicin/layout';
 import {
   References,
   Image,
+  Code,
   NoteBox,
   WebEditor,
-  TodoBox,
   FixedColumnWidthTable,
 } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
-<MetadataConfigurer title="CSS Selectors" dateCreated="2021-02-10" />
+<MetadataConfigurer title="CSS Selectors" dateCreated="2021-02-21" />
 
 # CSS Selectors
 
-<TodoBox />
-
 <dfn>CSS selectors</dfn> select which HTML element(s) is affected by a group of CSS rules.
+
+## Basic Selectors
+
+You can combine more than one of these selectors to make an "and" clause. E.g.,
+
+- <Code str="p.foo.bar" /> will select all <Code str="<p>" /> elements with classes <Code str="foo" /> and <Code str="bar" />{' '}
+- <Code str="p.foo#bar" /> will select all <Code str="<p>" /> elements with class <Code str="foo" /> and
+  ID <Code str="bar" />
 
 <FixedColumnWidthTable
   headers={[
     {
       key: 'syntax',
       text: 'Syntax',
+      formatContent: (content) => <Code str={content} />,
+      width: 160,
     },
     {
       key: 'description',
       text: 'Description',
     },
   ]}
-  contents={[]}
+  contents={[
+    {
+      '@separator': 'Basic selectors',
+    },
+    {
+      syntax: '*',
+      description: (
+        <>
+          <b>Universal selector</b> &mdash; selects all elements
+        </>
+      ),
+    },
+    {
+      syntax: 'foo',
+      description: (
+        <>
+          <b>Type selector</b> &mdash; selects all <Code str={`<foo>`} /> elements
+        </>
+      ),
+    },
+    {
+      syntax: '.classname',
+      description: (
+        <>
+          <b>Class selector</b> &mdash; selects all elements whose <Code str={`class="..."`} />{' '}
+          value includes <Code str={`classname`} />
+        </>
+      ),
+    },
+    {
+      syntax: '#idname',
+      description: (
+        <>
+          <b>ID selector</b> &mdash; selects all elements whose <Code str={`id="..."`} /> value is{' '}
+          <Code str={`idname`} />
+        </>
+      ),
+    },
+    {
+      '@separator': 'Attribute selectors',
+    },
+    {
+      syntax: '[attr]',
+      description: (
+        <>
+          Selects all elements that specifies an <Code str={`attr`} /> attribute (set to whatever
+          value)
+        </>
+      ),
+    },
+    {
+      syntax: '[attr="value"]',
+      description: (
+        <>
+          <b>"Exact match"</b> &mdash; selects all elements whose <Code str={`attr="..."`} /> value
+          is exactly <Code str={`value`} />
+        </>
+      ),
+    },
+    {
+      syntax: '[attr~="value"]',
+      description: (
+        <>
+          <b>"Word match"</b> &mdash; selects all elements whose <Code str={`attr="..."`} /> value
+          is a whitespace-separated list of words, one of which is exactly <Code str={`value`} />
+        </>
+      ),
+    },
+    {
+      syntax: '[attr|="value"]',
+      description: (
+        <>
+          <b>"Prefix-hyphen match"</b> &mdash; selects all elements whose{' '}
+          <Code str={`attr="..."`} /> value is <Code str={`value`} /> or begins with{' '}
+          <Code str={`value-`} /> (usually used for language subcode matches)
+        </>
+      ),
+    },
+    {
+      syntax: '[attr^="value"]',
+      description: (
+        <>
+          <b>"Prefix match"</b> &mdash; selects all elements whose <Code str={`attr="..."`} /> value
+          begins with <Code str={`value`} />
+        </>
+      ),
+    },
+    {
+      syntax: '[attr$="value"]',
+      description: (
+        <>
+          <b>"Suffix match"</b> &mdash; selects all elements whose <Code str={`attr="..."`} /> value
+          ends with <Code str={`value`} />
+        </>
+      ),
+    },
+    {
+      syntax: '[attr*="value"]',
+      description: (
+        <>
+          <b>"Substring match"</b> &mdash; selects all elements whose <Code str={`attr="..."`} />{' '}
+          value has the substring <Code str={`value`} />
+        </>
+      ),
+    },
+    {
+      '@separator': 'Attribute selectors — case match',
+    },
+    {
+      syntax: '[... i]',
+      description: (
+        <>
+          E.g. <Code str={`[attr="value" i]`} /> &mdash; make matching <Code str={`value`} /> case
+          insensitive
+        </>
+      ),
+    },
+    {
+      syntax: '[... s]',
+      description: (
+        <>
+          E.g. <Code str={`[attr="value" s]`} /> &mdash; make matching <Code str={`value`} /> case
+          sensitive
+        </>
+      ),
+    },
+  ]}
+/>
+
+<NoteBox type="info">
+  <p>
+    <strong>Basic selector with namespace</strong>
+  </p>
+  <p>
+    We omit discussion about basic selectors with a namespace, e.g. <Code str="ns|*" /> or{' '}
+    <Code str="ns|div" />, where <Code str="ns" /> is the name of the namespace defined with the{' '}
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@namespace">
+      <Code str="@namespace" />
+    </a>{' '}
+    syntax.
+  </p>
+  <p>
+    This usually only makes sense when we're dealing with other XML-like formats (like SVG or
+    MathML). You can read more about this{' '}
+    <a href="https://www.w3.org/Talks/2016/0205-CSS-Canberra/namespaces.html">here</a>.
+  </p>
+</NoteBox>
+
+## Grouping Selectors
+
+Using `,` allows you to make an "or" clause. E.g.,
+
+- `div, span` will select all `<div>` and `<span>` elements.
+
+## Combinators
+
+Combinators allow you to select elements based on their relative positions to other elements.
+
+<FixedColumnWidthTable
+  headers={[
+    {
+      key: 'syntax',
+      text: 'Syntax',
+      formatContent: (content) => <Code str={content} />,
+      width: 160,
+    },
+    {
+      key: 'description',
+      text: 'Description',
+    },
+  ]}
+  contents={[
+    {
+      syntax: 'div span',
+      description: (
+        <>
+          <b>Descendant combinator</b> &mdash; selects all <Code str="<span>" /> that are
+          descendants of <Code str="<div>" />
+        </>
+      ),
+    },
+    {
+      syntax: 'div > span',
+      description: (
+        <>
+          <b>Descendant combinator</b> &mdash; selects all <Code str="<span>" /> that are immediate
+          child of <Code str="<div>" />
+        </>
+      ),
+    },
+    {
+      syntax: 'h1 ~ p',
+      description: (
+        <>
+          <b>General sibling combinator</b> &mdash; selects all <Code str="<p>" /> that follows{' '}
+          <Code str="<h1>" />
+        </>
+      ),
+    },
+    {
+      syntax: 'h1 + p',
+      description: (
+        <>
+          <b>Immediate sibling combinator</b> &mdash; selects all <Code str="<p>" /> that
+          immediately follows <Code str="<h1>" />
+        </>
+      ),
+    },
+    {
+      syntax: 'col || td',
+      description: (
+        <>
+          <b>Column combinator</b> &mdash; selects all <Code str="<td>" /> that belongs to the
+          span/scope of <Code str="<col>" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+## Pseudo
+
+Pseudo selectors select something that is not actually there in the document tree.
+
+<FixedColumnWidthTable
+  headers={[
+    {
+      key: 'syntax',
+      text: 'Syntax',
+      formatContent: (content) => <Code str={content} />,
+      width: 160,
+    },
+    {
+      key: 'description',
+      text: 'Description',
+    },
+  ]}
+  contents={[
+    {
+      syntax: 'a:hover',
+      description: (
+        <>
+          <b>
+            Pseudo class (<Code str=":pseudoclass" />)
+          </b>{' '}
+          &mdash; selects element based on its state information
+        </>
+      ),
+    },
+    {
+      syntax: 'a::before',
+      description: (
+        <>
+          <b>
+            Pseudo element (<Code str="::pseudoelement" />)
+          </b>{' '}
+          &mdash; represents entitity not included in HTML
+        </>
+      ),
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'CSS selectors (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors`,
+    },
+    {
+      text: 'Attribute selectors (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors`,
+    },
+    {
+      text: '@namespace (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@namespace`,
+    },
+    {
+      text: 'XML Namespaces – CSS tutorial & history (5 February 2016, Canberra) (W3)',
+      link: `https://www.w3.org/Talks/2016/0205-CSS-Canberra/namespaces.html`,
+    },
+  ]}
 />
