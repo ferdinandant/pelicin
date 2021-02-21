@@ -22,6 +22,11 @@ export default function NoteBox(props: Props) {
           border-left: var(--spacing-s) solid var(--color-gray-2);
           color: var(--color-gray-4);
         }
+        .container.info :global(a) {
+          color: var(--color-blue-6);
+        }
+
+        /* Box content */
         .container :global(code) {
           background-color: transparent;
         }
@@ -31,6 +36,18 @@ export default function NoteBox(props: Props) {
           margin-top: var(--spacing-s);
           margin-bottom: var(--spacing-s);
         }
+        .container :global(p):first-child,
+        .container :global(ul):first-child,
+        .container :global(ol):first-child {
+          margin-top: 0;
+        }
+        .container :global(p):last-child,
+        .container :global(ul):last-child,
+        .container :global(ol):last-child {
+          margin-bottom: 0;
+        }
+
+        /* Box types */
         .container.info {
           background-color: var(--color-blue-1);
           border-left: var(--spacing-s) solid var(--color-blue-2);
