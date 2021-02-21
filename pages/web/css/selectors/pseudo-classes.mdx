@@ -1,7 +1,217 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, Code, NoteBox, WebEditor } from '@pelicin/components';
+import { References, Code, NoteBox, WebEditor, DocumentationList } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Pseudo Classes" dateCreated="2021-02-21" />
 
 # Pseudo Classes
+
+## Structural
+
+### `:root`
+
+Selects an element that is the root of the document (synonymous with the `html` selector).
+
+### `:empty`
+
+Selects an element without children (other than whitespace characters).
+
+### `:first-child`
+
+Selects an element that is the first child of its siblings.
+
+<WebEditor
+  css={smartTrim(`
+    #first-child-example span:first-child {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="first-child-example">
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+    </div>
+  `)}
+/>
+
+### `:last-child`
+
+Selects an element that is the last child of its siblings.
+
+### `:only-child`
+
+Selects an element that has no siblings.
+
+### `:nth-child(...)`
+
+Selects elements based on their order in a group of siblings.
+
+If you use the `An+B` notation, then it selects elements for <var>n</var> = 0, 1, 2, ... .
+
+<DocumentationList
+  items={[
+    {
+      name: 'odd',
+      description: 'Select elements in odd positions (1, 3, 5, ...)',
+    },
+    {
+      name: 'even',
+      description: 'Select elements in even positions (2, 4, 6, ...)',
+    },
+    {
+      name: '3',
+      description: 'Selects the 3rd element',
+    },
+    {
+      name: '3n',
+      description: 'Selects elements in position 3, 4, 9 ...',
+    },
+    {
+      name: '3n+1',
+      description: 'Selects elements in position 1, 4, 7, ...',
+    },
+    {
+      name: '-n+3',
+      description: 'Select the first 3 elements (positions 3, 2, 1)',
+    },
+  ]}
+/>
+
+<WebEditor
+  css={smartTrim(`
+    #nth-child-example span:nth-child(2n+1) {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="nth-child-example">
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+      <span>4</span>
+      <span>5</span>
+    </div>
+  `)}
+/>
+
+### `:nth-last-child(...)`
+
+Like `:nth-child(...)`, but counts from the last sibling.
+
+### `:first-of-type`
+
+Selects an element that is the first child of this type among its siblings.
+
+<WebEditor
+  css={smartTrim(`
+    /* Selects the first <i> among its siblings */
+    #first-of-type-example i:first-of-type {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="first-of-type-example">
+      <b>1</b>
+      <i>2</i>
+      <b>3</b>
+      <i>4</i>
+    </div>
+  `)}
+/>
+
+### `:last-of-type`
+
+Selects an element that is the last child of this type among its siblings.
+
+### `:only-of-type`
+
+Selects an element that has no other siblings of its type.
+
+<WebEditor
+  css={smartTrim(`
+    #only-of-type-example :only-of-type {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="only-of-type-example">
+      <b>b</b>
+      <i>i</i>
+      <u>u</u>
+      <i>i</i>
+      <b>b</b>
+    </div>
+  `)}
+/>
+
+### `:nth-of-type(...)`
+
+Like `:nth-child(...)`, but counts only elements of its type.
+
+<DocumentationList
+  items={[
+    {
+      name: 'odd',
+      description: 'Select elements of this type in odd positions (1, 3, 5, ...)',
+    },
+    {
+      name: 'even',
+      description: 'Select elements of this type in even positions (2, 4, 6, ...)',
+    },
+    {
+      name: '3',
+      description: 'Selects the 3rd element of this type',
+    },
+    {
+      name: '3n',
+      description: 'Selects elements of this type in position 3, 4, 9 ...',
+    },
+    {
+      name: '3n+1',
+      description: 'Selects elements of this type in position 1, 4, 7, ...',
+    },
+    {
+      name: '-n+3',
+      description: 'Select the first 3 elements of this type (positions 3, 2, 1)',
+    },
+  ]}
+/>
+
+<WebEditor
+  css={smartTrim(`
+    /* Selects the second <i> */
+    #nth-of-type-example i:nth-of-type(2) {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="nth-of-type-example">
+      <b>b</b>
+      <i>i</i>
+      <u>u</u>
+      <i>i</i>
+      <b>b</b>
+    </div>
+  `)}
+/>
+
+### `:nth-last-of-type(...)`
+
+Like `:nth-of-type(...)`, but counts from the last sibling.
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Pseudo Classes (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes`,
+    },
+  ]}
+/>
