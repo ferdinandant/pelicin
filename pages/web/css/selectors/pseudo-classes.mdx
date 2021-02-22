@@ -1,0 +1,495 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  Code,
+  NoteBox,
+  WebEditor,
+  DocumentationList,
+  FixedColumnWidthTable,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Pseudo Classes" dateCreated="2021-02-21" />
+
+# Pseudo Classes
+
+This lists all available pseudo classes (omitting some that is still experimental with no browser support).
+
+## Structural
+
+### `:root`
+
+Selects an element that is the root of the document (synonymous with the `html` selector).
+
+### `:empty`
+
+Selects an element without children (other than whitespace characters).
+
+### `:first-child`
+
+Selects an element that is the first child of its siblings.
+
+<WebEditor
+  css={smartTrim(`
+    #first-child-example span:first-child {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="first-child-example">
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+    </div>
+  `)}
+/>
+
+### `:last-child`
+
+Selects an element that is the last child of its siblings.
+
+### `:only-child`
+
+Selects an element that has no siblings.
+
+### `:nth-child(...)`
+
+Selects elements based on their order in a group of siblings.
+
+If you use the `An+B` notation, then it selects elements for <var>n</var> = 0, 1, 2, ... .
+
+<DocumentationList
+  items={[
+    {
+      name: 'odd',
+      description: 'Select elements in odd positions (1, 3, 5, ...)',
+    },
+    {
+      name: 'even',
+      description: 'Select elements in even positions (2, 4, 6, ...)',
+    },
+    {
+      name: '3',
+      description: 'Selects the 3rd element',
+    },
+    {
+      name: '3n',
+      description: 'Selects elements in position 3, 4, 9 ...',
+    },
+    {
+      name: '3n+1',
+      description: 'Selects elements in position 1, 4, 7, ...',
+    },
+    {
+      name: '-n+3',
+      description: 'Select the first 3 elements (positions 3, 2, 1)',
+    },
+  ]}
+/>
+
+<WebEditor
+  css={smartTrim(`
+    #nth-child-example span:nth-child(2n+1) {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="nth-child-example">
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+      <span>4</span>
+      <span>5</span>
+    </div>
+  `)}
+/>
+
+### `:nth-last-child(...)`
+
+Like `:nth-child(...)`, but counts from the last sibling.
+
+### `:first-of-type`
+
+Selects an element that is the first child of this type among its siblings.
+
+<WebEditor
+  css={smartTrim(`
+    /* Selects the first <i> among its siblings */
+    #first-of-type-example i:first-of-type {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="first-of-type-example">
+      <b>1</b>
+      <i>2</i>
+      <b>3</b>
+      <i>4</i>
+    </div>
+  `)}
+/>
+
+### `:last-of-type`
+
+Selects an element that is the last child of this type among its siblings.
+
+### `:only-of-type`
+
+Selects an element that has no other siblings of its type.
+
+<WebEditor
+  css={smartTrim(`
+    #only-of-type-example :only-of-type {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="only-of-type-example">
+      <b>b</b>
+      <i>i</i>
+      <u>u</u>
+      <i>i</i>
+      <b>b</b>
+    </div>
+  `)}
+/>
+
+### `:nth-of-type(...)`
+
+Like `:nth-child(...)`, but counts only elements of its type.
+
+<DocumentationList
+  items={[
+    {
+      name: 'odd',
+      description: 'Select elements of this type in odd positions (1, 3, 5, ...)',
+    },
+    {
+      name: 'even',
+      description: 'Select elements of this type in even positions (2, 4, 6, ...)',
+    },
+    {
+      name: '3',
+      description: 'Selects the 3rd element of this type',
+    },
+    {
+      name: '3n',
+      description: 'Selects elements of this type in position 3, 4, 9 ...',
+    },
+    {
+      name: '3n+1',
+      description: 'Selects elements of this type in position 1, 4, 7, ...',
+    },
+    {
+      name: '-n+3',
+      description: 'Select the first 3 elements of this type (positions 3, 2, 1)',
+    },
+  ]}
+/>
+
+<WebEditor
+  css={smartTrim(`
+    /* Selects the second <i> */
+    #nth-of-type-example i:nth-of-type(2) {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="nth-of-type-example">
+      <b>b</b>
+      <i>i</i>
+      <u>u</u>
+      <i>i</i>
+      <b>b</b>
+    </div>
+  `)}
+/>
+
+### `:nth-last-of-type(...)`
+
+Like `:nth-of-type(...)`, but counts from the last sibling.
+
+## User action
+
+### `:hover`
+
+Selects an element that is being hovered by the mouse pointer.
+
+<WebEditor
+  css={smartTrim(`
+    #hover-example a:hover {
+      color: red;
+      text-decoration: underline;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="hover-example">
+      <a href=#hover>Hover me</a>
+    </div>
+  `)}
+/>
+
+### `:focus`
+
+Selects an element that has focus ("currently highlighted"), e.g. by navigating to it using the <kbd>Tab</kbd> key
+
+<WebEditor
+  css={smartTrim(`
+    #focus-example input:focus {
+      background-color: gold;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="focus-example">
+      <input placeholder="Focus me (click/tab)">
+    </div>
+  `)}
+/>
+
+### `:active`
+
+Selects an element that is being activated ("being clicked") by the user, e.g. by clicking or pressing <kbd>Enter</kbd> on it
+
+<WebEditor
+  css={smartTrim(`
+    #active-example input:active {
+      background-color: red;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="active-example">
+      <input placeholder="Click me">
+    </div>
+  `)}
+/>
+
+### `:focus-visible`
+
+Selects an element that has focus AND the browser determined that the "focus ring" should be visible.
+(Use this instead of `:focus` to not display the "focus ring" when the item has been clicked using the mouse.)
+
+Particularly on Chrome:
+
+- `:focus` selects the item being hightlighted AND when the item is activated by a mouse click.
+- `:focus-visible` selects the item being hightlighted, BUT NOT when the item is activated by a mouse click.
+
+<WebEditor
+  css={smartTrim(`
+    #focus-visible-example button.one:focus {
+      outline: 4px dashed red;
+    }
+    #focus-visible-example button.two:focus-visible {
+      outline: 4px dashed blue;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="focus-visible-example">
+      <p>
+        Use Chrome -- may not work on Firefox.<br/>
+        Try keyboard-navigation and mouse-click on these buttons.
+      </p>
+      <!-- Highlighted by (1) keyboard navigation and (2) click -->
+      <button class="one">:focus</button>
+      <!-- Highlighted by keyboard navigation only -->
+      <button class="two">:focus-visible</buton>
+    </div>
+  `)}
+/>
+
+### `:focus-within`
+
+Selects an element that has focus OR has a decendant that has focus.
+
+<WebEditor
+  css={smartTrim(`
+    #focus-within-example {
+      padding: 10px;
+      border: 2px solid #dddddd;
+    }
+    #focus-within-example:focus-within {
+      background-color: #ffdddd;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="focus-within-example">
+      <div>Click the textbox below:</div>
+      <input />
+    </div>
+  `)}
+/>
+
+## Links
+
+### `:any-link`
+
+Selects anything that would match `:link` or `:visited`.
+
+### `:link`
+
+Selects unvisited links (`<a>`, `<area>`, or `<link>`).
+
+### `:visited`
+
+Selects visited links (`<a>`, `<area>`, or `<link>`).
+
+### `:target`
+
+Selects an element whose `id` value is the same as the URL fragment (e.g. `https://www.example.com/index#THISTHING`).
+
+### `:target-within`
+
+Selects elements that would be selected by `:target`, or has a descendant that would be selected by `:target`.
+
+## Inputs
+
+### `:disabled`
+
+Selects inputs that are disabled (has `disabled` attribute).
+
+### `:enabled`
+
+Selects inputs that are enabled.
+
+### `:read-only`
+
+Selects inputs that are read only (has `readonly` attribute).
+
+### `:read-write`
+
+Selects inputs that are editable.
+
+### `:required`
+
+Selects inputs that are required (has `required` attribute).
+
+### `:optional`
+
+Selects inputs that are optional.
+
+### `:default`
+
+Selects inputs that are default among a set of elements.
+
+Can be used on:
+
+- `<input type="checkbox">`
+- `<input type="radio">`
+- `<option>`
+- `<button>` (if it's the form's default submit button).
+
+<WebEditor
+  css={smartTrim(`
+    #default-example input:default + label {
+      color: red;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="default-example">
+      <input type="radio" name="gesture" id="rock" checked>
+      <label for="rock">Rock</label>
+      <input type="radio" name="gesture" id="paper">
+      <label for="paper">Paper</label>
+      <input type="radio" name="gesture" id="scissors">
+      <label for="scissors">Scissors</label>
+    </div>
+  `)}
+/>
+
+### `:checked`
+
+Selects inputs that are checked/selected.
+
+Can be used on:
+
+- `<input type="checkbox">`
+- `<input type="radio">`
+- `<option>`
+
+### `:indeterminate`
+
+Selects inputs that are on indeterminate state.
+
+Can be used on:
+
+- `<input type="checkbox">` (when its `indeterminate` property is set using JavaScript)
+- `<input type="radio">` (when nothing in its group is selected)
+- `<progress>`
+
+### `:valid`
+
+Selects inputs with valid contents.
+
+### `:invalid`
+
+Selects inputs with invalid contents.
+
+### `:in-range`
+
+Selects inputs whose value is in range of its `min` and `max` attributes.
+
+### `:out-of-range`
+
+Selects inputs whose value is out of the range of its `min` and `max` attributes.
+
+## Lingustics
+
+### `:dir(...)`
+
+Selects elements based on the directionality of their text contents. (Even when you don't specify the `dir="..."` global attribute on them.)
+
+Specify `ltr` or `rtl` as its argument.
+
+### `:lang(...)`
+
+Selects elements based on the language of their text contents.
+
+The language can be determined by the `lang="..."` attribute, `<meta>` elements, or other information like HTTP headers.
+
+<WebEditor
+  css={smartTrim(`
+    #lang-example p:lang(en) {
+      color: blue;
+    }
+    #lang-example p:lang(jp) {
+      color: red;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="lang-example">
+      <p lang="en">I'm American</p>
+      <p lang="jp">I'm Japanese</p>
+    </div>
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Pseudo Classes (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes`,
+    },
+    {
+      text: ':focus-visible (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible`,
+    },
+    {
+      text: 'The :focus-visible Trick (CSS-Tricks)',
+      link: `https://css-tricks.com/the-focus-visible-trick/`,
+    },
+    {
+      text: ':default (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/:default`,
+    },
+    {
+      text: ':lang (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/:lang`,
+    },
+  ]}
+/>

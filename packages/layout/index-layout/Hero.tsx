@@ -17,7 +17,7 @@ export default function Hero() {
             <a className="cta" href={`#${INDEX_DOM_ID}`}>
               Explore
             </a>
-            <a className="secondary" href={`#${INDEX_DOM_ID}`}>
+            <a className="secondary" href={`https://github.com/FerdinandAnt/pelicin`}>
               GitHub
             </a>
           </div>

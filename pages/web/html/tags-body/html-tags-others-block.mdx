@@ -23,6 +23,8 @@ These are the rest of the HTML block tags.
     dt: 'dl-dt-and-dd',
     figure: 'figure-and-figcaption',
     figcaption: 'ficure-and-figcaption',
+    details: 'details-and-summary',
+    summary: 'details-and-summary',
   }}
   tags={[
     {
@@ -36,7 +38,10 @@ These are the rest of the HTML block tags.
       description: 'Represents a preformatted text (displayed as-is)',
     },
     {
-      tag: 'dd',
+      '@separator': 'Definition list',
+    },
+    {
+      tag: 'dl',
       type: 'block',
       description: 'Represents a definition list',
     },
@@ -51,6 +56,9 @@ These are the rest of the HTML block tags.
       description: 'Represents a definition description',
     },
     {
+      '@separator': 'Figure',
+    },
+    {
       tag: 'figure',
       type: 'block',
       description: 'Represents a self-contained content',
@@ -61,6 +69,23 @@ These are the rest of the HTML block tags.
       description: (
         <>
           Represents caption for <Code str="<figure>" />
+        </>
+      ),
+    },
+    {
+      '@separator': 'Details',
+    },
+    {
+      tag: 'details',
+      type: 'block',
+      description: 'Represents a collapsible/accordion widget',
+    },
+    {
+      tag: 'summary',
+      type: 'block',
+      description: (
+        <>
+          Represents summary/caption of a <Code str={'<details>'} />
         </>
       ),
     },
@@ -136,6 +161,21 @@ The text will be displayed as typed in the HTML file.
       <img src="/res/web/html/lucas-benjamin-unsplash.jpg" alt="An abstract photo" width="300">
       <figcaption>A photo by Lucas Benjamin - Unsplash</figcaption>
     </figure>
+  `)}
+/>
+
+## `<details>` and `<summary>`
+
+`<details>` represents a collapsible/accordion widget.
+
+`<summary>` represents caption of a `<details>` element.
+
+<WebEditor
+  html={smartTrim(`
+    <details>
+      <summary>Lorem ipsum (click me)</summary>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </details>
   `)}
 />
 
