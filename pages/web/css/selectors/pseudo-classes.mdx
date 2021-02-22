@@ -345,6 +345,128 @@ Selects an element whose `id` value is the same as the URL fragment (e.g. `https
 
 Selects elements that would be selected by `:target`, or has a descendant that would be selected by `:target`.
 
+## Inputs
+
+### `:disabled`
+
+Selects inputs that are disabled (has `disabled` attribute).
+
+### `:enabled`
+
+Selects inputs that are enabled.
+
+### `:read-only`
+
+Selects inputs that are read only (has `readonly` attribute).
+
+### `:read-write`
+
+Selects inputs that are editable.
+
+### `:required`
+
+Selects inputs that are required (has `required` attribute).
+
+### `:optional`
+
+Selects inputs that are optional.
+
+### `:default`
+
+Selects inputs that are default among a set of elements.
+
+Can be used on:
+
+- `<input type="checkbox">`
+- `<input type="radio">`
+- `<option>`
+- `<button>` (if it's the form's default submit button).
+
+<WebEditor
+  css={smartTrim(`
+    #default-example input:default + label {
+      color: red;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="default-example">
+      <input type="radio" name="gesture" id="rock" checked>
+      <label for="rock">Rock</label>
+      <input type="radio" name="gesture" id="paper">
+      <label for="paper">Paper</label>
+      <input type="radio" name="gesture" id="scissors">
+      <label for="scissors">Scissors</label>
+    </div>
+  `)}
+/>
+
+### `:checked`
+
+Selects inputs that are checked/selected.
+
+Can be used on:
+
+- `<input type="checkbox">`
+- `<input type="radio">`
+- `<option>`
+
+### `:indeterminate`
+
+Selects inputs that are on indeterminate state.
+
+Can be used on:
+
+- `<input type="checkbox">` (when its `indeterminate` property is set using JavaScript)
+- `<input type="radio">` (when nothing in its group is selected)
+- `<progress>`
+
+### `:valid`
+
+Selects inputs with valid contents.
+
+### `:invalid`
+
+Selects inputs with invalid contents.
+
+### `:in-range`
+
+Selects inputs whose value is in range of its `min` and `max` attributes.
+
+### `:out-of-range`
+
+Selects inputs whose value is out of the range of its `min` and `max` attributes.
+
+## Lingustics
+
+### `:dir(...)`
+
+Selects elements based on the directionality of their text contents. (Even when you don't specify the `dir="..."` global attribute on them.)
+
+Specify `ltr` or `rtl` as its argument.
+
+### `:lang(...)`
+
+Selects elements based on the language of their text contents.
+
+The language can be determined by the `lang="..."` attribute, `<meta>` elements, or other information like HTTP headers.
+
+<WebEditor
+  css={smartTrim(`
+    #lang-example p:lang(en) {
+      color: blue;
+    }
+    #lang-example p:lang(jp) {
+      color: red;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="lang-example">
+      <p lang="en">I'm American</p>
+      <p lang="jp">I'm Japanese</p>
+    </div>
+  `)}
+/>
+
 ## References
 
 <References
@@ -360,6 +482,14 @@ Selects elements that would be selected by `:target`, or has a descendant that w
     {
       text: 'The :focus-visible Trick (CSS-Tricks)',
       link: `https://css-tricks.com/the-focus-visible-trick/`,
+    },
+    {
+      text: ':default (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/:default`,
+    },
+    {
+      text: ':lang (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/:lang`,
     },
   ]}
 />
