@@ -1,10 +1,19 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, Code, NoteBox, WebEditor, DocumentationList } from '@pelicin/components';
+import {
+  References,
+  Code,
+  NoteBox,
+  WebEditor,
+  DocumentationList,
+  FixedColumnWidthTable,
+} from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Pseudo Classes" dateCreated="2021-02-21" />
 
 # Pseudo Classes
+
+This lists all available pseudo classes (omitting some that is still experimental with no browser support).
 
 ## Structural
 
@@ -205,6 +214,115 @@ Like `:nth-child(...)`, but counts only elements of its type.
 
 Like `:nth-of-type(...)`, but counts from the last sibling.
 
+## User action
+
+### `:hover`
+
+Selects an element that is being hovered by the mouse pointer.
+
+<WebEditor
+  css={smartTrim(`
+    #hover-example a:hover {
+      color: red;
+      text-decoration: underline;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="hover-example">
+      <a href=#hover>Hover me</a>
+    </div>
+  `)}
+/>
+
+### `:focus`
+
+Selects an element that has focus ("currently highlighted"), e.g. by navigating to it using the <kbd>Tab</kbd> key
+
+<WebEditor
+  css={smartTrim(`
+    #focus-example input:focus {
+      background-color: gold;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="focus-example">
+      <input placeholder="Focus me (click/tab)">
+    </div>
+  `)}
+/>
+
+### `:active`
+
+Selects an element that is being activated ("being clicked") by the user, e.g. by clicking or pressing <kbd>Enter</kbd> on it
+
+<WebEditor
+  css={smartTrim(`
+    #active-example input:active {
+      background-color: red;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="active-example">
+      <input placeholder="Click me">
+    </div>
+  `)}
+/>
+
+### `:focus-visible`
+
+Selects an element that has focus AND the browser determined that the "focus ring" should be visible.
+(Use this instead of `:focus` to not display the "focus ring" when the item has been clicked using the mouse.)
+
+Particularly on Chrome:
+
+- `:focus` selects the item being hightlighted AND when the item is activated by a mouse click.
+- `:focus-visible` selects the item being hightlighted, BUT NOT when the item is activated by a mouse click.
+
+<WebEditor
+  css={smartTrim(`
+    #focus-visible-example button.one:focus {
+      outline: 4px dashed red;
+    }
+    #focus-visible-example button.two:focus-visible {
+      outline: 4px dashed blue;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="focus-visible-example">
+      <p>
+        Use Chrome -- may not work on Firefox.<br/>
+        Try keyboard-navigation and mouse-click on these buttons.
+      </p>
+      <!-- Highlighted by (1) keyboard navigation and (2) click -->
+      <button class="one">:focus</button>
+      <!-- Highlighted by keyboard navigation only -->
+      <button class="two">:focus-visible</buton>
+    </div>
+  `)}
+/>
+
+### `:focus-within`
+
+Selects and element that has focus OR has a decendant that has focus.
+
+<WebEditor
+  css={smartTrim(`
+    #focus-within-example {
+      padding: 10px;
+      border: 2px solid #dddddd;
+    }
+    #focus-within-example:focus-within {
+      background-color: #ffdddd;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="focus-within-example">
+      <div>Click the textbox below:</div>
+      <input />
+    </div>
+  `)}
+/>
+
 ## References
 
 <References
@@ -212,6 +330,14 @@ Like `:nth-of-type(...)`, but counts from the last sibling.
     {
       text: 'Pseudo Classes (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes`,
+    },
+    {
+      text: ':focus-visible (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible`,
+    },
+    {
+      text: 'The :focus-visible Trick (CSS-Tricks)',
+      link: `https://css-tricks.com/the-focus-visible-trick/`,
     },
   ]}
 />
