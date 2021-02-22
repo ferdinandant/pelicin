@@ -15,6 +15,30 @@ import { smartTrim } from '@pelicin/utils';
 
 This lists all available pseudo classes (omitting some that is still experimental with no browser support).
 
+## Special
+
+### `:not(...)`
+
+Selects elements that do not match the selector inside `:not(...)`.
+
+<WebEditor
+  css={smartTrim(`
+    #not-example :not(i) {
+      background-color: red;
+      color: white;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="not-example">
+      <b>b</b>
+      <i>i</i>
+      <u>u</u>
+      <i>i</i>
+      <b>b</b>
+    </div>
+  `)}
+/>
+
 ## Structural
 
 ### `:root`

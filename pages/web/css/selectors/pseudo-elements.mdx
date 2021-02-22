@@ -2,9 +2,198 @@ import { MetadataConfigurer } from '@pelicin/layout';
 import { References, Code, NoteBox, WebEditor } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
-<MetadataConfigurer title="Pseudo Elements" dateCreated="2021-02-21" />
+<MetadataConfigurer title="Pseudo Elements" dateCreated="2021-02-23" />
 
 # Pseudo Elements
+
+This lists all available pseudo elements (omitting some that are obscured, experimental, or unlikely to be used).
+
+## Texts
+
+### `::before`
+
+Inserts `content` before an element (it's inline by default).
+
+### `::after`
+
+Inserts `content` after an element (it's inline by default).
+
+<WebEditor
+  css={smartTrim(`
+    #after-example p::after {
+      content: '<- BORING';
+      color: red;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="after-example">
+      <p>One two three</p>
+    </div>
+  `)}
+/>
+
+### `::first-letter`
+
+Styles the first letter of an element's text content.
+
+- If the content is modified by `::before`, then the "first letter" could be in the `content` of `::before`
+- If there's other content before the first letter (like `<img>`), the first letter won't get the style
+
+<WebEditor
+  css={smartTrim(`
+    #first-letter-example p::first-letter {
+      font-size: 300%;
+      float: left;
+      padding: 5px 10px;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="first-letter-example">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in ullamcorper nisl, eget congue ligula. Sed elit lacus, interdum eget leo nec, pulvinar maximus libero. Aliquam vehicula, ipsum eget tincidunt lobortis, sem nisi facilisis felis, fermentum dapibus est urna ut purus.</p>
+    </div>
+  `)}
+/>
+
+### `::first-line`
+
+Styles the first line of an element's text content.
+
+<WebEditor
+  css={smartTrim(`
+    #first-line-example p::first-line {
+      color: red;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="first-line-example">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in ullamcorper nisl, eget congue ligula. Sed elit lacus, interdum eget leo nec, pulvinar maximus libero. Aliquam vehicula, ipsum eget tincidunt lobortis, sem nisi facilisis felis, fermentum dapibus est urna ut purus.</p>
+    </div>
+  `)}
+/>
+
+## Lists
+
+### `::marker`
+
+Styles the bullet/marker of a "list item" (basically anything that has `display: list-item`, like `<li>` or `<summary>`).
+
+<WebEditor
+  css={smartTrim(`
+    #marker-example ::marker {
+      content: '->';
+      color: red;
+    }
+  `)}
+  html={smartTrim(`
+    <ul id="marker-example">
+      <li>One</li>
+      <li>Two</li>
+      <li>Three</li>
+    </ul>
+  `)}
+/>
+
+## Forms
+
+### `::file-selector-button`
+
+Styles the button part of an `<input type="file">`.
+
+(If you use `input[type="file"]`, it will also style other parts of the file input, like the current selected filename.)
+
+<WebEditor
+  css={smartTrim(`
+    #file-selector-button-example ::file-selector-button {
+      padding: 10px;
+      background-color: gold;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="file-selector-button-example">
+      <input type="file">
+    </div>
+  `)}
+/>
+
+### `::placeholder`
+
+Styles the placeholder of an `<input>`.
+
+<WebEditor
+  css={smartTrim(`
+    #placeholder-example input::placeholder {
+      color: blue;
+      font-style: italic;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="placeholder-example">
+      <input placeholder="Hello from the other side!">
+    </div>
+  `)}
+/>
+
+## UI
+
+### `::backdrop`
+
+Sets the "background" of an element being presented full-screen.
+
+<WebEditor
+  css={smartTrim(`
+    video::backdrop {
+      background-color: red;
+    }
+  `)}
+  html={smartTrim(`
+    <!-- https://mdn.github.io/css-examples/backdrop/index.html -->
+    <p>Try pressing fullscreen. You won't see the red background if your screen size matches the size of the poster/thumbnail or the video.</p>
+    <video controls
+      src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
+      poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+      width="620">
+    Sorry, your browser doesn't support embedded videos.  Time to upgrade!
+    </video>
+  `)}
+/>
+
+### `::selection`
+
+Styles part of the document that has being highlighted.
+
+<WebEditor
+  css={smartTrim(`
+    #selection-example ::selection {
+      background-color: green;
+      color: yellow;
+    }
+  `)}
+  html={smartTrim(`
+    <div id="selection-example">
+      <p>Try selecting this text!</p>
+    </div>
+  `)}
+/>
+
+## Omitted
+
+I decided to not include the following (because they're super obscured, or still experimental at the time of writing). You can read more about them [on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements).
+
+Text Fragments:
+
+- `::grammar-error`
+- `::spelling-error`
+- `::target-text`
+
+Subtitles:
+
+- `::cue`
+- `::cue-region`
+
+Shadow DOM:
+
+- `::part(...)`
+- `::slotted(...)`
 
 ## References
 
@@ -13,6 +202,10 @@ import { smartTrim } from '@pelicin/utils';
     {
       text: 'Pseudo Elements (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements`,
+    },
+    {
+      text: '::marker (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/::marker`,
     },
   ]}
 />
