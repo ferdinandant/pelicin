@@ -303,7 +303,7 @@ Particularly on Chrome:
 
 ### `:focus-within`
 
-Selects and element that has focus OR has a decendant that has focus.
+Selects an element that has focus OR has a decendant that has focus.
 
 <WebEditor
   css={smartTrim(`
@@ -322,6 +322,28 @@ Selects and element that has focus OR has a decendant that has focus.
     </div>
   `)}
 />
+
+## Links
+
+### `:any-link`
+
+Selects anything that would match `:link` or `:visited`.
+
+### `:link`
+
+Selects unvisited links (`<a>`, `<area>`, or `<link>`).
+
+### `:visited`
+
+Selects visited links (`<a>`, `<area>`, or `<link>`).
+
+### `:target`
+
+Selects an element whose `id` value is the same as the URL fragment (e.g. `https://www.example.com/index#THISTHING`).
+
+### `:target-within`
+
+Selects elements that would be selected by `:target`, or has a descendant that would be selected by `:target`.
 
 ## References
 
