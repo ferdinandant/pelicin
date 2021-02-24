@@ -30,6 +30,15 @@ const chapters: TopicChapters = [
         path: '/web/css/selectors/pseudo-elements',
       },
     ],
+  },
+  {
+    chapter: 'Concepts',
+    children: [
+      {
+        title: 'Specificity',
+        path: '/web/css/concepts/specificity',
+      },
+    ],
   }
 ];
 

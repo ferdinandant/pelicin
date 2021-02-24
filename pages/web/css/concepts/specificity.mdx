@@ -1,0 +1,85 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { NoteBox, References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Specificity" dateCreated="2021-02-25" />
+
+# Specificity
+
+Basically, CSS rules _cascade_ and rules specified later will override rules specified earlier.
+
+However, different kinds of selector matches have different "weights" to them. In descencing order of priority/specificity:
+
+- Any rules in `style="..."` attribute has the top priority, then
+- The number of `#id` selector matches, then
+- The number of `.class` selector matches (including `[attr]` and `:pseudoclass`), then
+- The number of `type` selector matches (including `::pseudoelement`).
+
+So, after `style="..."` rules, it goes ID > class > type.
+
+<WebEditor
+  css={smartTrim(`
+    ul#summer-drinks li {
+      font-weight: normal;
+      color: black;
+    }
+    .favorite {
+      /* Does not get applied because there are conflicting rules
+       * in \`ul#summer-drinks li\`, and \`ul#summer-drinks li\`
+       * has higher specificity than \`.favorite\` */
+      color: red;
+      font-weight: bold;
+      /* Has no conflicting rules, so this got applied. */
+      font-size: 28px;
+    }
+  `)}
+  html={smartTrim(`
+    <!-- https://css-tricks.com/specifics-on-css-specificity/ -->
+    <ul id="summer-drinks">
+      <li class="favorite">Whiskey and Ginger Ale</li>
+      <li>Wheat Beer</li>
+      <li>Mint Julip</li>
+    </ul>
+  `)}
+/>
+
+## Examples
+
+Here's an example on how the number of match is calculated.
+
+Note that the universal selector (`*`), combinators (" ", `>`, `~`, `+`, `||`), and the `:not(...)` pseudo-class has no effect on specificity. (The selectors _inside_ `:not(...)` _do_, however.)
+
+| Selectors                                 | no. of `#id` matches | no. of `.class` matches | no. of `type` matches |
+| ----------------------------------------- | :------------------: | :---------------------: | :-------------------: |
+| `h1`                                      |          -           |            -            |           1           |
+| `h1 + p::first-letter`                    |          -           |            -            |           3           |
+| `li > a[href*="en-US"] > .inline-warning` |          -           |            2            |           2           |
+| `#identifier`                             |          1           |            0            |           0           |
+| `#footer :not(nav) li`                    |          1           |            0            |           2           |
+
+## `!important`
+
+<NoteBox type="warning">
+  You should use <code>!important</code> sparingly (e.g. to override third-party CSS). It will get
+  ugly if everything starts to need <code>!important</code> to work.
+</NoteBox>
+
+If any CSS rule has the `!important` declaration (e.g. `color: red !important;`), then it "overrule
+all of the above calculations" and take the top priority.
+
+Then, if multiple rules with `!important` clashes, refer to the calculations above to see which `!important` wins.
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Specificity (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity`,
+    },
+    {
+      text: 'Specifics on CSS Specificity (CSS-Tricks)',
+      link: `https://css-tricks.com/specifics-on-css-specificity/`,
+    },
+  ]}
+></References>
