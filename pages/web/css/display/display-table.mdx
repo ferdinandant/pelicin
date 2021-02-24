@@ -1,86 +1,39 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, DocumentationList, Code } from '@pelicin/components';
+import { References, FixedColumnWidthTable, Code } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
-<MetadataConfigurer title="Specificity" dateCreated="2021-02-25" />
+<MetadataConfigurer title="Display: Table" dateCreated="2021-02-25" />
 
-# Display
+# Display: Table
 
-`The`display`element sets whether an element is "block" or "inline".`
+Use these `display` values to make an element hehave like a certain table element.
 
-## Possible Values
-
-<DocumentationList
-  label="Block/inline"
-  items={[
+<FixedColumnWidthTable
+  headers={[
     {
-      name: 'block',
-      description: (
-        <>
-          Generates a block element (generates line breaks before and after the element in the
-          normal flow
-        </>
-      ),
+      key: 'display',
+      text: <Code str="display: ..." />,
+      formatContent: (str) => <Code str={str} />,
     },
     {
-      name: 'inline',
-      description: <>Generates an inline element (flows on the same line)</>,
-    },
-    {
-      name: 'inline-block',
-      description: <>Generates a block element that flows on the same line</>,
+      key: 'correspondingTag',
+      text: 'Makes it behaves like ...',
+      formatContent: (str) => <Code str={`<${str}>`} />,
     },
   ]}
-/>
-
-<DocumentationList
-  label="None"
-  items={[
-    {
-      name: 'none',
-      description: (
-        <>
-          Does not render the element (the element would also take no space on the screen, as if it
-          wasn't there)
-        </>
-      ),
-    },
-  ]}
-/>
-
-<DocumentationList
-  label="Others"
-  items={[
-    {
-      name: 'table',
-      description: (
-        <>
-          Generates a block element that behaves like <Code str="<table>" />
-        </>
-      ),
-    },
-    {
-      name: 'flex',
-      description: (
-        <>
-          Generates a block element that behaves according to the{' '}
-          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout">
-            flexbox model
-          </a>
-        </>
-      ),
-    },
-    {
-      name: 'grid',
-      description: (
-        <>
-          Generates a block element that behaves according to the{' '}
-          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layouts">
-            grid model
-          </a>
-        </>
-      ),
-    },
+  contents={[
+    { display: 'table', correspondingTag: 'table' },
+    { display: 'table-row', correspondingTag: 'tr' },
+    { display: 'table-cell', correspondingTag: 'td' },
+    { '@separator': 'Row groups' },
+    { display: 'table-header-group', correspondingTag: 'thead' },
+    { display: 'table-row-group', correspondingTag: 'tbody' },
+    { display: 'table-footer-group', correspondingTag: 'tfoot' },
+    { '@separator': 'Column groups' },
+    { display: 'table-column-group', correspondingTag: 'colgroup' },
+    { display: 'table-column', correspondingTag: 'col' },
+    { '@separator': 'Caption' },
+    { display: 'table-caption', correspondingTag: 'caption' },
   ]}
 />
 
@@ -89,8 +42,8 @@ import { smartTrim } from '@pelicin/utils';
 <References
   references={[
     {
-      text: 'display (MDN)',
-      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/display`,
+      text: 'display: Internal (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/display#internal`,
     },
   ]}
 ></References>
