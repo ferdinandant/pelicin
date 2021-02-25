@@ -1,0 +1,110 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  FixedColumnWidthTable,
+  Code,
+  DocumentationList,
+  Image,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Display: Flex" dateCreated="2021-02-25" />
+
+# Display: Flex
+
+Since there are different sets of properties that apply to <dfn>flex containers</dfn> and <dfn>flex items</dfn>, let's define those terminologies first:
+
+- <dfn>Flex containers</dfn> is the one which you set <Code str="display: flex" />
+- <dfn>Flex items</dfn> are direct children of a flex container
+
+## Properties for Flex Containers
+
+### `flex-direction`
+
+Which direction the flex items go.
+
+(Note: the normal direction of `row` depends on the directionality of the text: left to right if LTR, right to left if RTL.)
+
+<Image
+  path="/res/web/css/flex-direction.png"
+  alt="Different possible values for flex-direction: row, row-reverse, column, column-reverse"
+/>
+
+### `flex-wrap`
+
+What to do if flex items does not fit in one line.
+
+<DocumentationList
+  items={[
+    {
+      name: 'nowrap',
+      description: 'force everything in one line',
+    },
+    {
+      name: 'wrap',
+      description: 'wrap from top to bottom',
+    },
+    {
+      name: 'wrap-reverse',
+      description: 'wrap from bottom to top',
+    },
+  ]}
+/>
+
+### `flex-flow`
+
+Shorthand for `flex-direction` and `flex-wrap`
+
+```css
+.container {
+  flex-flow: <flex-direction> <flex-wrap>;
+}
+```
+
+### `justify-content`
+
+Defines how items are aligned along `flex-direction`.
+
+(If the items overflow into multiple lines, then `justify-content` alignment is applied independently to each line.)
+
+<Image
+  path="/res/web/css/justify-content.png"
+  alt="Different possible values for justify-content: flex-start, flex-end, center, space-between, space-around, space-evenly"
+/>
+
+### `align-items`
+
+Defines how items are aligned beside each other.
+
+<Image
+  path="/res/web/css/align-items.png"
+  alt="Different possible values for justify-content: flex-start, flex-end, center, stretch, baseline"
+/>
+
+### `align-content`
+
+Defines how each "line" of flex items are aligned.
+
+(Only applies to multiline flex containers, i.e., those with `flex-wrap: wrap` or `flex-wrap: wrap-reverse`.)
+
+<Image
+  path="/res/web/css/align-content.png"
+  alt="Different possible values for align-content: flex-start, flex-end, center, stretch, space-between, space-around"
+/>
+
+## Properties for Flex Items
+
+## References
+
+<References
+  references={[
+    {
+      text: 'A Complete Guide to Flexbox (CSS-Tricks)',
+      link: `https://css-tricks.com/snippets/css/a-guide-to-flexbox/`,
+    },
+    {
+      text: 'CSS Flexible Box Layout (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout`,
+    },
+  ]}
+/>

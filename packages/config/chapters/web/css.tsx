@@ -57,12 +57,12 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Display: Grid',
-        path: '/web/css/display/display-flex',
+        path: '/web/css/display/display-grip',
       },
     ],
   },
   {
-    chapter: 'Margin, Padding, Border, and Outline',
+    chapter: 'Layouting',
     children: [
       {
         title: 'Margin',
@@ -81,7 +81,25 @@ const chapters: TopicChapters = [
         path: '/todo',
       },
     ],
-  }
+  },
+  {
+    chapter: 'Typography',
+    children: [
+    ],
+  },
+  {
+    chapter: 'Aesthetics',
+    children: [
+      {
+        title: 'Background-Color',
+        path: '/todo',
+      },
+      {
+        title: 'Shadow',
+        path: '/todo',
+      },
+    ],
+  },
 ];
 
 export default chapters;
