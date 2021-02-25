@@ -92,7 +92,88 @@ Defines how each "line" of flex items are aligned.
   alt="Different possible values for align-content: flex-start, flex-end, center, stretch, space-between, space-around"
 />
 
+### `row-gap`
+
+Specifies gutter size between rows.
+
+### `column-gap`
+
+Specifies gutter size between columns.
+
+### `gap`
+
+Shorthand for `row-gap` and `column-gap`
+
+```css
+.container {
+  gap: <row-and-column-gap>;
+  gap: <row-gap> <column-gap>;
+}
+```
+
 ## Properties for Flex Items
+
+### `order`
+
+Defines order of a flex item in the flex container.
+
+(Default value is 0, and items normally appear in source order.)
+
+### `flex-grow`
+
+If there's a remaining space in the flex container, this defines the ratio of the remaining space to be given to the flex-item to make it "grow" (so it fills the remaining space).
+
+(Default value is 0, which means the flex item won't expand to fill the remaining space.)
+
+### `flex-shrink`
+
+If there's not enough space in the flexbox container, this defines the ratio of how much space should be taken from the flex-item to make it "shrink" (so everything fits).
+
+(Default value is 0.)
+
+### `flex-basis`
+
+Sets the initial size of a flex item (before it "grows" or "shrinks").
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: "set initial size according to the width/height of the flex item's content",
+    },
+    {
+      nameSpecial: (
+        <>
+          percentage or absolute value, e.g. or <Code str="20%" /> or <Code str="100px" />
+        </>
+      ),
+      description: 'set initial size to this value',
+    },
+  ]}
+/>
+
+### `flex`
+
+Shorthand for `flex-grow`, `flex-shrink`, and `flex-basis`.
+
+- `flex: none` is synonymous with `flex: 0 0 auto` (not flexible at all, i.e., cannot grow and shrink)
+- `flex: auto` is synonymous with `flex: 1 1 auto` (grows and shrinks to fit in the container)
+
+```css
+.item {
+  flex: <flex-grow> <flex-basis>;
+  flex: <flex-grow> <flex-shrink>;
+  flex: <flex-grow> <flex-shrink> <flex-basis>;
+  flex: none;
+  flex: auto;
+}
+```
+
+### `align-self`
+
+Override `align-items` value for this item only. Specify: `auto`, `flex-start`, `flex-end`, `center`, `stretch`, or `baseline`.
+
+- `align-self: auto` means use the container's `align-items` value
 
 ## References
 
@@ -105,6 +186,10 @@ Defines how each "line" of flex items are aligned.
     {
       text: 'CSS Flexible Box Layout (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout`,
+    },
+    {
+      text: 'flex-basis (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis`,
     },
   ]}
 />
