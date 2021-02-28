@@ -57,7 +57,7 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Display: Grid',
-        path: '/web/css/display/display-grip',
+        path: '/web/css/display/display-grid',
       },
     ],
   },

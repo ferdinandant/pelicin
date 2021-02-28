@@ -2,8 +2,10 @@ import { MetadataConfigurer } from '@pelicin/layout';
 import {
   References,
   FixedColumnWidthTable,
-  Code,
   DocumentationList,
+  WebEditor,
+  NoteBox,
+  Code,
   Image,
 } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
@@ -12,12 +14,51 @@ import { smartTrim } from '@pelicin/utils';
 
 # Display: Flex
 
-Since there are different sets of properties that apply to <dfn>flex containers</dfn> and <dfn>flex items</dfn>, let's define those terminologies first:
+<NoteBox type="info">
+  <p>
+    If you easily mix up <Code str="justify-content" />, <Code str="align-content" />, and{' '}
+    <Code str="align-items" /> properties, just remember:
+  </p>
+  <p>
+    <em>"Justify along main axis, align along cross axis"</em>
+  </p>
+</NoteBox>
 
-- <dfn>Flex containers</dfn> is the one which you set <Code str="display: flex" />
-- <dfn>Flex items</dfn> are direct children of a flex container
+Using `display: flex` allows you to create elements that can grow, shrink, or re-align to fit the remaining space.
 
-## Properties for Flex Containers
+<WebEditor
+  css={smartTrim(`
+    #grid-example {
+      display: flex;
+      border: 1px solid #999;
+      justify-content: space-between;
+      padding: 5px;
+      column-gap: 5px;
+    }
+    #grid-example a {
+      padding: 10px;
+      background: #ccc;
+    }
+  `)}
+  html={smartTrim(`
+    <!-- Equal spacing between item -->
+    <nav id="grid-example">
+      <a href="#">Page 1</a>
+      <a href="#">Page 2</a>
+      <a href="#">Page 3 is longer</a>
+      <a class="push-right" href="#">Page 4</a>
+    </nav>
+  `)}
+/>
+
+## Terminologies
+
+- <dfn>Flex containers</dfn> refer to the element which you set <Code str="display: flex" /> or <Code str="display: inline-flex" />
+- <dfn>Flex items</dfn> refer to the direct children of a flex container
+- <dfn>Main-axis</dfn> is the direction along <Code str="flex-direction" />
+- <dfn>Cross-axis</dfn> is the direction perpendicular to the main-axis
+
+## Flex Container Properties
 
 ### `flex-direction`
 
@@ -63,7 +104,7 @@ Shorthand for `flex-direction` and `flex-wrap`
 
 ### `justify-content`
 
-Defines how items are aligned along `flex-direction`.
+Defines how items are aligned along the main-axis, if there's an extra space.
 
 (If the items overflow into multiple lines, then `justify-content` alignment is applied independently to each line.)
 
@@ -72,24 +113,24 @@ Defines how items are aligned along `flex-direction`.
   alt="Different possible values for justify-content: flex-start, flex-end, center, space-between, space-around, space-evenly"
 />
 
-### `align-items`
-
-Defines how items are aligned beside each other.
-
-<Image
-  path="/res/web/css/align-items.png"
-  alt="Different possible values for justify-content: flex-start, flex-end, center, stretch, baseline"
-/>
-
 ### `align-content`
 
-Defines how each "line" of flex items are aligned.
+Defines how items are aligned along the cross-axis, if there's an extra space.
 
-(Only applies to multiline flex containers, i.e., those with `flex-wrap: wrap` or `flex-wrap: wrap-reverse`.)
+(Default value is `stretch`.)
 
 <Image
   path="/res/web/css/align-content.png"
   alt="Different possible values for align-content: flex-start, flex-end, center, stretch, space-between, space-around"
+/>
+
+### `align-items`
+
+Defines how items are aligned along the cross-axis, relative to each other.
+
+<Image
+  path="/res/web/css/align-items.png"
+  alt="Different possible values for justify-content: flex-start, flex-end, center, stretch, baseline"
 />
 
 ### `row-gap`
@@ -111,7 +152,7 @@ Shorthand for `row-gap` and `column-gap`
 }
 ```
 
-## Properties for Flex Items
+## Flex Items Properties
 
 ### `order`
 
@@ -184,12 +225,20 @@ Override `align-items` value for this item only. Specify: `auto`, `flex-start`, 
       link: `https://css-tricks.com/snippets/css/a-guide-to-flexbox/`,
     },
     {
+      text: 'align-content (CSS-Tricks)',
+      link: `https://css-tricks.com/almanac/properties/a/align-content/`,
+    },
+    {
       text: 'CSS Flexible Box Layout (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout`,
     },
     {
       text: 'flex-basis (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis`,
+    },
+    {
+      text: 'Typical use cases of Flexbox (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Typical_Use_Cases_of_Flexbox`,
     },
   ]}
 />

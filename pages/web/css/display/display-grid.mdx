@@ -1,0 +1,37 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, Code, Image } from '@pelicin/components';
+
+<MetadataConfigurer title="Display: Grid" dateCreated="2021-02-26" />
+
+# Display: Grid
+
+Using `display: grid` allows you to lay out elements in a two-dimensional grid system.
+
+## Terminologies
+
+- <dfn>Grid containers</dfn> refer to the element which you set <Code str="display: grid" /> or <Code str="display: inline-grid" />
+  .
+- <dfn>Grid items</dfn> refer to the direct children of a grid container.
+
+- <dfn>Grid lines</dfn> are "lines" that make up the structure of the grid. There are row and column
+  grid lines (numbered 1, 2, 3, ...).
+- <dfn>Grid cell</dfn> is the space between two adjacent row and two adjacent column grid lines.
+- <dfn>Grid track</dfn> is the space between two adjacent grid lines.
+- <dfn>Grid area</dfn> is the total space surrounded by four grid lines.
+
+<Image path="/res/web/css/grid-terminology.png" alt="Illustration of grid layout terminologies" />
+
+## References
+
+<References
+  references={[
+    {
+      text: 'A Complete Guide to Grid (CSS Tricks)',
+      link: `https://css-tricks.com/snippets/css/complete-guide-grid/`,
+    },
+    {
+      text: 'Basic Concepts of grid layout (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout`,
+    },
+  ]}
+></References>
