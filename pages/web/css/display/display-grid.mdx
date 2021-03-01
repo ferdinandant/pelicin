@@ -1,5 +1,5 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, Code, Image } from '@pelicin/components';
+import { References, Code, Image, DocumentationList } from '@pelicin/components';
 
 <MetadataConfigurer title="Display: Grid" dateCreated="2021-02-26" />
 
@@ -9,17 +9,120 @@ Using `display: grid` allows you to lay out elements in a two-dimensional grid s
 
 ## Terminologies
 
+**Grid container and grid item:**
+
 - <dfn>Grid containers</dfn> refer to the element which you set <Code str="display: grid" /> or <Code str="display: inline-grid" />
   .
 - <dfn>Grid items</dfn> refer to the direct children of a grid container.
+
+**Grid structure:**
 
 - <dfn>Grid lines</dfn> are "lines" that make up the structure of the grid. There are row and column
   grid lines (numbered 1, 2, 3, ...).
 - <dfn>Grid cell</dfn> is the space between two adjacent row and two adjacent column grid lines.
 - <dfn>Grid track</dfn> is the space between two adjacent grid lines.
-- <dfn>Grid area</dfn> is the total space surrounded by four grid lines.
+- <dfn>Grid area</dfn> is the total space surrounded by four grid lines (two row and two column grid
+  lines).
 
 <Image path="/res/web/css/grid-terminology.png" alt="Illustration of grid layout terminologies" />
+
+## Grid Container Properties
+
+## Grid Item Properties
+
+## CSS Functions
+
+### <code>minmax(<var>min</var>, <var>max</var>)</code>
+
+Defines the allowed size range for a grid track. For example, you want a column to be between 200px and 500px (inclusive), depending on the grid container's width.
+
+Instead of specifying a length for <var>min</var> or <var>max</var>, you can also specify these special values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'max-content',
+      description: 'Make the grid track "as wide as the widest element it contains."',
+    },
+    {
+      name: 'min-content',
+      description:
+        'Make the grid track "as wide as the narrowest element it contains," without causing an overflow.',
+    },
+    {
+      name: 'auto',
+      description: (
+        <>
+          When specified as <var>max</var>, it is identical to <Code str="max-content" />. When
+          specified as <var>min</var>, it follows the largest minimum size (specified by{' '}
+          <Code str="min-width" /> or <Code str="min-height" />
+          ).
+        </>
+      ),
+    },
+  ]}
+/>
+<Image
+  path="/res/web/css/max-content-min-content.png"
+  alt="Illustration of max-content and min-content"
+/>
+
+### <code>repeat(<var>count</var>, <var>trackSizes</var>)</code>
+
+Repeat the sizes specified in `trackSizes`. You can specify more than one lengths for `trackSizes`.
+
+Instead of specifying a number for <var>count</var>, you can also specify these special values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto-fill',
+    },
+    {
+      name: 'auto-fit',
+    },
+  ]}
+/>
+
+Instead of specifying a length for <var>trackSizes</var>, you can also specify these special values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'max-content',
+      description: 'Make the grid track "as wide as the widest element it contains."',
+    },
+    {
+      name: 'min-content',
+      description:
+        'Make the grid track "as wide as the narrowest element it contains," without causing an overflow.',
+    },
+    {
+      name: 'auto',
+      description: (
+        <>
+          When specified as <var>max</var>, it is identical to <Code str="max-content" />. When
+          specified as <var>min</var>, it follows the largest minimum size (specified by{' '}
+          <Code str="min-width" /> or <Code str="min-height" />
+          ).
+        </>
+      ),
+    },
+  ]}
+/>
+
+```css
+.container {
+  /* Same meaning */
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr 1fr;
+  /* Also, same meaning */
+  grid-template-columns: repeat(3, 1rem 20px);
+  grid-template-columns: 1rem 20px 1rem 20px 1rem 20px;
+}
+```
+
+### <code>fit-content(<var>length</var>)</code>
 
 ## References
 
@@ -32,6 +135,26 @@ Using `display: grid` allows you to lay out elements in a two-dimensional grid s
     {
       text: 'Basic Concepts of grid layout (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout`,
+    },
+    {
+      text: 'repeat() (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/repeat()`,
+    },
+    {
+      text: 'minmax() (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/minmax()`,
+    },
+    {
+      text: 'CSS Grid Layout: The Minmax Function (Alligator.io)',
+      link: `https://alligator.io/css/css-grid-layout-minmax-function/`,
+    },
+    {
+      text: 'How the minmax() Function Works (bitsofcode)',
+      link: `https://bitsofco.de/how-the-minmax-function-works/`,
+    },
+    {
+      text: 'How to Use minmax() CSS Grid (Hongkiat)',
+      link: `https://www.hongkiat.com/blog/css-grid-layout-minmax/`,
     },
   ]}
 ></References>
