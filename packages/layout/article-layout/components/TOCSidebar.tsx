@@ -16,6 +16,7 @@ export default function TOCSidebar() {
           height: calc(100vh - var(--header-height) - 48px);
           margin-right: 12px;
           overflow-y: auto;
+          width: calc(var(--toc-width) - var(--spacing-m));
         }
         @media print {
           aside {
