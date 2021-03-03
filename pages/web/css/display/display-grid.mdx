@@ -1,5 +1,6 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, Code, Image, DocumentationList } from '@pelicin/components';
+import { References, Code, Image, DocumentationList, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Display: Grid" dateCreated="2021-02-26" />
 
@@ -28,6 +29,148 @@ Using `display: grid` allows you to lay out elements in a two-dimensional grid s
 
 ## Grid Container Properties
 
+### `grid-template-columns`
+
+Defines column grid track sizes (and optionally, the grid line names).
+
+Instead of specifying a length, you can also specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: (
+        <>
+          Make no explicit grid. All columns will be implicitly generated and their size will be
+          determined by the <Code str="grid-auto-columns" /> property
+        </>
+      ),
+    },
+    {
+      name: 'max-content',
+      description: 'Make the grid track "as wide as the widest element it contains."',
+    },
+    {
+      name: 'min-content',
+      description:
+        'Make the grid track "as wide as the narrowest element it contains," without causing an overflow.',
+    },
+    {
+      name: 'auto',
+      description: (
+        <>
+          Automatically set the track size between (1) the largest minimum size (set by{' '}
+          <Code str="min-width" /> or <Code str="min-height" />
+          ), and (2) <Code str="max-content" />.
+        </>
+      ),
+    },
+  ]}
+/>
+
+```css
+.container {
+  /* Make three columns */
+  grid-template-columns: 100px 100px 1fr;
+
+  /* How to add grid line names */
+  /* Add multiple names like this: `[name1 name2]` */
+  grid-template-columns: [one] 100px [two] 100px [three] 1fr [four];
+}
+```
+
+### `grid-template-rows`
+
+Like `grid-template-columns`, but for the rows.
+
+### `grid-template-areas`
+
+Lays out named grid-area into the grid. You will need to specify <code>grid-area: <var>name</var></code> on the grid items.
+(Alternatively, you can use `grid-column-*` and `grid-row-*` on the grid items to specify the locations in the grid.)
+
+Each string represent separate rows. Spaces separate columns. A `.` (dot) represents an empty cell.
+
+<WebEditor
+  css={smartTrim(`
+    /* Grid container */
+    /* Note that grid area "a" takes the top-left 2x2 cells */
+    #grid-template-areas-example {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 30px 30px 30px;
+      grid-template-areas: 
+        "a a ."
+        "a a ."
+        ". b c";
+    }
+    /* Grid items */
+    #grid-template-areas-example .a {
+      grid-area: a;
+      background-color: #fdd;
+    }
+    #grid-template-areas-example .b {
+      grid-area: b;
+      background-color: #dfd;
+    }
+    #grid-template-areas-example .c {
+      grid-area: c;
+      background-color: #ddf;
+    }
+  `)}
+  html={smartTrim(`
+    <nav id="grid-template-areas-example">
+      <div class="a">A</div>
+      <div class="b">B</div>
+      <div class="c">C</div>
+    </nav>
+  `)}
+/>
+
+### `grid-template`
+
+Shorthand for setting `grid-template-rows`, `grid-template-columns`, and `grid-template-areas` in a single declaration.
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: (
+        <>
+          Sets all three longhand properties to <Code str="none" /> (no explicit grid). Rows and
+          columns will be implicitly generated; their size will be determined by the{' '}
+          <Code str="grid-auto-rows" /> and <Code str="grid-auto-columns" /> properties.
+        </>
+      ),
+    },
+    {
+      name: '<grid-template-rows> / <grid-template-columns>',
+      description: (
+        <>
+          E.g. <Code str="10px 10px / 20px 20px" />. Sets <Code str="grid-template-rows" /> and{' '}
+          <Code str="grid-template-columns" /> to the specified values, and{' '}
+          <Code str="grid-template-areas" /> to <Code str="none" /> (no named grid areas)
+        </>
+      ),
+    },
+    {
+      name: '<grid-template-areas> <grid-template-rows> / <grid-template-column values>',
+      description: <>See the example below.</>,
+    },
+  ]}
+/>
+
+```css
+.container {
+  /* Those beside the strings are row track sizes */
+  /* Those after '/' are column track sizes */
+  grid-template:
+    [head-top] 'a a a' auto [head-bottom]
+    [main-top] 'b b b' 1fr [main-bottom]
+    / auto 1fr auto;
+}
+```
+
 ## Grid Item Properties
 
 ## CSS Functions
@@ -36,7 +179,7 @@ Using `display: grid` allows you to lay out elements in a two-dimensional grid s
 
 Defines the allowed size range for a grid track. For example, you want a column to be between 200px and 500px (inclusive), depending on the grid container's width.
 
-Instead of specifying a length for <var>min</var> or <var>max</var>, you can also specify these special values:
+Instead of specifying a length for <var>min</var> or <var>max</var>, you can also specify:
 
 <DocumentationList
   items={[
@@ -54,7 +197,7 @@ Instead of specifying a length for <var>min</var> or <var>max</var>, you can als
       description: (
         <>
           When specified as <var>max</var>, it is identical to <Code str="max-content" />. When
-          specified as <var>min</var>, it follows the largest minimum size (specified by{' '}
+          specified as <var>min</var>, it follows the largest minimum size (set by{' '}
           <Code str="min-width" /> or <Code str="min-height" />
           ).
         </>
@@ -77,9 +220,20 @@ Instead of specifying a number for <var>count</var>, you can also specify these 
   items={[
     {
       name: 'auto-fill',
+      description: (
+        <>
+          Set <var>count</var> to the highest number that does not cause the grid to overflow
+        </>
+      ),
     },
     {
       name: 'auto-fit',
+      description: (
+        <>
+          Behaves like <Code str="auto-fill" />, but all empty tracks are collapsed (so the filled
+          tracks can grow to fill the remaining space)
+        </>
+      ),
     },
   ]}
 />
@@ -101,10 +255,9 @@ Instead of specifying a length for <var>trackSizes</var>, you can also specify t
       name: 'auto',
       description: (
         <>
-          When specified as <var>max</var>, it is identical to <Code str="max-content" />. When
-          specified as <var>min</var>, it follows the largest minimum size (specified by{' '}
+          Automatically set the track size between (1) the largest minimum size (set by{' '}
           <Code str="min-width" /> or <Code str="min-height" />
-          ).
+          ), and (2) <Code str="max-content" />.
         </>
       ),
     },
@@ -135,6 +288,14 @@ Instead of specifying a length for <var>trackSizes</var>, you can also specify t
     {
       text: 'Basic Concepts of grid layout (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout`,
+    },
+    {
+      text: 'grid-template-areas (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas`,
+    },
+    {
+      text: 'grid-template (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template`,
     },
     {
       text: 'repeat() (MDN)',
