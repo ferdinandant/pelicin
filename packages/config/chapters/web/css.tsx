@@ -39,7 +39,67 @@ const chapters: TopicChapters = [
         path: '/web/css/concepts/specificity',
       },
     ],
-  }
+  },
+  {
+    chapter: 'Display',
+    children: [
+      {
+        title: 'Display',
+        path: '/web/css/display/display',
+      },
+      {
+        title: 'Display: Table',
+        path: '/web/css/display/display-table',
+      },
+      {
+        title: 'Display: Flex',
+        path: '/web/css/display/display-flex',
+      },
+      {
+        title: 'Display: Grid',
+        path: '/web/css/display/display-grid',
+      },
+    ],
+  },
+  {
+    chapter: 'Layouting',
+    children: [
+      {
+        title: 'Margin',
+        path: '/todo',
+      },
+      {
+        title: 'Padding',
+        path: '/todo',
+      },
+      {
+        title: 'Border',
+        path: '/todo',
+      },
+      {
+        title: 'Outline',
+        path: '/todo',
+      },
+    ],
+  },
+  {
+    chapter: 'Typography',
+    children: [
+    ],
+  },
+  {
+    chapter: 'Aesthetics',
+    children: [
+      {
+        title: 'Background-Color',
+        path: '/todo',
+      },
+      {
+        title: 'Shadow',
+        path: '/todo',
+      },
+    ],
+  },
 ];
 
 export default chapters;

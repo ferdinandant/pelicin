@@ -1,0 +1,519 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  Code,
+  Image,
+  DocumentationList,
+  WebEditor,
+  NoteBox,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Display: Grid" dateCreated="2021-02-26" />
+
+# Display: Grid
+
+Using `display: grid` allows you to lay out elements in a two-dimensional grid system.
+
+## Terminologies
+
+**Grid container and grid item:**
+
+- <dfn>Grid containers</dfn> refer to the element which you set <Code str="display: grid" /> or <Code str="display: inline-grid" />
+  .
+- <dfn>Grid items</dfn> refer to the direct children of a grid container.
+
+**Grid structure:**
+
+- <dfn>Grid lines</dfn> are "lines" that make up the structure of the grid. There are row and column
+  grid lines (numbered 1, 2, 3, ...).
+- <dfn>Grid cell</dfn> is the space between two adjacent row and two adjacent column grid lines.
+- <dfn>Grid track</dfn> is the space between two adjacent grid lines.
+- <dfn>Grid area</dfn> is the total space surrounded by four grid lines (two row and two column grid
+  lines).
+
+<Image path="/res/web/css/grid-terminology.png" alt="Illustration of grid layout terminologies" />
+
+## The `fr` Unit
+
+`fr` is the ratio of the remaining space to be given to the grid items (after those with fixed sizes have been "placed").
+
+<Image
+  path="/res/web/css/unit-fr.png"
+  caption={
+    <>
+      Illustration of the <code>fr</code> unit. <code>2fr</code> will be twice as large as{' '}
+      <code>1fr</code>.
+    </>
+  }
+/>
+
+## Grid Container Properties
+
+<NoteBox type="info" title="Tip!">
+  <p>
+    If you easily mix up <Code str="justify-content" />, <Code str="align-content" />,{' '}
+    <Code str="justify-items" />, and <Code str="align-items" /> properties, just remember from
+    "Display: Flex" page:
+  </p>
+  <p>
+    <em>"Justify along the main axis, align along the cross axis"</em>
+  </p>
+  <p>
+    However, in this case:
+    <ul>
+      <li>
+        the "main axis" is the <dfn>inline-axis</dfn> (the direction where sentence flows; normally
+        horizontal except when writing vertically),
+      </li>
+      <li>
+        the "cross axis" is the <dfn>block-axis</dfn> (the direction perpendicular to the{' '}
+        <dfn>inline axis</dfn>).
+      </li>
+    </ul>
+  </p>
+</NoteBox>
+
+### `grid-template-columns`
+
+Defines column grid track sizes (and optionally, the grid line names).
+
+Instead of specifying a length, you can also specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: (
+        <>
+          Make no explicit grid. All columns will be implicitly generated and their size will be
+          determined by the <Code str="grid-auto-columns" /> property
+        </>
+      ),
+    },
+    {
+      name: 'max-content',
+      description: 'Make the grid track "as wide as the widest element it contains."',
+    },
+    {
+      name: 'min-content',
+      description:
+        'Make the grid track "as wide as the narrowest element it contains," without causing an overflow.',
+    },
+    {
+      name: 'auto',
+      description: (
+        <>
+          Automatically set the track size between (1) the largest minimum size (set by{' '}
+          <Code str="min-width" /> or <Code str="min-height" />
+          ), and (2) <Code str="max-content" />.
+        </>
+      ),
+    },
+  ]}
+/>
+
+```css
+.container {
+  /* Make three columns */
+  grid-template-columns: 100px 100px 1fr;
+
+  /* How to add grid line names */
+  /* Add multiple names like this: `[name1 name2]` */
+  grid-template-columns: [one] 100px [two] 100px [three] 1fr [four];
+}
+```
+
+### `grid-template-rows`
+
+Like `grid-template-columns`, but for the rows.
+
+### `grid-template-areas`
+
+Lays out named grid-area into the grid. You will need to specify <code>grid-area: <var>name</var></code> on the grid items.
+(Alternatively, you can use `grid-column-*` and `grid-row-*` on the grid items to specify their locations in the grid.)
+
+Each string represent separate rows. Spaces separate columns. A `.` (dot) represents an empty cell.
+
+<WebEditor
+  css={smartTrim(`
+    /* Grid container */
+    /* Note that grid area "a" takes the top-left 2x2 cells */
+    #grid-template-areas-example {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 30px 30px 30px;
+      grid-template-areas: 
+        "a a ."
+        "a a ."
+        ". b c";
+    }
+    /* Grid items */
+    #grid-template-areas-example .a {
+      grid-area: a;
+      background-color: #fdd;
+    }
+    #grid-template-areas-example .b {
+      grid-area: b;
+      background-color: #dfd;
+    }
+    #grid-template-areas-example .c {
+      grid-area: c;
+      background-color: #ddf;
+    }
+  `)}
+  html={smartTrim(`
+    <nav id="grid-template-areas-example">
+      <div class="a">A</div>
+      <div class="b">B</div>
+      <div class="c">C</div>
+    </nav>
+  `)}
+/>
+
+### `grid-template`
+
+Shorthand for setting `grid-template-rows`, `grid-template-columns`, and `grid-template-areas` in a single declaration.
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: (
+        <>
+          Sets all three longhand properties to <Code str="none" /> (no explicit grid). Rows and
+          columns will be implicitly generated; their size will be determined by the{' '}
+          <Code str="grid-auto-rows" /> and <Code str="grid-auto-columns" /> properties.
+        </>
+      ),
+    },
+    {
+      name: '<grid-template-rows> / <grid-template-columns>',
+      description: (
+        <>
+          E.g. <Code str="10px 10px / 20px 20px" />. Sets <Code str="grid-template-rows" /> and{' '}
+          <Code str="grid-template-columns" /> to the specified values, and{' '}
+          <Code str="grid-template-areas" /> to <Code str="none" /> (no named grid areas)
+        </>
+      ),
+    },
+    {
+      name: '<grid-template-areas> <grid-template-rows> / <grid-template-column values>',
+      description: <>See the example below.</>,
+    },
+  ]}
+/>
+
+```css
+.container {
+  /* Those beside the strings are row track sizes */
+  /* Those after '/' are column track sizes */
+  grid-template:
+    [head-top] 'a a a' auto [head-bottom]
+    [main-top] 'b b b' 1fr [main-bottom]
+    / auto 1fr auto;
+}
+```
+
+### `grid-auto-columns`
+
+Like `grid-template-columns`, but for columns that are created _implicitly_.
+
+(Columns are created implicitly by placing a grid item out of range, or when grid auto-placement algorithm created one.)
+
+### `grid-auto-rows`
+
+Like `grid-template-rows`, but for columns that are created _implicitly_.
+
+(Rows are created implicitly by placing a grid item out of range, or when grid auto-placement algorithm created one.)
+
+### `grid-auto-flow`
+
+Controls how grid auto-placement algorithm works.
+
+<DocumentationList
+  items={[
+    {
+      name: 'row',
+      description: 'fill in each row in turn, adding new rows as necessary (default)',
+    },
+    {
+      name: 'column',
+      description: 'fill in each column in turn, adding new columns as necessary',
+    },
+    {
+      name: 'dense',
+      description:
+        'attempt to fill in earlier holes in the grid, if smaller items come up later (may cause items to appear out-of-order)',
+    },
+    { name: 'row dense' },
+    { name: 'column dense' },
+  ]}
+/>
+
+### `grid`
+
+Shorthand for setting _all_ of the explicit and implicit grid properties in a single declaration (`grid-template-rows`, `grid-template-columns`, and `grid-template-areas`, `grid-auto-rows`, `grid-auto-columns`, and `grid-auto-flow`).
+
+**Note:** When specifying `auto-flow` on either row or column side, the "length" on that side refers to the implicit track size. "You can only specify the explicit or the implicit grid properties in a single grid declaration."
+
+```css
+.container {
+  /* <explicit-rows> / <explicit-columns> */
+  grid: 100px 100px / 200px 200px;
+
+  /* <implicit-rows> / <explicit-columns> */
+  /* Set auto-flow to row, and make it dense
+  /* (the 100px here is the `grid-auto-rows` size) */
+  grid: auto-flow dense 100px / 200px 200px;
+
+  /* <explicit-rows> / <implicit-columns> */
+  /* Set auto-flow to row, and make it dense
+  /* (the 200px here is the `grid-auto-columns` size) */
+  grid: 100px 100px / auto-flow dense 200px ';
+}
+```
+
+### `align-items`
+
+Defines how items are aligned along the block-axis (perpendicular to writing direction).
+
+<Image
+  path="/res/web/css/grid-align-items.png"
+  alt="Different possible values for align-items: start, end, center, stretch"
+/>
+
+### `justify-items`
+
+Defines how items are aligned along the inline-axis (the writing direction).
+
+<Image
+  path="/res/web/css/grid-justify-items.png"
+  alt="Different possible values for justify-items: start, end, center, stretch"
+/>
+
+### `align-content`
+
+Defines how the "content" (grid) is aligned along the block-axis, if there's an extra space in the grid container.
+
+<Image
+  path="/res/web/css/grid-align-content.png"
+  alt="Different possible values for align-content: start, end, center, stretch, space-between, space-around, space-evenly"
+/>
+
+### `justify-content`
+
+Defines how the "content" (grid) is aligned along the inline-axis, if there's an extra space in the grid container.
+
+<Image
+  path="/res/web/css/grid-justify-content.png"
+  alt="Different possible values for justify-content: start, end, center, stretch, space-between, space-around, space-evenly"
+/>
+
+### `place-items`
+
+Shorthand for `align-items` and `justify-items`.
+
+```css
+.container {
+  place-items: <align-items> / <justify-items>;
+}
+```
+
+### `place-content`
+
+Shorthand for `align-content` and `justify-content`.
+
+```css
+.container {
+  place-items: <align-content> / <justify-content>;
+}
+```
+
+### `row-gap`
+
+Specifies gutter size between rows.
+
+### `column-gap`
+
+Specifies gutter size between columns.
+
+### `gap`
+
+Shorthand for `row-gap` and `column-gap`
+
+```css
+.container {
+  gap: <row-and-column-gap>;
+  gap: <row-gap> <column-gap>;
+}
+```
+
+## Grid Item Properties
+
+## CSS Functions
+
+### <code>minmax(<var>min</var>, <var>max</var>)</code>
+
+Defines the allowed size range for a grid track. For example, you want a column to be between 200px and 500px (inclusive), depending on the grid container's width.
+
+Instead of specifying a length for <var>min</var> or <var>max</var>, you can also specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'max-content',
+      description: 'Make the grid track "as wide as the widest element it contains."',
+    },
+    {
+      name: 'min-content',
+      description:
+        'Make the grid track "as wide as the narrowest element it contains," without causing an overflow.',
+    },
+    {
+      name: 'auto',
+      description: (
+        <>
+          When specified as <var>max</var>, it is identical to <Code str="max-content" />. When
+          specified as <var>min</var>, it follows the largest minimum size (set by{' '}
+          <Code str="min-width" /> or <Code str="min-height" />
+          ).
+        </>
+      ),
+    },
+  ]}
+/>
+<Image
+  path="/res/web/css/max-content-min-content.png"
+  alt="Illustration of max-content and min-content"
+/>
+
+### <code>repeat(<var>count</var>, <var>trackSizes</var>)</code>
+
+Repeat the sizes specified in `trackSizes`. You can specify more than one lengths for `trackSizes`.
+
+Instead of specifying a number for <var>count</var>, you can also specify these special values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto-fill',
+      description: (
+        <>
+          Set <var>count</var> to the highest number that does not cause the grid to overflow
+        </>
+      ),
+    },
+    {
+      name: 'auto-fit',
+      description: (
+        <>
+          Behaves like <Code str="auto-fill" />, but all empty tracks are collapsed (so the filled
+          tracks can grow to fill the remaining space)
+        </>
+      ),
+    },
+  ]}
+/>
+
+Instead of specifying a length for <var>trackSizes</var>, you can also specify these special values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'max-content',
+      description: 'Make the grid track "as wide as the widest element it contains."',
+    },
+    {
+      name: 'min-content',
+      description:
+        'Make the grid track "as wide as the narrowest element it contains," without causing an overflow.',
+    },
+    {
+      name: 'auto',
+      description: (
+        <>
+          Automatically set the track size between (1) the largest minimum size (set by{' '}
+          <Code str="min-width" /> or <Code str="min-height" />
+          ), and (2) <Code str="max-content" />.
+        </>
+      ),
+    },
+  ]}
+/>
+
+```css
+.container {
+  /* Same meaning */
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr 1fr;
+  /* Also, same meaning */
+  grid-template-columns: repeat(3, 1rem 20px);
+  grid-template-columns: 1rem 20px 1rem 20px 1rem 20px;
+}
+```
+
+### <code>fit-content(<var>length</var>)</code>
+
+Specifies track size of `length`, but ensuring that the final value is between `auto` (min) and `max-content` (max).
+
+(With `auto` as the minimum value, it means the minimum value won't be smaller than `min-height` or `min-width` that you specified on the track.)
+
+## References
+
+<References
+  references={[
+    {
+      text: 'A Complete Guide to Grid (CSS Tricks)',
+      link: `https://css-tricks.com/snippets/css/complete-guide-grid/`,
+    },
+    {
+      text: 'Basic Concepts of grid layout (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout`,
+    },
+    {
+      text: 'Box alignment in grid layout (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Alignment/Box_Alignment_In_Grid_Layout`,
+    },
+    {
+      text: 'grid-template-areas (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas`,
+    },
+    {
+      text: 'grid-template (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template`,
+    },
+    {
+      text: 'grid-auto-columns (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns`,
+    },
+    {
+      text: 'grid (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/grid`,
+    },
+    {
+      text: 'repeat() (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/repeat()`,
+    },
+    {
+      text: 'minmax() (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/minmax()`,
+    },
+    {
+      text: 'fit-content() (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/fit-content()`,
+    },
+    {
+      text: 'CSS Grid Layout: The Minmax Function (Alligator.io)',
+      link: `https://alligator.io/css/css-grid-layout-minmax-function/`,
+    },
+    {
+      text: 'How the minmax() Function Works (bitsofcode)',
+      link: `https://bitsofco.de/how-the-minmax-function-works/`,
+    },
+    {
+      text: 'How to Use minmax() CSS Grid (Hongkiat)',
+      link: `https://www.hongkiat.com/blog/css-grid-layout-minmax/`,
+    },
+  ]}
+></References>

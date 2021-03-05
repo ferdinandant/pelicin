@@ -1,0 +1,244 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  FixedColumnWidthTable,
+  DocumentationList,
+  WebEditor,
+  NoteBox,
+  Code,
+  Image,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Display: Flex" dateCreated="2021-02-25" />
+
+# Display: Flex
+
+Using `display: flex` allows you to create elements that can grow, shrink, or re-align to fit the remaining space.
+
+<WebEditor
+  css={smartTrim(`
+    #grid-example {
+      display: flex;
+      border: 1px solid #999;
+      justify-content: space-between;
+      padding: 5px;
+      column-gap: 5px;
+    }
+    #grid-example a {
+      padding: 10px;
+      background: #ccc;
+    }
+  `)}
+  html={smartTrim(`
+    <!-- Equal spacing between item -->
+    <nav id="grid-example">
+      <a href="#">Page 1</a>
+      <a href="#">Page 2</a>
+      <a href="#">Page 3 is longer</a>
+      <a class="push-right" href="#">Page 4</a>
+    </nav>
+  `)}
+/>
+
+## Terminologies
+
+- <dfn>Flex containers</dfn> refer to the element which you set <Code str="display: flex" /> or <Code str="display: inline-flex" />
+- <dfn>Flex items</dfn> refer to the direct children of a flex container
+- <dfn>Main-axis</dfn> is the direction along <Code str="flex-direction" />
+- <dfn>Cross-axis</dfn> is the direction perpendicular to the main-axis
+
+## Flex Container Properties
+
+<NoteBox type="info" title="Tip!">
+  <p>
+    If you easily mix up <Code str="justify-content" />, <Code str="align-content" />, and{' '}
+    <Code str="align-items" /> properties, just remember:
+  </p>
+  <p>
+    <em>"Justify along the main axis, align along the cross axis"</em>
+  </p>
+</NoteBox>
+
+### `flex-direction`
+
+Which direction the flex items go.
+
+(Note: the normal direction of `row` depends on the directionality of the text: left to right if LTR, right to left if RTL.)
+
+<Image
+  path="/res/web/css/flex-direction.png"
+  alt="Different possible values for flex-direction: row, row-reverse, column, column-reverse"
+/>
+
+### `flex-wrap`
+
+What to do if flex items does not fit in one line.
+
+<DocumentationList
+  items={[
+    {
+      name: 'nowrap',
+      description: 'force everything in one line',
+    },
+    {
+      name: 'wrap',
+      description: 'wrap from top to bottom',
+    },
+    {
+      name: 'wrap-reverse',
+      description: 'wrap from bottom to top',
+    },
+  ]}
+/>
+
+### `flex-flow`
+
+Shorthand for `flex-direction` and `flex-wrap`
+
+```css
+.container {
+  flex-flow: <flex-direction> <flex-wrap>;
+}
+```
+
+### `align-items`
+
+Defines how items are aligned along the cross-axis, relative to each other.
+
+<Image
+  path="/res/web/css/flex-align-items.png"
+  alt="Different possible values for justify-content: flex-start, flex-end, center, stretch, baseline"
+/>
+
+### `align-content`
+
+Defines how the "content" (all items) is aligned along the cross-axis, if there's an extra space.
+
+(Default value is `stretch`.)
+
+<Image
+  path="/res/web/css/flex-align-content.png"
+  alt="Different possible values for align-content: flex-start, flex-end, center, stretch, space-between, space-around"
+/>
+
+### `justify-content`
+
+Defines how the "content" (all items) is aligned along the main-axis, if there's an extra space.
+
+(If the items overflow into multiple lines, then `justify-content` alignment is applied independently to each line.)
+
+<Image
+  path="/res/web/css/flex-justify-content.png"
+  alt="Different possible values for justify-content: flex-start, flex-end, center, space-between, space-around, space-evenly"
+/>
+
+### `row-gap`
+
+Specifies gutter size between rows.
+
+### `column-gap`
+
+Specifies gutter size between columns.
+
+### `gap`
+
+Shorthand for `row-gap` and `column-gap`
+
+```css
+.container {
+  gap: <row-and-column-gap>;
+  gap: <row-gap> <column-gap>;
+}
+```
+
+## Flex Items Properties
+
+### `order`
+
+Defines order of a flex item in the flex container.
+
+(Default value is 0, and items normally appear in source order.)
+
+### `flex-grow`
+
+If there's a remaining space in the flex container, this defines the ratio of the remaining space to be given to the flex-item to make it "grow" (so it fills the remaining space).
+
+(Default value is 0, which means the flex item won't expand to fill the remaining space.)
+
+### `flex-shrink`
+
+If there's not enough space in the flexbox container, this defines the ratio of how much space should be taken from the flex-item to make it "shrink" (so everything fits).
+
+(Default value is 0.)
+
+### `flex-basis`
+
+Sets the initial size of a flex item (before it "grows" or "shrinks").
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: "set initial size according to the width/height of the flex item's content",
+    },
+    {
+      nameSpecial: (
+        <>
+          percentage or absolute value, e.g. or <Code str="20%" /> or <Code str="100px" />
+        </>
+      ),
+      description: 'set initial size to this value',
+    },
+  ]}
+/>
+
+### `flex`
+
+Shorthand for `flex-grow`, `flex-shrink`, and `flex-basis`.
+
+- `flex: none` is synonymous with `flex: 0 0 auto` (not flexible at all, i.e., cannot grow and shrink)
+- `flex: auto` is synonymous with `flex: 1 1 auto` (grows and shrinks to fit in the container)
+
+```css
+.item {
+  flex: <flex-grow> <flex-basis>;
+  flex: <flex-grow> <flex-shrink>;
+  flex: <flex-grow> <flex-shrink> <flex-basis>;
+  flex: none;
+  flex: auto;
+}
+```
+
+### `align-self`
+
+Override `align-items` value for this item only. Specify: `auto`, `flex-start`, `flex-end`, `center`, `stretch`, or `baseline`.
+
+- `align-self: auto` means use the container's `align-items` value
+
+## References
+
+<References
+  references={[
+    {
+      text: 'A Complete Guide to Flexbox (CSS-Tricks)',
+      link: `https://css-tricks.com/snippets/css/a-guide-to-flexbox/`,
+    },
+    {
+      text: 'align-content (CSS-Tricks)',
+      link: `https://css-tricks.com/almanac/properties/a/align-content/`,
+    },
+    {
+      text: 'CSS Flexible Box Layout (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout`,
+    },
+    {
+      text: 'flex-basis (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis`,
+    },
+    {
+      text: 'Typical use cases of Flexbox (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Typical_Use_Cases_of_Flexbox`,
+    },
+  ]}
+/>

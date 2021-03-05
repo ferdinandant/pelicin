@@ -1,0 +1,112 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, DocumentationList, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Display" dateCreated="2021-02-25" />
+
+# Display
+
+The `display` element sets whether an element is "block" or "inline".
+
+## Possible Values
+
+<DocumentationList
+  label="Block/inline"
+  items={[
+    {
+      name: 'block',
+      description: (
+        <>
+          Generates a block element (generates line breaks before and after the element in the
+          normal flow
+        </>
+      ),
+    },
+    {
+      name: 'inline',
+      description: <>Generates an inline element (flows on the same line)</>,
+    },
+    {
+      name: 'inline-block',
+      description: <>Generates a block element that flows on the same line</>,
+    },
+  ]}
+/>
+
+<DocumentationList
+  label="None"
+  items={[
+    {
+      name: 'none',
+      description: (
+        <>
+          Does not render the element (the element would also take no space on the screen, as if it
+          wasn't there)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<DocumentationList
+  label="Others"
+  items={[
+    {
+      name: 'table',
+      description: (
+        <>
+          Generates a block element that behaves like <Code str="<table>" />
+        </>
+      ),
+    },
+    {
+      name: 'flex',
+      description: (
+        <>
+          Generates a block element that behaves according to the{' '}
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout">
+            flexbox model
+          </a>
+        </>
+      ),
+    },
+    {
+      name: 'grid',
+      description: (
+        <>
+          Generates a block element that behaves according to the{' '}
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout">
+            grid model
+          </a>
+        </>
+      ),
+    },
+    {
+      name: 'inline-flex',
+      description: (
+        <>
+          Like <Code str="flex" />, but inline
+        </>
+      ),
+    },
+    {
+      name: 'inline-grid',
+      description: (
+        <>
+          Like <Code str="grid" />, but inline
+        </>
+      ),
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'display (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/display`,
+    },
+  ]}
+></References>
