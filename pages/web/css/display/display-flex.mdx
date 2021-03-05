@@ -14,16 +14,6 @@ import { smartTrim } from '@pelicin/utils';
 
 # Display: Flex
 
-<NoteBox type="info">
-  <p>
-    If you easily mix up <Code str="justify-content" />, <Code str="align-content" />, and{' '}
-    <Code str="align-items" /> properties, just remember:
-  </p>
-  <p>
-    <em>"Justify along main axis, align along cross axis"</em>
-  </p>
-</NoteBox>
-
 Using `display: flex` allows you to create elements that can grow, shrink, or re-align to fit the remaining space.
 
 <WebEditor
@@ -59,6 +49,16 @@ Using `display: flex` allows you to create elements that can grow, shrink, or re
 - <dfn>Cross-axis</dfn> is the direction perpendicular to the main-axis
 
 ## Flex Container Properties
+
+<NoteBox type="info" title="Tip!">
+  <p>
+    If you easily mix up <Code str="justify-content" />, <Code str="align-content" />, and{' '}
+    <Code str="align-items" /> properties, just remember:
+  </p>
+  <p>
+    <em>"Justify along the main axis, align along the cross axis"</em>
+  </p>
+</NoteBox>
 
 ### `flex-direction`
 
@@ -102,20 +102,18 @@ Shorthand for `flex-direction` and `flex-wrap`
 }
 ```
 
-### `justify-content`
+### `align-items`
 
-Defines how items are aligned along the main-axis, if there's an extra space.
-
-(If the items overflow into multiple lines, then `justify-content` alignment is applied independently to each line.)
+Defines how items are aligned along the cross-axis, relative to each other.
 
 <Image
-  path="/res/web/css/justify-content.png"
-  alt="Different possible values for justify-content: flex-start, flex-end, center, space-between, space-around, space-evenly"
+  path="/res/web/css/align-items.png"
+  alt="Different possible values for justify-content: flex-start, flex-end, center, stretch, baseline"
 />
 
 ### `align-content`
 
-Defines how items are aligned along the cross-axis, if there's an extra space.
+Defines how the "content" (all items) is aligned along the cross-axis, if there's an extra space.
 
 (Default value is `stretch`.)
 
@@ -124,13 +122,15 @@ Defines how items are aligned along the cross-axis, if there's an extra space.
   alt="Different possible values for align-content: flex-start, flex-end, center, stretch, space-between, space-around"
 />
 
-### `align-items`
+### `justify-content`
 
-Defines how items are aligned along the cross-axis, relative to each other.
+Defines how the "content" (all items) is aligned along the main-axis, if there's an extra space.
+
+(If the items overflow into multiple lines, then `justify-content` alignment is applied independently to each line.)
 
 <Image
-  path="/res/web/css/align-items.png"
-  alt="Different possible values for justify-content: flex-start, flex-end, center, stretch, baseline"
+  path="/res/web/css/justify-content.png"
+  alt="Different possible values for justify-content: flex-start, flex-end, center, space-between, space-around, space-evenly"
 />
 
 ### `row-gap`

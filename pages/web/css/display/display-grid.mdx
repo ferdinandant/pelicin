@@ -1,5 +1,12 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, Code, Image, DocumentationList, WebEditor } from '@pelicin/components';
+import {
+  References,
+  Code,
+  Image,
+  DocumentationList,
+  WebEditor,
+  NoteBox,
+} from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Display: Grid" dateCreated="2021-02-26" />
@@ -42,6 +49,30 @@ Using `display: grid` allows you to lay out elements in a two-dimensional grid s
 />
 
 ## Grid Container Properties
+
+<NoteBox type="info" title="Tip!">
+  <p>
+    If you easily mix up <Code str="justify-content" />, <Code str="align-content" />,{' '}
+    <Code str="justify-items" />, and <Code str="align-items" /> properties, just remember from
+    "Display: Flex" page:
+  </p>
+  <p>
+    <em>"Justify along the main axis, align along the cross axis"</em>
+  </p>
+  <p>
+    However, in this case:
+    <ul>
+      <li>
+        the "main axis" is the <dfn>inline axis</dfn> (the direction where sentence flows; normally
+        horizontal except when writing vertically),
+      </li>
+      <li>
+        the "cross axis" is the <dfn>block axis</dfn> (the direction perpendicular to the{' '}
+        <dfn>inline axis</dfn>).
+      </li>
+    </ul>
+  </p>
+</NoteBox>
 
 ### `grid-template-columns`
 
@@ -243,13 +274,33 @@ Shorthand for setting _all_ of the explicit and implicit grid properties in a si
 }
 ```
 
-### `justify-content`
-
-### `justify-items`
+### `align-items`
 
 ### `align-content`
 
-### `align-items`
+### `justify-items`
+
+### `justify-content`
+
+### `place-items`
+
+Shorthand for `align-items` and `justify-items`.
+
+```css
+.container {
+  place-items: <align-items> / <justify-items>;
+}
+```
+
+### `place-content`
+
+Shorthand for `align-content` and `justify-content`.
+
+```css
+.container {
+  place-items: <align-content> / <justify-content>;
+}
+```
 
 ### `row-gap`
 
@@ -376,6 +427,10 @@ Instead of specifying a length for <var>trackSizes</var>, you can also specify t
 
 ### <code>fit-content(<var>length</var>)</code>
 
+Specifies track size of `length`, but ensuring that the final value is between `auto` (min) and `max-content` (max).
+
+(With `auto` as the minimum value, it means the minimum value won't be smaller than `min-height` or `min-width` that you specified on the track.)
+
 ## References
 
 <References
@@ -387,6 +442,10 @@ Instead of specifying a length for <var>trackSizes</var>, you can also specify t
     {
       text: 'Basic Concepts of grid layout (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout`,
+    },
+    {
+      text: 'Box alignment in grid layout (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Alignment/Box_Alignment_In_Grid_Layout`,
     },
     {
       text: 'grid-template-areas (MDN)',
@@ -411,6 +470,10 @@ Instead of specifying a length for <var>trackSizes</var>, you can also specify t
     {
       text: 'minmax() (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/minmax()`,
+    },
+    {
+      text: 'fit-content() (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/fit-content()`,
     },
     {
       text: 'CSS Grid Layout: The Minmax Function (Alligator.io)',
