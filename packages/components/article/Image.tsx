@@ -55,6 +55,13 @@ export default function Image(props: Props) {
           </figcaption>
         )}
       </figure>
+
+      <style jsx>{`
+        figcaption :global(code) {
+          background-color: none;
+          padding: 0;
+        }
+      `}</style>
     </>
   );
 }

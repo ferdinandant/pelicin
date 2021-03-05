@@ -63,11 +63,11 @@ Using `display: grid` allows you to lay out elements in a two-dimensional grid s
     However, in this case:
     <ul>
       <li>
-        the "main axis" is the <dfn>inline axis</dfn> (the direction where sentence flows; normally
+        the "main axis" is the <dfn>inline-axis</dfn> (the direction where sentence flows; normally
         horizontal except when writing vertically),
       </li>
       <li>
-        the "cross axis" is the <dfn>block axis</dfn> (the direction perpendicular to the{' '}
+        the "cross axis" is the <dfn>block-axis</dfn> (the direction perpendicular to the{' '}
         <dfn>inline axis</dfn>).
       </li>
     </ul>
@@ -276,11 +276,39 @@ Shorthand for setting _all_ of the explicit and implicit grid properties in a si
 
 ### `align-items`
 
-### `align-content`
+Defines how items are aligned along the block-axis (perpendicular to writing direction).
+
+<Image
+  path="/res/web/css/grid-align-items.png"
+  alt="Different possible values for align-items: start, end, center, stretch"
+/>
 
 ### `justify-items`
 
+Defines how items are aligned along the inline-axis (the writing direction).
+
+<Image
+  path="/res/web/css/grid-justify-items.png"
+  alt="Different possible values for justify-items: start, end, center, stretch"
+/>
+
+### `align-content`
+
+Defines how the "content" (grid) is aligned along the block-axis, if there's an extra space in the grid container.
+
+<Image
+  path="/res/web/css/grid-align-content.png"
+  alt="Different possible values for align-content: start, end, center, stretch, space-between, space-around, space-evenly"
+/>
+
 ### `justify-content`
+
+Defines how the "content" (grid) is aligned along the inline-axis, if there's an extra space in the grid container.
+
+<Image
+  path="/res/web/css/grid-justify-content.png"
+  alt="Different possible values for justify-content: start, end, center, stretch, space-between, space-around, space-evenly"
+/>
 
 ### `place-items`
 
