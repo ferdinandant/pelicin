@@ -15,6 +15,43 @@ import { smartTrim } from '@pelicin/utils';
 
 Using `display: grid` allows you to lay out elements in a two-dimensional grid system.
 
+<WebEditor
+  css={smartTrim(`
+    /* Grid container */
+    #grid-example {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 50px;
+    }
+    /* Grid children */
+    #grid-example div {
+      padding: 10px;
+      border: 1px solid #aaa;
+      background-color: #ddd;
+    }
+    .box1 {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+    .box2 {
+      grid-column-start: 1;
+      grid-row-start: 3;
+      grid-row-end: 5;
+    }
+  `)}
+  html={smartTrim(`
+    <nav id="grid-example">
+      <div class="box1">One</div>
+      <div class="box2">Two</div>
+      <div class="box3">Three</div>
+      <div class="box4">Four</div>
+      <div class="box5">Five</div>
+    </nav>
+  `)}
+/>
+
 ## Terminologies
 
 **Grid container and grid item:**
@@ -198,7 +235,7 @@ Shorthand for setting `grid-template-rows`, `grid-template-columns`, and `grid-t
       ),
     },
     {
-      name: '<grid-template-areas> <grid-template-rows> / <grid-template-column values>',
+      name: '<grid-template-areas> <grid-template-rows> / <grid-template-column>',
       description: <>See the example below.</>,
     },
   ]}
@@ -350,6 +387,132 @@ Shorthand for `row-gap` and `column-gap`
 ```
 
 ## Grid Item Properties
+
+### `grid-column-start`
+
+Specifies a grid item's position in the grid.
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: 'Place the item automatically (default).',
+    },
+    {
+      nameSpecial: (
+        <>
+          <Code str="<lineName>" />
+        </>
+      ),
+      description: (
+        <>
+          Place the item from the column line whose name is <Code str="lineName-start" /> or{' '}
+          <Code str="lineName" />.
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <Code str="<number>" /> or <Code str="<lineName> <number>" />
+        </>
+      ),
+      description: (
+        <>
+          E.g. <Code str="3" /> or <Code str="my-line 3" />. Place the item from the{' '}
+          <Code str="number" />
+          -th column line (counting backwards if it is negative). If <Code str="lineName" /> is specified,
+          then only lines with that name is counted.
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <Code str="span <number>" /> or <Code str="span <lineName> <number>" />
+        </>
+      ),
+      description: (
+        <>
+          E.g. <Code str="span 3" /> or <Code str="span my-line 3" />. Place the item's column start
+          line <Code str="number" /> lines away from the column end line. (See{' '}
+          <Code str="grid-column-end" /> value or place the item automatically first to determine
+          the column end line.) If <Code str="lineName" /> is specified, then only lines with that
+          name is counted.
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `grid-column-end`
+
+Specifies a grid item's position in the grid.
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: 'Place the item automatically (default).',
+    },
+    {
+      nameSpecial: (
+        <>
+          <Code str="<lineName>" />
+        </>
+      ),
+      description: (
+        <>
+          Place the item until the column line whose name is <Code str="lineName-end" /> or{' '}
+          <Code str="lineName" />.
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <Code str="<number>" /> or <Code str="<lineName> <number>" />
+        </>
+      ),
+      description: (
+        <>
+          E.g. <Code str="3" /> or <Code str="my-line 3" />. Place the item until the{' '}
+          <Code str="number" />
+          -th column line (counting backwards if it is negative). If <Code str="lineName" /> is specified,
+          then only lines with that name is counted.
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <Code str="span <number>" /> or <Code str="span <lineName> <number>" />
+        </>
+      ),
+      description: (
+        <>
+          E.g. <Code str="span 3" /> or <Code str="span my-line 3" />. Place the item's column end
+          line <Code str="number" /> lines away from the column start line. (See{' '}
+          <Code str="grid-column-start" /> value or place the item automatically first to determine
+          the column start line.) If <Code str="lineName" /> is specified, then only lines with that
+          name is counted.
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `grid-row-start`
+
+Specifies a grid item's position in the grid.
+
+(See `grid-column-start` explanation for the list of possible values.)
+
+### `grid-row-end`
+
+Specifies a grid item's position in the grid.
+
+(See `grid-column-end` explanation for the list of possible values.)
 
 ## CSS Functions
 
