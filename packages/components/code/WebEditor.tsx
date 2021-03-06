@@ -12,16 +12,6 @@ export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
 
   return (
     <>
-      {css && (
-        <div className="editor">
-          <SyntaxEditor
-            language="css"
-            code={cssContent}
-            onCodeChange={(code) => setCSSContent(code)}
-            onReset={() => setCSSContent(css)}
-          />
-        </div>
-      )}
       {html && (
         <div className="editor">
           <SyntaxEditor
@@ -29,6 +19,16 @@ export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
             code={htmlContent}
             onCodeChange={(code) => setHTMLContent(code)}
             onReset={() => setHTMLContent(html)}
+          />
+        </div>
+      )}
+      {css && (
+        <div className="editor">
+          <SyntaxEditor
+            language="css"
+            code={cssContent}
+            onCodeChange={(code) => setCSSContent(code)}
+            onReset={() => setCSSContent(css)}
           />
         </div>
       )}
