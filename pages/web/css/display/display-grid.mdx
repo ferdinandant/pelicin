@@ -531,7 +531,7 @@ Shorthand for `grid-row-start` and `grid-row-end`.
 ```css
 .item {
   grid-row: <grid-row-start>;
-  grid-row: <grid-row-start> / <grid-row-end>;
+  grid-row: ;
 }
 ```
 
@@ -543,6 +543,52 @@ Shorthand for `grid-column-start` and `grid-column-end`.
 .item {
   grid-column: <grid-column-start>;
   grid-column: <grid-column-start> / <grid-column-end>;
+}
+```
+
+### `grid-area`
+
+Gives an item a name so it can be referenced in `grid-template-areas`.
+
+Alternatively, this is a shorthand for `grid-row-start`, `grid-column-start`, `grid-row-end`, and `grid-column-end`.
+
+```css
+.item {
+  /* Main patterns */
+  grid-area: <name>;
+  grid-area: <grid-row-start> / <grid-column-start> / <grid-row-end> / <grid-column-end>;
+  /* Yea, you can do these too */
+  /* See how browsers interpret the meaning value here: */
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area */
+  grid-area: <grid-row-start> / <grid-column-start> / <grid-row-end>;
+  grid-area: <grid-row-start> / <grid-column-start>;
+  grid-area: <grid-row-start>;
+}
+```
+
+### `align-self`
+
+Override `align-items` value for this item only. Specify: `auto`, `start`, `end`, `center`, or `stretch`.
+
+(`auto` means use the container's `align-items` value.)
+
+### `justify-self`
+
+Override `justify-items` value for this item only. Specify: `auto`, `start`, `end`, `center`, or `stretch`.
+
+(`auto` means use the container's `justify-items` value.)
+
+### `place-self`
+
+Shorthand for `align-self` and `justify-self`
+
+(If you omit `<justify-self>`, then the value of `<align-self>` is used to set both properties.)
+
+```css
+.item {
+  place-self: auto;
+  place-self: <align-self> / <justify-self>;
+  place-self: <align-self>;
 }
 ```
 
@@ -694,6 +740,10 @@ Specifies track size of `length`, but ensuring that the final value is between `
     {
       text: 'grid-column-end (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end`,
+    },
+    {
+      text: 'grid-area (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area`,
     },
     {
       text: 'repeat() (MDN)',
