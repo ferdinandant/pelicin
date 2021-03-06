@@ -18,21 +18,21 @@ Using `display: flex` allows you to create elements that can grow, shrink, or re
 
 <WebEditor
   css={smartTrim(`
-    #grid-example {
+    #flex-example {
       display: flex;
       border: 1px solid #999;
       justify-content: space-between;
       padding: 5px;
       column-gap: 5px;
     }
-    #grid-example a {
+    #flex-example a {
       padding: 10px;
       background: #ccc;
     }
   `)}
   html={smartTrim(`
     <!-- Equal spacing between item -->
-    <nav id="grid-example">
+    <nav id="flex-example">
       <a href="#">Page 1</a>
       <a href="#">Page 2</a>
       <a href="#">Page 3 is longer</a>
