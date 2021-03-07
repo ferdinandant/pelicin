@@ -35,7 +35,7 @@ const chapters: TopicChapters = [
     chapter: 'Concepts',
     children: [
       {
-        title: 'Specificity',
+        title: 'Specificity and !important',
         path: '/web/css/concepts/specificity',
       },
     ],
