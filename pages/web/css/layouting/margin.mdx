@@ -1,0 +1,156 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, Image, WebEditor, DocumentationList, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Margin" dateCreated="2021-02-06" />
+
+# Margin
+
+`margin` property sets the margin area of an element (the distance between the element and adjacent elements).
+
+<Image path="/res/web/css/box-model.png" caption="Illustration of CSS Box model" />
+
+## Common Margin Properties
+
+### `margin`
+
+Specifying `margin` allows you to set the top, right, bottom, and left margins of an element (remember: clockwise direction).
+
+If you specify less than 4 margin lengths, the missing lengths would be inferred from the lengths that you specified (it will try to make symmetrical margins).
+
+Possible length values:
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: 'length',
+      description: (
+        <>
+          E.g. <Code str="10px" /> or <Code str="-5em" />.
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'percentage',
+      description: (
+        <>
+          E.g. <Code str="10%" />. Sets the margin relative to the container's width.
+        </>
+      ),
+    },
+    {
+      name: 'auto',
+      description:
+        'Sets the margin automatically. Can be used for horizontal centering, but not for vertical centering.',
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <p>Note that the vertical margins collapses into one.</p>
+    <div id="margin-example">
+      <div class="box">Box 1</div>
+      <div class="box">Box 2</div>
+    </div>
+  `)}
+  css={smartTrim(`
+    #margin-example {
+      border: 1px solid red;
+    }
+    #margin-example .box {
+      margin: 20px;
+      border: 1px solid blue;
+      background-color: #ddf;
+    }
+`)}
+/>
+
+### `margin-top`
+
+Sets the element's top margin. (See `margin`.)
+
+### `margin-right`
+
+Sets the element's right margin. (See `margin`.)
+
+### `margin-bottom`
+
+Sets the element's bottom margin. (See `margin`.)
+
+### `margin-left`
+
+Sets the element's left margin. (See `margin`.)
+
+## Obscured Margin Properties
+
+### `margin-inline-start`
+
+Sets the margin at the start of "inline" direction. If you're writing horizontally from left to right, then it maps to `margin-left`.
+
+(Where this direction is depends on `writing-mode`, `direction`, and `text-orientation`. See `margin` for the list of possible values.)
+
+### `margin-inline-end`
+
+Sets the margin at the end of "inline" direction. If you're writing horizontally from left to right, then it maps to `margin-right`.
+
+(The "inline" direction depends on `writing-mode`, `direction`, and `text-orientation`. See `margin` for the list of possible values.)
+
+### `margin-inline`
+
+Shorthand for `margin-inline-start` and `margin-inline-end`.
+
+```css
+p {
+  margin-inline: <margin-inline-start> <margin-inline-end>;
+  margin-inline: <margin-inline-start>;
+}
+```
+
+### `margin-block-start`
+
+Sets the margin at the start of "block" direction (perpendicular to "inline" direction). If you're writing horizontally from left to right, top to bottom, then it maps to `margin-top`.
+
+(Where this direction is depends on `writing-mode`, `direction`, and `text-orientation`. See `margin` for the list of possible values.)
+
+### `margin-block-end`
+
+Sets the margin at the end of "block" direction (perpendicular to "inline" direction). If you're writing horizontally from left to right, top to bottom, then it maps to `margin-bottom`.
+
+(Where this direction is depends on `writing-mode`, `direction`, and `text-orientation`. See `margin` for the list of possible values.)
+
+### `margin-block`
+
+Shorthand for `margin-block-start` and `margin-block-end`.
+
+```css
+div {
+  margin-block: <margin-block-start> <margin-block-end>;
+  margin-block: <margin-block-start>;
+}
+```
+
+## Margin Collapsing
+
+When _vertical_ margins (top and bottom) of different elements touches each other, the margin "collapses" into one single margin.
+
+**It does not apply to:**
+
+- horizontal margins (left and right),
+- margins of floating elements, and
+- margins of absolutely positioned elements.
+
+## References
+
+<References
+  references={[
+    {
+      text: 'margin (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/margin`,
+    },
+    {
+      text: 'margin (CSS-Tricks)',
+      link: `https://css-tricks.com/almanac/properties/m/margin/`,
+    },
+  ]}
+></References>
