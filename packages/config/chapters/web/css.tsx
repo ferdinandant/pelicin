@@ -35,7 +35,7 @@ const chapters: TopicChapters = [
     chapter: 'Concepts',
     children: [
       {
-        title: 'Specificity',
+        title: 'Specificity and !important',
         path: '/web/css/concepts/specificity',
       },
     ],
@@ -62,15 +62,15 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'Layouting',
+    chapter: 'Box Model',
     children: [
       {
         title: 'Margin',
-        path: '/todo',
+        path: '/web/css/layouting/margin',
       },
       {
         title: 'Padding',
-        path: '/todo',
+        path: '/web/css/layouting/padding',
       },
       {
         title: 'Border',
