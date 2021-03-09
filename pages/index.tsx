@@ -24,6 +24,9 @@ export default function IndexPage() {
       <Hero />
       <ContentIndex groups={shownGroups} />
       <Footer />
+
+      <script async src="https://cse.google.com/cse.js?cx=1ba7d99f6aa888f7b"></script>
+      <div className="gcse-search"></div>
     </>
   );
 }

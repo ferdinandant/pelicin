@@ -32,15 +32,6 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'Concepts',
-    children: [
-      {
-        title: 'Specificity and !important',
-        path: '/web/css/concepts/specificity',
-      },
-    ],
-  },
-  {
     chapter: 'Display',
     children: [
       {
@@ -77,6 +68,10 @@ const chapters: TopicChapters = [
         path: '/web/css/layouting/border',
       },
       {
+        title: 'Table Border',
+        path: '/web/css/layouting/table-border',
+      },
+      {
         title: 'Outline',
         path: '/web/css/layouting/outline',
       },
@@ -101,6 +96,28 @@ const chapters: TopicChapters = [
       {
         title: 'Shadow',
         path: '/todo',
+      },
+    ],
+  },
+  {
+    chapter: 'Data Type',
+    children: [
+      {
+        title: 'Image',
+        path: '/web/css/data-type/image',
+      },
+      {
+        title: 'Filter Function',
+        path: '/web/css/data-type/filter-function',
+      },
+    ],
+  },
+  {
+    chapter: 'Concepts',
+    children: [
+      {
+        title: 'Specificity and !important',
+        path: '/web/css/concepts/specificity',
       },
     ],
   },

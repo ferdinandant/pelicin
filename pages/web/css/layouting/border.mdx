@@ -1,5 +1,12 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, Image, FixedColumnWidthTable, Code, WebEditor } from '@pelicin/components';
+import {
+  References,
+  Image,
+  FixedColumnWidthTable,
+  Code,
+  WebEditor,
+  DocumentationList,
+} from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Border" dateCreated="2021-03-08" />
@@ -162,7 +169,122 @@ E.g. `border-top-left-color`, where:
 
 Sets the border radius on the respective corner.
 
-## Image Border Properties
+## Border Image Properties
+
+### `border-image`
+
+Shorthand for `border-image-source`, `border-image-slice`, `border-image-width`, `border-image-outset`, `border-image-repeat`.
+
+Possible syntaxes for value:
+
+<DocumentationList
+  items={[
+    { name: '<source>' },
+    { name: '<source> <slice>' },
+    { name: '<source> <slice> / <width>' },
+    { name: '<source> <slice> / <width> / <outset>' },
+    { name: '<source> <slice> / <width> / <outset> <repeat>' },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="border-image-example">
+      Sample content<br>
+      One, two, three!
+    </div>
+  `)}
+  css={smartTrim(`
+    #border-image-example {
+      background-color: #ddf;
+      /* The 5px outset makes the border pokes a little bit outside */
+      border-image: url("/res/web/css/border-diamonds.png") 30 / 18px / 5px round;
+    }
+  `)}
+/>
+
+### `border-image-source`
+
+Sets the image for the border.
+
+### `border-image-slice`
+
+Defines how the image should be sliced into 9 regions.
+
+Takes a maximum of 4 values (top, right, bottom, left). If you specify less than four, it will attempt to slice the image symmetrically.
+
+If you add the `fill` keyword (e.g. `border-image-slice: 10px 10px fill`), the middle region will be displayed like a background image, but stacked above the actual `background`.
+
+<Image
+  path="/res/web/css/border-image-slice.png"
+  caption={
+    <>
+      How <code>border-image-slice</code> slices an image into 9 regions.
+    </>
+  }
+  sourceString="MDN"
+/>
+
+### `border-image-width`
+
+Specifies how wide the border image is.
+
+Takes a maximum of 4 values (top, right, bottom, and left border width). If you specify less than four, it will attempt to set the border width symmetrically.
+
+If you specify `auto`, then that side's border width will be set to the matching the region's width/height (see `border-image-slice`).
+
+### `border-image-outset`
+
+Sets how far the border the border image area "extends past the border box".
+
+Takes a maximum of 4 values (top, right, bottom, and left outset). If you specify less than four, it will attempt to set the missing values symmetrically.
+
+### `border-area-repeat`
+
+Sets how the sliced edge regions should be repeated to fill the border area. (The four corner regions are never repeated.)
+
+Takes a maximum of 4 values for each of the sides (top, right, bottom, and left). If you specify less than four, it will attempt to set the missing values symmetrically.
+
+**Possible values:**
+
+<DocumentationList
+  items={[
+    {
+      name: 'stretch',
+      description: 'stretch to fill the area (default)',
+    },
+    {
+      name: 'repeat',
+      description: 'tile to fill the area, let the tile clip if there are not enough spaces',
+    },
+    {
+      name: 'round',
+      description: 'tile to fill the area, stretch the tiles to fit the remaing space',
+    },
+    {
+      name: 'space',
+      description:
+        'tile to fill the area, distribute the remaining space as gaps between the tiles',
+    },
+  ]}
+/>
+
+## Assets
+
+<References
+  references={[
+    {
+      text: 'Border image example (MDN)',
+      used: 'https://developer.mozilla.org/en-US/docs/Web/CSS/border-image',
+      link: `https://interactive-examples.mdn.mozilla.net/media/examples/border-diamonds.png`,
+    },
+    {
+      text: 'Border image slice example (MDN)',
+      used: 'https://developer.mozilla.org/en-US/docs/Web/CSS/border-image-slice',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/border-image-slice/border-image-slice.png`,
+    },
+  ]}
+></References>
 
 ## References
 
@@ -179,6 +301,18 @@ Sets the border radius on the respective corner.
     {
       text: 'border-radius (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius`,
+    },
+    {
+      text: 'border-image (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/border-image`,
+    },
+    {
+      text: 'border-image (CSS-Tricks)',
+      link: `https://css-tricks.com/almanac/properties/b/border-image/`,
+    },
+    {
+      text: 'border-image-slice (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/border-image-slice`,
     },
   ]}
 ></References>
