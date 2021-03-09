@@ -2,7 +2,7 @@ import { MetadataConfigurer } from '@pelicin/layout';
 import { References, Image, WebEditor, DocumentationList, Code } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
-<MetadataConfigurer title="Margin" dateCreated="2021-03-08" />
+<MetadataConfigurer title="Padding" dateCreated="2021-03-08" />
 
 # Padding
 
@@ -10,13 +10,24 @@ import { smartTrim } from '@pelicin/utils';
 
 <Image path="/res/web/css/box-model.png" caption="Illustration of CSS Box model" />
 
+## Basic Concepts
+
+There are 4 positions of padding: top, right, bottom, left (remember: clockwise direction).
+
+Additionaly, you can also specify padding positions based on the direction of writing (these would be based on `writing-mode`, `direction`, and `text-orientation` values):
+
+- <dfn>Inline direction</dfn> &mdash; is the direction of writing (e.g. left-to-right, top-to-bottom)
+
+- <dfn>Block direction</dfn> &mdash; is the direction perpendicular to inline position (i.e. the direction
+  of how you add new lines to your paragraph)
+
 ## Common Padding Properties
 
 ### `padding`
 
-Specifying `padding` allows you to set the top, right, bottom, and left padding of an element (remember: clockwise direction).
+Sets the top, right, bottom, and left padding of an element in one declaration (remember: clockwise direction).
 
-If you specify less than 4 padding lengths, the missing lengths would be inferred from the lengths that you specified (it will try to make symmetrical padding).
+If you specify less than 4 lengths, the missing lengths would be inferred from the lengths that you specified (it will try to make symmetrical padding).
 
 Possible length values:
 
@@ -34,7 +45,7 @@ Possible length values:
       nameSpecial: 'percentage',
       description: (
         <>
-          E.g. <Code str="10%" />. Sets the margin relative to the container's width.
+          E.g. <Code str="10%" />. Sets the padding relative to the container's width.
         </>
       ),
     },
@@ -76,15 +87,11 @@ Sets the element's left padding. (See `padding`.)
 
 ### `padding-inline-start`
 
-Sets the padding at the start of "inline" direction. If you're writing horizontally from left to right, then it maps to `padding-left`.
-
-(Where this direction is depends on `writing-mode`, `direction`, and `text-orientation`. See `padding` for the list of possible values.)
+Sets the padding at the start of "inline" direction. (If you're writing horizontally from left to right, then it maps to `padding-left`.)
 
 ### `padding-inline-end`
 
-Sets the padding at the end of "inline" direction. If you're writing horizontally from left to right, then it maps to `padding-right`.
-
-(The "inline" direction depends on `writing-mode`, `direction`, and `text-orientation`. See `padding` for the list of possible values.)
+Sets the padding at the end of "inline" direction. (If you're writing horizontally from left to right, then it maps to `padding-right`.)
 
 ### `padding-inline`
 
@@ -99,15 +106,11 @@ p {
 
 ### `padding-block-start`
 
-Sets the padding at the start of "block" direction (perpendicular to "inline" direction). If you're writing horizontally from left to right, top to bottom, then it maps to `padding-top`.
-
-(Where this direction is depends on `writing-mode`, `direction`, and `text-orientation`. See `padding` for the list of possible values.)
+Sets the padding at the start of "block" direction. (If you're writing horizontally from left to right, then top to bottom, then it maps to `padding-top`.)
 
 ### `padding-block-end`
 
-Sets the padding at the end of "block" direction (perpendicular to "inline" direction). If you're writing horizontally from left to right, top to bottom, then it maps to `padding-bottom`.
-
-(Where this direction is depends on `writing-mode`, `direction`, and `text-orientation`. See `padding` for the list of possible values.)
+Sets the padding at the end of "block" direction. (If you're writing horizontally from left to right, then top to bottom, then it maps to `padding-bottom`.)
 
 ### `padding-block`
 
