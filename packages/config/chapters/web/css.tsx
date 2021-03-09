@@ -74,11 +74,15 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Border',
-        path: '/todo',
+        path: '/web/css/layouting/border',
       },
       {
         title: 'Outline',
-        path: '/todo',
+        path: '/web/css/layouting/outline',
+      },
+      {
+        title: 'Width, Height, and Box Sizing',
+        path: '/web/css/layouting/width-height',
       },
     ],
   },
@@ -91,7 +95,7 @@ const chapters: TopicChapters = [
     chapter: 'Aesthetics',
     children: [
       {
-        title: 'Background-Color',
+        title: 'Background',
         path: '/todo',
       },
       {

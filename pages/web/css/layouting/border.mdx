@@ -1,0 +1,84 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, Image, FixedColumnWidthTable, Code } from '@pelicin/components';
+
+<MetadataConfigurer title="Border" dateCreated="2021-03-08" />
+
+# Border
+
+`border` sets the style and thickness of en element's border.
+
+<Image path="/res/web/css/box-model.png" caption="Illustration of CSS Box model" />
+
+## Basic Concepts
+
+### Border Positions
+
+You can set border(s) on the four sides of an element: top, right, bottom, left.
+
+You can also specify border positions based on the direction of writing (these would be based on `writing-mode`, `direction`, and `text-orientation` values):
+
+- <dfn>Inline direction</dfn> &mdash; is the direction of writing (e.g. left-to-right, top-to-bottom)
+
+- <dfn>Block direction</dfn> &mdash; is the direction perpendicular to inline position (i.e. the direction
+  of how you add new lines to your paragraph)
+
+### Border Styles
+
+There are different kinds of border styles:
+
+<FixedColumnWidthTable
+  headers={[
+    {
+      key: 'key',
+      text: <Code str={'border-style="..."'} />,
+      width: 200,
+      formatContent: (value) => <Code str={value} />,
+    },
+    {
+      key: 'preview',
+      text: 'Preview',
+      getContent: (obj) => obj.key,
+      formatContent: (value) => (
+        <div
+          style={{
+            height: 50,
+            backgroundColor: '#afa',
+            borderWidth: 10,
+            border: `10px ${value} #d00`,
+          }}
+        />
+      ),
+    },
+  ]}
+  contents={[
+    { key: 'none' },
+    { key: 'hidden' },
+    { key: 'solid' },
+    { key: 'dashed' },
+    { key: 'dotted' },
+    { key: 'double' },
+    { key: 'groove' },
+    { key: 'ridge' },
+    { key: 'inset' },
+    { key: 'outset' },
+  ]}
+/>
+
+### Border Radius
+
+## Common Border Properties
+
+### `border`
+
+## Obscured Border Properties
+
+## References
+
+<References
+  references={[
+    {
+      text: 'MDN',
+      link: `https`,
+    },
+  ]}
+></References>
