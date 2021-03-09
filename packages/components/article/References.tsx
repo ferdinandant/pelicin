@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 
 type Reference = {
   text?: string | ReactNode;
+  used?: string;
   link?: string;
 };
 
@@ -15,12 +16,17 @@ export default function References(props: Props) {
     <>
       <ul className="referenceContainer">
         {references.map((reference, index) => {
-          const { text, link } = reference;
-          const useSeparator = Boolean(text && link);
+          const { text, used, link } = reference;
           return (
             <li key={`${index}-${link}`}>
               {text}
-              {useSeparator && ' — '}
+              {text && used && ' — '}
+              {used && (
+                <>
+                  Appeared in: <a href={used}>{used}</a>
+                </>
+              )}
+              {(text || used) && link && ' — '}
               {link && <a href={link}>{link}</a>}
             </li>
           );

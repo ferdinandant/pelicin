@@ -40,7 +40,7 @@ export default function SyntaxEditor({ language, code, onCodeChange, onReset }: 
     <>
       {/* Banner */}
       <div className={classNames(['banner', bannerColor])}>
-        <Icon name="edit" /> | <span className="language">{language.toUpperCase()}</span>
+        <Icon name="edit" /> | <span className="language">{language.toUpperCase()} EDITOR</span>
         <span className="iconBar">
           <span className="icon" onClick={() => onReset && onReset()}>
             <Icon name="sync" />

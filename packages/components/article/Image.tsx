@@ -35,11 +35,18 @@ export default function Image(props: Props) {
     const optionalSpace = caption ? ' ' : '';
     sourceNode = (
       <>
-        {optionalSpace} (
+        {optionalSpace}(
         <a target="_blank" rel="noreferrer" href={sourceLink}>
           {parsedSourceString}
         </a>
         )
+      </>
+    );
+  } else if (sourceString) {
+    const optionalSpace = caption ? ' ' : '';
+    sourceNode = (
+      <>
+        {optionalSpace}(source: {sourceString})
       </>
     );
   }

@@ -10,13 +10,37 @@ import { smartTrim } from '@pelicin/utils';
 
 <Image path="/res/web/css/box-model.png" caption="Illustration of CSS Box model" />
 
+## Basic Concepts
+
+### Margin Positions
+
+There are 4 positions of margin: top, right, bottom, left (remember: clockwise direction).
+
+Additionaly, you can also specify margin positions based on the direction of writing (these would be based on `writing-mode`, `direction`, and `text-orientation` values):
+
+- <dfn>Inline direction</dfn> &mdash; is the direction of writing (e.g. left-to-right, right-to-left,
+  top-to-bottom)
+
+- <dfn>Block direction</dfn> &mdash; is the direction perpendicular to inline position (i.e. the direction
+  of how you add new lines to your paragraph)
+
+### Margin Collapsing
+
+When _vertical_ margins (top and bottom) of different elements touches each other, the margin "collapses" into one single margin.
+
+**It does not apply to:**
+
+- horizontal margins (left and right),
+- margins of floating elements, and
+- margins of absolutely positioned elements.
+
 ## Common Margin Properties
 
 ### `margin`
 
-Specifying `margin` allows you to set the top, right, bottom, and left margins of an element (remember: clockwise direction).
+Sets the top, right, bottom, and left margins of an element in one declaration (remember: clockwise direction).
 
-If you specify less than 4 margin lengths, the missing lengths would be inferred from the lengths that you specified (it will try to make symmetrical margins).
+If you specify less than 4 lengths, the missing lengths would be inferred from the lengths that you specified (it will try to make symmetrical margins).
 
 Possible length values:
 
@@ -86,15 +110,11 @@ Sets the element's left margin. (See `margin`.)
 
 ### `margin-inline-start`
 
-Sets the margin at the start of "inline" direction. If you're writing horizontally from left to right, then it maps to `margin-left`.
-
-(Where this direction is depends on `writing-mode`, `direction`, and `text-orientation`. See `margin` for the list of possible values.)
+Sets the margin at the start of "inline" direction. (If you're writing horizontally from left to right, then it maps to `margin-left`.)
 
 ### `margin-inline-end`
 
-Sets the margin at the end of "inline" direction. If you're writing horizontally from left to right, then it maps to `margin-right`.
-
-(The "inline" direction depends on `writing-mode`, `direction`, and `text-orientation`. See `margin` for the list of possible values.)
+Sets the margin at the end of "inline" direction. (If you're writing horizontally from left to right, then it maps to `margin-right`.)
 
 ### `margin-inline`
 
@@ -109,15 +129,11 @@ p {
 
 ### `margin-block-start`
 
-Sets the margin at the start of "block" direction (perpendicular to "inline" direction). If you're writing horizontally from left to right, top to bottom, then it maps to `margin-top`.
-
-(Where this direction is depends on `writing-mode`, `direction`, and `text-orientation`. See `margin` for the list of possible values.)
+Sets the margin at the start of "block" direction. (If you're writing horizontally from left to right, then top to bottom, then it maps to `margin-top`.)
 
 ### `margin-block-end`
 
-Sets the margin at the end of "block" direction (perpendicular to "inline" direction). If you're writing horizontally from left to right, top to bottom, then it maps to `margin-bottom`.
-
-(Where this direction is depends on `writing-mode`, `direction`, and `text-orientation`. See `margin` for the list of possible values.)
+Sets the margin at the end of "block" direction. (If you're writing horizontally from left to right, then top to bottom, then it maps to `margin-bottom`.)
 
 ### `margin-block`
 
@@ -129,16 +145,6 @@ div {
   margin-block: <margin-block-start>;
 }
 ```
-
-## Margin Collapsing
-
-When _vertical_ margins (top and bottom) of different elements touches each other, the margin "collapses" into one single margin.
-
-**It does not apply to:**
-
-- horizontal margins (left and right),
-- margins of floating elements, and
-- margins of absolutely positioned elements.
 
 ## References
 

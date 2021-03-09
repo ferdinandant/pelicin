@@ -7,6 +7,7 @@ import React, { ReactNode, CSSProperties } from 'react';
 type Header = {
   key: string;
   text: string | ReactNode;
+  getContent?: (obj) => string | ReactNode;
   formatContent?: (content: string | ReactNode) => string | ReactNode;
   contentStyle?: CSSProperties;
   width?: number;
@@ -52,8 +53,10 @@ export default function FixedColumnWidthTable(props: Props) {
                 </td>
               ) : (
                 headerKeys.map((fieldName) => {
-                  const content = rowData[fieldName];
-                  const { width, formatContent, contentStyle } = headerKeyToConfig[fieldName];
+                  const { width, formatContent, contentStyle, getContent } = headerKeyToConfig[
+                    fieldName
+                  ];
+                  const content = getContent ? getContent(rowData) : rowData[fieldName];
                   return (
                     <td key={fieldName} style={{ width, ...contentStyle }}>
                       {formatContent ? formatContent(content) : content}

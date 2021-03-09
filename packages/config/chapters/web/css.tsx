@@ -32,15 +32,6 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'Concepts',
-    children: [
-      {
-        title: 'Specificity and !important',
-        path: '/web/css/concepts/specificity',
-      },
-    ],
-  },
-  {
     chapter: 'Display',
     children: [
       {
@@ -74,11 +65,19 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Border',
-        path: '/todo',
+        path: '/web/css/layouting/border',
+      },
+      {
+        title: 'Table Border',
+        path: '/web/css/layouting/table-border',
       },
       {
         title: 'Outline',
-        path: '/todo',
+        path: '/web/css/layouting/outline',
+      },
+      {
+        title: 'Width, Height, and Box Sizing',
+        path: '/web/css/layouting/width-height',
       },
     ],
   },
@@ -91,12 +90,34 @@ const chapters: TopicChapters = [
     chapter: 'Aesthetics',
     children: [
       {
-        title: 'Background-Color',
+        title: 'Background',
         path: '/todo',
       },
       {
         title: 'Shadow',
         path: '/todo',
+      },
+    ],
+  },
+  {
+    chapter: 'Data Type',
+    children: [
+      {
+        title: 'Image',
+        path: '/web/css/data-type/image',
+      },
+      {
+        title: 'Filter Function',
+        path: '/web/css/data-type/filter-function',
+      },
+    ],
+  },
+  {
+    chapter: 'Concepts',
+    children: [
+      {
+        title: 'Specificity and !important',
+        path: '/web/css/concepts/specificity',
       },
     ],
   },
