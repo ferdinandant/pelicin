@@ -1,5 +1,6 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, Image, FixedColumnWidthTable, Code } from '@pelicin/components';
+import { References, Image, FixedColumnWidthTable, Code, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Border" dateCreated="2021-03-08" />
 
@@ -11,13 +12,14 @@ import { References, Image, FixedColumnWidthTable, Code } from '@pelicin/compone
 
 ## Basic Concepts
 
-### Border Positions
+### Border Sides
 
 You can set border(s) on the four sides of an element: top, right, bottom, left.
 
-You can also specify border positions based on the direction of writing (these would be based on `writing-mode`, `direction`, and `text-orientation` values):
+You can also specify border side(s) based on the direction of writing (these would be based on `writing-mode`, `direction`, and `text-orientation` values):
 
-- <dfn>Inline direction</dfn> &mdash; is the direction of writing (e.g. left-to-right, top-to-bottom)
+- <dfn>Inline direction</dfn> &mdash; is the direction of writing (e.g. left-to-right, right-to-left,
+  top-to-bottom)
 
 - <dfn>Block direction</dfn> &mdash; is the direction perpendicular to inline position (i.e. the direction
   of how you add new lines to your paragraph)
@@ -44,7 +46,7 @@ There are different kinds of border styles:
             height: 50,
             backgroundColor: '#afa',
             borderWidth: 10,
-            border: `10px ${value} #d00`,
+            border: `8px ${value} #d00`,
           }}
         />
       ),
@@ -66,19 +68,117 @@ There are different kinds of border styles:
 
 ### Border Radius
 
+Each corner of the element can have 2 radii.
+
+If you specify more than one radius for a corner, the first one would be the _horizontal radius_, and the second one would be the _vertical radii_.
+
+<WebEditor
+  html={smartTrim(`<div id="border-radius-example"></div>`)}
+  css={smartTrim(`
+    #border-radius-example {
+      height: 50px;
+      background-color: #99d;
+      /* Circular corner */
+      border-top-left-radius: 40px;
+      /* Horizontal radius, vertical radius */
+      border-top-right-radius: 20px 40px;
+    }
+  `)}
+/>
+
 ## Common Border Properties
 
 ### `border`
 
-## Obscured Border Properties
+Shorthand for `border-width`, `border-style`, `border-color`.
+
+You can specify each one optionally. The order does not matter.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="border-example">
+      Hello!
+    </div>
+  `)}
+  css={smartTrim(`
+    #border-example {
+      border: 4px solid green;
+    }
+  `)}
+/>
+
+### `border-width`
+
+Shorthand of `border-top-width`, `border-right-width`, `border-bottom-width`, `border-left-width` (remember: clockwise direction).
+
+If you specify less than 4 values, it will attempt to make symmetrical border width.
+
+### `border-style`
+
+Shorthand of `border-top-style`, `border-right-style`, `border-bottom-style`, `border-left-style` (remember: clockwise direction).
+
+If you specify less than 4 values, it will attempt to make symmetrical border style.
+
+### `border-color`
+
+Shorthand of `border-top-color`, `border-right-color`, `border-bottom-color`, `border-left-color` (remember: clockwise direction).
+
+If you specify less than 4 values, it will attempt to make symmetrical border color.
+
+### <code>border-<var>&lt;side&gt;</var>-<var>&lt;property&gt;</var></code>
+
+E.g. `border-top-color`, where:
+
+- **`<side>`** is one of: `top`, `right`, `bottom`, `left`, `block`, `block-start`, `block-end`, `inline`,
+  `inline-start`, `inline-end`
+- **`<property>`** `width`, `style`, `color`
+
+Sets the border width, style, or color on the respective side.
+
+### `border-radius`
+
+Shorthand of `border-top-left-radius`, `border-top-right-radius`, `border-bottom-right-radius`, `border-bottom-left-radius` (remember: clockwise direction from top-left).
+
+If you specify less than 4 values, it will attempt to make symmetrical border radii.
+
+Using `/`, you can specify secondary radius for each corners.
+
+```css
+div {
+  /* Specifying radius for all 4 corners */
+  border-radius: 10px 20px 10px 20px;
+  /* Specifying secondary radius */
+  /* <horizontal-radii> / <vertical-radii> */
+  border-radius: 10px 20px 10px 20px / 20px;
+  border-radius: 10px 20px 10px 20px / 20px 10px 20px 10px;
+}
+```
+
+### <code>border-<var>&lt;corner&gt;</var>-radius</code>
+
+E.g. `border-top-left-color`, where:
+
+- **`<corner>`** is one of: `top-left`, `top-right`, `bottom-right`, `bottom-left`, `start-start`, `start-end`, `end-start`, `end-end` (for start/end: block direction is mentioned first, then inline direction),
+
+Sets the border radius on the respective corner.
+
+## Image Border Properties
 
 ## References
 
 <References
   references={[
     {
-      text: 'MDN',
-      link: `https`,
+      text: 'border (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/border`,
+    },
+    {
+      text: 'border-style (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/border-style`,
+    },
+    {
+      text: 'border-radius (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius`,
     },
   ]}
 ></References>
