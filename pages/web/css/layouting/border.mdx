@@ -197,6 +197,8 @@ Possible syntaxes for value:
   css={smartTrim(`
     #border-image-example {
       background-color: #ddf;
+      /* Need to set border-style, otherwise it's not displayed on Chrome */
+      border-style: solid;
       /* The 5px outset makes the border pokes a little bit outside */
       border-image: url("/res/web/css/border-diamonds.png") 30 / 18px / 5px round;
     }
@@ -209,11 +211,11 @@ Sets the image for the border.
 
 ### `border-image-slice`
 
-Defines how the image should be sliced into 9 regions.
+Defines how the image should be sliced into 9 regions. (Note that you don't put `px` unit for the values here.)
 
 Takes a maximum of 4 values (top, right, bottom, left). If you specify less than four, it will attempt to slice the image symmetrically.
 
-If you add the `fill` keyword (e.g. `border-image-slice: 10px 10px fill`), the middle region will be displayed like a background image, but stacked above the actual `background`.
+If you add the `fill` keyword (e.g. `border-image-slice: 10 10 fill`), the middle region will be displayed like a background image, but stacked above the actual `background`.
 
 <Image
   path="/res/web/css/border-image-slice.png"
