@@ -7,7 +7,7 @@ import React, { ReactNode, CSSProperties } from 'react';
 type Header = {
   key: string;
   text: string | ReactNode;
-  getContent: (obj) => string | ReactNode;
+  getContent?: (obj) => string | ReactNode;
   formatContent?: (content: string | ReactNode) => string | ReactNode;
   contentStyle?: CSSProperties;
   width?: number;
