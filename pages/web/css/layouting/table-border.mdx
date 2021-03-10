@@ -1,25 +1,67 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References } from '@pelicin/components';
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Table Border" dateCreated="2021-02-06" />
 
-# Template
+# Table Border
 
-Lorem Ipsum Dolor Sit Amet
+Table borders have 2 additional CSS properties.
 
 ## Table Border Properties
 
-### `border-separate`
+### `border-collapse`
+
+Sets whether cells inside a `<table>` have shared or separate borders. Specify `collapse` or `separate`.
+
+<WebEditor
+  html={smartTrim(`
+    <table id="table-collapse">
+      <caption>border-collapse: collapse</caption>
+      <tr><td>1</td><td>2</td></tr>
+      <tr><td>3</td><td>4</td></tr>
+    </table>
+    <table id="table-separate">
+      <caption>border-collapse: separate</caption>
+      <tr><td>1</td><td>2</td></tr>
+      <tr><td>3</td><td>4</td></tr>
+    </table>
+  `)}
+  css={smartTrim(`
+    /* Set border-collapse property for the <table> */
+    #table-collapse {
+      border-collapse: collapse;
+    }
+    #table-collapse td {
+      border: 1px solid blue;
+    }
+    #table-separate {
+      border-collapse: separate;
+      border-spacing: 10px;
+    }
+    #table-separate td {
+      border: 1px solid red;
+    } 
+`)}
+/>
 
 ### `border-spacing`
+
+Sets the distance between table borders. (Only applies if you set `border-collapse: separate`.)
+
+Can take up to 2 lengths: horizontal spacing, and vertical spacing.
 
 ## References
 
 <References
   references={[
     {
-      text: 'MDN',
-      link: `https`,
+      text: 'border-collapse (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/border-collapse`,
+    },
+    {
+      text: 'border-spacing (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/border-spacing`,
     },
   ]}
 ></References>
