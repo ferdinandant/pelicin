@@ -1,29 +1,101 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, Image } from '@pelicin/components';
+import { References, Image, WebEditor, FixedColumnWidthTable, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Outline" dateCreated="2021-03-08" />
 
 # Outline
 
-`border` sets the style and thickness of en element's border.
+Outlines are similar to borders, but:
 
-Outline is similar to "border", but they do not take up spaces.
+- they never take up space, and
+
+- they are rendered outside borders.
 
 <Image path="/res/web/css/box-model.png" caption="Illustration of CSS Box model" />
 
-## Common Border Properties
+## Outline Properties
 
-### `border`
+### `outline`
 
-## Obscured Border Properties
+Shorthand for `outline-width`, `outline-style`, `outline-color`.
+
+You can specify each one optionally. The order does not matter.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="outline-example">
+      Content here
+    </div>
+  `)}
+  css={smartTrim(`
+    #outline-example {
+      height: 50px;
+      border: 8px solid cyan;
+      outline: 8px dashed blue;
+    }
+  `)}
+/>
+
+### `outline-width`
+
+Sets the width of the outline. (It does not take additional space.)
+
+### `outline-style`
+
+Sets the style of the outline.
+
+<FixedColumnWidthTable
+  headers={[
+    {
+      key: 'key',
+      text: <Code str={'outline-style="..."'} />,
+      width: 200,
+      formatContent: (value) => <Code str={value} />,
+    },
+    {
+      key: 'preview',
+      text: 'Preview',
+      getContent: (obj) => obj.key,
+      formatContent: (value) => (
+        <div style={{ padding: 10 }}>
+          <div
+            style={{
+              height: 30,
+              backgroundColor: '#afa',
+              outlineWidth: 10,
+              outline: `8px ${value} #77f`,
+            }}
+          />
+        </div>
+      ),
+    },
+  ]}
+  contents={[
+    { key: 'none' },
+    { key: 'hidden' },
+    { key: 'solid' },
+    { key: 'dashed' },
+    { key: 'dotted' },
+    { key: 'double' },
+    { key: 'groove' },
+    { key: 'ridge' },
+    { key: 'inset' },
+    { key: 'outset' },
+  ]}
+/>
+
+### `outline-color`
+
+Sets the color of the outline.
 
 ## References
 
 <References
   references={[
     {
-      text: 'MDN',
-      link: `https`,
+      text: 'outline (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/outline`,
     },
   ]}
 ></References>
