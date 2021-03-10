@@ -23,7 +23,8 @@ export default function ContentIndex(props: Props) {
   return (
     <>
       <ScrollableAnchor id={INDEX_DOM_ID}>
-        <main>
+        <div>
+          {/* Content */}
           {groups.map((groupInfo, index) => {
             const { groupTitle, groupDescription, sections } = groupInfo;
             const groupHash = extractHashFromTitle(groupTitle);
@@ -66,15 +67,10 @@ export default function ContentIndex(props: Props) {
               </section>
             );
           })}
-        </main>
+        </div>
       </ScrollableAnchor>
 
       <style jsx>{`
-        main {
-          width: 100%;
-          padding: var(--spacing-xxl) var(--spacing-xl);
-          padding-bottom: var(--spacing-xxl);
-        }
         section {
           max-width: 640px;
           margin: auto;
@@ -88,6 +84,8 @@ export default function ContentIndex(props: Props) {
         section h2 {
           margin-left: -10px;
           padding-left: 10px;
+          margin-right: -10px;
+          padding-right: 10px;
           font-weight: 700;
           font-size: var(--font-size-title-2);
           color: var(--color-blue-6);

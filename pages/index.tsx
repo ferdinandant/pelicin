@@ -1,7 +1,7 @@
 import React from 'react';
 import getConfig from 'next/config';
 
-import { TopBar, Hero, ContentIndex, Footer } from '@pelicin/layout';
+import { TopBar, Hero, ContentIndex, GoogleSearch, Footer } from '@pelicin/layout';
 import { SampleGroup, WebGroup } from '@pelicin/config';
 
 // ================================================================================
@@ -22,8 +22,19 @@ export default function IndexPage() {
     <>
       <TopBar />
       <Hero />
-      <ContentIndex groups={shownGroups} />
+      <main>
+        <GoogleSearch />
+        <ContentIndex groups={shownGroups} />
+      </main>
       <Footer />
+
+      <style jsx>{`
+        main {
+          width: 100%;
+          padding: var(--spacing-xxl) var(--spacing-xl);
+          padding-bottom: var(--spacing-xxl);
+        }
+      `}</style>
     </>
   );
 }
