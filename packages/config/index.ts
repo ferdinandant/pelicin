@@ -6,6 +6,19 @@ export * from './types';
 
 export { default as pathPrefixToTopicConfig } from './constants/pathPrefixToTopicConfig';
 
+export const topicKeys = ['sample', 'web/html', 'web/css'];
+
+// ================================================================================
+// CHAPTERS
+// ================================================================================
+
+export const topicKeyToChapters = topicKeys.reduce((acc, topicKey) => {
+  return Object.assign(acc, {
+    // eslint-disable-next-line
+    [topicKey]: require('./chapters/' + topicKey).default,
+  });
+}, {});
+
 // ================================================================================
 // GROUPS
 // ================================================================================
