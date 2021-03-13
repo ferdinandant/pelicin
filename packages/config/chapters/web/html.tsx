@@ -85,6 +85,15 @@ const chapters: TopicChapters = [
         path: '/web/html/attributes/html-attributes-recurring'
       },
     ]
+  },
+  {
+    chapter: 'Others',
+    children: [
+      {
+        title: 'HTML entities',
+        path: '/web/html/others/html-entities'
+      },
+    ]
   }
 ];
 
