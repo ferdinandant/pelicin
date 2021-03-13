@@ -1,0 +1,207 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  Image,
+  WebEditor,
+  DocumentationList,
+  Code,
+  NoteBox,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Width, Height, and Box Sizing" dateCreated="2021-03-11" />
+
+# Width, Height, and Box Sizing
+
+`width` and `height` set the the width and height of an element, respectively.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="height-width-example">
+      Hi!
+    </div>    
+  `)}
+  css={smartTrim(`
+    #height-width-example {
+      width: 100px;
+      height: 50px;
+      background-color: #ccc;
+    }    
+  `)}
+/>
+
+## Width and Height Properties
+
+<NoteBox type="warning" title="Working with Inline Elements">
+  Setting <Code str="width" /> and/or <Code str="height" /> (including <Code str="min-height" />,
+  etc.) <em>does not work</em> on elements whose <Code str="display" /> value is{' '}
+  <Code str="inline" />.
+</NoteBox>
+
+### `width`
+
+Set's the element's width.
+
+**Possible values:**
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: 'length',
+      description: (
+        <>
+          (e.g. <Code str="100px" />) sets the width to this length
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'percentage',
+      description: (
+        <>
+          (e.g. <Code str="50%" />) sets the width to this percentage of the parent's width
+        </>
+      ),
+    },
+    {
+      name: 'auto',
+      description: 'sets the width automatically',
+    },
+    {
+      name: 'max-content',
+      description: 'sets the width to be as large as the content needs',
+    },
+    {
+      name: 'min-content',
+      description: 'sets the width to be as little as possible, without causing an overflow',
+    },
+    {
+      name: 'fit-content',
+      description: (
+        <>
+          sets the width to be as large as the content needs, but never exceeds the parent's content
+          area width.
+        </>
+      ),
+    },
+  ]}
+/>
+
+<Image
+  path="/res/web/css/width-max-content-min-content-fit-content.png"
+  alt="Illustration of max-content, min-content, and fit-content"
+/>
+
+### `height`
+
+Set the element's height.
+
+**Possible values:**
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: 'length',
+      description: (
+        <>
+          (e.g. <Code str="100px" />) sets the height to this length
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'percentage',
+      description: (
+        <>
+          (e.g. <Code str="50%" />) sets the height to this percentage of the parent's height
+        </>
+      ),
+    },
+    {
+      name: 'auto',
+      description: 'sets the height automatically',
+    },
+  ]}
+/>
+
+### `min-width`
+
+Ensures the element's width does not go lower than this value.
+
+(See `width` for the possible values.)
+
+### `min-height`
+
+Ensures the element's height does not go lower than this value.
+
+(See `height` for the possible values.)
+
+### `max-width`
+
+Ensures the element's width does not go higher than this value.
+
+(See `width` for the possible values.)
+
+### `max-height`
+
+Ensures the element's height does not go higher than this value.
+
+(See `height` for the possible values.)
+
+## Box Sizing Property
+
+### `box-sizing`
+
+Specifies what to be sized when setting `width` and `height`.
+
+**Possible values:**
+
+<DocumentationList
+  items={[
+    {
+      name: 'content-box',
+      description: (
+        <>
+          accounts only the element's content area to match <Code str="width" /> and{' '}
+          <Code str="height" /> (default)
+        </>
+      ),
+    },
+    {
+      name: 'border-box',
+      description: (
+        <>
+          accounts everything (including the element's border and padding area) to match{' '}
+          <Code str="width" /> and <Code str="height" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<Image path="/res/web/css/box-model.png" caption="Illustration of CSS Box model" />
+
+## References
+
+<References
+  references={[
+    {
+      text: 'width (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/width`,
+    },
+    {
+      text: 'fit-content (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/fit-content`,
+    },
+    {
+      text: 'width (CSS-Tricks)',
+      link: `https://css-tricks.com/almanac/properties/w/width/`,
+    },
+    {
+      text: 'height (CSS-Tricks)',
+      link: `https://css-tricks.com/almanac/properties/w/height/`,
+    },
+    {
+      text: 'box-sizing (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing`,
+    },
+  ]}
+></References>
