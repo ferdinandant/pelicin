@@ -1,0 +1,55 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="HTML Entities" dateCreated="2021-03-14" />
+
+# HTML Entities
+
+You can use HTML Entities to insert special characters to your HTML document.
+
+They look like this (all of these inserts the '&copy;' [character](https://decodeunicode.org/u+00A9)):
+
+- `&copy;` &mdash; using the character's entity mnemonic
+- `&#169;` &mdash; using the character's decimal Unicode number (in this case, 169)
+- `&#xA9;` &mdash; using the character's hex Unicode number (in this case, 0xA9)
+
+<WebEditor
+  html={smartTrim(`
+    <p>&copy; 2021 Some Guy</p>
+    <p>&#169; 2021 Some Other Guy</p>
+    <p>&#xA9; 2021 &lt;you get the idea&gt;</p>
+  `)}
+/>
+
+## Reserved characters
+
+Sometimes, you can't enter these characters normally because they have special meaning in HTML (the browser could interpret them as HTML code).
+
+In those cases, you will need to use their character entities.
+
+| Character | Entity   | Note &mdash; without the use of entity                      |
+| --------- | -------- | ----------------------------------------------------------- |
+| <         | `&lt;`   | Interpreted as the beginning of a tag                       |
+| >         | `&gt;`   | Interpreted as the ending of a tag                          |
+| &         | `&amp;`  | Interpreted as the beginning of an entity                   |
+| "         | `&quot;` | Interpreted as the beginning/ending of an attribute's value |
+
+## Read More
+
+To see the list of all HTML entities, grouped by categories, [click here](https://www.freeformatter.com/html-entities.html).
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Entity (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Glossary/Entity`,
+    },
+    {
+      text: 'HTML Entity List (FreeFormatter.com)',
+      link: `hhttps://www.freeformatter.com/html-entities.html`,
+    },
+  ]}
+></References>
