@@ -4,6 +4,5 @@ export default function extractHashFromTitle(title: string) {
     .replace(/[^A-Za-z0-9]/g, '-')
     .replace(/-{2,}/g, '-')
     .replace(/^-|-$/g, '');
-
   return result;
 }

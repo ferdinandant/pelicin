@@ -9,7 +9,7 @@ export default function extractHashFromNode(node: ReactNode): string | null {
 }
 
 export function extractHashFromNodeInternal(node: ReactNode): string | null {
-  if (node === null) {
+  if (node === null || node === undefined) {
     return null;
   }
   if (typeof node === 'string' || typeof node === 'number') {

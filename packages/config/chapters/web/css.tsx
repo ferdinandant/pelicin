@@ -80,8 +80,8 @@ const chapters: TopicChapters = [
         path: '/web/css/layouting/width-height',
       },
       {
-        title: 'Overflow',
-        path: '/web/css/layouting/overflow',
+        title: 'Overflow and Overscroll',
+        path: '/web/css/layouting/overflow-overscroll',
       },
     ],
   },
