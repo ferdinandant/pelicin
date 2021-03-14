@@ -4,15 +4,17 @@ import { SyntaxEditor, Icon } from '@pelicin/components';
 type Props = {
   html: string;
   css: string;
+  hideHTML: boolean;
+  hideCSS: boolean;
 };
 
-export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
+export default function HTMLCSSEditor({ html = '', css = '', hideHTML, hideCSS }: Props) {
   const [htmlContent, setHTMLContent] = useState(html);
   const [cssContent, setCSSContent] = useState(css);
 
   return (
     <>
-      {html && (
+      {html && !hideHTML && (
         <div className="editor">
           <SyntaxEditor
             language="html"
@@ -22,7 +24,7 @@ export default function HTMLCSSEditor({ html = '', css = '' }: Props) {
           />
         </div>
       )}
-      {css && (
+      {css && !hideCSS && (
         <div className="editor">
           <SyntaxEditor
             language="css"
