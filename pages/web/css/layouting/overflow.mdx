@@ -1,0 +1,97 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Overflow" dateCreated="2021-03-14" />
+
+# Overflow
+
+`overflow` properties set what happen if an element's content does not fit its container.
+
+<WebEditor
+  collapseHTML
+  collapseCSS
+  html={smartTrim([
+    `
+      <div id="content-overlow">
+        <p>When content overflows:</p>
+        <div class="container" style="overflow: visible">
+          <div class="content">visible</div>
+        </div>
+        <div class="container" style="overflow: hidden">
+          <div class="content">hidden</div>
+        </div>
+        <div class="container" style="overflow: scroll">
+          <div class="content">scroll</div>
+        </div>
+        <div class="container" style="overflow: auto">
+          <div class="content">auto</div>
+        </div>
+      </div>
+    `,
+    `
+      <div id="content-fits">
+        <p>When content fits:</p>
+        <div class="container" style="overflow: visible">
+          <div class="content">visible</div>
+        </div>
+        <div class="container" style="overflow: hidden">
+          <div class="content">hidden</div>
+        </div>
+        <div class="container" style="overflow: scroll">
+          <div class="content">scroll</div>
+        </div>
+        <div class="container" style="overflow: auto">
+          <div class="content">auto</div>
+        </div>
+      </div>
+    `,
+  ])}
+  css={smartTrim([
+    `
+      #content-overlow,
+      #content-fits {
+        display: inline-block;
+        width: 40%
+      }
+    `,
+    `
+      /* Container */
+      #content-overlow .container,
+      #content-fits .container {
+        width: 100px;
+        height: 50px;
+        margin: 8px 0;
+        scrollbar-color: #aaa #ddd;
+      }
+      #content-overlow .container {
+        border: 4px solid red;
+      }
+      #content-fits .container {
+        border: 4px solid blue;
+      }
+    `,
+    `
+      /* Content */
+      #content-overlow .content {
+        width: 200px;
+        background-color: pink;
+      }
+      #content-fits .content {
+        background-color: skyblue;
+        width: min-content;
+      }
+    `,
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'overflow (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/overflow`,
+    },
+  ]}
+></References>

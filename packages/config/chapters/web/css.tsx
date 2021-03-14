@@ -79,6 +79,27 @@ const chapters: TopicChapters = [
         title: 'Width, Height, and Box Sizing',
         path: '/web/css/layouting/width-height',
       },
+      {
+        title: 'Overflow',
+        path: '/web/css/layouting/overflow',
+      },
+    ],
+  },
+  {
+    chapter: 'Positioning',
+    children: [
+      {
+        title: 'Position',
+        path: '/web/css/positioning/position',
+      },
+      {
+        title: 'Float',
+        path: '/web/css/positioning/float',
+      },
+      {
+        title: 'Z-Index',
+        path: '/web/css/positioning/z-index',
+      },
     ],
   },
   {
@@ -118,6 +139,10 @@ const chapters: TopicChapters = [
       {
         title: 'Specificity and !important',
         path: '/web/css/concepts/specificity',
+      },
+      {
+        title: 'Block Formatting Context',
+        path: '/web/css/concepts/block-formatting-context',
       },
     ],
   },
