@@ -1,0 +1,257 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, WebEditor, DocumentationList, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Overflow and Overscroll" dateCreated="2021-03-14" />
+
+# Overflow and Overscroll
+
+Overflow properties set what happens if an element's content doesn't fit its container.
+
+Overscroll properties, on the other hand, set the "scroll overflow" behavior for the element. This includes behaviors like:
+
+- "scroll chaining" (the behavior that when you get to the end of a scrolling area, and keep scrolling, then the parent's scrolling area will start scrolling too),
+- "bounce" effects (when you hit the top or the bottom of the page), and
+- "pull to refresh" behavior.
+
+## Overflow Properties
+
+### `overflow`
+
+Shorthand for `overflow-x` and `overflow-y`.
+
+You can specify up to two values, one for each axis (if you specify only one value, it will be used for both axes):
+
+<DocumentationList
+  items={[
+    {
+      name: 'visible',
+      description: 'Render the overflow outside the padding box (clip).',
+    },
+    {
+      name: 'hidden',
+      description: (
+        <>
+          Clip the content to fit the padding box. Cannot be scrolled, except programmatically (e.g.
+          by using <Code str="element.offsetLeft" /> in JavaScript).
+        </>
+      ),
+    },
+    {
+      name: 'clip',
+      description: (
+        <>
+          Clip the content to fit the padding box. Cannot be scrolled, even programmatically. (Looks
+          similar to <Code str="hidden" />
+          .)
+        </>
+      ),
+    },
+    {
+      name: 'scroll',
+      description: 'Always display scrollbar.',
+    },
+    {
+      name: 'auto',
+      description: 'Display scrollbar when necessary. (Depends on the browser.)',
+    },
+  ]}
+/>
+
+```css
+.container {
+  overflow: <overflow-x> <overflow-y>;
+  overflow: <overflow-x-and-y>;
+}
+```
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim([
+    `
+      <div id="content-overlow">
+        <p>When content overflows:</p>
+        <div class="container" style="overflow: visible">
+          <div class="content">visible</div>
+        </div>
+        <div class="container" style="overflow: hidden">
+          <div class="content">hidden</div>
+        </div>
+        <div class="container" style="overflow: scroll">
+          <div class="content">scroll</div>
+        </div>
+        <div class="container" style="overflow: auto">
+          <div class="content">auto</div>
+        </div>
+      </div>
+    `,
+    `
+      <div id="content-fits">
+        <p>When content fits:</p>
+        <div class="container" style="overflow: visible">
+          <div class="content">visible</div>
+        </div>
+        <div class="container" style="overflow: hidden">
+          <div class="content">hidden</div>
+        </div>
+        <div class="container" style="overflow: scroll">
+          <div class="content">scroll</div>
+        </div>
+        <div class="container" style="overflow: auto">
+          <div class="content">auto</div>
+        </div>
+      </div>
+    `,
+  ])}
+  css={smartTrim([
+    `
+      #content-overlow,
+      #content-fits {
+        display: inline-block;
+        width: 40%
+      }
+    `,
+    `
+      /* Container */
+      #content-overlow .container,
+      #content-fits .container {
+        width: 100px;
+        height: 50px;
+        margin: 8px 0;
+        scrollbar-color: #aaa #ddd;
+      }
+      #content-overlow .container {
+        border: 4px solid red;
+      }
+      #content-fits .container {
+        border: 4px solid blue;
+      }
+    `,
+    `
+      /* Content */
+      #content-overlow .content {
+        width: 200px;
+        background-color: pink;
+      }
+      #content-fits .content {
+        background-color: skyblue;
+        width: min-content;
+      }
+    `,
+  ])}
+/>
+
+### `overflow-x`
+
+Sets the overflow behavior for the x-axis (horizontal).
+
+### `overflow-y`
+
+Sets the overflow behavior for the y-axis (vertical).
+
+## Overscroll Properties
+
+### `overscroll-behavior`
+
+Shorthand for `overscroll-behavior-x` and `overscroll-behavior-y`.
+
+You can specify up to two values, one for each axis (if you specify only one value, it will be used for both axes).
+Note that this property is inherited; e.g., if you specify `none` on the parent, then all of its children will have the value of `none` too.
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: 'default overscroll behavior (default)',
+    },
+    {
+      name: 'contain',
+      description:
+        'no "scroll chaining" to the parent\'s element, but allow other overscroll behaviors (e.g. "bounce" effects or "pull to refresh")',
+    },
+    {
+      name: 'no',
+      description:
+        'no "scroll chaining" behavior, and disable other overscroll behaviors (e.g. "bounce" effects or "pull to refresh")',
+    },
+  ]}
+/>
+
+### `overscroll-behavior-x`
+
+Sets the overscroll behavior for the x-axis (horizontal scrolling).
+
+### `overscroll-behavior-y`
+
+Sets the overscroll behavior for the y-axis (vertical scrolling).
+
+## Obscured Properties
+
+### `overflow-inline`
+
+Sets the overflow behavior for the inline direction.
+
+(Which direction this is depends on `writing-mode`, `direction`, and `text-orientation` values. Normally refers to the horizontal axis when you write horizontally.)
+
+### `overflow-block`
+
+Sets the overflow behavior for the block direction.
+
+(Which direction this is depends on `writing-mode`, `direction`, and `text-orientation` values. Normally refers to the vertical axis when you write horizontally.)
+
+### `overflow-anchor`
+
+Sets the browser's "scroll anchoring behavior" (the behavior that automatically adjusts the scroll position to minimize content shift when the content outside the viewport changes).
+
+**Possible values:**
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description:
+        'The element can be selected as an anchor when adjusting scroll position (default).',
+    },
+    {
+      name: 'none',
+      description:
+        "The element won't be selected as an anchor when adjusting scroll position. (Normally only required if you are experiencing problems with scroll anchoring in the document or part of the document, and you need to turn it off.)",
+    },
+  ]}
+/>
+
+### `overscroll-behavior-inline`
+
+Sets the overscroll behavior for the inline direction.
+
+(Which direction this is depends on `writing-mode`, `direction`, and `text-orientation` values. Normally refers to the horizontal axis when you write horizontally.)
+
+### `overscroll-behavior-block`
+
+Sets the overscroll behavior for the block direction.
+
+(Which direction this is depends on `writing-mode`, `direction`, and `text-orientation` values. Normally refers to the vertical axis when you write horizontally.)
+
+## References
+
+<References
+  references={[
+    {
+      text: 'overflow (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/overflow`,
+    },
+    {
+      text: 'overflow-anchor (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-anchor`,
+    },
+    {
+      text: 'overscroll-behavior (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior`,
+    },
+    {
+      text: 'overscroll-behavior (CSS-Tricks)',
+      link: `https://css-tricks.com/almanac/properties/o/overscroll-behavior/`,
+    },
+  ]}
+></References>

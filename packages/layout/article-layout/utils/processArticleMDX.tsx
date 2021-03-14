@@ -17,6 +17,10 @@ export default function processArticleMDX(children: ReactNode) {
 }
 
 function processChild(child: ReactNode, index = 0) {
+  if (!child) {
+    return;
+  }
+
   const { props } = child as React.Component<any, any>;
   if (!props) {
     return child;

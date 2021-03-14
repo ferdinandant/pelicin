@@ -15,14 +15,16 @@ Table borders have 2 additional CSS properties.
 Sets whether cells inside a `<table>` have shared or separate borders. Specify `collapse` or `separate`.
 
 <WebEditor
+  hideHTML
+  hideCSS
   html={smartTrim(`
     <table id="table-collapse">
-      <caption>border-collapse: collapse</caption>
+      <caption><code>border-collapse: collapse</code></caption>
       <tr><td>1</td><td>2</td></tr>
       <tr><td>3</td><td>4</td></tr>
     </table>
     <table id="table-separate">
-      <caption>border-collapse: separate</caption>
+      <caption><code>border-collapse: separate</code></caption>
       <tr><td>1</td><td>2</td></tr>
       <tr><td>3</td><td>4</td></tr>
     </table>
