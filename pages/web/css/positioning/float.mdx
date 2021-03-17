@@ -1,0 +1,132 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, WebEditor, DocumentationList, Image } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Float" dateCreated="2021-03-18" />
+
+# Float
+
+`float` places an element on the left or right side of its container, allowing other content to wrap around it.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="float-example">
+      <div class="float">
+        I'm floating!
+      </div>
+      <div class="float">
+        Also floating!
+      </div>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque blandit augue a nisl fermentum ultricies.
+      Curabitur porta purus in velit sagittis placerat. Mauris dictum, leo ut pulvinar condimentum, lorem urna tristique nisl,
+      et posuere dolor orci ut massa. Vestibulum imperdiet, nulla ut condimentum pellentesque, magna massa feugiat sapien,
+      sed rutrum felis dui et erat.
+    </div>    
+  `)}
+  css={smartTrim(`
+    #float-example .float {
+      width: 100px;
+      height: 50px;
+      background-color: gold;
+      float: left;
+      margin: 10px;
+    }    
+  `)}
+/>
+
+## Basic Concepts
+
+A floating element is one whose `float` value is not `none`.
+
+An element will float until it hits the left/right side of its container, or until it hits another floating element.
+
+### Float Implies Block Layout
+
+`float` implies the use of the block layout. The browser changes "inline" `display` values of floating elements to the block variants, e.g.:
+
+- `display: inline` &rarr; `display: block`
+- `display: inline-block` &rarr; `display: block`
+- `display: inline-flex` &rarr; `display: flex`
+- `display: inline-grid` &rarr; `display: grid`
+
+### Clearing Floats
+
+Specifying `clear` property on an element (e.g. `clear: left`) will move the element down such that it does not wrap around floating elements on the cleared side.
+
+<Image path="/res/web/css/float-clear.png" caption="Illustration of clearing floats" />
+
+## Float Properties
+
+### `float`
+
+Sets how the element floats. Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: 'the element does not float (default)',
+    },
+    {
+      name: 'left',
+      description: 'the element floats to the left',
+    },
+    {
+      name: 'right',
+      description: 'the element floats to the right',
+    },
+    {
+      name: 'inline-start',
+      description: 'the element floats to the start side of the writing direction',
+    },
+    {
+      name: 'inline-end',
+      description: 'the element floats to the end side of the writing direction',
+    },
+  ]}
+/>
+
+### `clear`
+
+Specifies which side(s) to clear of floats.
+(The element will move down such that it does not wrap around floating elements on the cleared side.)
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: "don't clear floats (default)",
+    },
+    {
+      name: 'both',
+      description: 'clear floats on both sides',
+    },
+    {
+      name: 'left',
+      description: 'clear floats on the left side',
+    },
+    {
+      name: 'right',
+      description: 'clear floats on the right side',
+    },
+    {
+      name: 'inline-start',
+      description: 'clear floats on the start side of the writing direction',
+    },
+    {
+      name: 'inline-end',
+      description: 'clear floats on the end side of the writing direction',
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'float (MDX)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/float`,
+    },
+  ]}
+></References>
