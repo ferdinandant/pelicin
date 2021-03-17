@@ -4,6 +4,7 @@ import {
   Image,
   FixedColumnWidthTable,
   Code,
+  Link,
   WebEditor,
   DocumentationList,
 } from '@pelicin/components';
@@ -277,12 +278,21 @@ Takes a maximum of 4 values for each of the sides (top, right, bottom, and left)
   references={[
     {
       text: 'Border image example (MDN)',
-      used: 'https://developer.mozilla.org/en-US/docs/Web/CSS/border-image',
+      description: (
+        <>
+          Appeared in <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/border-image" />
+        </>
+      ),
       link: `https://interactive-examples.mdn.mozilla.net/media/examples/border-diamonds.png`,
     },
     {
       text: 'Border image slice example (MDN)',
-      used: 'https://developer.mozilla.org/en-US/docs/Web/CSS/border-image-slice',
+      description: (
+        <>
+          Appeared in{' '}
+          <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/border-image-slice" />
+        </>
+      ),
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/border-image-slice/border-image-slice.png`,
     },
   ]}
