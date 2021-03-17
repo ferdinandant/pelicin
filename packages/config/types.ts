@@ -39,12 +39,16 @@ export type TopicGroups = Array<TopicGroup>;
 // TOPIC CHAPTER
 // ================================================================================
 
-export type TopicChapter = {
-  chapter: string | ReactNode;
-  children: Array<{
-    title: string | ReactNode;
-    path: string;
-  }>;
-};
+export type TopicChapter =
+  | {
+      chapter: string | ReactNode;
+      children: Array<{
+        title: string | ReactNode;
+        path: string;
+      }>;
+    }
+  | {
+      '@separator': string;
+    };
 
 export type TopicChapters = Array<TopicChapter>;

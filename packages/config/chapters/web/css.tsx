@@ -31,6 +31,7 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  { '@separator': 'CSS Properties' },
   {
     chapter: 'Display',
     children: [
@@ -120,6 +121,7 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  { '@separator': 'Others' },
   {
     chapter: 'Data Type',
     children: [

@@ -14,6 +14,14 @@ export default function ChapterSidebarContent() {
     <>
       <nav>
         {topicChapters.map((chapterData, chapterIndex) => {
+          if ('@separator' in chapterData) {
+            return (
+              <>
+                <hr />
+                <div className="dividerTitle">{chapterData['@separator']}</div>
+              </>
+            );
+          }
           const { chapter, children } = chapterData;
           return (
             <div className="group" key={chapterIndex}>
@@ -43,6 +51,17 @@ export default function ChapterSidebarContent() {
           margin-top: 0;
           padding-top: 0;
           border-top: none;
+        }
+
+        hr {
+          margin-top: var(--spacing-xxl);
+          margin-bottom: var(--spacing-xxl);
+          border-bottom: 1px solid var(--color-gray-2);
+        }
+        .dividerTitle {
+          line-height: 1;
+          font-size: var(--font-size-title-2);
+          color: var(--color-gray-3);
         }
 
         .groupTitle {
