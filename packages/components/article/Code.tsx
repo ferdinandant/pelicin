@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactChild } from 'react';
 
 type Props = {
-  str: string;
+  str: ReactChild;
 };
 
 export default function Code(props: Props) {

@@ -144,6 +144,10 @@ const chapters: TopicChapters = [
         title: 'Block Formatting Context',
         path: '/web/css/concepts/block-formatting-context',
       },
+      {
+        title: 'Stacking Context',
+        path: '/web/css/concepts/stacking-context',
+      },
     ],
   },
 ];

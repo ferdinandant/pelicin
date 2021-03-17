@@ -3,6 +3,7 @@ export { default as Heading } from './article/Heading';
 export { default as References } from './article/References';
 export { default as Image } from './article/Image';
 export { default as Code } from './article/Code';
+export { default as Link } from './article/Link';
 
 // Box
 export { default as NoteBox } from './box/NoteBox';

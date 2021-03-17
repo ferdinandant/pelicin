@@ -1,0 +1,191 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, NoteBox, Code, DocumentationList, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Position" dateCreated="2021-03-17" />
+
+# Position
+
+`position` property sets how an element is positioned in the document.
+
+## Basic Concepts
+
+A _positioned element_ is an element whose position value is set to `relative`, `absolute`, `sticky`, or `fixed`. (The default value is `static`.)
+
+With positioned elements, you can tweak their final location using `top`, `right`, `bottom`, and `left` properties.
+
+## Position Property
+
+<NoteBox
+  type="warning"
+  title={
+    <>
+      Scrolling element with <Code str="fixed" /> or <Code str="sticky" />
+    </>
+  }
+>
+  "Scrolling elements containing <Code str="fixed" /> or <Code str="sticky" /> content can cause
+  performance and accessibility issues. As a user scrolls, the browser must repaint the sticky or
+  fixed content in a new location." (MDN)
+</NoteBox>
+
+### `position`
+
+Sets how an element is positioned in the document. Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'static',
+      description: <>The element is positioned according to the normal document flow (default)</>,
+    },
+    {
+      name: 'relative',
+      description: (
+        <>
+          The element is positioned according to the normal document flow, and then offset relative
+          to its original position according to the values of <Code str="top" />,{' '}
+          <Code str="right" />, <Code str="bottom" />, <Code str="left" />.
+        </>
+      ),
+    },
+    {
+      name: 'absolute',
+      description: (
+        <>
+          The element is taken out from the normal document flow (no longer takes space in its
+          original spot), and positioned relative to the nearest positioned ancestor. The final
+          position is set according to the values of <Code str="top" />, <Code str="right" />
+          , <Code str="bottom" />, <Code str="left" />.
+        </>
+      ),
+    },
+    {
+      name: 'fixed',
+      description: (
+        <>
+          The element is taken out from the normal document flow (no longer takes space in its
+          original spot), and positioned relative to the viewport. The final position is set
+          according to the values of <Code str="top" />, <Code str="right" />
+          , <Code str="bottom" />, <Code str="left" />.
+        </>
+      ),
+    },
+    {
+      name: 'sticky',
+      description: (
+        <>
+          The element is positioned according to the normal document flow, and then offset relative
+          to the nearest "scrolling block-level ancestor" according to the values of{' '}
+          <Code str="top" />, <Code str="right" />, <Code str="bottom" />, <Code str="left" />. (For
+          example, if you set <Code str="top: 100px" />, it ensures that the element would stay at
+          least 10px from the top of the scrolling container; if it would go below that, the element
+          will "stick" at the top 10px of the scrolling container while the other content will
+          continue scrolling.)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <div id="position-relative-example">
+      <span class="static">Static</span>
+      <span class="relative">Relative</span>
+      <span class="static">Static</span>
+      <span class="static">Static</span>
+    </div>    
+  `)}
+  css={smartTrim(`
+    #position-relative-example span {
+      color: white;
+      display: inline-block;
+      width: 100px;
+      height: 50px;
+    }
+    #position-relative-example .static {
+      position: static;
+      background-color: red;
+    }
+    #position-relative-example .relative {
+      background-color: blue;
+      position: relative;
+      top: 10px;
+      left: 10px;
+    }
+  `)}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <div id="position-sticky-example">
+      Scroll me! Scroll me! Scroll me! Scroll me!
+      Scroll me! Scroll me! Scroll me! Scroll me!
+      <div class="sticky">Sticky (top: 10px)</div>
+      Scroll me! Scroll me! Scroll me! Scroll me!
+      Scroll me! Scroll me! Scroll me! Scroll me!
+      Scroll me! Scroll me! Scroll me! Scroll me!
+      Scroll me! Scroll me! Scroll me! Scroll me!
+    </div>    
+  `)}
+  css={smartTrim(`
+    #position-sticky-example {
+      height: 150px;
+      width: 200px;
+      overflow: scroll;
+      background-color: #ccc;
+    }
+    #position-sticky-example .sticky {
+      display: inline-block;
+      position: sticky;
+      top: 10px;
+      background-color: gold;
+    }
+  `)}
+/>
+
+## Positioning Properties
+
+### `top`
+
+Sets the final position of a positioned element. (See `position` to see how this is calculated.)
+
+### `right`
+
+Sets the final position of a positioned element. (See `position` to see how this is calculated.)
+
+### `bottom`
+
+Sets the final position of a positioned element. (See `position` to see how this is calculated.)
+
+### `left`
+
+Sets the final position of a positioned element. (See `position` to see how this is calculated.)
+
+## See Also
+
+<References
+  references={[
+    {
+      text: 'Layout and the containing block (MDN)',
+      description: 'Describes how positioning of positioned elements works.',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'position (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/position`,
+    },
+  ]}
+></References>
