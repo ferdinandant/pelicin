@@ -1,0 +1,126 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, DocumentationList, Code, Image } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Z-Index" dateCreated="2021-03-19" />
+
+# Z-Index
+
+`z-index` property sets the z-ordering of elements (i.e., which element comes in front of another).
+
+<WebEditor
+  html={smartTrim(`
+    <div id="height-width-example">
+      Hi!
+    </div>    
+  `)}
+  css={smartTrim(`
+    #height-width-example {
+      width: 100px;
+      height: 50px;
+      background-color: #ccc;
+    }    
+  `)}
+/>
+
+## Basic concepts
+
+### Stacking Context
+
+`z-index` will only work as expected if the elements which you try to reorder belong to one _stacking context_.
+If two elements belong to different stacking contexts, their `z-index` values won't be compared to each other.
+
+A stacking context can be contained within other stacking context (creating tree-like hierarchy), but sibling stacking contexts are independent of each other.
+Resolve z-axis placement from the children stacking context, then the parent, and so on.
+
+You can see what creates a stacking context [here](/web/css/concepts/stacking-context).
+
+### With Nesting
+
+Note that nesting plays a big role. If an element B sits on top of element A, a child element of element A can _never_ be on top of element B
+(CSS-Tricks).
+
+(This is the implication of "resolve z-axis placement from the children stacking context, then the parent, and so on" &mdash;
+once stacking and rendering within A is completed, the whole element A is passed for stacking in the parent element with
+respect to its sibling B.)
+
+<Image
+  path="/res/web/css/z-index-example.png"
+  caption="If B is on top of A, children of A can't be on top of B"
+/>
+
+## CSS Properties
+
+### `z-index`
+
+Specify `auto` or an integer.
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description:
+        "Does not create a new stacking context. This element's stacking context is the same as its parent.",
+    },
+    {
+      nameSpecial: 'integer',
+      description: (
+        <>
+          (E.g. <Code str="1" />, <Code str="0" />, or <Code str="-2" />
+          ). Places the element in this stack level in the current stacking context. Also creates a new
+          local stacking context with stack level of 0. (The creation of a new stacking context implies
+          that the <Code str="z-index" />
+          's of this element's descendants are not compared to the <Code str="z-index" />
+          's of elements outside this element.)
+        </>
+      ),
+    },
+  ]}
+/>
+
+## Obscures CSS Properties
+
+### `isolation`
+
+Forces an element to create a new stacking context.
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description:
+        "Only creates a stacking context if required (depending of the element's CSS properties)",
+    },
+    {
+      nameSpecial: 'isolate',
+      description: 'Forces the creation of a new stacking context.',
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Adding z-index (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/Adding_z-index`,
+    },
+    {
+      text: 'z-index (MDN)',
+      link: `https://css-tricks.com/almanac/properties/z/z-index/`,
+    },
+    {
+      text: 'z-index (CSS-Tricks)',
+      link: `https://css-tricks.com/almanac/properties/z/z-index/`,
+    },
+    {
+      text: 'The stacking context (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context`,
+    },
+    {
+      text: 'isolation (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/isolation`,
+    },
+  ]}
+></References>
