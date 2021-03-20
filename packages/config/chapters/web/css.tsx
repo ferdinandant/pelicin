@@ -106,6 +106,18 @@ const chapters: TopicChapters = [
   {
     chapter: 'Typography',
     children: [
+      {
+        title: 'Font Styling',
+        path: '/web/css/typography/font-styling',
+      },
+      {
+        title: 'Spacing and Alignment',
+        path: '/web/css/typography/spacing-alignment',
+      },
+      {
+        title: 'Wrapping',
+        path: '/web/css/typography/wrapping',
+      },
     ],
   },
   {
