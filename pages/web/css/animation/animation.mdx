@@ -1,0 +1,267 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  DocumentationList,
+  Code,
+  WebEditor,
+  NoteBox,
+  SyntaxHighlighter,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Animation" dateCreated="2021-03-21" />
+
+# Animation
+
+This page explains the CSS rules related to `@keyframes` and `animation`.
+
+## Animation At-Rules
+
+### `@keyframes`
+
+Defines the keyframes for a CSS animation.
+(You can use alphanumeric characters, underscores, and/or dashes for the name.)
+
+Inside `@keyframes`, you can specify the "stops" using:
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: (
+        <>
+          percentage, e.g. <Code str="50%" />
+        </>
+      ),
+      description: <>the percentage of the time through the animation sequence</>,
+    },
+    {
+      name: 'from',
+      description: (
+        <>
+          same as <Code str="0%" />
+        </>
+      ),
+    },
+    {
+      name: 'to',
+      description: (
+        <>
+          same as <Code str="100%" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+If you don't specify the `0%` or `100%` stops, the browser will use the element's current style.
+This can be used to animate an element from its current state and back.
+
+```css
+@keyframes keyframeName {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+```
+
+## Animation Properties
+
+<NoteBox type="info" title="Specifying multiple animations">
+  <p>
+    For these CSS properties, you can use commas to separate the values when you use more than one
+    animation.
+  </p>
+  <p>For example,</p>
+  <SyntaxHighlighter language="css">
+    {smartTrim(`
+      div {
+        animation: 3s scale-2x, 5s ease wiggle;
+        animation-direction: normal, alternate;
+      }
+    `)}
+  </SyntaxHighlighter>
+</NoteBox>
+
+### `animation`
+
+Shorthand for the following properties (in this order; only `animation-duration` and `animation-name` is required):
+
+- `animation-duration`
+- `animation-timing-function`
+- `animation-delay`
+- `animation-iteration-count`
+- `animation-direction`
+- `animation-fill-mode`
+- `animation-play-state`
+- `animation-name`
+
+<WebEditor
+  html={smartTrim(`
+    <div id="animation-example">
+      <div class="ball"></div>
+    </div>
+  `)}
+  css={smartTrim([
+    `
+      @keyframes slideIn {
+        0% { margin-left: -50px; }
+        100% { margin-left: 100%; }
+      }
+    `,
+    `
+      #animation-example {
+        height: 50px;
+        background-color: #ddd;
+        overflow: hidden;
+      }
+      #animation-example .ball {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        background-color: #aaa;
+        /* <animation-duration> <animation-timing-function> <animation-delay> <animation-iteration-count> <animation-direction> <animation-fill-mode> <animation-play-state> <animation-name> */
+        animation: 3s ease-in 1s infinite reverse both running slideIn;
+      }
+    `,
+  ])}
+/>
+
+### `animation-duration`
+
+Sets the duration of the animation (to complete one cycle).
+A default value of `0s` means no animation should occur.
+
+### `animation-timing-function`
+
+Sets how to interpolate ("ease") the values between keyframes.
+
+Possible values (read more [here](/web/css/data-type/easing-function)):
+
+<DocumentationList
+  items={[
+    { name: 'linear' },
+    { name: 'ease' },
+    { name: 'ease-in' },
+    { name: 'ease-out' },
+    { name: 'ease-in-out' },
+    { name: 'cubic-bezier(p1, p2, p3, p4)' },
+    { name: 'steps(n, jumpTerm)' },
+    { name: 'step-start' },
+    { name: 'step-end' },
+  ]}
+/>
+
+### `animation-delay`
+
+Sets the amount of time to wait before starting the animation.
+Looping animation is only delayed once, before the animation starts.
+
+You can specify negative values. For example, if you set `-1s`,
+the animation will start immediately, but from the `1s` mark.
+
+### `animation-iteration-count`
+
+Sets how many times the animation should be repeated.
+
+You can specify `infinite` (to loop forever), or a number.
+If you specify a fractional number (e.g. `0.5`), then only that part of the animation would be played.
+
+### `animation-direction`
+
+Sets whether the animation should play forward, backward, or alternating back and forth.
+
+Possible values: `normal`, `reverse`, `alternate`, `alternate-reverse`.
+
+### `animation-fill-mode`
+
+Sets which keyframe CSS styles are applied before/after the animation.
+
+Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: "don't apply keyframe styles when the animation is not running (default)",
+    },
+    {
+      name: 'forwards',
+      description: 'after the animation, retain the styles from the last keyframe',
+    },
+    {
+      name: 'backwards',
+      description:
+        'before the animation (including while delayed), retain the styles from the first keyframe',
+    },
+    {
+      name: 'both',
+      description: (
+        <>
+          does <Code str="forwards" /> and <Code str="backwards" /> (the styles from the first/last
+          keyframes are applied before/after the animation)
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `animation-play-state`
+
+Sets whether an animation is `running` or `paused`.
+(When you change the value to `paused`, the animation will immediately pause at the current state.)
+
+Resuming a paused animation will start the animation from where it left off, rather than starting over from the beginning.
+
+### `animation-name`
+
+Specifies the `@keyframes` name to be used for the animation.
+
+## References
+
+<References
+  references={[
+    {
+      text: '@keyframes (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes`,
+    },
+    {
+      text: 'animation (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/animation`,
+    },
+    {
+      text: 'animation (CSS-Tricks)',
+      link: `hhttps://css-tricks.com/almanac/properties/a/animation/`,
+    },
+    {
+      text: 'animation-duration (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/animation-duration`,
+    },
+    {
+      text: 'animation-timing-function (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function`,
+    },
+    {
+      text: 'animation-delay (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/animation-iteration-count`,
+    },
+    {
+      text: 'animation-delay (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/animation-iteration-count`,
+    },
+    {
+      text: 'animation-direction (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction`,
+    },
+    {
+      text: 'animation-fill-mode (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode`,
+    },
+    {
+      text: 'animation-play-state (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/animation-play-state`,
+    },
+  ]}
+></References>

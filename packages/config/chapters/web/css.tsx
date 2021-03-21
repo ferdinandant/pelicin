@@ -31,26 +31,6 @@ const chapters: TopicChapters = [
       },
     ],
   },
-  {
-    chapter: 'Data Type',
-    children: [
-      {
-        title: 'Length',
-        path: '/web/css/data-type/length',
-        badge: 'TODO',
-      },
-      {
-        title: 'Image',
-        path: '/web/css/data-type/image',
-        badge: 'TODO',
-      },
-      {
-        title: 'Filter Function',
-        path: '/web/css/data-type/filter-function',
-        badge: 'TODO',
-      },
-    ],
-  },
   { '@separator': 'CSS Properties' },
   {
     chapter: 'Display',
@@ -176,9 +156,53 @@ const chapters: TopicChapters = [
         path: '/web/css/aesthetics/shadow',
         badge: 'TODO',
       },
+      {
+        title: 'Translate and Transform',
+        path: '/web/css/aesthetics/translate-transform',
+        badge: 'TODO',
+      },
+    ],
+  },
+  {
+    chapter: 'Animation',
+    children: [
+      {
+        title: 'Animation',
+        path: '/web/css/animation/animation',
+      },
+      {
+        title: 'Transition',
+        path: '/web/css/animation/transition',
+        badge: 'TODO',
+      },
     ],
   },
   { '@separator': 'Others' },
+  {
+    chapter: 'Data Type',
+    children: [
+      {
+        title: 'Length',
+        path: '/web/css/data-type/length',
+        badge: 'TODO',
+      },
+      {
+        title: 'Image',
+        path: '/web/css/data-type/image',
+        badge: 'TODO',
+      },
+      {
+        title: 'Filter Function',
+        path: '/web/css/data-type/filter-function',
+        badge: 'TODO',
+      },
+      {
+        title: 'Easing Function',
+        path: '/web/css/data-type/easing-function',
+        badge: 'TODO',
+      },
+    ],
+  },
   {
     chapter: 'Concepts',
     children: [
