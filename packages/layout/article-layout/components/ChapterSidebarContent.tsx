@@ -5,6 +5,19 @@ import classNames from 'classnames';
 
 import { useTopicConfig, useTopicChapters } from '@pelicin/config';
 
+// ================================================================================
+// TYPES/CONST
+// ================================================================================
+
+type BadgeProps = {
+  isActive: boolean;
+  text: string;
+};
+
+// ================================================================================
+// MAIN
+// ================================================================================
+
 export default function ChapterSidebarContent() {
   const { pathname } = useRouter();
   const { mainColor } = useTopicConfig();
@@ -27,11 +40,14 @@ export default function ChapterSidebarContent() {
             <div className="group" key={chapterIndex}>
               <span className="groupTitle">{chapter}</span>
               {children.map((titleData, titleIndex) => {
-                const { title, path } = titleData;
+                const { title, path, badge } = titleData;
                 const isActive = pathname === path;
                 return (
                   <Link key={titleIndex} href={path}>
-                    <a className={classNames({ active: isActive })}>{title}</a>
+                    <a className={classNames({ active: isActive })}>
+                      <span className="title">{title}</span>
+                      {badge && <Badge isActive={isActive} text={badge} />}
+                    </a>
                   </Link>
                 );
               })}
@@ -89,7 +105,7 @@ export default function ChapterSidebarContent() {
         a.active {
           color: ${mainColor};
         }
-        a:hover {
+        a:hover .title {
           text-decoration: underline;
         }
         a.active {
@@ -97,6 +113,52 @@ export default function ChapterSidebarContent() {
           padding: var(--spacing-xs) var(--spacing-ms);
           margin: calc(-1 * var(--spacing-xs)) 0;
           border-radius: var(--border-radius-normal);
+        }
+
+        .badge {
+          display: inline-block;
+          position: relative;
+          top: -1px;
+          padding: var(--spacing-xxs) var(--spacing-s);
+          border-radius: var(--border-radius-rounded);
+          font-size: var(--font-size-tiny);
+          background-color: var(--color-gray-1);
+          color: var(--color-gray-3);
+        }
+        a.active .badge {
+          background-color: ${mainColor}17;
+          color: ${mainColor};
+        }
+      `}</style>
+    </>
+  );
+}
+
+// ================================================================================
+// CHILDREN
+// ================================================================================
+
+function Badge(props: BadgeProps) {
+  const { isActive, text } = props;
+  const { mainColor } = useTopicConfig();
+
+  return (
+    <>
+      {' '}
+      <span className="badge" />
+      <style jsx>{`
+        .badge {
+          display: inline-block;
+          position: relative;
+          top: -1px;
+          padding: var(--spacing-xxs) var(--spacing-s);
+          border-radius: var(--border-radius-rounded);
+          font-size: var(--font-size-tiny);
+          background-color: ${isActive ? `${mainColor}17` : 'var(--color-gray-1)'};
+          color: ${isActive ? `${mainColor}` : 'var(--color-gray-3)'};
+        }
+        .badge::before {
+          content: '${text}';
         }
       `}</style>
     </>

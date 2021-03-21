@@ -31,6 +31,26 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  {
+    chapter: 'Data Type',
+    children: [
+      {
+        title: 'Length',
+        path: '/web/css/data-type/length',
+        badge: 'TODO',
+      },
+      {
+        title: 'Image',
+        path: '/web/css/data-type/image',
+        badge: 'TODO',
+      },
+      {
+        title: 'Filter Function',
+        path: '/web/css/data-type/filter-function',
+        badge: 'TODO',
+      },
+    ],
+  },
   { '@separator': 'CSS Properties' },
   {
     chapter: 'Display',
@@ -106,35 +126,59 @@ const chapters: TopicChapters = [
   {
     chapter: 'Typography',
     children: [
+      {
+        title: 'Font',
+        path: '/web/css/typography/font',
+        badge: 'TODO',
+      },
+      {
+        title: 'Emphasis and Decoration',
+        path: '/web/css/typography/emphasis-decoration',
+        badge: 'TODO',
+      },
+      {
+        title: 'Spacing and Alignment',
+        path: '/web/css/typography/spacing-alignment',
+        badge: 'TODO',
+      },
+      {
+        title: 'Orientation',
+        path: '/web/css/typography/orientation',
+        badge: 'TODO',
+      },
+      {
+        title: 'Overflow',
+        path: '/web/css/typography/overflow',
+        badge: 'TODO',
+      },
+      {
+        title: 'Others',
+        path: '/web/css/typography/others',
+        badge: 'TODO',
+      },
     ],
   },
   {
     chapter: 'Aesthetics',
     children: [
       {
-        title: 'Background',
-        path: '/todo',
+        title: 'Color',
+        path: '/web/css/aesthetics/color',
+        badge: 'TODO',
       },
       {
-        title: 'Shadow',
-        path: '/todo',
+        title: 'Background',
+        path: '/web/css/aesthetics/background',
+        badge: 'TODO',
+      },
+      {
+        title: 'Shadow and Text Shadow',
+        path: '/web/css/aesthetics/shadow',
+        badge: 'TODO',
       },
     ],
   },
   { '@separator': 'Others' },
-  {
-    chapter: 'Data Type',
-    children: [
-      {
-        title: 'Image',
-        path: '/web/css/data-type/image',
-      },
-      {
-        title: 'Filter Function',
-        path: '/web/css/data-type/filter-function',
-      },
-    ],
-  },
   {
     chapter: 'Concepts',
     children: [
@@ -145,10 +189,12 @@ const chapters: TopicChapters = [
       {
         title: 'Block Formatting Context',
         path: '/web/css/concepts/block-formatting-context',
+        badge: 'TODO',
       },
       {
         title: 'Stacking Context',
         path: '/web/css/concepts/stacking-context',
+        badge: 'TODO',
       },
     ],
   },

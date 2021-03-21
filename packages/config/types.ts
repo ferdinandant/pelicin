@@ -45,6 +45,7 @@ export type TopicChapter =
       children: Array<{
         title: string | ReactNode;
         path: string;
+        badge?: string;
       }>;
     }
   | {
