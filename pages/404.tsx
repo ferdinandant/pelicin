@@ -9,7 +9,8 @@ export default function NotFoundPage() {
           <h2>404 | Not Found</h2>
           <hr />
           <p>
-            The page you're looking for does not exist
+            The page you're looking for
+            <br /> does not exist, has not been created,
             <br /> or has been moved somewhere.
           </p>
           <p>
