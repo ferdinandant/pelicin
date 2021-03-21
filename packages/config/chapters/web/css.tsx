@@ -31,6 +31,26 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  {
+    chapter: 'Data Type',
+    children: [
+      {
+        title: 'Length',
+        path: '/web/css/data-type/length',
+        badge: 'TODO',
+      },
+      {
+        title: 'Image',
+        path: '/web/css/data-type/image',
+        badge: 'TODO',
+      },
+      {
+        title: 'Filter Function',
+        path: '/web/css/data-type/filter-function',
+        badge: 'TODO',
+      },
+    ],
+  },
   { '@separator': 'CSS Properties' },
   {
     chapter: 'Display',
@@ -159,21 +179,6 @@ const chapters: TopicChapters = [
     ],
   },
   { '@separator': 'Others' },
-  {
-    chapter: 'Data Type',
-    children: [
-      {
-        title: 'Image',
-        path: '/web/css/data-type/image',
-        badge: 'TODO',
-      },
-      {
-        title: 'Filter Function',
-        path: '/web/css/data-type/filter-function',
-        badge: 'TODO',
-      },
-    ],
-  },
   {
     chapter: 'Concepts',
     children: [
