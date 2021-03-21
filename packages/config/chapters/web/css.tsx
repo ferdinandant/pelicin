@@ -176,6 +176,26 @@ const chapters: TopicChapters = [
         path: '/web/css/aesthetics/shadow',
         badge: 'TODO',
       },
+      {
+        title: 'Translate and Transform',
+        path: '/web/css/aesthetics/translate-transform',
+        badge: 'TODO',
+      },
+    ],
+  },
+  {
+    chapter: 'Animation',
+    children: [
+      {
+        title: 'Animation',
+        path: '/web/css/animation/animation',
+        badge: 'TODO',
+      },
+      {
+        title: 'Transition',
+        path: '/web/css/animation/transition',
+        badge: 'TODO',
+      },
     ],
   },
   { '@separator': 'Others' },
