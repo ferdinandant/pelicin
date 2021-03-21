@@ -1,0 +1,121 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, DocumentationList, Code, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Animation" dateCreated="2021-03-21" />
+
+# Animation
+
+Lorem Ipsum Dolor Sit Amet
+
+## Animation At-Rules
+
+### `@keyframes`
+
+Controls the intermediate steps in a CSS animation.
+
+Inside `@keyframes`, you can specify the "stops" using:
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: (
+        <>
+          percentage, e.g. <Code str="50%" />
+        </>
+      ),
+      description: <>the percentage of the time through the animation sequence</>,
+    },
+    {
+      name: 'from',
+      description: (
+        <>
+          same as <Code str="0%" />
+        </>
+      ),
+    },
+    {
+      name: 'to',
+      description: (
+        <>
+          same as <Code str="100%" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+If you don't specify the `0%` or `100%` stops, the browser will use the element's current style.
+This can be used to animate an element from its current state and back.
+
+```css
+@keyframes keyframeName {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+```
+
+## Animation Properties
+
+### `animation`
+
+Shorthand for the following properties (in this order; only `animation-duration` and `animation-name` is required):
+
+- `animation-duration`
+- `animation-timing-function`
+- `animation-delay`
+- `animation-iteration-count`
+- `animation-direction`
+- `animation-fill-mode`
+- `animation-play-state`
+- `animation-name`
+
+<WebEditor
+  html={smartTrim(`
+    <div id="animation-example">
+      <div class="ball"></div>
+    </div>
+  `)}
+  css={smartTrim([
+    `
+      @keyframes slideIn {
+        0% { margin-left: -50px; }
+        100% { margin-left: 100%; }
+      }
+    `,
+    `
+      #animation-example {
+        height: 50px;
+        background-color: #ddd;
+        overflow: hidden;
+      }
+      #animation-example .ball {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        background-color: #aaa;
+        /* <animation-duration> <animation-timing-function> <animation-delay> <animation-iteration-count> <animation-direction> <animation-fill-mode> <animation-play-state> <animation-name> */
+        animation: 3s ease-in 1s infinite reverse both running slideIn;
+      }
+    `,
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: '@keyframes (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes`,
+    },
+    {
+      text: 'animation (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/animation`,
+    },
+  ]}
+></References>

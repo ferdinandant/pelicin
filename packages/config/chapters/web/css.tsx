@@ -189,7 +189,6 @@ const chapters: TopicChapters = [
       {
         title: 'Animation',
         path: '/web/css/animation/animation',
-        badge: 'TODO',
       },
       {
         title: 'Transition',
