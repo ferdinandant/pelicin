@@ -1,26 +1,90 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, WebEditor } from '@pelicin/components';
+import { References, WebEditor, DocumentationList, Code } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Font Styling" dateCreated="2021-03-21" />
 
 # Font
 
-This page lists the CSS properties to style a font.
+This page lists the CSS properties to customize an element's font.
 
-## Font Properties
+## Font At-Rules
 
-### `font-family`
+### `@font-face`
 
-Sets the font (typeface) to use.
+Defines a custom font.
+
+**Required properties:**
 
 <DocumentationList
   items={[
     {
-      name: 'row',
-      description: 'fill in each row in turn, adding new rows as necessary (default)',
+      name: 'font-family',
+      description: 'Name of the font',
+    },
+    {
+      name: 'src',
+      description: (
+        <>
+          Source to the font data. Use <Code str="local(...)" /> to refer to a font name on the
+          client's computer, or use <Code str="url(...)" /> to load from a URL.
+        </>
+      ),
     },
   ]}
+/>
+
+**Optional properties:**
+
+<DocumentationList
+  items={[
+    { name: 'font-display' },
+    { name: 'font-stretch' },
+    { name: 'font-weight' },
+    { name: 'font-variant' },
+    { name: 'font-feature-settings' },
+    { name: 'font-variation-settings' },
+    { name: 'unicode-range' },
+  ]}
+/>
+
+<!-- prettier-ignore -->
+```css
+@font-face {
+  font-family: examplefont;
+  src: local(Example Font),
+    url('examplefont.woff') format('woff'),
+    url('examplefont.otf') format('opentype');
+}
+```
+
+## Font Properties
+
+### `font`
+
+Shorthand for the following properties (in order). `font-size` and `font-family` are required.
+
+- `font-style`
+- `font-variant`
+- `font-weight`
+- `font-stretch`
+- `font-size`
+- `line-height`
+- `font-family`
+
+<WebEditor
+  html={smartTrim(`
+    <p id="font-example">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+  `)}
+  css={smartTrim(`
+    #font-example {
+      /* <font-style> <font-variant> <font-weigh> <font-stretch> <font-size>/<line-height> <font-family> */
+      font: italic small-caps bold 16px/2 "Arial";
+    }
+  `)}
 />
 
 ## References
@@ -28,8 +92,8 @@ Sets the font (typeface) to use.
 <References
   references={[
     {
-      text: 'MDN',
-      link: `https`,
+      text: '@font-face (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face`,
     },
   ]}
 ></References>
