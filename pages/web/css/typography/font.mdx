@@ -8,6 +8,19 @@ import { smartTrim } from '@pelicin/utils';
 
 This page lists the CSS properties to customize an element's font.
 
+## Basic Concepts
+
+### Font Display Timeline
+
+Font display timeline begins when the browser attempts to use a given font. There are three periods:
+
+- **font block period** &mdash; if the font is not loaded, temporarily render using an invisible text.
+  (If the font succesfully loads, then use it normally.)
+- **font swap period** &mdash; if the font is not loaded, temporarily render using a fallback font.
+  (If the font succesfully loads, then use it normally.)
+- **font failure period** &mdash; if the font is not loaded, treat it as a failed load,
+  and render using a fallback font.
+
 ## Font At-Rules
 
 ### `@font-face`
@@ -38,13 +51,50 @@ Defines a custom font.
 
 <DocumentationList
   items={[
-    { name: 'font-display' },
-    { name: 'font-stretch' },
-    { name: 'font-weight' },
-    { name: 'font-variant' },
-    { name: 'font-feature-settings' },
-    { name: 'font-variation-settings' },
-    { name: 'unicode-range' },
+    {
+      name: 'font-display',
+      description: (
+        <>
+          Sets how a font is displayed in relation to its availability (is loading or has done
+          loading). Specify one of: <Code str="auto" /> (let the browser decide);{' '}
+          <Code str="block" /> (short block period, infinite swap period); <Code str="swap" /> (no
+          block period, infinite swap period); <Code str="fallback" /> (super short block period,
+          short swap period); <Code str="optional" /> (super short block period, no swap period).
+        </>
+      ),
+    },
+    {
+      name: 'unicode-range',
+      description: (
+        <>
+          Sets the specific range of characters to be used from the font. Specify (in hexadecimal):
+          a single codepoint (e.g. <Code str="U+26" />
+          ), a codepoint range (e.g. <Code str="U+0025-00FF" />
+          ), or a wildcard range (e.g. <Code str="U+4??" />
+          ).
+        </>
+      ),
+    },
+    {
+      name: 'font-variant',
+      description: 'See below.',
+    },
+    {
+      name: 'font-weight',
+      description: 'See below.',
+    },
+    {
+      name: 'font-stretch',
+      description: 'See below.',
+    },
+    {
+      name: 'font-feature-settings',
+      description: 'See below.',
+    },
+    {
+      name: 'font-variation-settings',
+      description: 'See below.',
+    },
   ]}
 />
 
@@ -94,6 +144,10 @@ Shorthand for the following properties (in order). `font-size` and `font-family`
     {
       text: '@font-face (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face`,
+    },
+    {
+      text: 'font-display (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display`,
     },
   ]}
 ></References>
