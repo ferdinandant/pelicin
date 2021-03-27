@@ -1,35 +1,453 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, WebEditor } from '@pelicin/components';
+import { References, WebEditor, DocumentationList, Code, Image, Link } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Font Styling" dateCreated="2021-03-21" />
 
 # Font
 
-This page lists the CSS properties to style a font.
+This page lists the CSS properties to customize an element's font.
 
-## Font Properties
+## Basic Concepts
 
-### `font-family`
+### Font Display Timeline
 
-Sets the font (typeface) to use.
+Font display timeline begins when the browser attempts to use a given font. There are three periods:
+
+- **font block period** &mdash; if the font is not loaded, temporarily render using an invisible text.
+  (If the font succesfully loads, then use it normally.)
+- **font swap period** &mdash; if the font is not loaded, temporarily render using a fallback font.
+  (If the font succesfully loads, then use it normally.)
+- **font failure period** &mdash; if the font is not loaded, treat it as a failed load,
+  and render using a fallback font.
+
+## Font At-Rules
+
+### `@font-face`
+
+Defines a custom font.
+
+**Required properties:**
 
 <DocumentationList
   items={[
     {
-      name: 'row',
-      description: 'fill in each row in turn, adding new rows as necessary (default)',
+      name: 'font-family',
+      description: 'Name of the font',
+    },
+    {
+      name: 'src',
+      description: (
+        <>
+          Source to the font data. Use <Code str="local(...)" /> to refer to a font name on the
+          client's computer, or use <Code str="url(...)" /> to load from a URL.
+        </>
+      ),
     },
   ]}
 />
+
+**Optional properties:**
+
+<DocumentationList
+  items={[
+    {
+      name: 'font-display',
+      description: (
+        <>
+          Sets how a font is displayed in relation to its availability (is loading or has done
+          loading). Specify one of: <Code str="auto" /> (let the browser decide);{' '}
+          <Code str="block" /> (short block period, infinite swap period); <Code str="swap" /> (no
+          block period, infinite swap period); <Code str="fallback" /> (super short block period,
+          short swap period); <Code str="optional" /> (super short block period, no swap period).
+        </>
+      ),
+    },
+    {
+      name: 'unicode-range',
+      description: (
+        <>
+          Sets the specific range of characters to be used from the font. Specify (in hexadecimal):
+          a single codepoint (e.g. <Code str="U+26" />
+          ), a codepoint range (e.g. <Code str="U+0025-00FF" />
+          ), or a wildcard range (e.g. <Code str="U+4??" />
+          ).
+        </>
+      ),
+    },
+    {
+      name: 'font-variant',
+      description: 'See below.',
+    },
+    {
+      name: 'font-weight',
+      description: 'See below.',
+    },
+    {
+      name: 'font-stretch',
+      description: 'See below.',
+    },
+    {
+      name: 'font-feature-settings',
+      description: 'See below.',
+    },
+    {
+      name: 'font-variation-settings',
+      description: 'See below.',
+    },
+  ]}
+/>
+
+<!-- prettier-ignore -->
+```css
+@font-face {
+  font-family: examplefont;
+  src: local(Example Font),
+    url('examplefont.woff') format('woff'),
+    url('examplefont.otf') format('opentype');
+}
+```
+
+## Font Properties
+
+### `font`
+
+Shorthand for the following properties (in any order). `font-size` and `font-family` are required.
+
+- `font-style`
+- `font-variant`
+- `font-weight`
+- `font-stretch`
+- `font-size`
+- `line-height`
+- `font-family`
+
+<WebEditor
+  html={smartTrim(`
+    <p id="font-example">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+  `)}
+  css={smartTrim(`
+    #font-example {
+      /* <font-style> <font-variant> <font-weight> <font-stretch> <font-size>/<line-height> <font-family> */
+      font: italic small-caps bold 16px/2 "Arial";
+    }
+  `)}
+/>
+
+### `font-style`
+
+Selects a normal/italicized font from a font family.
+
+Specify: `normal`, `italic`, `oblique`, or `oblique <angle>` (e.g. `oblique 14deg`).
+
+According to the spec, “Italic forms are generally cursive in nature while oblique faces are
+typically sloped versions of the regular face” (CSS-Tricks).
+
+<Image
+  path="/res/web/css/font-style-palatino.png"
+  caption="Normal vs italic vs oblique version of Palatino Linotype font."
+  sourceString="Microsoft Docs"
+/>
+
+### `font-variant`
+
+Shorthand for the following properties (in any order).
+
+- `font-variant-alternates`
+- `font-variant-caps`
+- `font-variant-east-asian`
+- `font-variant-ligatures`
+- `font-variant-numeric`
+
+```css
+p {
+  /* Examples */
+  font-variant: normal;
+  font-variant: small-caps slashed-zero;
+  font-variant: common-ligatures tabular-nums;
+}
+```
+
+### `font-weight`
+
+Sets the boldness of the font. Specify:
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: 'any number between 1 and 1000',
+      description: (
+        <>
+          E.g. <Code str="500" />
+        </>
+      ),
+    },
+    {
+      name: 'normal',
+      description: (
+        <>
+          Alias of <Code str="400" />
+        </>
+      ),
+    },
+    {
+      name: 'bold',
+      description: (
+        <>
+          Alias <Code str="700" />
+        </>
+      ),
+    },
+    {
+      name: 'lighter',
+      description: <>One level lighter than the parent</>,
+    },
+    {
+      name: 'bolder',
+      description: <>One level bolder than the parent</>,
+    },
+  ]}
+/>
+
+### `font-stretch`
+
+Selects a normal, condensed, or expanded version of a font. Specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'normal',
+    },
+    {
+      nameSpecial: 'a percentage',
+      description: (
+        <>
+          between <Code str="50%" /> and <Code str="200%" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a "condensed" family',
+      description: (
+        <>
+          <Code str="semi-condensed" />, <Code str="condensed" />, <Code str="extra-condensed" />,
+          or <Code str="ultra-condensed" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'an "expanded" family',
+      description: (
+        <>
+          <Code str="semi-expanded" />, <Code str="expanded" />, <Code str="extra-expanded" />, or{' '}
+          <Code str="ultra-expanded" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `font-size`
+
+Sets the size of the font. Specify:
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: 'a length',
+      description: (
+        <>
+          E.g. <Code str="16pt" /> or <Code str="16px" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a percentage',
+      description: (
+        <>
+          E.g. <Code str="75%" /> (relative to its parent)
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'an absolute-size keyword',
+      description: (
+        <>
+          <Code str="xx-small" />, <Code str="x-small" />, <Code str="small" />,{' '}
+          <Code str="medium" />, <Code str="large" />, <Code str="x-large" />,{' '}
+          <Code str="xx-large" />, or <Code str="xxx-large" /> (based on the user's default font
+          size; the final value is calculated by the browser)
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'an relative-size keyword',
+      description: (
+        <>
+          <Code str="larger" />, <Code str="smaller" /> (relative to its parent)
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `line-height`
+
+Sets the height of the line box (distance between the lines of the text). Specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'normal',
+      description: <>depends on the browser</>,
+    },
+    {
+      nameSpecial: 'a number',
+      description: (
+        <>
+          (e.g. <Code str="1.5" />) multiple of the element's font size
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a percentage',
+      description: (
+        <>
+          (e.g. <Code str="150%" />) relative to the element's font size
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a length',
+      description: (
+        <>
+          (e.g. <Code str="20px" />)
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `font-family`
+
+Sets a prioritized list of font family names (and/or generic family names) to use.
+
+A font family name would be something like `Arial` or `Times New Roman`, whereas a generic family name is one of:
+`serif`, `sans-serif`, `cursive`, `fantasy`, or `monospace`.
+
+## Font Settings Properties
+
+### `font-feature-settings`
+
+Controls advanced typographic features in OpenType fonts.
+
+```css
+p {
+  font-feature-settings: 'smcp';
+  font-feature-settings: 'smcp' on;
+  font-feature-settings: 'swsh' 2;
+  font-feature-settings: 'smcp', 'swsh' 2;
+}
+```
+
+### `font-variation-settings`
+
+Sets low-level properties of a variable font.
+
+```css
+p {
+  font-variation-settings: 'wght' 850;
+  font-variation-settings: 'wght' 850, 'slant' 0;
+}
+```
+
+## Font Variant Properties
+
+### `font-variant-alternates`
+
+### `font-variant-caps`
+
+### `font-variant-east-asian`
+
+### `font-variant-ligatures`
+
+### `font-variant-numeric`
+
+## Assets
+
+<References
+  references={[
+    {
+      text: 'DWRITE_FONT_STYLE enumeration (dwrite.h) (Microsoft Docs)',
+      description: (
+        <>
+          Appeared in{' '}
+          <Link link="https://docs.microsoft.com/en-us/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style" />
+        </>
+      ),
+      link: `https://docs.microsoft.com/en-us/windows/win32/api/dwrite/images/fontstyle_for_palatino.png`,
+    },
+  ]}
+></References>
 
 ## References
 
 <References
   references={[
     {
-      text: 'MDN',
-      link: `https`,
+      text: '@font-face (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face`,
+    },
+    {
+      text: 'font-display (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display`,
+    },
+    {
+      text: 'font (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font`,
+    },
+    {
+      text: 'font-style (CSS-Tricks)',
+      link: `https://css-tricks.com/almanac/properties/f/font-style/`,
+    },
+    {
+      text: 'font-style (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-style`,
+    },
+    {
+      text: 'font-variant (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant`,
+    },
+    {
+      text: 'font-weight (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight`,
+    },
+    {
+      text: 'font-stretch (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-stretch`,
+    },
+    {
+      text: 'font-size (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-size`,
+    },
+    {
+      text: 'line-height (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/line-height`,
+    },
+    {
+      text: 'font-family (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-family`,
+    },
+    {
+      text: 'font-feature-settings (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-feature-settings`,
+    },
+    {
+      text: 'font-variation-settings (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings`,
     },
   ]}
 ></References>
