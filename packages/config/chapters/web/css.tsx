@@ -109,7 +109,6 @@ const chapters: TopicChapters = [
       {
         title: 'Font',
         path: '/web/css/typography/font',
-        badge: 'TODO',
       },
       {
         title: 'Emphasis and Decoration',

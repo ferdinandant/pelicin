@@ -46,7 +46,7 @@ export default function Image(props: Props) {
     const optionalSpace = caption ? ' ' : '';
     sourceNode = (
       <>
-        {optionalSpace}(source: {sourceString})
+        {optionalSpace}(Source: {sourceString})
       </>
     );
   }
