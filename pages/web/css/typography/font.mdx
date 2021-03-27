@@ -338,7 +338,43 @@ Sets a prioritized list of font family names (and/or generic family names) to us
 A font family name would be something like `Arial` or `Times New Roman`, whereas a generic family name is one of:
 `serif`, `sans-serif`, `cursive`, `fantasy`, or `monospace`.
 
+## Font Settings Properties
+
+### `font-feature-settings`
+
+Controls advanced typographic features in OpenType fonts.
+
+```css
+p {
+  font-feature-settings: 'smcp';
+  font-feature-settings: 'smcp' on;
+  font-feature-settings: 'swsh' 2;
+  font-feature-settings: 'smcp', 'swsh' 2;
+}
+```
+
+### `font-variation-settings`
+
+Sets low-level properties of a variable font.
+
+```css
+p {
+  font-variation-settings: 'wght' 850;
+  font-variation-settings: 'wght' 850, 'slant' 0;
+}
+```
+
 ## Font Variant Properties
+
+### `font-variant-alternates`
+
+### `font-variant-caps`
+
+### `font-variant-east-asian`
+
+### `font-variant-ligatures`
+
+### `font-variant-numeric`
 
 ## Assets
 
@@ -404,6 +440,14 @@ A font family name would be something like `Arial` or `Times New Roman`, whereas
     {
       text: 'font-family (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-family`,
+    },
+    {
+      text: 'font-feature-settings (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-feature-settings`,
+    },
+    {
+      text: 'font-variation-settings (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings`,
     },
   ]}
 ></References>
