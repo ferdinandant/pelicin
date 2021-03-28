@@ -154,9 +154,9 @@ typically sloped versions of the regular face” (CSS-Tricks).
 
 ### `font-variant`
 
-Shorthand for the following properties (in any order).
+Controls the usage of alternate glyphs (e.g. ligatures, traditional/simplified Chinese characters).
+Shorthand for the following properties (in any order):
 
-- `font-variant-alternates`
 - `font-variant-caps`
 - `font-variant-east-asian`
 - `font-variant-ligatures`
@@ -366,15 +366,231 @@ p {
 
 ## Font Variant Properties
 
-### `font-variant-alternates`
-
 ### `font-variant-caps`
+
+Controls the use of alternate glyphs for capital letters.
+
+Common values are `normal` and `small-caps`.
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <table id="font-variant-caps-example">
+      <thead>
+        <th>font-variant-caps</th>
+        <th>Preview</th>
+      </thead>
+      <tbody>
+        <tr>
+          <th>normal</th>
+          <td style="font-variant-caps: normal">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th>small-caps</th>
+          <td style="font-variant-caps: small-caps">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th>all-small-caps</th>
+          <td style="font-variant-caps: all-small-caps">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th>petite-caps</th>
+          <td style="font-variant-caps: petite-caps">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th>all-petite-caps</th>
+          <td style="font-variant-caps: all-petite-caps">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th>unicase</th>
+          <td style="font-variant-caps: unicase">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th>titling-caps</th>
+          <td style="font-variant-caps: titling-caps">Lorem ipsum</td>
+        </tr>
+      </tbody>
+    </table>
+  `)}
+  css={smartTrim(`
+  `)}
+/>
 
 ### `font-variant-east-asian`
 
+Controls the use of alternate glyphs for East Asian scripts (e.g. half-width or full-width, traditional or simplified). Specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'normal',
+      description: <>Don't use alternate glyphs</>,
+    },
+    {
+      name: 'ruby',
+      description: (
+        <>
+          Use of special glyphs for rendering ruby characters (usually slightly bolder for increased
+          contrast because ruby characters are usually rendered small)
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a variant value',
+      description: (
+        <>
+          <Code str="jis78" />, <Code str="jis83" />, <Code str="jis90" />, <Code str="jis04" />,{' '}
+          <Code str="simplified" />, or <Code str="traditional" />. The resulting kanji might
+          slightly be altered: e.g. <span style={{ fontVariantEastAsian: 'normal' }}>麹町</span>{' '}
+          (normal) vs <span style={{ fontVariantEastAsian: 'jis78' }}>麹町</span> (jis78);{' '}
+          <span style={{ fontVariantEastAsian: 'normal' }}>大学</span> (normal) vs{' '}
+          <span style={{ fontVariantEastAsian: 'traditional' }}>大学</span> (traditional).
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a width value',
+      description: (
+        <>
+          <Code str="proportional-width" /> ("half-width") or <Code str="full-width" />
+        </>
+      ),
+    },
+  ]}
+/>
+
 ### `font-variant-ligatures`
 
+Controls which ligatures are used. Common values are `normal` and `none` (ligature availability depends on the font).
+[See here for other font-variant-ligatures values](https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-ligatures#values).
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <table id="font-variant-ligatures-example">
+      <thead>
+        <th>font-variant-ligatures</th>
+        <th>Preview (note the "ffi" and "ffl")</th>
+      </thead>
+      <tbody>
+        <tr>
+          <th>normal</th>
+          <td style="font-variant-ligatures: normal">Difficult waffles</td>
+        </tr>
+        <tr>
+          <th>none</th>
+          <td style="font-variant-ligatures: none">Difficult waffles</td>
+        </tr>
+      </tbody>
+    </table>
+  `)}
+  css={smartTrim(`
+    #font-variant-ligatures-example td {
+      font-family: serif;
+      font-size: 150%;
+    }
+  `)}
+/>
+
 ### `font-variant-numeric`
+
+Controls the usage of alternate glyphs for numbers, fractions, and ordinal markers.
+(Alternate glyphs availability depends on the font.)
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <table id="font-variant-numeric-example">
+      <thead>
+        <th>font-variant-numeric</th>
+        <th colspan="3">Preview</th>
+      </thead>
+      <tbody>
+        <tr style="font-variant-numeric: normal">
+          <th>normal</th>
+          <td>0.31415926</td>
+          <td>1st 2nd 3rd</td>
+          <td>1/2 3/4</td>
+        </tr>
+        <tr style="font-variant-numeric: ordinal">
+          <th>ordinal</th>
+          <td>0.31415926</td>
+          <td>1st 2nd 3rd</td>
+          <td>1/2 3/4</td>
+        </tr>
+        <tr style="font-variant-numeric: slashed-zero">
+          <th>slashed-zero</th>
+          <td>0.31415926</td>
+          <td>1st 2nd 3rd</td>
+          <td>1/2 3/4</td>
+        </tr>
+        <tr style="font-style: italic">
+          <td colspan="4">numeric-figure-values</td>
+        </tr>
+        <tr style="font-variant-numeric: lining-nums">
+          <th>lining-nums</th>
+          <td>0.31415926</td>
+          <td>1st 2nd 3rd</td>
+          <td>1/2 3/4</td>
+        </tr>
+        <tr style="font-variant-numeric: oldstyle-nums">
+          <th>oldstyle-nums</th>
+          <td>0.31415926</td>
+          <td>1st 2nd 3rd</td>
+          <td>1/2 3/4</td>
+        </tr>
+        <tr style="font-style: italic">
+          <td colspan="4">numeric-spacing-values</td>
+        </tr>
+        <tr style="font-variant-numeric: proportional-nums">
+          <th>proportional-nums</th>
+          <td>0.31415926</td>
+          <td>1st 2nd 3rd</td>
+          <td>1/2 3/4</td>
+        </tr>
+        <tr style="font-variant-numeric: tabular-nums">
+          <th>tabular-nums</th>
+          <td>0.31415926</td>
+          <td>1st 2nd 3rd</td>
+          <td>1/2 3/4</td>
+        </tr>
+        <tr style="font-style: italic">
+          <td colspan="4">numeric-fraction-values</td>
+        </tr>
+        <tr style="font-variant-numeric: diagonal-fractions">
+          <th>diagonal-fractions</th>
+          <td>0.31415926</td>
+          <td>1st 2nd 3rd</td>
+          <td>1/2 3/4</td>
+        </tr>
+        <tr style="font-variant-numeric: stacked-fractions">
+          <th>stacked-fractions</th>
+          <td>0.31415926</td>
+          <td>1st 2nd 3rd</td>
+          <td>1/2 3/4</td>
+        </tr>
+      </tbody>
+    </table>
+    <small>
+      *) This example uses the Source Sans Pro OpenType font, developed by Adobe and used here under the terms of the SIL Open Font License, Version 1.1:
+      <a href="http://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web">http://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web</a>
+    </small>
+  `)}
+  css={smartTrim(`
+    @font-face {
+      font-family: "Source Sans Pro";
+      src: url("/res/web/css/SourceSansPro-Regular.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+    }
+    #font-variant-numeric-example td {
+      font-family: "Source Sans Pro"
+    }
+  `)}
+/>
 
 ## Assets
 
@@ -448,6 +664,22 @@ p {
     {
       text: 'font-variation-settings (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings`,
+    },
+    {
+      text: 'font-variant-caps (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-caps`,
+    },
+    {
+      text: 'font-variant-east-asian (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-east-asian`,
+    },
+    {
+      text: 'font-variant-ligatures (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-ligatures`,
+    },
+    {
+      text: 'font-variant-numeric (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric`,
     },
   ]}
 ></References>
