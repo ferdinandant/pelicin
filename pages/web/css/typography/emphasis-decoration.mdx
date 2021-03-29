@@ -1,5 +1,11 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References, FixedColumnWidthTable, Code, WebEditor } from '@pelicin/components';
+import {
+  References,
+  FixedColumnWidthTable,
+  Code,
+  WebEditor,
+  DocumentationList,
+} from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Text Emphasis and Decoration" dateCreated="2021-03-30" />
@@ -9,39 +15,6 @@ import { smartTrim } from '@pelicin/utils';
 `text-emphasis` properties apply emphasis marks to text.
 
 `text-decoration` propeties set the appearance of decorative lines to text.
-
-<WebEditor
-  html={smartTrim(`
-    <div id="height-width-example">
-      Hi!
-    </div>    
-  `)}
-  css={smartTrim(`
-    #height-width-example {
-      width: 100px;
-      height: 50px;
-      background-color: #ccc;
-    }    
-  `)}
-/>
-
-<WebEditor
-  hideHTML
-  hideCSS
-  html={smartTrim(`
-  `)}
-  css={smartTrim(`
-  `)}
-/>
-
-<DocumentationList
-  items={[
-    {
-      name: 'row',
-      description: 'fill in each row in turn, adding new rows as necessary (default)',
-    },
-  ]}
-/>
 
 ## Text Emphasis Properties
 
@@ -160,6 +133,134 @@ span {
 
 ## Text Decoration Properties
 
+### `text-decoration`
+
+Shorthand for `text-decoration-line`, `text-decoration-style`, `text-decoration-color`, `text-decoration-thickness`.
+
+<WebEditor
+  html={smartTrim(`
+    <p id="text-decoration-example">
+      Hello World!
+    </p>    
+  `)}
+  css={smartTrim(`
+    #text-decoration-example {
+      text-decoration: underline solid red 2px;
+    }    
+  `)}
+/>
+
+### `text-decoration-line`
+
+Sets the line of text decoration (underline, overline, etc.).
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <table id="font-variant-caps-example">
+      <thead>
+        <th>text-decoration-line</th>
+        <th>Preview</th>
+      </thead>
+      <tbody>
+        <tr>
+          <th><code>none</code></th>
+          <td><span style="text-decoration: none solid red">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>underline</code></th>
+          <td><span style="text-decoration: underline solid red">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>overline</code></th>
+          <td><span style="text-decoration: overline solid red">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>line-through</code></th>
+          <td><span style="text-decoration: line-through solid red">Lorem ipsum</span></td>
+        </tr>
+      </tbody>
+    </table>
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+### `text-decoration-style`
+
+Sets the style of text decoration (solid, dashed, etc.).
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <table id="font-variant-caps-example">
+      <thead>
+        <th>text-decoration-style</th>
+        <th>Preview</th>
+      </thead>
+      <tbody>
+        <tr>
+          <th><code>solid</code></th>
+          <td><span style="text-decoration: underline solid green">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>double</code></th>
+          <td><span style="text-decoration: underline double green">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>dotted</code></th>
+          <td><span style="text-decoration: underline dotted green">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>dashed</code></th>
+          <td><span style="text-decoration: underline dashed green">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>wavy</code></th>
+          <td><span style="text-decoration: underline wavy green">Lorem ipsum</span></td>
+        </tr>
+      </tbody>
+    </table>
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+### `text-decoration-color`
+
+Sets the color of text decoration.
+
+### `text-decoration-thickness`
+
+Sets the thickness of text decoration. Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: 'let the browser decide',
+    },
+    {
+      name: 'from-font',
+      description: (
+        <>
+          read the font's preferred thickness, otherwise behaves like <Code str="auto" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a length',
+      description: (
+        <>
+          e.g. <Code str="2px" />
+        </>
+      ),
+    },
+  ]}
+/>
+
 ## References
 
 <References
@@ -169,8 +270,36 @@ span {
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-emphasis`,
     },
     {
+      text: 'text-emphasis-style (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-emphasis-style`,
+    },
+    {
+      text: 'text-emphasis-color (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-emphasis-color`,
+    },
+    {
+      text: 'text-emphasis-position (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-emphasis-position`,
+    },
+    {
       text: 'text-decoration (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration`,
+    },
+    {
+      text: 'text-decoration-line (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-line`,
+    },
+    {
+      text: 'text-decoration-style (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-style`,
+    },
+    {
+      text: 'text-decoration-color (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-color`,
+    },
+    {
+      text: 'text-decoration-thickness (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-thickness`,
     },
   ]}
 ></References>
