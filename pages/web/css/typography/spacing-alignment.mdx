@@ -1,42 +1,208 @@
 import { MetadataConfigurer } from '@pelicin/layout';
-import { References } from '@pelicin/components';
+import { References, DocumentationList, Code, WebEditor } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 <MetadataConfigurer title="Spacing and Alignment" dateCreated="2021-03-30" />
 
 # Spacing and Alignment
 
-Lorem Ipsum Dolor Sit Amet
+This page lists CSS properties which relates to spacing and alignment of text
+
+## Text Spacing Properties
+
+### `letter-spacing`
+
+Adds/subtracts the horizontal spacing between letters. Specify `normal` (auto) or a length (e.g. `0.2em` or `-0.2em`).
 
 <WebEditor
   html={smartTrim(`
-    <div id="height-width-example">
-      Hi!
+    <div id="letter-spacing-example">
+      Lorem ipsum dolor sit amet
     </div>    
   `)}
   css={smartTrim(`
-    #height-width-example {
-      width: 100px;
-      height: 50px;
-      background-color: #ccc;
+    #letter-spacing-example {
+      letter-spacing: 0.2em;
     }    
   `)}
 />
 
-<WebEditor
-  hideHTML
-  hideCSS
-  html={smartTrim(`
-  `)}
-  css={smartTrim(`
-  `)}
-/>
+### `word-spacing`
+
+Adds/subtracts the horizontal spacing between words. Specify `normal` (auto) or a length (e.g. `0.2em` or `-0.4ch`).
+
+### `line-height`
+
+Sets the height of the line box (distance between the lines of the text). Specify:
 
 <DocumentationList
   items={[
     {
-      name: 'row',
-      description: 'fill in each row in turn, adding new rows as necessary (default)',
+      name: 'normal',
+      description: <>depends on the browser</>,
+    },
+    {
+      nameSpecial: 'a number',
+      description: (
+        <>
+          (e.g. <Code str="1.5" />) multiple of the element's font size
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a percentage',
+      description: (
+        <>
+          (e.g. <Code str="150%" />) relative to the element's font size
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a length',
+      description: (
+        <>
+          (e.g. <Code str="20px" />)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="line-height-example">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea consequat.
+    </div>    
+  `)}
+  css={smartTrim(`
+    #line-height-example {
+      line-height: 2;
+    }    
+  `)}
+/>
+
+## Text Alignment Properties
+
+### `text-align`
+
+Sets the horizontal alignment of text. Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'left',
+    },
+    {
+      name: 'right',
+    },
+    {
+      name: 'center',
+    },
+    {
+      name: 'justify',
+    },
+    {
+      name: 'start',
+      description: '(depends on writing direction)',
+    },
+    {
+      name: 'end',
+      description: '(depends on writing direction)',
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="text-align-example">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea consequat.
+    </div>    
+  `)}
+  css={smartTrim(`
+    #text-align-example {
+      text-align: center;
+    }    
+  `)}
+/>
+
+### `text-align-last`
+
+Sets the horizontal alignment of the _last line_ of text. Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+    },
+    {
+      name: 'left',
+    },
+    {
+      name: 'right',
+    },
+    {
+      name: 'center',
+    },
+    {
+      name: 'justify',
+    },
+    {
+      name: 'start',
+      description: '(depends on writing direction)',
+    },
+    {
+      name: 'end',
+      description: '(depends on writing direction)',
+    },
+  ]}
+/>
+
+### `text-indent`
+
+Sets the indentation at the beginning of paragraphs.
+
+Specify a length (e.g. `2em` or `-2em`) or percentage (relative to the parent's width).
+
+<WebEditor
+  html={smartTrim(`
+    <div id="text-indent-example">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea consequat.
+    </div>    
+  `)}
+  css={smartTrim(`
+    #text-indent-example {
+      text-indent: 4em;
+    }    
+  `)}
+/>
+
+### `text-justify`
+
+Sets how `text-align: justify` behaves (where to put the extra spaces). Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: 'disables justification',
+    },
+    {
+      name: 'auto',
+      description: 'let the browser decide',
+    },
+    {
+      name: 'inter-word',
+      description: 'put the extra spaces between words',
+    },
+    {
+      name: 'inter-character',
+      description: 'put the extra spaces between characters',
     },
   ]}
 />
@@ -46,8 +212,20 @@ Lorem Ipsum Dolor Sit Amet
 <References
   references={[
     {
-      text: 'MDN',
-      link: `https`,
+      text: 'letter-spacing (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing`,
+    },
+    {
+      text: 'line-height (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/line-height`,
+    },
+    {
+      text: 'text-align (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-align`,
+    },
+    {
+      text: 'text-align-last (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-align-last`,
     },
   ]}
 ></References>
