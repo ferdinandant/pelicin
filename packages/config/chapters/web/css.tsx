@@ -117,6 +117,10 @@ const chapters: TopicChapters = [
       {
         title: 'Spacing and Alignment',
         path: '/web/css/typography/spacing-alignment',
+      },
+      {
+        title: 'Column',
+        path: '/web/css/typography/column',
         badge: 'TODO',
       },
       {
