@@ -167,6 +167,69 @@ Sets the final position of a positioned element. (See `position` to see how this
 
 Sets the final position of a positioned element. (See `position` to see how this is calculated.)
 
+## Inset Properties
+
+### `inset`
+
+Shorthand for `top`, `right`, `bottom`, and `left` (remember: clockwise direction).
+
+If you specify less than 4 lengths, the missing lengths would be inferred from the lengths that you specified (it will try to make symmetrical inset).
+
+<WebEditor
+  html={smartTrim(`
+    <div id="inset-example">
+      <p>Example text</p>
+    </div>    
+  `)}
+  css={smartTrim(`
+    #inset-example {
+      color: white;
+      display: inline-block;
+      width: 150px;
+      height: 150px;
+      background-color: red;
+      position: relative;
+    }
+    #inset-example p {
+      writing-mode: vertical-rl;
+      background-color: orange;
+      inset: 10px 50px 20px;
+      position: absolute;
+    }
+  `)}
+/>
+
+### `inset-inline-start`
+
+Sets the inset at the start of "inline" direction. (If you're writing horizontally from left to right, then it maps to `left`.)
+
+### `inset-inline-end`
+
+Sets the inset at the end of "inline" direction. (If you're writing horizontally from left to right, then it maps to `right`.)
+
+### `inset-inline`
+
+Shorthand for `inset-inline-start` and `inset-inline-end`.
+
+```css
+p {
+  inset-inline: <inset-inline-start> <inset-inline-end>;
+  inset-inline: <inset-inline-start>;
+}
+```
+
+### `inset-block-start`
+
+Sets the inset at the start of "block" direction. (If you're writing horizontally from left to right, then top to bottom, then it maps to `top`.)
+
+### `inset-block-end`
+
+Sets the inset at the end of "block" direction. (If you're writing horizontally from left to right, then top to bottom, then it maps to `bottom`.)
+
+### `inset-block`
+
+Shorthand for `inset-block-start` and `inset-block-end`.
+
 ## See Also
 
 <References
@@ -186,6 +249,10 @@ Sets the final position of a positioned element. (See `position` to see how this
     {
       text: 'position (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/position`,
+    },
+    {
+      text: 'inset (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/inset`,
     },
   ]}
 ></References>
