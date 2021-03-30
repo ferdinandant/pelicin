@@ -240,7 +240,7 @@ Sets the thickness of text decoration. Possible values:
   items={[
     {
       name: 'auto',
-      description: 'let the browser decide',
+      description: 'let the browser decide (default)',
     },
     {
       name: 'from-font',
@@ -257,6 +257,51 @@ Sets the thickness of text decoration. Possible values:
           e.g. <Code str="2px" />
         </>
       ),
+    },
+  ]}
+/>
+
+### `text-underline-offset`
+
+Sets the offset of text decoration line from its original position.
+
+Specify `auto` or a length (e.g. `2px`).
+
+### `text-underline-position`
+
+Sets the position of the underline from `text-decoration: underline`.
+
+Possible values (you can also put `under left` or `under right`):
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: 'let the browser decide (default)',
+    },
+    {
+      name: 'from-font',
+      description: (
+        <>
+          read the font's preferred underline position, otherwise behaves like <Code str="auto" />
+        </>
+      ),
+    },
+    {
+      name: 'under',
+      description: (
+        <>
+          puts the underline below descenders (even below <Code str="auto" />)
+        </>
+      ),
+    },
+    {
+      name: 'left',
+      description: <>puts the underline to the left side of text in vertical writing</>,
+    },
+    {
+      name: 'right',
+      description: <>puts the underline to the right side of text in vertical writing</>,
     },
   ]}
 />
@@ -300,6 +345,14 @@ Sets the thickness of text decoration. Possible values:
     {
       text: 'text-decoration-thickness (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-thickness`,
+    },
+    {
+      text: 'text-underline-offset (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-underline-offset`,
+    },
+    {
+      text: 'text-underline-position (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-underline-position`,
     },
   ]}
 ></References>
