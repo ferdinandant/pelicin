@@ -113,7 +113,6 @@ const chapters: TopicChapters = [
       {
         title: 'Emphasis and Decoration',
         path: '/web/css/typography/emphasis-decoration',
-        badge: 'TODO',
       },
       {
         title: 'Spacing and Alignment',

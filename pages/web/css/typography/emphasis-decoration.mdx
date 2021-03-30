@@ -1,0 +1,358 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  FixedColumnWidthTable,
+  Code,
+  WebEditor,
+  DocumentationList,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Text Emphasis and Decoration" dateCreated="2021-03-30" />
+
+# Text Emphasis and Decoration
+
+`text-emphasis` properties apply emphasis marks to text.
+
+`text-decoration` propeties set the appearance of decorative lines to text.
+
+## Text Emphasis Properties
+
+### `text-emphasis`
+
+Shorthand for `text-emphasis-style` and `text-emphasis-color`.
+
+```css
+span {
+  /* <text-emphasis-style> <text-emphasis-color> */
+  text-emphasis: circle;
+  text-emphasis: open circle;
+  text-emphasis: open circle blue;
+}
+```
+
+### `text-emphasis-style`
+
+Sets text emphasis style.
+
+If `open` or `filled` is not specified, the default is `filled`. If the shape is not specified, the default is `circle`.
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <table id="font-variant-caps-example">
+      <thead>
+        <th>text-emphasis-style</th>
+        <th>Character</th>
+        <th>Preview</th>
+      </thead>
+      <tbody>
+        <tr>
+          <th><code>none</code></th>
+          <td>&mdash;</td>
+          <td style="text-emphasis: none red">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th><code>filled dot</code></th>
+          <td>•</td>
+          <td style="text-emphasis: filled dot red">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th><code>open dot</code></th>
+          <td>◦</td>
+          <td style="text-emphasis: open dot red">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th><code>filled circle</code></th>
+          <td>●</td>
+          <td style="text-emphasis: filled circle blue">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th><code>open circle</code></th>
+          <td>○</td>
+          <td style="text-emphasis: open circle blue">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th><code>filled double-circle</code></th>
+          <td>◉</td>
+          <td style="text-emphasis: filled double-circle purple">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th><code>open double-circle</code></th>
+          <td>◎</td>
+          <td style="text-emphasis: open double-circle purple">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th><code>filled triangle</code></th>
+          <td>▲</td>
+          <td style="text-emphasis: filled triangle green">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th><code>open triangle</code></th>
+          <td>△</td>
+          <td style="text-emphasis: open triangle green">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th><code>filled sesame</code></th>
+          <td>﹅</td>
+          <td style="text-emphasis: filled sesame orange">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th><code>open sesame</code></th>
+          <td>﹆</td>
+          <td style="text-emphasis: open sesame orange">Lorem ipsum</td>
+        </tr>
+        <tr>
+          <th>string, e.g. <code>'x'</code></th>
+          <td>x</td>
+          <td style="text-emphasis: 'x' gray">Lorem ipsum</td>
+        </tr>
+      </tbody>
+    </table>
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+### `text-emphasis-color`
+
+Sets text emphasis color.
+
+### `text-emphasis-position`
+
+Sets text emphasis position.
+
+Specify: `over` or `under` AND `right` or `left`.
+
+```css
+span {
+  text-emphasis-position: over right;
+}
+```
+
+## Text Decoration Properties
+
+### `text-decoration`
+
+Shorthand for `text-decoration-line`, `text-decoration-style`, `text-decoration-color`, `text-decoration-thickness`.
+
+<WebEditor
+  html={smartTrim(`
+    <p id="text-decoration-example">
+      Hello World!
+    </p>    
+  `)}
+  css={smartTrim(`
+    #text-decoration-example {
+      text-decoration: underline solid red 2px;
+    }    
+  `)}
+/>
+
+### `text-decoration-line`
+
+Sets the line of text decoration (underline, overline, etc.).
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <table id="font-variant-caps-example">
+      <thead>
+        <th>text-decoration-line</th>
+        <th>Preview</th>
+      </thead>
+      <tbody>
+        <tr>
+          <th><code>none</code></th>
+          <td><span style="text-decoration: none solid red">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>underline</code></th>
+          <td><span style="text-decoration: underline solid red">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>overline</code></th>
+          <td><span style="text-decoration: overline solid red">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>line-through</code></th>
+          <td><span style="text-decoration: line-through solid red">Lorem ipsum</span></td>
+        </tr>
+      </tbody>
+    </table>
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+### `text-decoration-style`
+
+Sets the style of text decoration (solid, dashed, etc.).
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <table id="font-variant-caps-example">
+      <thead>
+        <th>text-decoration-style</th>
+        <th>Preview</th>
+      </thead>
+      <tbody>
+        <tr>
+          <th><code>solid</code></th>
+          <td><span style="text-decoration: underline solid green">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>double</code></th>
+          <td><span style="text-decoration: underline double green">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>dotted</code></th>
+          <td><span style="text-decoration: underline dotted green">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>dashed</code></th>
+          <td><span style="text-decoration: underline dashed green">Lorem ipsum</span></td>
+        </tr>
+        <tr>
+          <th><code>wavy</code></th>
+          <td><span style="text-decoration: underline wavy green">Lorem ipsum</span></td>
+        </tr>
+      </tbody>
+    </table>
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+### `text-decoration-color`
+
+Sets the color of text decoration.
+
+### `text-decoration-thickness`
+
+Sets the thickness of text decoration. Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: 'let the browser decide (default)',
+    },
+    {
+      name: 'from-font',
+      description: (
+        <>
+          read the font's preferred thickness, otherwise behaves like <Code str="auto" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a length',
+      description: (
+        <>
+          e.g. <Code str="2px" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `text-underline-offset`
+
+Sets the offset of text decoration line from its original position.
+
+Specify `auto` or a length (e.g. `2px`).
+
+### `text-underline-position`
+
+Sets the position of the underline from `text-decoration: underline`.
+
+Possible values (you can also put `under left` or `under right`):
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: 'let the browser decide (default)',
+    },
+    {
+      name: 'from-font',
+      description: (
+        <>
+          read the font's preferred underline position, otherwise behaves like <Code str="auto" />
+        </>
+      ),
+    },
+    {
+      name: 'under',
+      description: (
+        <>
+          puts the underline below descenders (even below <Code str="auto" />)
+        </>
+      ),
+    },
+    {
+      name: 'left',
+      description: <>puts the underline to the left side of text in vertical writing</>,
+    },
+    {
+      name: 'right',
+      description: <>puts the underline to the right side of text in vertical writing</>,
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'text-emphasis (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-emphasis`,
+    },
+    {
+      text: 'text-emphasis-style (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-emphasis-style`,
+    },
+    {
+      text: 'text-emphasis-color (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-emphasis-color`,
+    },
+    {
+      text: 'text-emphasis-position (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-emphasis-position`,
+    },
+    {
+      text: 'text-decoration (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration`,
+    },
+    {
+      text: 'text-decoration-line (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-line`,
+    },
+    {
+      text: 'text-decoration-style (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-style`,
+    },
+    {
+      text: 'text-decoration-color (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-color`,
+    },
+    {
+      text: 'text-decoration-thickness (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-thickness`,
+    },
+    {
+      text: 'text-underline-offset (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-underline-offset`,
+    },
+    {
+      text: 'text-underline-position (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-underline-position`,
+    },
+  ]}
+></References>
