@@ -127,9 +127,8 @@ const chapters: TopicChapters = [
         path: '/web/css/typography/orientation',
       },
       {
-        title: 'Overflow',
-        path: '/web/css/typography/overflow',
-        badge: 'TODO',
+        title: 'Overflow and Wrapping',
+        path: '/web/css/typography/overflow-wrapping',
       },
       {
         title: 'Others',

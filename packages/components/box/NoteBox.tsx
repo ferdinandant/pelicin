@@ -35,6 +35,11 @@ export default function NoteBox(props: Props) {
           background-color: transparent;
           padding: 0;
         }
+        .container :global(code)::before,
+        .container :global(code)::after {
+          content: '\`';
+          opacity: 50%;
+        }
         .container :global(p),
         .container :global(ul),
         .container :global(ol) {

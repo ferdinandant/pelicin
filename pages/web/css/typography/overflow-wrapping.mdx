@@ -1,0 +1,243 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import {
+  References,
+  WebEditor,
+  DocumentationList,
+  description,
+  Code,
+  Link,
+  NoteBox,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Text Overflow and Wrapping" dateCreated="2021-03-31" />
+
+# Text Overflow and Wrapping
+
+Lorem Ipsum Dolor Sit Amet
+
+## CSS Properties
+
+### `text-overflow`
+
+Sets how to clip text when it overflows the container. (Requires `white-space: nowrap` and `overflow: hidden`.)
+
+Specify `clip` or `ellipsis`.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="text-overflow-example">
+      <p style="text-overflow: clip">
+        clip-clip-clip-clip-clip-clip-clip-clip-clip-clip
+      </p>
+      <p style="text-overflow: ellipsis">
+        ellipsis-ellipsis-ellipsis-ellipsis-ellipsis-ellipsis
+      </p>
+    </div>
+  `)}
+  css={smartTrim(`
+    #text-overflow-example p {
+      background-color: #ccc;
+      width: 100px;
+      /* Required for text-overflow */
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  `)}
+/>
+
+### `white-space`
+
+Determines how white spaces in the source code are handled. (White spaces are spaces, tabs, and newlines.)
+
+<DocumentationList
+  items={[
+    {
+      name: 'normal',
+      description: (
+        <>
+          (1) consecutive white spaces are collapsed into one; (2) newlines are treated the same as
+          spaces and tabs; (3) lines are broken at <Code str="<br>" /> and as necessary.
+        </>
+      ),
+    },
+    {
+      name: 'nowrap',
+      description: (
+        <>
+          (1) consecutive white spaces are collapsed into one; (2) no line breaks occur (everything
+          is in one line)
+        </>
+      ),
+    },
+    {
+      name: 'pre',
+      description: (
+        <>
+          (1) white spaces are preserved as-is; (2) lines are broken only at newlines and at{' '}
+          <Code str="<br>" />
+        </>
+      ),
+    },
+    {
+      name: 'pre-wrap',
+      description: (
+        <>
+          (1) white spaces are <em>preserved</em>; (2) lines are broken at newlines, at{' '}
+          <Code str="<br>" />, and as necessary. ("Like <Code str="pre" /> but allow wraps".)
+        </>
+      ),
+    },
+    {
+      name: 'pre-line',
+      description: (
+        <>
+          (1) white spaces are <em>collapsed</em>; (2) lines are broken at newlines, at{' '}
+          <Code str="<br>" />, and as necessary. ("Like <Code str="pre" /> but allow wraps, collapse
+          all but newlines".)
+        </>
+      ),
+    },
+    {
+      name: 'break-spaces',
+      description: (
+        <>
+          Like <Code str="pre-wrap" />, but any sequence of preserved white space always takes up
+          space, including at the end of the line (normally they do not take up space at the end of
+          the line, i.e. they "hang").{' '}
+          <Link
+            link="https://stackoverflow.com/questions/64699828/css-property-white-space-example-for-break-spaces"
+            str="Example of break-spaces"
+          />
+          .
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `word-break`
+
+Sets where line break appears wherever the text would otherwise overflow its container.
+
+<DocumentationList
+  items={[
+    {
+      name: 'normal',
+      description:
+        'use the normal rule (never break out long words; Chinese/Japanese/Korean characters can be broken)',
+    },
+    {
+      name: 'break-all',
+      description: 'allows break anywhere',
+    },
+    {
+      name: 'keep-all',
+      description: 'never break out long words (even for Chinese/Japanese/Korean characters)',
+    },
+  ]}
+/>
+
+### `overflow-wrap`
+
+<NoteBox type="info">
+  <Code str="overflow-wrap" /> was originally named <Code str="word-wrap" />. It has since been
+  renamed and aliased (MDN).
+</NoteBox>
+
+Determines how to break _a single word_ if it overflows its container even when placed on its own line.
+
+<DocumentationList
+  items={[
+    {
+      name: 'normal',
+      description: 'normal behavior (i.e. lines are only broken at spaces between words)',
+    },
+    {
+      name: 'anywhere',
+      description: (
+        <>
+          break the long word anywhere (without inserting hyphens); for <Code str="min-content" />{' '}
+          width calculation, "soft wrap" opportunities introduced by the word break are considered
+        </>
+      ),
+    },
+    {
+      name: 'break-word',
+      description: (
+        <>
+          break the long word anywhere (without inserting hyphens); for <Code str="min-content" />{' '}
+          width calculation, "soft wrap" opportunities introduced by the word break are NOT
+          considered
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `hyphens`
+
+<NoteBox type="warning">This property is partially supported by browsers.</NoteBox>
+
+Determines how to add hyphens when a long word is broken.
+
+You can suggest word-break opportunities by using `-` (hard hyphen characters, always rendered whether or not the word is broken there)
+OR `&shy;` (soft hyphens, only rendered if the word is broken there). (`<wbr>` will never render hyphens.)
+
+<DocumentationList
+  items={[
+    {
+      name: 'manual',
+      description: <>word can only break where suggested (default)</>,
+    },
+    {
+      name: 'none',
+      description: (
+        <>
+          don't break or hyphenate words, even where suggested (lines will only wrap at whitespace
+          characters)
+        </>
+      ),
+    },
+    {
+      name: 'auto',
+      description: (
+        <>
+          browsers can break wherever it sees fit (uses dictionary), but manually suggested
+          breakpoints will override automatic breakpoints
+        </>
+      ),
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'text-overflow (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow`,
+    },
+    {
+      text: 'white-space (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/white-space`,
+    },
+    {
+      text: 'CSS Property white-space example for break-spaces (Stack OVerflow)',
+      link: `https://stackoverflow.com/questions/64699828/css-property-white-space-example-for-break-spaces`,
+    },
+    {
+      text: 'overflow-wrap (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap`,
+    },
+    {
+      text: 'hyphens (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens`,
+    },
+    {
+      text: 'hyphens (CSS-Tricks)',
+      link: `https://css-tricks.com/almanac/properties/h/hyphenate/`,
+    },
+  ]}
+></References>
