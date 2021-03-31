@@ -1,0 +1,154 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, DocumentationList, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Text Orientation" dateCreated="2021-03-31" />
+
+# Text Orientation
+
+This properties set the orientation of text.
+
+## CSS Properties
+
+### `direction`
+
+Sets the direction of text (and other elements).
+
+<DocumentationList
+  items={[
+    {
+      name: 'ltr',
+      description: 'texts and other elements flow left-to-right',
+    },
+    {
+      name: 'rtl',
+      description: 'texts and other elements flow right-to-left',
+    },
+  ]}
+/>
+
+### `writing-mode`
+
+Sets how line-of-text flows.
+
+<DocumentationList
+  items={[
+    {
+      name: 'horizontal-tb',
+      description: 'line flows horizontally; new lines are added top-to-bottom',
+    },
+    {
+      name: 'vertical-rl',
+      description: 'line flows vertically; new lines are added right-to-left',
+    },
+    {
+      name: 'vertical-lr',
+      description: 'line flows vertically; new lines are added left-to-right',
+    },
+  ]}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <div id="writing-mode-example">
+      <div style="writing-mode: horizontal-tb">
+        horizontal-tb (1)<br>
+        horizontal-tb (2)<br>
+        horizontal-tb (3)
+      </div>
+      <div style="writing-mode: vertical-rl">
+        vertical-rl (1)<br>
+        vertical-rl (2)<br>
+        vertical-rl (3)
+      </div>
+      <div style="writing-mode: vertical-lr">
+        vertical-lr (1)<br>
+        vertical-lr (2)<br>
+        vertical-lr (3)
+      </div>
+    </div>
+  `)}
+  css={smartTrim(`
+    #writing-mode-example {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+    }
+    #writing-mode-example div {
+      width: 30%;
+      padding: 0.5em;
+      background-color: #ddd;
+      border: 1px solid #ccc
+    }
+  `)}
+/>
+
+### `text-orientation`
+
+Sets how characters are oriented within the line. (Only applicable for vertical writing.)
+
+<DocumentationList
+  items={[
+    {
+      name: 'mixed',
+      description:
+        'vertical scripts flow naturally; horizontal scripts are rotated upright (default)',
+    },
+    {
+      name: 'upright',
+      description: 'everything is upright',
+    },
+  ]}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <div id="text-orientation-example">
+      <div style="text-orientation: mixed">
+        (MIXED)<br>
+        私の名前はMitsuha
+      </div>
+      <div style="text-orientation: upright">
+        (UPRIGHT)<br>
+        私の名前はMitsuha
+      </div>
+    </div>
+  `)}
+  css={smartTrim(`
+    #text-orientation-example {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+    }
+    #text-orientation-example div {
+      width: 45%;
+      padding: 0.5em;
+      writing-mode: vertical-rl;
+      background-color: #ddf;
+      border: 1px solid #99f;
+    }
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'direction (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/direction`,
+    },
+    {
+      text: 'writing-mode (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode`,
+    },
+    {
+      text: 'text-orientation (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-orientation`,
+    },
+  ]}
+></References>
