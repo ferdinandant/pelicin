@@ -134,6 +134,29 @@ Sets how characters are oriented within the line. (Only applicable for vertical 
   `)}
 />
 
+### `text-combine-upright`
+
+Groups the combination of characters into the space of a single character. (Only applicable for vertical writing.)
+
+Specify `none` or `all`.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="text-combine-upright-example">
+      平成<span>20</span>年<span>4</span>月<span>16</span>日
+    </div>
+  `)}
+  css={smartTrim(`
+    #text-combine-upright-example {
+      writing-mode: vertical-rl;
+    }
+    #text-combine-upright-example span {
+      text-combine-upright: all;
+      color: red;
+    }
+`)}
+/>
+
 ## References
 
 <References
@@ -149,6 +172,10 @@ Sets how characters are oriented within the line. (Only applicable for vertical 
     {
       text: 'text-orientation (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-orientation`,
+    },
+    {
+      text: 'text-combine-upright (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-combine-upright`,
     },
   ]}
 ></References>

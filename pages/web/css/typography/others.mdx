@@ -1,0 +1,90 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, WebEditor, DocumentationList } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Other Text Properties" dateCreated="2021-03-31" />
+
+# Other Text Properties
+
+CSS text properties that don't belong elsewhere are listed here.
+
+## CSS Properties
+
+### `text-transform`
+
+Transforms an element's text (usually to change its capitalization).
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: "don't transform text (default)",
+    },
+    {
+      name: 'capitalize',
+      description: 'capitalize the first letter of each word',
+    },
+    {
+      name: 'uppercase',
+      description: 'change all letters to UPPERCASE',
+    },
+    {
+      name: 'capitalize',
+      description: 'change all letters to lowercase',
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="text-transform-example">
+      Lorem ipsum dolor sit amet
+    </div>    
+  `)}
+  css={smartTrim(`
+    #text-transform-example {
+      text-transform: capitalize;
+    }    
+  `)}
+/>
+
+### `text-rendering`
+
+Hints what to optimize for when rendering text.
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: 'let the browser decide (default)',
+    },
+    {
+      name: 'optimizeSpeed',
+      description: 'optimize for speed (disables kerning and ligatures)',
+    },
+    {
+      name: 'optimizeLegibility',
+      description: 'optimize for legibility (enables kerning and ligatures)',
+    },
+    {
+      name: 'geometricPrecision',
+      description:
+        'optimize for geometric precision (may make some fonts look good when scaled to non-integer sizes)',
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'text-transform (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform`,
+    },
+    {
+      text: 'text-rendering (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering`,
+    },
+  ]}
+></References>

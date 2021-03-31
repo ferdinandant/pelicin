@@ -90,15 +90,15 @@ const chapters: TopicChapters = [
     chapter: 'Positioning',
     children: [
       {
-        title: 'Position',
+        title: 'Position and Inset',
         path: '/web/css/positioning/position',
       },
       {
-        title: 'Float',
+        title: 'Float and Clear',
         path: '/web/css/positioning/float',
       },
       {
-        title: 'Z-Index',
+        title: 'Z-Index and Isolation',
         path: '/web/css/positioning/z-index',
       },
     ],
@@ -133,7 +133,6 @@ const chapters: TopicChapters = [
       {
         title: 'Others',
         path: '/web/css/typography/others',
-        badge: 'TODO',
       },
     ],
   },
@@ -160,6 +159,16 @@ const chapters: TopicChapters = [
         path: '/web/css/aesthetics/translate-transform',
         badge: 'TODO',
       },
+      {
+        title: 'Opacity',
+        path: '/web/css/aesthetics/opacity',
+        badge: 'TODO',
+      },
+      {
+        title: 'Filter',
+        path: '/web/css/aesthetics/filter',
+        badge: 'TODO',
+      },
     ],
   },
   {
@@ -172,6 +181,51 @@ const chapters: TopicChapters = [
       {
         title: 'Transition',
         path: '/web/css/animation/transition',
+        badge: 'TODO',
+      },
+      {
+        title: 'Offset',
+        path: '/web/css/animation/offset',
+        badge: 'TODO',
+      },
+    ],
+  },
+  {
+    chapter: 'Others',
+    children: [
+      {
+        title: 'List',
+        path: '/web/css/others/list',
+        badge: 'TODO',
+      },
+      {
+        title: 'Object Fit and Position',
+        path: '/web/css/aesthetics/object-fit-and-position',
+        badge: 'TODO',
+      },
+      {
+        title: 'Page Break',
+        path: '/web/css/aesthetics/page-break',
+        badge: 'TODO',
+      },
+      {
+        title: 'Cursor',
+        path: '/web/css/others/cursor',
+        badge: 'TODO',
+      },
+      {
+        title: 'Resize',
+        path: '/web/css/others/resize',
+        badge: 'TODO',
+      },
+      {
+        title: 'Scroll',
+        path: '/web/css/others/scroll',
+        badge: 'TODO',
+      },
+      {
+        title: 'Scrollbar',
+        path: '/web/css/others/scrollbar',
         badge: 'TODO',
       },
     ],
