@@ -1,0 +1,279 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, WebEditor, Code, DocumentationList } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Column" dateCreated="2021-02-06" />
+
+# Column
+
+These properties configure how text columns are rendered.
+
+## Column Properties
+
+### `columns`
+
+Shorthand for `column-count` and `column-width`
+
+```css
+div {
+  /* <column-count> <column-width> */
+  columns: 2;
+  columns: 100px;
+  columns: 2 auto;
+}
+```
+
+### `column-count`
+
+Sets the number of columns (can end up being less).
+
+Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: (
+        <>
+          will use other CSS properties, e.g. <Code str="column-width" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a number',
+      description: (
+        <>
+          e.g. <Code str="2" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="column-count-example">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea consequat.
+    </div>    
+  `)}
+  css={smartTrim(`
+    #column-count-example {
+      column-count: 4;
+    }    
+  `)}
+/>
+
+### `column-width`
+
+Sets the minimum column width. It will create as many columns as possible.
+
+Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: (
+        <>
+          will use other CSS properties, e.g. <Code str="column-count" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a length',
+      description: (
+        <>
+          e.g. <Code str="100px" />; sets the minimum column width (it can be larger to fill the
+          remaining space
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `column-gap`
+
+Sets the gap between columns. Specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'normal',
+      description: <>use the browser's default spacing</>,
+    },
+    {
+      nameSpecial: 'a length',
+      description: (
+        <>
+          e.g. <Code str="1em" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a percentage',
+      description: (
+        <>
+          e.g. <Code str="100px" />, relative to the parent's width
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `column-fill`
+
+Sets how to distrbute the column's content. (Only makes sense if you enforce the parent's height.)
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: 'fill one column at a time (some columns may remain empty)',
+    },
+    {
+      name: 'balance',
+      description: 'attempt to divide the content between columns',
+    },
+  ]}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <div id="column-fill-example">
+      <p class="auto">
+        auto fills one column at a time
+      </p>
+      <p class="balance">
+        "balance" attempts to balance the amount of content in each column
+      </p>
+    </div>    
+  `)}
+  css={smartTrim(`
+    #column-fill-example p {
+      height: 80px;
+      line-height: 1.2;
+      column-count: 3;
+    }
+    #column-fill-example .auto {
+      column-fill: auto;
+      background-color: #fdd;
+    }
+    #column-fill-example .balance {
+      column-fill: balance;
+      background-color: #ddf;
+    }
+`)}
+/>
+
+### `column-span`
+
+Makes an element span all columns when you set `column-span: all`.
+
+Only works for block-level elements (?). When the element spans all columns,
+the content before it will be balanced equally.
+
+Specify `none` or `all`.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="column-span-example">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+      <div class="span-all">Hello hello!</div>
+      Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea consequat.
+    </div>    
+  `)}
+  css={smartTrim(`
+    #column-span-example {
+      column-count: 3;
+    }
+    #column-span-example .span-all {
+      column-span: all;
+      background-color: gold;
+    }
+  `)}
+/>
+
+## Column Rule Properties
+
+### `column-rule`
+
+Shorthand for `column-rule-width`, `column-rule-style`, `column-rule-color`.
+(You can specify each one optionally. The order does not matter.)
+
+The "rule" is only created when necessary. If a column next to it is empty, no rule will be drawn in-between.
+
+<WebEditor
+  hideHTML
+  html={smartTrim(`
+    <div id="column-rule-example">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea consequat.
+    </div>    
+  `)}
+  css={smartTrim(`
+    #column-rule-example {
+      column-count: 3;
+      column-rule: 1px solid red;
+    }    
+  `)}
+/>
+
+### `column-rule-width`
+
+Sets the width of column rule.
+
+### `column-rule-style`
+
+Sets the style of column rule.
+
+Like `border` property ([see here](http://localhost:3000/web/css/layouting/border#border-styles)),
+specify one of: `none`, `hidden`, `dotted`, `dahsed`, `solid`, `double`, `groove`, `ridge`, `inset`, `outset`.
+
+### `column-rule-color`
+
+Sets the color of column rule.
+
+## References
+
+<References
+  references={[
+    {
+      text: 'columns (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/columns`,
+    },
+    {
+      text: 'column-count (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/column-count`,
+    },
+    {
+      text: 'column-width (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/column-width`,
+    },
+    {
+      text: 'column-gap (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/column-gap`,
+    },
+    {
+      text: 'column-fill (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/column-fill`,
+    },
+    {
+      text: 'column-span (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/column-span`,
+    },
+    {
+      text: 'column-rule (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule`,
+    },
+    {
+      text: 'column-rule-style (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule-style`,
+    },
+  ]}
+></References>
