@@ -121,7 +121,6 @@ const chapters: TopicChapters = [
       {
         title: 'Column',
         path: '/web/css/typography/column',
-        badge: 'TODO',
       },
       {
         title: 'Orientation',
