@@ -111,6 +111,10 @@ const chapters: TopicChapters = [
         path: '/web/css/typography/font',
       },
       {
+        title: 'Color',
+        path: '/web/css/typography/color',
+      },
+      {
         title: 'Emphasis and Decoration',
         path: '/web/css/typography/emphasis-decoration',
       },
@@ -139,11 +143,6 @@ const chapters: TopicChapters = [
   {
     chapter: 'Aesthetics',
     children: [
-      {
-        title: 'Color',
-        path: '/web/css/aesthetics/color',
-        badge: 'TODO',
-      },
       {
         title: 'Background',
         path: '/web/css/aesthetics/background',

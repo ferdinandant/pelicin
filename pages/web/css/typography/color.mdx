@@ -1,0 +1,43 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Color" dateCreated="2021-04-06" />
+
+# Color
+
+`color` property sets text color.
+
+For other properties, you can use the `currentcolor` keyword to use the current text `color`.
+
+## CSS Property
+
+### `color`
+
+Sets the text (foreground) color.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="color-example">
+      Hi!
+    </div>    
+  `)}
+  css={smartTrim(`
+    #color-example {
+      color: blue;
+      padding: 10px;
+      border: 4px solid currentcolor;
+    }    
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'color (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/color`,
+    },
+  ]}
+></References>
