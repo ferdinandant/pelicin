@@ -1,0 +1,357 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, DocumentationList, WebEditor, Code, Image } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Background" dateCreated="2021-04-07" />
+
+# Background
+
+`background` property sets an element's background.
+
+## Basic Concepts
+
+An element can have multiple `background` layers, separated by commas.
+Setting `background-color` will set the color of the bottom-most layer.
+
+An element has a border-box, a padding-box, a the content-box.
+(Relevant for `background-origin` and `background-clip`.)
+
+<Image path="/res/web/css/box-model.png" caption="Illustration of CSS Box model" />
+
+## Base Background Properties
+
+### `background`
+
+Shorthand for the following properties (separate each layer using commas):
+
+- `background-color`
+- `background-image`
+- `background-attachment`
+- `background-origin`
+- `background-clip`
+- `background-position`
+- `background-size`
+- `background-repeat`
+
+```css
+div {
+  background: green;
+  /* Using a <background-image> and <background-repeat> */
+  background: url('test.jpg') repeat-y;
+  /* Using a <background-clip> and <background-color> */
+  background: border-box red;
+  /* A single image, centered, and scaled */
+  /* Slash syntax: <background-position>/<background-size>*/
+  background: no-repeat center/80% url('/img/image.png');
+}
+```
+
+### `background-color`
+
+Sets the bottom-most layer background color.
+
+```css
+div {
+  background-color: red;
+}
+```
+
+### `background-image`
+
+Sets background image(s).
+
+Specify `none` or images (separate multiple layers using comma).
+
+```css
+div {
+  background-image: url('/res/image.jpg');
+  background-image: linear-gradient(to bottom, red, blue);
+}
+```
+
+## Background Config Properties
+
+### `background-attachment`
+
+Sets how the browser "attaches" and scrolls with the element.
+Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'scroll',
+      description: (
+        <>
+          the background is fixed to the element's border (if you scroll through the element's
+          content, it stays)
+        </>
+      ),
+    },
+    {
+      name: 'local',
+      description: (
+        <>
+          the background is to the element's content (if you scroll the through element's content,
+          it follows)
+        </>
+      ),
+    },
+    {
+      name: 'fixed',
+      description: <>never scrolls (even if you scroll through the whole window)</>,
+    },
+  ]}
+/>
+
+### `background-origin`
+
+Sets the background "origin" (where to start painting the background).
+Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'border-box',
+      description: <>paint the background starting from the border-box</>,
+    },
+    {
+      name: 'padding-box',
+      description: <>paint the background starting from the padding-box</>,
+    },
+    {
+      name: 'content-box',
+      description: <>paint the background starting from the content-box</>,
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="background-origin-example">
+      The top-left position of the image starts from the padding-box!<br>
+      Try changing the <code>background-origin</code>!
+    </div>    
+  `)}
+  css={smartTrim(`
+    #background-origin-example {
+      color: lime;
+      border: 8px dashed gray;
+      padding: 8px;
+      background-image: url("/res/unsplash/christopher-burns-dzejyfCAzIA-unsplash.jpg");
+      /* Try changing me */
+      background-origin: padding-box;
+      /* Make the "origin" */
+      background-repeat: no-repeat;
+    }    
+  `)}
+/>
+
+### `background-clip`
+
+Sets how to clip (mask) the background. Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'border-box',
+      description: <>the background is visible up to the border-box</>,
+    },
+    {
+      name: 'padding-box',
+      description: <>the background is visible up to the padding-box</>,
+    },
+    {
+      name: 'content-box',
+      description: <>the background is visible up to the content-box</>,
+    },
+    {
+      name: 'text',
+      description: (
+        <>
+          the background is masked with the forground color of the text (you will need to set the
+          transparancy of the text to make the background visible, e.g. via{' '}
+          <Code str="color: transparent" /> or <Code str="color: rgba(...)" />)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="background-clip-example">
+      You can see the background under the dashed border!
+    </div>    
+  `)}
+  css={smartTrim(`
+    #background-clip-example {
+      border: 8px dashed gray;
+      padding: 8px;
+      background-clip: border-box;
+      background-image: linear-gradient(90deg, rgba(123,255,185,1) 0%, rgba(0,212,255,1) 100%);
+    }    
+  `)}
+/>
+
+### `background-position`
+
+Sets the position of the background image, relative to `background-origin`.
+
+You can specify 1 to 4 values. You can use (1) **a keyword** (`top`, `bottom`, `left`, `right`, `center`),
+and/or **an offset** (e.g. `20%` or `12px`), max. 2 each (one for the x-axis, one for the y-axis).
+
+```css
+div {
+  background-position: top;
+  background-position: top left;
+  background-position: 50% 50%;
+  background-position: top 20px left 20px;
+}
+```
+
+### `background-size`
+
+Sets the displayed size of the background.
+
+<DocumentationList
+  items={[
+    {
+      name: 'cover',
+      description: (
+        <>
+          scales the image as large as possible to fill the container, stretching or cropping the
+          image if necessary
+        </>
+      ),
+    },
+    {
+      name: 'contain',
+      description: (
+        <>
+          scales the image as large as possible within its container without cropping or stretching
+          the image
+        </>
+      ),
+    },
+    {
+      name: '<width> <height>',
+      description: (
+        <>
+          e.g. <Code str="auto auto" />, <Code str="auto 20px" />, or <Code str="50% 50%" /> (
+          <Code str="auto" /> means use the image's intrinsic width/height)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="background-size-example"></div>    
+  `)}
+  css={smartTrim(`
+    #background-size-example {
+      height: 100px;
+      border: 1px solid red;
+      background-image: url("/res/unsplash/christopher-burns-dzejyfCAzIA-unsplash.jpg");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }    
+  `)}
+/>
+
+### `background-repeat`
+
+Sets how a background should be repeated.
+
+You can use the one-value syntax:
+
+<DocumentationList
+  items={[
+    {
+      name: 'repeat',
+      description: <>repeat on both axes</>,
+    },
+    {
+      name: 'repeat-x',
+      description: <>repeat on the x-axis only</>,
+    },
+    {
+      name: 'repeat-y',
+      description: <>repeat on the y-axis only</>,
+    },
+    {
+      name: 'no-repeat',
+      description: <>don't repeat</>,
+    },
+    {
+      name: 'space',
+      description: <>repeat as much as possible, then space the background images evenly</>,
+    },
+    {
+      name: 'round',
+      description: (
+        <>
+          repeat as much as possible, then stretch/squish the background image to fill the remaining
+          space
+        </>
+      ),
+    },
+  ]}
+/>
+
+... or the two-value syntax, specifying either of the following for both the x and y axes (e.g. `repeat no-repeat`): `repeat`, `no-repeat`, `round`, `space`.
+
+## Assets
+
+<References
+  references={[
+    {
+      text: 'Christopher Burns (Unsplash)',
+      link: `https://unsplash.com/photos/dzejyfCAzIA`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'background (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background`,
+    },
+    {
+      text: 'background-color (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-color`,
+    },
+    {
+      text: 'background-image (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-image`,
+    },
+    {
+      text: 'background-attachment (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-attachment`,
+    },
+    {
+      text: 'background-origin (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-origin`,
+    },
+    {
+      text: 'background-clip (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip`,
+    },
+    {
+      text: 'background-position (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-position`,
+    },
+    {
+      text: 'background-size (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-size`,
+    },
+    {
+      text: 'background-repeat (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat`,
+    },
+  ]}
+></References>

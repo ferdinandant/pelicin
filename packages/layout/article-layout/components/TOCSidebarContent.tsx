@@ -108,6 +108,7 @@ export default function TOCSidebarContent({ minimalistic }: Props) {
         nav {
           padding: 0 var(--spacing-ms);
           padding-left: 0;
+          padding-right: var(--spacing-xxl);
           font-size: var(--font-size-tiny);
           line-height: 1.4;
         }
