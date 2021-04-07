@@ -148,9 +148,8 @@ const chapters: TopicChapters = [
         path: '/web/css/aesthetics/background',
       },
       {
-        title: 'Shadow and Text Shadow',
+        title: 'Box and Text Shadow',
         path: '/web/css/aesthetics/shadow',
-        badge: 'TODO',
       },
       {
         title: 'Translate and Transform',
