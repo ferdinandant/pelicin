@@ -146,7 +146,6 @@ const chapters: TopicChapters = [
       {
         title: 'Background',
         path: '/web/css/aesthetics/background',
-        badge: 'TODO',
       },
       {
         title: 'Shadow and Text Shadow',
@@ -236,6 +235,11 @@ const chapters: TopicChapters = [
       {
         title: 'Length',
         path: '/web/css/data-type/length',
+        badge: 'TODO',
+      },
+      {
+        title: 'Color',
+        path: '/web/css/data-type/color',
         badge: 'TODO',
       },
       {
