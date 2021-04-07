@@ -1,0 +1,43 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Opacity" dateCreated="2021-04-08" />
+
+# Opacity
+
+`opacity` sets the opacity of an element.
+
+## CSS Properties
+
+### `opacity`
+
+Sets the opacity of an element. (As a whole, including its content).
+
+Specify a number between 0 and 1 (inclusive).
+
+<WebEditor
+  html={smartTrim(`
+    <div id="opacity-example">
+      Lorem ipsum dolor sit amet
+    </div>    
+  `)}
+  css={smartTrim(`
+    #box-shadow-example {
+      color: lime;
+      background-color: blue;
+      opacity: 0.3;
+    }    
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'opacity (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/opacity`,
+    },
+  ]}
+></References>

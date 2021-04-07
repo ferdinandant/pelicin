@@ -159,7 +159,6 @@ const chapters: TopicChapters = [
       {
         title: 'Opacity',
         path: '/web/css/aesthetics/opacity',
-        badge: 'TODO',
       },
       {
         title: 'Filter',
