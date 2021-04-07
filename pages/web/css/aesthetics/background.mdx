@@ -30,8 +30,8 @@ Shorthand for the following properties (separate each layer using commas):
 - `background-origin`
 - `background-clip`
 - `background-position`
-- `background-repeat`
 - `background-size`
+- `background-repeat`
 
 ```css
 div {
@@ -40,7 +40,8 @@ div {
   background: url('test.jpg') repeat-y;
   /* Using a <background-clip> and <background-color> */
   background: border-box red;
-  /* A single image, centered and scaled */
+  /* A single image, centered, and scaled */
+  /* Slash syntax: <background-position>/<background-size>*/
   background: no-repeat center/80% url('/img/image.png');
 }
 ```
@@ -102,24 +103,24 @@ Possible values:
   ]}
 />
 
-### `border-origin`
+### `background-origin`
 
-Sets the background "origin" (where the background image's (0,0) position should be painted).
+Sets the background "origin" (where to start painting the background).
 Possible values:
 
 <DocumentationList
   items={[
     {
       name: 'border-box',
-      description: <>the image's (0,0) position is placed from the border-box</>,
+      description: <>paint the background starting from the border-box</>,
     },
     {
       name: 'padding-box',
-      description: <>the image's (0,0) position is placed from the padding-box</>,
+      description: <>paint the background starting from the padding-box</>,
     },
     {
       name: 'content-box',
-      description: <>the image's (0,0) position is placed from the content-box</>,
+      description: <>paint the background starting from the content-box</>,
     },
   ]}
 />
@@ -136,7 +137,7 @@ Possible values:
       color: lime;
       border: 8px dashed gray;
       padding: 8px;
-      background-image: url("/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg");
+      background-image: url("/res/unsplash/christopher-burns-dzejyfCAzIA-unsplash.jpg");
       /* Try changing me */
       background-origin: padding-box;
       /* Make the "origin" */
@@ -192,13 +193,122 @@ Sets how to clip (mask) the background. Possible values:
   `)}
 />
 
+### `background-position`
+
+Sets the position of the background image, relative to `background-origin`.
+
+You can specify 1 to 4 values. You can use (1) **a keyword** (`top`, `bottom`, `left`, `right`, `center`),
+and/or **an offset** (e.g. `20%` or `12px`), max. 2 each (one for the x-axis, one for the y-axis).
+
+```css
+div {
+  background-position: top;
+  background-position: top left;
+  background-position: 50% 50%;
+  background-position: top 20px left 20px;
+}
+```
+
+### `background-size`
+
+Sets the displayed size of the background.
+
+<DocumentationList
+  items={[
+    {
+      name: 'cover',
+      description: (
+        <>
+          scales the image as large as possible to fill the container, stretching or cropping the
+          image if necessary
+        </>
+      ),
+    },
+    {
+      name: 'contain',
+      description: (
+        <>
+          scales the image as large as possible within its container without cropping or stretching
+          the image
+        </>
+      ),
+    },
+    {
+      name: '<width> <height>',
+      description: (
+        <>
+          e.g. <Code str="auto auto" />, <Code str="auto 20px" />, or <Code str="50% 50%" /> (
+          <Code str="auto" /> means use the image's intrinsic width/height)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="background-size-example"></div>    
+  `)}
+  css={smartTrim(`
+    #background-size-example {
+      height: 100px;
+      border: 1px solid red;
+      background-image: url("/res/unsplash/christopher-burns-dzejyfCAzIA-unsplash.jpg");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }    
+  `)}
+/>
+
+### `background-repeat`
+
+Sets how a background should be repeated.
+
+You can use the one-value syntax:
+
+<DocumentationList
+  items={[
+    {
+      name: 'repeat',
+      description: <>repeat on both axes</>,
+    },
+    {
+      name: 'repeat-x',
+      description: <>repeat on the x-axis only</>,
+    },
+    {
+      name: 'repeat-y',
+      description: <>repeat on the y-axis only</>,
+    },
+    {
+      name: 'no-repeat',
+      description: <>don't repeat</>,
+    },
+    {
+      name: 'space',
+      description: <>repeat as much as possible, then space the background images evenly</>,
+    },
+    {
+      name: 'round',
+      description: (
+        <>
+          repeat as much as possible, then stretch/squish the background image to fill the remaining
+          space
+        </>
+      ),
+    },
+  ]}
+/>
+
+... or the two-value syntax, specifying either of the following for both the x and y axes (e.g. `repeat no-repeat`): `repeat`, `no-repeat`, `round`, `space`.
+
 ## Assets
 
 <References
   references={[
     {
-      text: 'Andrew Ridley (Unsplash)',
-      link: `https://unsplash.com/photos/jR4Zf-riEjI`,
+      text: 'Christopher Burns (Unsplash)',
+      link: `https://unsplash.com/photos/dzejyfCAzIA`,
     },
   ]}
 ></References>
@@ -218,6 +328,30 @@ Sets how to clip (mask) the background. Possible values:
     {
       text: 'background-image (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-image`,
+    },
+    {
+      text: 'background-attachment (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-attachment`,
+    },
+    {
+      text: 'background-origin (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-origin`,
+    },
+    {
+      text: 'background-clip (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip`,
+    },
+    {
+      text: 'background-position (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-position`,
+    },
+    {
+      text: 'background-size (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-size`,
+    },
+    {
+      text: 'background-repeat (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat`,
     },
   ]}
 ></References>
