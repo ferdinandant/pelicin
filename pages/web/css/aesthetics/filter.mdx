@@ -1,0 +1,50 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Filter" dateCreated="2021-04-08" />
+
+# Filter
+
+The filter property applies graphical effects like blur or color shift to an element.
+
+## CSS Properties
+
+Applies filter(s) to an element.
+
+Specify `none` or space-separated [filter function(s)](/web/css/data-type/filter-function).
+
+<WebEditor
+  html={smartTrim(`
+    <div id="filter-example">
+      <img src="/res/sample/material-color-palette.png">
+    </div>
+  `)}
+  css={smartTrim(`
+    #filter-example img {
+      filter: blur(5px);
+    }
+  `)}
+/>
+
+## Assets
+
+<References
+  references={[
+    {
+      text: 'Material Color Palette',
+      link: `https://materialcolor.xyz/`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'filter (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter`,
+    },
+  ]}
+></References>
