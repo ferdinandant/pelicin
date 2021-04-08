@@ -244,18 +244,18 @@ const chapters: TopicChapters = [
         badge: 'TODO',
       },
       {
-        title: 'Filter Function',
-        path: '/web/css/data-type/filter-function',
-        badge: 'TODO',
-      },
-      {
         title: 'Easing Function',
         path: '/web/css/data-type/easing-function',
         badge: 'TODO',
       },
       {
-        title: 'Trans Function',
+        title: 'Transform Function',
         path: '/web/css/data-type/transform-function',
+        badge: 'TODO',
+      },
+      {
+        title: 'Filter Function',
+        path: '/web/css/data-type/filter-function',
         badge: 'TODO',
       },
     ],
