@@ -75,10 +75,11 @@ function MyApp(props: Props) {
           />
         )}
         {/* Highlight.js (Syntax Highlighter) */}
+        {/* Not deferring because prism sometimes don't highlight syntaxes if loaded too late */}
         {useSyntaxHighlighter && (
           <>
             <link rel="stylesheet" href="/lib/prism/prism.css" />
-            <script defer src="/lib/prism/prism.js" data-manual />
+            <script src="/lib/prism/prism.js" data-manual />
           </>
         )}
         {/* Google Analytics */}

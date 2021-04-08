@@ -152,9 +152,8 @@ const chapters: TopicChapters = [
         path: '/web/css/aesthetics/shadow',
       },
       {
-        title: 'Translate and Transform',
-        path: '/web/css/aesthetics/translate-transform',
-        badge: 'TODO',
+        title: 'Transform',
+        path: '/web/css/aesthetics/transform',
       },
       {
         title: 'Opacity',
@@ -163,7 +162,6 @@ const chapters: TopicChapters = [
       {
         title: 'Filter',
         path: '/web/css/aesthetics/filter',
-        badge: 'TODO',
       },
     ],
   },
@@ -253,6 +251,11 @@ const chapters: TopicChapters = [
       {
         title: 'Easing Function',
         path: '/web/css/data-type/easing-function',
+        badge: 'TODO',
+      },
+      {
+        title: 'Trans Function',
+        path: '/web/css/data-type/transform-function',
         badge: 'TODO',
       },
     ],
