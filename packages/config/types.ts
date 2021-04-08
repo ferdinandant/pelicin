@@ -20,7 +20,7 @@ export type TopicConfig = {
 
 export type TopicGroup = {
   groupTitle: string;
-  groupDescription: string | ReactNode;
+  groupDescription?: string | ReactNode;
   groupHash: string;
   sections: Array<{
     sectionTitle?: string;
