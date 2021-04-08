@@ -20,8 +20,8 @@ export function extractHashFromNodeInternal(node: ReactNode): string | null {
   }
 
   const { props } = node as React.Component<any, any>;
-  const { children } = props;
-  return extractHashFromNodeInternal(children);
+  const { children, str } = props;
+  return extractHashFromNodeInternal(children !== undefined ? children : str);
 }
 
 function convertToURLHash(str: string) {

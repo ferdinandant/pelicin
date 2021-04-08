@@ -1,14 +1,9 @@
 import React from 'react';
+import { Link } from '@pelicin/components';
 import { TopicGroup } from '@pelicin/config';
 
 const group: TopicGroup = {
   groupTitle: 'Web',
-  groupDescription: (
-    <p>
-      Various web development essentials curated from{' '}
-      <a href="https://developer.mozilla.org/en-US/docs/Learn">MDN</a>.
-    </p>
-  ),
   groupHash: 'web',
   sections: [
     {
@@ -17,10 +12,23 @@ const group: TopicGroup = {
         {
           title: 'HTML',
           path: '/web/html/introduction',
+          description: (
+            <>
+              Reference summary from{' '}
+              <Link link="https://developer.mozilla.org/en-US/docs/Learn" str="MDN" />.
+            </>
+          ),
         },
         {
           title: 'CSS',
           path: '/web/css/introduction',
+          description: (
+            <>
+              Reference summary from{' '}
+              <Link link="https://developer.mozilla.org/en-US/docs/Learn" str="MDN" /> (mainly) and{' '}
+              <Link link="https://css-tricks.com/almanac/" str="CSS-Tricks" />.
+            </>
+          ),
         },
       ],
     },

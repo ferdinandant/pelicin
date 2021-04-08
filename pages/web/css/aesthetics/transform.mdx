@@ -1,0 +1,126 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, DocumentationList, WebEditor, Image, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Transform" dateCreated="2021-04-07" />
+
+# Transform
+
+The `transform` property "transforms" an element (rotates, scales, skews, or translates).
+
+## Transform Properties
+
+### `transform`
+
+Transforms an element.
+
+Specify `none` or space-separated [transform function(s)](/web/css/data-type/transform-function).
+
+<WebEditor
+  html={smartTrim(`
+    <div id="transform-example">
+      Hi!
+    </div>    
+  `)}
+  css={smartTrim(`
+    #transform-example {
+      display: inline-block;
+      background-color: orange;
+      padding: 10px 20px;
+      transform: translateX(10px) rotate(10deg);
+    }
+  `)}
+/>
+
+### `transform-origin`
+
+Sets the origin of element's transformations.
+
+You can specify a keyword (e.g. `left`, `right`, `top`, `bottom`, or `center`),
+OR up to 3 lengths/percentages (one for each of the x, y, and z axes).
+
+```css
+div {
+  transform-origin: top right;
+  transform-origin: right bottom 2cm;
+  transform-origin: 2px 30% 10px;
+}
+```
+
+<Image
+  path="/res/web/css/transform-origin.png"
+  caption={
+    <>
+      Illustration of <Code str="transform-origin: 50px 50px" /> effect with{' '}
+      <Code str="transform: rotate(30deg)" />.
+    </>
+  }
+  sourceString="MDN"
+/>
+
+### `transform-box`
+
+Defines which layout box to which `transform` and `transform-origin` relate (?).
+
+<DocumentationList
+  items={[
+    {
+      name: 'border-box',
+      description: <>use the border-box as the reference box</>,
+    },
+    {
+      name: 'content-box',
+      description: <>use the content-box as the reference box</>,
+    },
+    {
+      name: 'view-box',
+      description: <>use the nearest SVG viewport as the reference box</>,
+    },
+    {
+      name: 'fill-box',
+      description: <>use the object bounding box as the reference box (for SVG only?)</>,
+    },
+    {
+      name: 'stroke-box',
+      description: <>use the stroke bounding box as the reference box (for SVG only?)</>,
+    },
+  ]}
+/>
+
+### `transform-style`
+
+Sets whether the children of an element:
+
+<DocumentationList
+  items={[
+    {
+      name: 'flat',
+      description: <>are flattened in the plane of the element</>,
+    },
+    {
+      name: 'preserve-3d',
+      description: <>are positioned in the 3D space (can intersect)</>,
+    },
+  ]}
+/>
+
+<Image
+  path="/res/web/css/transform-style.png"
+  alt="Illustration of transform-style"
+  sourceString="MDN"
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'transform (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/transform`,
+    },
+    {
+      text: 'transform (MDN)',
+      link: `https://www.bitdegree.org/learn/css-transform#transform-box`,
+    },
+  ]}
+></References>

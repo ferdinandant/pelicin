@@ -1,0 +1,66 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Box and Text Shadow" dateCreated="2021-04-08" />
+
+# Box and Text Shadow
+
+This page lists the CSS properties related to shadows.
+
+## CSS Properties
+
+### `box-shadow`
+
+Sets the box shadow.
+
+Specify x-offset, y-offset, blur radius (optional), spread radius (grows/shrink the shadow, optional), and color.
+If you include the `inset` keyword, the shadow will be drawned _inside_ the element.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="box-shadow-example">
+      Lorem ipsum dolor sit amet
+    </div>    
+  `)}
+  css={smartTrim(`
+    #box-shadow-example {
+      border: 1px solid black;
+      box-shadow: 1px 1px 5px red;
+    }    
+  `)}
+/>
+
+### `text-shadow`
+
+Sets the text shadow.
+
+Specify x-offset, y-offset, blur radius (optional), and color.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="text-shadow-example">
+      Lorem ipsum dolor sit amet
+    </div>    
+  `)}
+  css={smartTrim(`
+    #text-shadow-example {
+      text-shadow: 1px 1px red;
+    }    
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'box-shadow (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow`,
+    },
+    {
+      text: 'text-shadow (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow`,
+    },
+  ]}
+></References>

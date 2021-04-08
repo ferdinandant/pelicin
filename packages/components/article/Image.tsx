@@ -68,6 +68,11 @@ export default function Image(props: Props) {
           background-color: none;
           padding: 0;
         }
+        figcaption :global(code)::before,
+        figcaption :global(code)::after {
+          content: '\`';
+          opacity: 0.5;
+        }
       `}</style>
     </>
   );
@@ -89,6 +94,6 @@ function extractStringFromNode(node: string | ReactNode): string | null {
   }
 
   const { props } = node as React.Component<any, any>;
-  const { children } = props;
-  return extractStringFromNode(children);
+  const { children, str } = props;
+  return extractStringFromNode(children !== undefined ? children : str);
 }
