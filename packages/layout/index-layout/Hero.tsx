@@ -16,7 +16,7 @@ export default function Hero() {
           <div className="linksContainer">
             <a className="cta" href={`#${INDEX_DOM_ID}`}>
               Explore
-            </a>
+            </a>{' '}
             <a className="secondary" href={`https://github.com/FerdinandAnt/pelicin`}>
               GitHub
             </a>
@@ -47,7 +47,8 @@ export default function Hero() {
         }
         hr {
           margin: auto;
-          border-bottom: 4px solid var(--color-blue-2);
+          border-bottom: 2px solid var(--color-blue-2);
+          opacity: 0.5;
         }
 
         h1 {
@@ -60,7 +61,8 @@ export default function Hero() {
           text-align: center;
         }
         .logo {
-          color: var(--color-blue-0);
+          color: var(--color-blue-2);
+          opacity: 0.6;
         }
         .description {
           font-size: var(--font-size-title-2);
