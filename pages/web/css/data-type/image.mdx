@@ -1,0 +1,130 @@
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Image
+
+The image data type represents a two-dimensional image (could be loaded from a URL, or a gradient).
+
+## URL
+
+You can use `url(...)`.
+
+```css
+div {
+  background-image: url('/path/to/picture.png');
+}
+```
+
+## Gradient
+
+### Linear Gradient
+
+Transition colors progressively along an imaginary line.
+
+- **<code>linear-gradient(<var>angle</var>, <var>...stops</var>)</code>**
+- **<code>repeating-linear-gradient(<var>angle</var>, <var>...stops</var>)</code>**
+
+**Note:**
+
+- _`angle`_ (optional) could be keywords like `to top`, `to top left`, or in degrees like `180deg`.
+  (0 deg = 12 o'clock, remember "clockwise")
+
+- _`...stops`_ would be comma-separated list of colors, each one optionally followed by a percentage or a length
+  (e.g. `red`, `red 15px`, `red 0%`, `red 0% 50%`).
+
+<WebEditor
+  hideHTML
+  html={smartTrim(`
+    <div id="linear-gradient-example">
+    </div>
+  `)}
+  css={smartTrim(`
+    #linear-gradient-example {
+      width: 300px;
+      height: 100px;
+      background-image: linear-gradient(to right, red 10%, blue 50%);
+    }
+  `)}
+/>
+
+### Radial Gradient
+
+Transition colors progressively from a center point (origin)
+
+- **<code>radial-gradient(<var>config</var>, <var>...stops</var>)</code>**
+- **<code>repeating-radial-gradient(<var>config</var>, <var>...stops</var>)</code>**
+
+**Note:**
+
+- _`config`_ (optional) would determine (1) the ending shape, (2) the size, and (3) the origin (center-point) of the shape.
+  Separate the values with space.
+
+  - The ending shape could be `ellipse` or `circle`
+
+  - The size parameter could be `closest-side`, `closest-corner`, `farthest-side`, or `farthest-corner` (determines how far the shape extends from the orrigin)
+
+  - The origin should be specified with lengths or percentages, e.g. `at 10px 10px` or `at 50% 50%`
+
+- _`...stops`_ would be comma-separated list of colors, each one optionally followed by a percentage or a length
+  (e.g. `red`, `red 15px`, `red 0%`, `red 0% 50%`).
+
+<WebEditor
+  hideHTML
+  html={smartTrim(`
+    <div id="radial-gradient-example">
+    </div>
+  `)}
+  css={smartTrim(`
+    #radial-gradient-example {
+      width: 300px;
+      height: 100px;
+      background-image: radial-gradient(ellipse closest-side at 20px 20px, #3f87a6, #ebf8e1, #f69d3c);
+    }
+  `)}
+/>
+
+### Conic Gradient
+
+- **<code>conic-gradient(<var>config</var>, <var>...stops</var>)</code>**
+
+**Note**
+
+- _`config`_ (optional) would determine (1) the starting degree and (2) the origin (center-point) of the shape.
+  Separate the values with space.
+
+  - The starting degree would be something like `from 20deg` (0 deg = 12 o'clock, remember "clockwise")
+
+  - The origin should be specified with lengths or percentages, e.g. `at 10px 10px` or `at 50% 50%`
+
+- _`...stops`_ would be comma-separated list of colors, each one optionally followed by a percentage or a length
+  (e.g. `red`, `red 15px`, `red 0%`, `red 0% 50%`).
+
+<WebEditor
+  hideHTML
+  html={smartTrim(`
+    <div id="conic-gradient-example">
+    </div>
+  `)}
+  css={smartTrim(`
+    #conic-gradient-example {
+      width: 300px;
+      height: 100px;
+      background-image: conic-gradient(from 0deg, red, orange, yellow, green, blue);
+    }
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: '<image> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/image`,
+    },
+    {
+      text: '<gradient> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/gradient`,
+    },
+  ]}
+></References>

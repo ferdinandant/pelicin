@@ -244,7 +244,6 @@ const chapters: TopicChapters = [
       {
         title: 'Image',
         path: '/web/css/data-type/image',
-        badge: 'TODO',
       },
       {
         title: 'Easing Function',
