@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { MDXArticleLayout, MetadataContextProvider } from '@pelicin/layout';
+import { MDXArticleLayout } from '@pelicin/layout';
 
 type Props = {
   children: ReactNode;
@@ -29,7 +29,7 @@ export default function LayoutRenderer(props: Props) {
 // ================================================================================
 
 function Providers(props: { children: ReactNode }) {
-  return <MetadataContextProvider>{props.children}</MetadataContextProvider>;
+  return <>{props.children}</>;
 }
 
 function isMdxComponent(children: ReactNode) {
