@@ -235,7 +235,6 @@ const chapters: TopicChapters = [
       {
         title: 'Color',
         path: '/web/css/data-type/color',
-        badge: 'TODO',
       },
       {
         title: 'Image',

@@ -1,0 +1,42 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Color" dateCreated="2021-04-09" />
+
+# Color
+
+The color data type represents a color in the standard RGB color space, optionally with an alpha channel.
+
+## Declaring Colors
+
+You can declare a color using any of these syntaxes.
+
+### Keyword
+
+- E.g. `red`, `blue`
+- **<code>currentcolor</code>** &mdash; use the current text `color`
+- **<code>transparent</code>** &mdash; use transparent color (make the background visible)
+
+### RGB Colors
+
+- **<code>#RRGGBB</code>** &mdash; e.g. `#ffaadd` (can be written shortly as `#fad`)
+- **<code>#RRGGBBAA</code>** &mdash; e.g. `#ffaadd00` (can be written shortly as `#fad0`)
+- **<code>rgb(<var>r</var>, <var>g</var>, <var>b</var>)</code>** &mdash; e.g. `rgb(255, 128, 128)`
+- **<code>rgba(<var>r</var>, <var>g</var>, <var>b</var>, <var>a</var>)</code>** &mdash; e.g. `rgba(255, 128, 128, 0.5)`
+
+### HSL Colors
+
+- **<code>hsl(<var>h</var>, <var>s</var>, <var>l</var>)</code>** &mdash; e.g. `hsl(360deg, 100%, 50%)`
+- **<code>hsla(<var>h</var>, <var>s</var>, <var>l</var>, <var>a</var>)</code>** &mdash; e.g. `hsla(360deg, 100%, 50%, 0.5)`
+
+## References
+
+<References
+  references={[
+    {
+      text: '<color> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/color_value`,
+    },
+  ]}
+></References>
