@@ -1,0 +1,49 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+<MetadataConfigurer title="Length" dateCreated="2021-04-08" />
+
+# Length
+
+Length data type represents a distance value.
+
+It consists of a **number** and one of the **units** listed below.
+(Sometimes, you can also use percentages for this data type.)
+
+## Length Units
+
+### Absolute Length Units
+
+- **`px`** &mdash; one pixel (1 px = 1/96 in)
+- **`cm`** &mdash; one centimeter
+- **`mm`** &mdash; one millimeter
+- **`in`** &mdash; one inch
+- **`pc`** &mdash; one pica (1 pc = 1/6 in)
+- **`pt`** &mdash; one point (1 pt = 1/72 in)
+
+### Font-Relative Lengths
+
+- **`em`** &mdash; represents the calculated font-size of the element
+- **`rem`** &mdash; represents the calculated font-size of the root element ("root em"),
+  typically refers to the font size of the `<html>` element
+- **`ch`** &mdash; represents the width of the `0` (zero) glyph
+- **`ex`** &mdash; represents the x-height of the element's font
+
+### Viewport-Percentage Lengths
+
+- **`vh`** &mdash; 1 vh = 1% of viewport height
+- **`vw`** &mdash; 1 vw = 1% of viewport width
+- **`vmin`** &mdash; picks the minimum of `vh` or `vw`
+- **`vmax`** &mdash; picks the maximum of `vh` or `vw`
+
+## References
+
+<References
+  references={[
+    {
+      text: '<length> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/length`,
+    },
+  ]}
+></References>
