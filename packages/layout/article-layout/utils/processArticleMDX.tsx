@@ -1,7 +1,9 @@
 import React, { ReactNode } from 'react';
+import Head from 'next/head';
 
 import { Heading, SyntaxHighlighter } from '@pelicin/components';
 import { extractHashFromNode } from '@pelicin/layout';
+import { extractStringFromNode } from '@pelicin/utils';
 
 /**
  * Process article MDX nodes (e.g. to swap them with other components, or add/remove nodes)
@@ -27,7 +29,21 @@ function processChild(child: ReactNode, index = 0) {
   }
   const { mdxType, children } = props;
 
-  if (mdxType.match(/h([1-6])/)) {
+  if (mdxType === 'h1') {
+    // Map heading to include anchor hash
+    const anchorHash = extractHashFromNode(children);
+    const titleString = extractStringFromNode(children);
+    return (
+      <>
+        <Head key="title">
+          <title>{titleString} - Pelicin</title>
+        </Head>
+        <Heading heading={mdxType} anchor={anchorHash} key={index}>
+          {children}
+        </Heading>
+      </>
+    );
+  } else if (mdxType.match(/h([2-6])/)) {
     // Map heading to include anchor hash
     const anchorHash = extractHashFromNode(children);
     return (
