@@ -135,6 +135,11 @@ const chapters: TopicChapters = [
         path: '/web/css/typography/overflow-wrapping',
       },
       {
+        title: 'Shape',
+        path: '/web/css/typography/shape',
+        badge: 'TODO',
+      },
+      {
         title: 'Others',
         path: '/web/css/typography/others',
       },
