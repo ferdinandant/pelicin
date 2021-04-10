@@ -184,7 +184,6 @@ const chapters: TopicChapters = [
       {
         title: 'Transition',
         path: '/web/css/animation/transition',
-        badge: 'TODO',
       },
       {
         title: 'Offset',
@@ -240,6 +239,10 @@ const chapters: TopicChapters = [
       {
         title: 'Length',
         path: '/web/css/data-type/length',
+      },
+      {
+        title: 'Time',
+        path: '/web/css/data-type/time',
       },
       {
         title: 'Color',
