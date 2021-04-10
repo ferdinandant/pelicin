@@ -253,7 +253,6 @@ const chapters: TopicChapters = [
       {
         title: 'Easing Function',
         path: '/web/css/data-type/easing-function',
-        badge: 'TODO',
       },
       {
         title: 'Transform Function',
