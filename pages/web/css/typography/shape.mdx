@@ -1,0 +1,119 @@
+import { References, DocumentationList, Code, Link, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Shape
+
+The `shape-*` properties define how text should wrap around objects.
+
+## Shape Properties
+
+### `shape-outside`
+
+Defines a shape outline (which may be non-rectangular) around which inline content should wrap. Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: <>inline content wraps around margin-box like usual (default)</>,
+    },
+    {
+      nameSpecial: 'a shape box',
+      description: (
+        <>
+          e.g. <Code str="margin-box" />, <Code str="border-box" />, <Code str="padding-box" />,{' '}
+          <Code str="content-box" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a basic shape',
+      description: (
+        <>
+          see <Link link="/web/css/data-type/basic-shape" str="basic shape data type" />, e.g.{' '}
+          <Code str="circle(...)" />, <Code str="ellipse(...)" />, <Code str="polygon(...)" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'an image',
+      description: (
+        <>
+          see <Link link="/web/css/data-type/image" str="image data type" />; it will use the
+          image's alpha channel to determine the outline shape, which can be customized further via{' '}
+          <Code str="shape-image-threshold" /> property
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="shape-outside-example">
+      <img src="/res/web/css/shape-round-balloon.png">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Vestibulum interdum accumsan nunc vitae finibus.
+      In lacinia lacinia ipsum, eu eleifend odio vestibulum vitae.
+      Vestibulum tempor, odio id dignissim vestibulum.
+      Aenean faucibus, ex sed dictum pharetra, ante libero ornare sapien.
+      Et consequat orci dolor ut risus. Curabitur quis libero arcu.
+      Vivamus dolor magna, pretium semper arcu eget, congue porta enim.
+    </div>
+  `)}
+  css={smartTrim(`
+    #shape-outside-example img {
+      float: left;
+      shape-outside: url('/res/web/css/shape-round-balloon.png');
+    }
+  `)}
+/>
+
+### `shape-image-threshold`
+
+Sets the alpha channel threshold for the image specified in `shape-outside`, which will be used to extract the image shape.
+
+Specify a value between `0.0` and `1.0` (inclusive).
+
+### `shape-margin`
+
+Sets the margin between `shape-outside` outline and the inline content.
+
+Specify a length or a percentage (relative to the container's width).
+(This "margin area" won't extend past the image's margin-box.
+It will simply behave like `shape-outside: none` if you supply a large enough value.)
+
+## Assets
+
+<References
+  references={[
+    {
+      text: 'Round balloon (MDN)',
+      description: (
+        <>
+          Appeared in <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/shape-outside" />
+        </>
+      ),
+      link: `https://interactive-examples.mdn.mozilla.net/media/examples/round-balloon.png`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'shape-outside (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/shape-outside`,
+    },
+    {
+      text: 'shape-image-threshold (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/shape-image-threshold`,
+    },
+    {
+      text: 'shape-margin (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/shape-margin`,
+    },
+  ]}
+></References>

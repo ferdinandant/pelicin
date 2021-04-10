@@ -137,7 +137,6 @@ const chapters: TopicChapters = [
       {
         title: 'Shape',
         path: '/web/css/typography/shape',
-        badge: 'TODO',
       },
       {
         title: 'Others',
@@ -266,6 +265,10 @@ const chapters: TopicChapters = [
       {
         title: 'Image',
         path: '/web/css/data-type/image',
+      },
+      {
+        title: 'Basic Shape',
+        path: '/web/css/data-type/basic-shape',
       },
       {
         title: 'Easing Function',
