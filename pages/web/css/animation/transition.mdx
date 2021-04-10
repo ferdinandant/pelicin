@@ -1,0 +1,103 @@
+import { References, NoteBox } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Transition
+
+Transition CSS property defines the transition between two states of an element.
+
+Different states may be defined using pseudo-classes like `:hover` or `:active`, or dynamically set using JavaScript.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="height-example">
+      Hi!
+    </div>
+  `)}
+  css={smartTrim(`
+    #height-example {
+    }
+  `)}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+<DocumentationList
+  items={[
+    {
+      name: 'row',
+      description: <>aaa</>,
+    },
+  ]}
+/>
+
+## CSS Properties
+
+<NoteBox type="info">
+  <p>You can use commas to specify multiple transitions.</p>
+</NoteBox>
+
+### `transition`
+
+Shorthand for `transition-property`, `transition-duration`, `transition-timing-function`, `transition-delay`.
+
+```css
+div {
+  transition: right 0.2s ease;
+  transition: margin-right 4s, color 1s;
+  /* <transition-property> <transition-duration> <transition-timing-function> <transition-delay> */
+  transition: margin-right 4s ease-in-out 1s;
+}
+```
+
+### `transition-property`
+
+Sets the CSS properties to which a transition effect should be applied.
+
+Specify a CSS property (e.g. `color`), `all`, or `none`.
+
+### `transition-duration`
+
+Sets the total duration for the transition to complete. (The default value is `0s`, i.e. no transition.)
+
+### `transition-timing-function`
+
+Sets the [easing function](http://localhost:3000/web/css/data-type/easing-function) to be used for the transition.
+
+### `transition-delay`
+
+Sets the duration to wait before starting a property's transition effect when its value changes.
+(The default value is `0s`, i.e. no delay.)
+
+## References
+
+<References
+  references={[
+    {
+      text: 'transition (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/transition`,
+    },
+    {
+      text: 'transition-property (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property`,
+    },
+    {
+      text: 'transition-duration (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration`,
+    },
+    {
+      text: 'transition-timing-function (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function`,
+    },
+    {
+      text: 'transition-delay (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay`,
+    },
+  ]}
+></References>
