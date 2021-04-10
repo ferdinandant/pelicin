@@ -171,6 +171,11 @@ const chapters: TopicChapters = [
         title: 'Filter',
         path: '/web/css/aesthetics/filter',
       },
+      {
+        title: 'Clip',
+        path: '/web/css/aesthetics/clip',
+        badge: 'TODO'
+      },
     ],
   },
   {
@@ -289,6 +294,11 @@ const chapters: TopicChapters = [
       {
         title: 'Specificity and !important',
         path: '/web/css/concepts/specificity',
+      },
+      {
+        title: 'Initial, Inherit, and Unset',
+        path: '/web/css/concepts/initial-inherit-unset',
+        badge: 'TODO',
       },
       {
         title: 'Block Formatting Context',

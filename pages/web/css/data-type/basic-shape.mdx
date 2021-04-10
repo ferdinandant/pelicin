@@ -1,0 +1,91 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Basic Shape
+
+The basic shape data type represents a shape.
+
+## Shape Functions
+
+### `inset(...)`
+
+Defines an _inset_ rectangle (like specifying a negative margin). Specify:
+
+- 1 to 4 offsets (corresponding to the top, right, bottom, and left offsets) in lengths or percentages
+- a border radius (optional) &mdash; e.g. `round 5px`.
+
+```css
+div {
+  clip-path: inset(22% 12% 15px 35px);
+  clip-path: inset(22% 12% 15px 35px round 5px);
+}
+```
+
+### `circle(...)`
+
+Defines a circle. Specify:
+
+- the radius in length or percentage (optional, default is `closest-side`) &mdash; e.g. `20px`, `closest-side`, `farthest-side`
+- the center coordinate (optional, default is `center`) &mdash; e.g. `at 12rem 8rem`
+
+```css
+div {
+  clip-path: circle(6rem at 12rem 8rem);
+}
+```
+
+### `ellipse(...)`
+
+Defines an ellipse. Specify:
+
+- the x-radius and y-radius in length or percentage (optional, default is `closest-side` for both radii)
+- the center coordinate (optional, default is `center`) &mdash; e.g. `at 12rem 8rem`
+
+```css
+div {
+  clip-path: ellipse(115px 55px at 50% 40%);
+}
+```
+
+### `polygon(...)`
+
+Defines a polygon. Specify:
+
+- the filling rule of the polygon (optional, default is `nonzero`)
+  &mdash; specify `nonzero` (always fill interior) or `evenodd` (a shape is considered "outside" if it has even path segments)
+- one or more coordinates in lengths or percentages, separated by comma
+
+```css
+div {
+  clip-path: 50% 2.4%, 34.5% 33.8%, 65.5% 33.8%;
+}
+```
+
+### `path(...)`
+
+Defines a path. Specify:
+
+- the filling rule of the polygon (optional, default is `nonzero`)
+  &mdash; specify `nonzero` (always fill interior) or `evenodd` (a shape is considered "outside" if it has even path segments)
+- [SVG path string](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d) &mdash; e.g. `M 50,245 A 160,160 0,0,1 360,120 z`
+
+```css
+div {
+  clip-path: path('M 50,245 A 160,160 0,0,1 360,120 z');
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: '<basic-shape> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape`,
+    },
+    {
+      text: 'fill-rule (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule`,
+    },
+  ]}
+></References>
