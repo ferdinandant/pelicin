@@ -241,6 +241,10 @@ const chapters: TopicChapters = [
         path: '/web/css/data-type/length',
       },
       {
+        title: 'Time',
+        path: '/web/css/data-type/time',
+      },
+      {
         title: 'Color',
         path: '/web/css/data-type/color',
       },
