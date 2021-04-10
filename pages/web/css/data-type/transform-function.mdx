@@ -1,0 +1,227 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, Latex } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Transform Function
+
+The tranform function data type represents a transformation (e.g. rotation, scaling, skewings) to an element.
+
+The origin point for transformation(s) can be set by the [`transform-origin`](/web/css/aesthetics/transform#transform-origin) property.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="height-example">
+      Hi!
+    </div>
+  `)}
+  css={smartTrim(`
+    #height-example {
+    }
+  `)}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+<DocumentationList
+  items={[
+    {
+      name: 'row',
+      description: <>aaa</>,
+    },
+  ]}
+/>
+
+## Types of Transform Function
+
+### Rotation
+
+#### <code>rotate(<var>a</var>)</code>
+
+Rotates the element around the `transform-origin` on the 2D plane as far as _`a`_ (clockwise).
+
+```css
+div {
+  transform: rotate(120deg);
+}
+```
+
+#### <code>rotate(<var>x</var>, <var>y</var>, <var>z</var>, <var>a</var>)</code>
+
+Rotates an element around a fixed axis in 3D space as far as _`a`_ (clockwise).
+
+The axis of rotation is the vector that passes through `transform-origin` and the `[x, y, z]` vector.
+
+```css
+div {
+  transform: rotate3d(1, -2, 0, 120deg);
+}
+```
+
+#### <code>rotateX(<var>a</var>)</code>
+
+Rotates around the x-axis, equivalent to <code>rotate3d(1, 0, 0, <var>a</var>)</code>.
+
+#### <code>rotateY(<var>a</var>)</code>
+
+Rotates around the y-axis, equivalent to <code>rotate3d(0, 1, 0, <var>a</var>)</code>.
+
+#### <code>rotateZ(<var>a</var>)</code>
+
+Rotates around the z-axis, equivalent to <code>rotate3d(0, 0, 1, <var>a</var>)</code>.
+
+---
+
+### Scaling
+
+#### <code>scale(<var>sx</var>, <var>sy</var>)</code>
+
+Scales an element up or down on the 2D plane.
+
+#### <code>scale3d(<var>sx</var>, <var>sy</var>, <var>sz</var>)</code>
+
+Scales an element up or down in 3D space.
+
+#### <code>scaleX(<var>sx</var>)</code>
+
+Scales an element along the x-axis, equivalent to <code>scale3d(<var>sx</var>, 1, 1)</code>.
+
+#### <code>scaleY(<var>sy</var>)</code>
+
+Scales an element along the y-axis, equivalent to <code>scale3d(1, <var>sy</var>, 1)</code>.
+
+#### <code>scaleZ(<var>sz</var>)</code>
+
+Scales an element along the z-axis, equivalent to <code>scale3d(1, 1, <var>sz</var>)</code>.
+
+---
+
+### Skewing
+
+#### <code>skew(<var>ax</var>, <var>ay</var>)</code>
+
+Skews an element on the 2D plane, _`ax`_ and _`ay`_ are in degrees. (Value of 90º will skew the image infinitely.)
+
+#### <code>skewX(<var>ax</var>)</code>
+
+Equivalent to <code>skewX(<var>ax</var>, 0)</code>.
+
+#### <code>skewY(<var>ay</var>)</code>
+
+Equivalent to <code>skewY(0, <var>ay</var>)</code>.
+
+---
+
+### Translation
+
+#### <code>translate(<var>tx</var>, <var>ty</var>)</code>
+
+Translates an element on the 2D plane. You can specify a length or a percentage for the _`tx`_ and _`ty`_ values.
+
+(Percentage values will be relative to the width/height of the reference box defined by the `transform-box` property.)
+
+#### <code>translate3d(<var>tx</var>, <var>ty</var>, <var>tz</var>)</code>
+
+Translates an element in 3D space. You can specify a length or a percentage for the _`tx`_ and _`ty`_ values,
+but _`tz`_ must be in length.
+
+#### <code>translateX(<var>tx</var>)</code>
+
+Equivalent to <code>translate3d(<var>tx</var>, 0, 0)</code>.
+
+#### <code>translateY(<var>ty</var>)</code>
+
+Equivalent to <code>translate3d(0, <var>ty</var>, 0)</code>.
+
+#### <code>translateZ(<var>tz</var>)</code>
+
+Equivalent to <code>translate3d(0, 0, <var>tz</var>)</code>.
+
+---
+
+### Perspective
+
+#### <code>perspective(<var>d</var>)</code>
+
+Sets the distance between the user and the z=0 plane.
+
+This is applied to the element itself, unlike `perspective` and `perspective-origin` properties
+which are attached to the _container_ (parent) of elements being transformed in 3D space.
+
+```css
+div {
+  transform: perspective(800px);
+}
+```
+
+---
+
+### Matrix Transformation
+
+#### `matrix(...)`
+
+Defines a homogeneous 2D transformation matrix:
+
+<Latex block>{String.raw`
+  T = \begin{bmatrix}
+    a & c & t_x \\
+    b & d & t_y \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+`}</Latex>
+
+Specify the following 6 values in order: _`a`_, _`b`_, _`c`_, _`d`_, _`tx`_, _`ty`_ (unitless), where:
+
+- _`a`_, _`b`_, _`c`_, _`d`_ represent the linear transformation (scaling and skewing),
+- _`tx`_, _`ty`_ represent the translation.
+
+#### `matrix3d(...)`
+
+Defines a 3D transformation as a 4×4 homogeneous matrix:
+
+<Latex block>{String.raw`
+  T = \begin{bmatrix}
+    a_1 & b_1 & c_1 & d_1 \\
+    a_2 & b_2 & c_2 & d_2 \\
+    a_3 & b_3 & c_3 & d_3 \\
+    a_4 & b_4 & c_4 & d_4 \\
+  \end{bmatrix}
+`}</Latex>
+
+Specify the following 16 values in order:
+_`a1`_, _`b1`_, _`c1`_, _`d1`_, _`a2`_, _`b2`_, _`c2`_, _`d2`_,
+_`a3`_, _`b3`_, _`c3`_, _`d3`_, _`a4`_, _`b4`_, _`c4`_, _`d4`_ (unitless),
+where:
+
+- _`a1`_, _`b1`_, _`c1`_, _`d1`_, ..., _`a3`_, _`b3`_, _`c3`_, _`d3`_ represent the linear transformation (scaling and skewing),
+- _`a4`_, _`b4`_, _`c4`_, _`d4`_ represent the translation.
+
+The given values describe the following transformation matrix:
+
+## See Also
+
+<References
+  references={[
+    {
+      text: 'Homogeneous Coordinates (songho.ca)',
+      link: `http://www.songho.ca/math/homogeneous/homogeneous.html`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: '<transform-function> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function`,
+    },
+  ]}
+></References>

@@ -161,6 +161,11 @@ const chapters: TopicChapters = [
         path: '/web/css/aesthetics/transform',
       },
       {
+        title: 'Perspective',
+        path: '/web/css/aesthetics/perspective',
+        badge: 'TODO',
+      },
+      {
         title: 'Opacity',
         path: '/web/css/aesthetics/opacity',
       },
@@ -253,7 +258,6 @@ const chapters: TopicChapters = [
       {
         title: 'Transform Function',
         path: '/web/css/data-type/transform-function',
-        badge: 'TODO',
       },
       {
         title: 'Filter Function',

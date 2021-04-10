@@ -19,7 +19,7 @@ type Props = {
 
 const useSyntaxHighlighterPaths = new Set(['/web', '/sample']);
 
-const useLatexPaths = new Set(['/sample']);
+const useLatexPaths = new Set(['/sample', '/web/css/data-type']);
 
 const gtagScript = `
   window.dataLayer = window.dataLayer || [];

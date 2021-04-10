@@ -230,8 +230,8 @@ fieldset {
 
 hr {
   border: none;
-  border-bottom: 2px solid var(--color-gray-3);
-  margin: var(--spacing-m) 0;
+  border-bottom: 1px dashed var(--color-gray-3);
+  margin: var(--spacing-xl) 0;
 }
 
 blockquote {
