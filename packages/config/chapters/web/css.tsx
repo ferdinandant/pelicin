@@ -258,7 +258,6 @@ const chapters: TopicChapters = [
       {
         title: 'Filter Function',
         path: '/web/css/data-type/filter-function',
-        badge: 'TODO',
       },
     ],
   },
