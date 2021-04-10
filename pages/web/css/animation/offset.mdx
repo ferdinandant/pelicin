@@ -9,11 +9,11 @@ Offset CSS properties are used to animate an element along a motion path.
 
 ### `offset`
 
-Shorthand for `offset-position`, `offset-path`, `offset-distance`, `offset-rotate`, `offset-anchor`.
+Shorthand for `offset-path`, `offset-distance`, `offset-rotate`, `offset-anchor`.
 
 ```css
 div {
-  /* <offset-position> <offset-path> <offset-distance> <offset-rotate> / <offset-anchor> */
+  /* <offset-path> <offset-distance> <offset-rotate> / <offset-anchor> */
   offset: url(arc.svg) 30deg / 50px 100px;
 }
 ```
@@ -50,14 +50,6 @@ Specifies a motion path for an element to follow. Possible values:
     },
   ]}
 />
-
-### `offset-anchor`
-
-Specifies which point of the element is travelling along the `offset-path`.
-
-Specify `auto`, a coordinate (in lengths/percentages, e.g. `20px 20px`), or using the offset syntax (e.g. `bottom 10px right 20px`).
-
-<Image path="/res/web/css/offset-anchor.png" alt="Illustration of offset-anchor" />
 
 ### `offset-distance`
 
@@ -111,6 +103,14 @@ Defines how the element should rotate along `offset-path`
   ]}
 />
 
+### `offset-anchor`
+
+Specifies which point of the element is travelling along the `offset-path`.
+
+Specify `auto`, a coordinate (in lengths/percentages, e.g. `20px 20px`), or using the offset syntax (e.g. `bottom 10px right 20px`).
+
+<Image path="/res/web/css/offset-anchor.png" alt="Illustration of offset-anchor" />
+
 ## References
 
 <References
@@ -118,6 +118,18 @@ Defines how the element should rotate along `offset-path`
     {
       text: 'offset (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/offset`,
+    },
+    {
+      text: 'offset-path (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path`,
+    },
+    {
+      text: 'offset-distance (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance`,
+    },
+    {
+      text: 'offset-rotate (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/offset-rotate`,
     },
     {
       text: 'offset-anchor (MDN)',
