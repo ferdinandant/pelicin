@@ -193,6 +193,41 @@ const chapters: TopicChapters = [
     ],
   },
   {
+    chapter: 'User Interface',
+    children: [
+      {
+        title: 'Cursor',
+        path: '/web/css/others/cursor',
+        badge: 'TODO',
+      },
+      {
+        title: 'Resize',
+        path: '/web/css/others/resize',
+        badge: 'TODO',
+      },
+      {
+        title: 'Touch Action',
+        path: '/web/css/others/touch-action',
+        badge: 'TODO',
+      },
+      {
+        title: 'User Select',
+        path: '/web/css/others/user-select',
+        badge: 'TODO',
+      },
+      {
+        title: 'Scroll',
+        path: '/web/css/others/scroll',
+        badge: 'TODO',
+      },
+      {
+        title: 'Scrollbar',
+        path: '/web/css/others/scrollbar',
+        badge: 'TODO',
+      },
+    ],
+  },
+  {
     chapter: 'Others',
     children: [
       {
@@ -208,26 +243,6 @@ const chapters: TopicChapters = [
       {
         title: 'Page Break',
         path: '/web/css/aesthetics/page-break',
-        badge: 'TODO',
-      },
-      {
-        title: 'Cursor',
-        path: '/web/css/others/cursor',
-        badge: 'TODO',
-      },
-      {
-        title: 'Resize',
-        path: '/web/css/others/resize',
-        badge: 'TODO',
-      },
-      {
-        title: 'Scroll',
-        path: '/web/css/others/scroll',
-        badge: 'TODO',
-      },
-      {
-        title: 'Scrollbar',
-        path: '/web/css/others/scrollbar',
         badge: 'TODO',
       },
     ],
