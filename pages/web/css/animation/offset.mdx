@@ -1,0 +1,61 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Offset
+
+Offset CSS properties are used to animate an element along a defined path.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="height-example">
+      Hi!
+    </div>
+  `)}
+  css={smartTrim(`
+    #height-example {
+    }
+  `)}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+<DocumentationList
+  items={[
+    {
+      name: 'row',
+      description: <>aaa</>,
+    },
+  ]}
+/>
+
+## Offset Properties
+
+### `offset`
+
+### `offset-anchor`
+
+### `offset-distance`
+
+### `offset-path`
+
+### `offset-position`
+
+### `offset-rotate`
+
+## References
+
+<References
+  references={[
+    {
+      text: 'offset (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/offset`,
+    },
+  ]}
+></References>
