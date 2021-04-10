@@ -37,25 +37,16 @@ Specifies a motion path for an element to follow. Possible values:
       ),
     },
     {
-      nameSpecial: (
-        <code>
-          url(<var>...</var>)
-        </code>
-      ),
-      description: <>use the SVG's shape geometry as the path.</>,
-    },
-    {
-      nameSpecial: (
-        <code>
-          ray(<var>...</var>)
-        </code>
-      ),
+      name: 'url(...)',
       description: (
         <>
-          defines a path that is a line segment starting from the position of the box and proceeds
-          in the direction defined by the specified angle (???).
+          e.g. <Code str="url(#path)" />, references the ID of an SVG shape as the path
         </>
       ),
+    },
+    {
+      name: 'ray(...)',
+      description: <>???</>,
     },
   ]}
 />
