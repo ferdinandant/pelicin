@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { extractHashFromTitle } from '@pelicin/layout';
+
 /**
  * Given a react node (usually heading), extract URL hash based on its content
  * @param node
@@ -25,5 +26,5 @@ export function extractHashFromNodeInternal(node: ReactNode): string | null {
 }
 
 function convertToURLHash(str: string) {
-  return str.replace(/[^\w]/g, '-');
+  return str.replace(/[ ]/g, '-');
 }

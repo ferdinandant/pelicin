@@ -1,0 +1,195 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References, Link, Image, Latex, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Easing Function
+
+The easing function data type denotes a mathematical function that describes the rate at which a numerical value changes.
+
+## Types of Easing Functions
+
+### Linear
+
+#### `linear`
+
+The interpolation is done at a constant rate from beginning to end.
+
+Equivalent to `cubic-bezier(0.0, 0.0, 1.0, 1.0)`.
+
+<Image path="/res/web/css/easing-function-linear.png" />
+
+---
+
+### Cubic Bézier Curves
+
+#### <code>cubic-bezier(<var>x1</var>, <var>y1</var>, <var>x2</var>, <var>y2</var>)</code>
+
+Defines a cubic [Bézier curve](https://www.youtube.com/watch?v=pnYccz1Ha34) defined by:
+
+- <Latex>P_0(0, 0)</Latex> &mdash; the starting position
+- <Latex>P_1(x_1, y_1)</Latex>
+- <Latex>P_2(x_2, y_2)</Latex>
+- <Latex>P_3(1, 1)</Latex> &mdash; the final position
+
+<Image path="/res/web/css/easing-function-cubic-bezier.png" />
+
+#### `ease`
+
+Starts slowly, accelerates sharply, and then slows down towards the end.
+(Equivalent to `cubic-bezier(0.25, 0.1, 0.25, 1.0)`.)
+
+<Image path="/res/web/css/easing-function-ease.png" />
+
+#### `ease-in`
+
+Starts slowly, and accelerates towards the end.
+(Equivalent to `cubic-bezier(0.42, 0.0, 1.0, 1.0)`.)
+
+<Image path="/res/web/css/easing-function-ease-in.png" />
+
+#### `ease-in-out`
+
+Starts slowly, speeds up, and then slows down towards the end
+(Equivalent to `cubic-bezier(0.42, 0.0, 0.58, 1.0)`.)
+
+<Image path="/res/web/css/easing-function-ease-in-out.png" />
+
+#### `ease-out`
+
+Starts abruptly, and then slows down towards the end.
+(Equivalent to `cubic-bezier(0.0, 0.0, 0.58, 1.0)`.)
+
+<Image path="/res/web/css/easing-function-ease-out.png" />
+
+---
+
+### Step Functions
+
+#### <code>steps(<var>n</var>, <var>jump</var>)</code>
+
+Defines a step function with _`n`_ step(s) and which segment to _`jump`_:
+
+- **`jump-start`** or **`start`** &mdash; skip the start segment
+- **`jump-end`** or **`end`** &mdash; skip the final segment
+- **`jump-none`** &mdash; include the start and final segments
+- **`jump-both`** &mdash; skip both the start and final segments
+
+<Image
+  path="/res/web/css/easing-function-steps.png"
+  caption={
+    <>
+      Illustration of different <Code str="jump" /> values
+    </>
+  }
+  sourceString="MDN"
+/>
+
+#### `step-start`
+
+Skip the start segment (jumps directly to its final position).
+
+<Image path="/res/web/css/easing-function-step-start.png" />
+
+#### `step-end`
+
+Skip the final segment (stays at its initial position).
+
+<Image path="/res/web/css/easing-function-step-end.png" />
+
+## Assets
+
+<References
+  references={[
+    {
+      text: 'linear (MDN)',
+      description: (
+        <>
+          Appeared in{' '}
+          <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function" />
+        </>
+      ),
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/cubic-bezier-linear.png`,
+    },
+    {
+      text: 'Cubic Bézier (MDN)',
+      description: (
+        <>
+          Appeared in{' '}
+          <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function" />
+        </>
+      ),
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/cubic-bezier-example.png`,
+    },
+    {
+      text: 'ease (MDN)',
+      description: (
+        <>
+          Appeared in{' '}
+          <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function" />
+        </>
+      ),
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/cubic-bezier-ease.png`,
+    },
+    {
+      text: 'ease-in (MDN)',
+      description: (
+        <>
+          Appeared in{' '}
+          <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function" />
+        </>
+      ),
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/cubic-bezier-ease-in.png`,
+    },
+    {
+      text: 'ease-in-out (MDN)',
+      description: (
+        <>
+          Appeared in{' '}
+          <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function" />
+        </>
+      ),
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/cubic-bezier-ease-in-out.png`,
+    },
+    {
+      text: 'ease-out (MDN)',
+      description: (
+        <>
+          Appeared in{' '}
+          <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function" />
+        </>
+      ),
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/cubic-bezier-ease-out.png`,
+    },
+    {
+      text: 'step-start (MDN)',
+      description: (
+        <>
+          Appeared in{' '}
+          <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function" />
+        </>
+      ),
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/steps-1-start.png`,
+    },
+    {
+      text: 'step-end (MDN)',
+      description: (
+        <>
+          Appeared in{' '}
+          <Link link="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function" />
+        </>
+      ),
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/steps-1-end.png`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: '<easing-function> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function`,
+    },
+  ]}
+></References>

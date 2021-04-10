@@ -1,0 +1,101 @@
+import { MetadataConfigurer } from '@pelicin/layout';
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Filter Function
+
+The filter function data type represents a graphical effect that can change the appearance of an input image.
+
+## Types of Filter Function
+
+### Hue
+
+- **<code>hue-rotate(<var>angle</var>)</code>** &mdash;
+  e.g. `hue-rotate(90deg)`; rotates the hue of the image
+
+- **<code>invert(<var>percentage</var>)</code>** &mdash;
+  e.g. `invert(1)`; inverts the colors of the image
+
+### Saturation
+
+- **<code>saturate(<var>percentage</var>)</code>** &mdash;
+  e.g. `saturate(0)` (completely grayslace), `saturate(0.4)` (40% saturation), or `saturate(2)` (double saturation);
+  super-saturates or desaturates the input image
+
+- **<code>grayscale(<var>percentage</var>)</code>** &mdash;
+  e.g. `grayscale(0.2)`; converts the image to grayscale
+
+- **<code>sepia(<var>percentage</var>)</code>** &mdash;
+  e.g. `sepia(0.3)`; converts the image to sepia
+
+### Brightness/Contrast
+
+- **<code>brightness(<var>percentage</var>)</code>** &mdash;
+  e.g. `brightness(0)` (completely black), `brightness(1)` (normal), `brightness(1.75)` (slightly brighter);
+  applies a linear multiplier to the image, making it brighter or darker.
+
+- **<code>contrast(<var>percentage</var>)</code>** &mdash;
+  e.g. `contrast(0)` (completely gray), `contrast(1)` (normal), `contrast(1.75)` (more contrast);
+  adjusts the contrast of the image
+
+### Others
+
+- **<code>blur(<var>radius</var>)</code>** &mdash;
+  e.g. `blur(4px)`; applies Gaussian blur to the image
+
+- **<code>drop-shadow(<var>x-offset</var> <var>y-offset</var> <var>blur-radius</var> <var>color</var>)</code>** &mdash;
+  e.g. `drop-shadow(0 -6px 5px red)`; applies a drop shadow around the alpha channel of the image
+
+- **<code>opacity(<var>percentage</var>)</code>** &mdash;
+  e.g. `opacity(0.5)`; applies transparency to the image
+
+## References
+
+<References
+  references={[
+    {
+      text: '<filter-function> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function`,
+    },
+    {
+      text: 'hue-rotate (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/hue-rotate()`,
+    },
+    {
+      text: 'invert (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/invert()`,
+    },
+    {
+      text: 'saturate (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/saturate()`,
+    },
+    {
+      text: 'grayscale (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/grayscale()`,
+    },
+    {
+      text: 'sepia (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/sepia()`,
+    },
+    {
+      text: 'brightness (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/brightness()`,
+    },
+    {
+      text: 'contrast (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/contrast()`,
+    },
+    {
+      text: 'blur (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/blur()`,
+    },
+    {
+      text: 'drop-shadow (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/drop-shadow()`,
+    },
+    {
+      text: 'opacity (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/opacity()`,
+    },
+  ]}
+></References>
