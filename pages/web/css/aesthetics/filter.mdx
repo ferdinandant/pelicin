@@ -8,6 +8,8 @@ The filter property applies graphical effects like blur or color shift to an ele
 
 ## CSS Properties
 
+### `filter`
+
 Applies filter(s) to an element.
 
 Specify `none` or space-separated [filter function(s)](/web/css/data-type/filter-function).
@@ -23,6 +25,39 @@ Specify `none` or space-separated [filter function(s)](/web/css/data-type/filter
       filter: blur(5px);
     }
   `)}
+/>
+
+### `backdrop-filter`
+
+Applies filter(s) to the area behind an element.
+
+Specify `none` or space-separated [filter function(s)](/web/css/data-type/filter-function).
+
+<WebEditor
+  html={smartTrim(`
+    <!-- May not work on Firefox; use Chrome -->
+    <div id="backdrop-filter-example">
+      <div class="inner-box">
+        Hello there!
+      </div>
+    </div>
+  `)}
+  css={smartTrim(`
+    #backdrop-filter-example {
+      width: 300px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg')
+    }
+    #backdrop-filter-example .inner-box {
+      padding: 10px;
+      border: 1px solid white;
+      border-radius: 4px;
+      backdrop-filter: blur(10px);
+    }
+`)}
 />
 
 ## Assets
@@ -43,6 +78,10 @@ Specify `none` or space-separated [filter function(s)](/web/css/data-type/filter
     {
       text: 'filter (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/filter`,
+    },
+    {
+      text: 'backdrop-filter (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter`,
     },
   ]}
 ></References>
