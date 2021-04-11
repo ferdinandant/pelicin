@@ -1,0 +1,136 @@
+import { References, Image, DocumentationList, Code, Link } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Offset
+
+Offset CSS properties are used to animate an element along a motion path.
+
+## Offset Properties
+
+### `offset`
+
+Shorthand for `offset-path`, `offset-distance`, `offset-rotate`, `offset-anchor`.
+
+```css
+div {
+  /* <offset-path> <offset-distance> <offset-rotate> / <offset-anchor> */
+  offset: url(arc.svg) 30deg / 50px 100px;
+}
+```
+
+### `offset-path`
+
+Specifies a motion path for an element to follow. Possible values:
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: <>no motion path (default)</>,
+    },
+    {
+      nameSpecial: 'a basic shape',
+      description: (
+        <>
+          see <Link link="/web/css/data-type/basic-shape" str="basic shape data type" />
+        </>
+      ),
+    },
+    {
+      name: 'url(...)',
+      description: (
+        <>
+          e.g. <Code str="url('resources.svg#path')" />; references the ID of an SVG shape that will
+          be used as path (e.g. <Code str='<circle id="...">' /> or <Code str='<rect id="...">' />)
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `offset-distance`
+
+Specifies where at the `offset-path` the element should be placed.
+
+Specify a length or a percentage. `0%` means the element is placed at the beginning of the path,
+while `100%` means the element is placed at the end of the path.
+
+<Image path="/res/web/css/offset-distance.png" alt="Illustration of offset-distance" />
+
+### `offset-rotate`
+
+Defines how the element should rotate along `offset-path`
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: <>rotate alongside the curvature of the path (default)</>,
+    },
+    {
+      nameSpecial: (
+        <code>
+          auto <var>offset</var>
+        </code>
+      ),
+      description: (
+        <>
+          e.g. <Code str="auto 20deg" />; rotate alongside the curvature of the path, plus{' '}
+          <Code var str="offset" /> degree clockwise
+        </>
+      ),
+    },
+    {
+      name: 'reverse',
+      description: (
+        <>
+          like <Code str="auto" />, but faces the opposite direction (equivalent to{' '}
+          <Code str="auto 180deg" />)
+        </>
+      ),
+    },
+    {
+      nameSpecial: <Code var str="angle" />,
+      description: (
+        <>
+          e.g. <Code str="20deg" />; keep this constant angle while travelling along the path
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `offset-anchor`
+
+Specifies which point of the element is travelling along the `offset-path`.
+
+Specify `auto`, a coordinate (in lengths/percentages, e.g. `20px 20px`), or using the offset syntax (e.g. `bottom 10px right 20px`).
+
+<Image path="/res/web/css/offset-anchor.png" alt="Illustration of offset-anchor" />
+
+## References
+
+<References
+  references={[
+    {
+      text: 'offset (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/offset`,
+    },
+    {
+      text: 'offset-path (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path`,
+    },
+    {
+      text: 'offset-distance (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance`,
+    },
+    {
+      text: 'offset-rotate (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/offset-rotate`,
+    },
+    {
+      text: 'offset-anchor (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/offset-anchor`,
+    },
+  ]}
+></References>

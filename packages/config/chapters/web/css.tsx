@@ -137,7 +137,6 @@ const chapters: TopicChapters = [
       {
         title: 'Shape',
         path: '/web/css/typography/shape',
-        badge: 'TODO',
       },
       {
         title: 'Others',
@@ -172,6 +171,10 @@ const chapters: TopicChapters = [
         title: 'Filter',
         path: '/web/css/aesthetics/filter',
       },
+      {
+        title: 'Clip',
+        path: '/web/css/aesthetics/clip',
+      },
     ],
   },
   {
@@ -188,6 +191,40 @@ const chapters: TopicChapters = [
       {
         title: 'Offset',
         path: '/web/css/animation/offset',
+      },
+    ],
+  },
+  {
+    chapter: 'User Interface',
+    children: [
+      {
+        title: 'Cursor',
+        path: '/web/css/others/cursor',
+        badge: 'TODO',
+      },
+      {
+        title: 'Resize',
+        path: '/web/css/others/resize',
+        badge: 'TODO',
+      },
+      {
+        title: 'Touch Action',
+        path: '/web/css/others/touch-action',
+        badge: 'TODO',
+      },
+      {
+        title: 'User Select',
+        path: '/web/css/others/user-select',
+        badge: 'TODO',
+      },
+      {
+        title: 'Scroll',
+        path: '/web/css/others/scroll',
+        badge: 'TODO',
+      },
+      {
+        title: 'Scrollbar',
+        path: '/web/css/others/scrollbar',
         badge: 'TODO',
       },
     ],
@@ -208,26 +245,6 @@ const chapters: TopicChapters = [
       {
         title: 'Page Break',
         path: '/web/css/aesthetics/page-break',
-        badge: 'TODO',
-      },
-      {
-        title: 'Cursor',
-        path: '/web/css/others/cursor',
-        badge: 'TODO',
-      },
-      {
-        title: 'Resize',
-        path: '/web/css/others/resize',
-        badge: 'TODO',
-      },
-      {
-        title: 'Scroll',
-        path: '/web/css/others/scroll',
-        badge: 'TODO',
-      },
-      {
-        title: 'Scrollbar',
-        path: '/web/css/others/scrollbar',
         badge: 'TODO',
       },
     ],
@@ -253,6 +270,10 @@ const chapters: TopicChapters = [
         path: '/web/css/data-type/image',
       },
       {
+        title: 'Basic Shape',
+        path: '/web/css/data-type/basic-shape',
+      },
+      {
         title: 'Easing Function',
         path: '/web/css/data-type/easing-function',
       },
@@ -272,6 +293,11 @@ const chapters: TopicChapters = [
       {
         title: 'Specificity and !important',
         path: '/web/css/concepts/specificity',
+      },
+      {
+        title: 'Initial, Inherit, and Unset',
+        path: '/web/css/concepts/initial-inherit-unset',
+        badge: 'TODO',
       },
       {
         title: 'Block Formatting Context',
