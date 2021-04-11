@@ -1,0 +1,140 @@
+import { References, NoteBox, Code, Link, WebEditor, DocumentationList } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Clip
+
+Clip CSS properties define a visible portion of an element.
+
+## Clip Properties
+
+### `clip-path`
+
+Defines the shape that determines which part of an element should be visible.
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: <>no clipping path</>,
+    },
+    {
+      name: 'url(...)',
+      description: (
+        <>
+          e.g. <Code str="url(resources.svg#id)" />; referencing an SVG{' '}
+          <Code str='<clipPath id="...">' /> element (
+          <Link
+            str={
+              <>
+                see <Code str="<clipPath>" /> example here
+              </>
+            }
+            link="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/clipPath"
+          />)
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a geometry box',
+      description: (
+        <>
+          use the specified box, including corner shaping via <Code str="border-radius" />, to be
+          the clipping path; specify any of: <Code str="margin-box" />, <Code str="border-box" />,{' '}
+          <Code str="padding-box" />, <Code str="content-box" />, <Code str="fill-box" />,{' '}
+          <Code str="stroke-box" />, <Code str="view-box" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a basic shape',
+      description: (
+        <>
+          see <Link link="/web/css/data-type/basic-shape" str="basic shape data type" />, e.g.{' '}
+          <Code str="circle(...)" />, <Code str="ellipse(...)" />, <Code str="polygon(...)" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="clip-path-example">
+      <img src="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg"/>
+    </div>
+  `)}
+  css={smartTrim(`
+    #clip-path-example {
+      width: 300px;
+      height: 200px;
+      clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+    }
+  `)}
+/>
+
+### `clip`
+
+<NoteBox type="danger">
+  Deprecated, use the newer <Code str="clip-path" /> property instead.
+</NoteBox>
+
+Defines a visible portion of an element. Only applies to absolutely positioned elements
+(i.e., those with `position: absolute` or `position: fixed`.)
+
+Specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: <>no clipping (default)</>,
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            rect(<var>top</var>, <var>right</var>, <var>bottom</var>, <var>left</var>)
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          e.g. <Code str="rect(0, 175px, 113px, 0)" /> (as offsets from the top/left border);
+          defines the rectangle for the clipping
+        </>
+      ),
+    },
+  ]}
+/>
+
+```css
+div {
+  clip: rect(1px, 10em, 3rem, 2ch);
+}
+```
+
+## Assets
+
+<References
+  references={[
+    {
+      text: 'Andrew Ridley (Unsplash)',
+      link: `https://unsplash.com/photos/jR4Zf-riEjI`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'clip-path (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path`,
+    },
+    {
+      text: 'clip (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/clip`,
+    },
+  ]}
+></References>

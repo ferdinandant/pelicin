@@ -40,13 +40,10 @@ Specifies a motion path for an element to follow. Possible values:
       name: 'url(...)',
       description: (
         <>
-          e.g. <Code str="url(#path)" />, references the ID of an SVG shape as the path
+          e.g. <Code str="url('resources.svg#path')" />; references the ID of an SVG shape that will
+          be used as path (e.g. <Code str='<circle id="...">' /> or <Code str='<rect id="...">' />)
         </>
       ),
-    },
-    {
-      name: 'ray(...)',
-      description: <>???</>,
     },
   ]}
 />

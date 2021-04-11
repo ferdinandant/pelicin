@@ -174,7 +174,6 @@ const chapters: TopicChapters = [
       {
         title: 'Clip',
         path: '/web/css/aesthetics/clip',
-        badge: 'TODO'
       },
     ],
   },
