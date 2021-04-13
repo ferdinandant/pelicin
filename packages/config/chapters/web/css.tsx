@@ -199,32 +199,31 @@ const chapters: TopicChapters = [
     children: [
       {
         title: 'Cursor',
-        path: '/web/css/others/cursor',
-        badge: 'TODO',
+        path: '/web/css/ui/cursor',
       },
       {
         title: 'Resize',
-        path: '/web/css/others/resize',
+        path: '/web/css/ui/resize',
         badge: 'TODO',
       },
       {
         title: 'Touch Action',
-        path: '/web/css/others/touch-action',
+        path: '/web/css/ui/touch-action',
         badge: 'TODO',
       },
       {
         title: 'User Select',
-        path: '/web/css/others/user-select',
+        path: '/web/css/ui/user-select',
         badge: 'TODO',
       },
       {
         title: 'Scroll',
-        path: '/web/css/others/scroll',
+        path: '/web/css/ui/scroll',
         badge: 'TODO',
       },
       {
         title: 'Scrollbar',
-        path: '/web/css/others/scrollbar',
+        path: '/web/css/ui/scrollbar',
         badge: 'TODO',
       },
     ],
