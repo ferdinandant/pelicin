@@ -212,7 +212,6 @@ const chapters: TopicChapters = [
       {
         title: 'User Select',
         path: '/web/css/ui/user-select',
-        badge: 'TODO',
       },
       {
         title: 'Scroll',
