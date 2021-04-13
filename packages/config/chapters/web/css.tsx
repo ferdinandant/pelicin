@@ -204,12 +204,10 @@ const chapters: TopicChapters = [
       {
         title: 'Resize',
         path: '/web/css/ui/resize',
-        badge: 'TODO',
       },
       {
         title: 'Touch Action',
         path: '/web/css/ui/touch-action',
-        badge: 'TODO',
       },
       {
         title: 'User Select',

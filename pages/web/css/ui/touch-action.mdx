@@ -1,0 +1,64 @@
+import { References, DocumentationList, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Touch Action
+
+The `touch-action` property sets how an element's region can be manipulated by a touchscreen user.
+
+## CSS Properties
+
+### `touch-action`
+
+Sets which gestures should be handled by the browser.
+(Allows you to define the remaining gestures' behavior using `pointermove` and `pointerup` listeners.)
+
+Specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: <>enables browser handling of all panning and zooming events</>,
+    },
+    {
+      name: 'none',
+      description: <>disables browser handling of all panning and zooming events</>,
+    },
+    {
+      name: 'manipulation',
+      description: (
+        <>
+          enables panning and pinch zoom gestures, but disable additional non-standard gestures such
+          as double-tap to zoom (removes the need for browsers to delay the generation of click
+          events when the user taps the screen)
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          One of <Code str="pan-x" />, <Code str="pan-left" />, <Code str="pan-right" />, and/or one
+          of <Code str="pan-y" />, <Code str="pan-up" />, <Code str="pan-down" />, AND optionally{' '}
+          <Code str="pinch-zoom" />.
+        </>
+      ),
+      description: (
+        <>
+          enables single-finger scrolling in the given direction (for <Code str="pan-*" />
+          ), OR enables multi-finger zooming of the page (for <Code str="pinch-zoom" />)
+        </>
+      ),
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'touch-action (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action`,
+    },
+  ]}
+></References>
