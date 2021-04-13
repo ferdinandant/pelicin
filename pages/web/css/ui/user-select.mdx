@@ -1,0 +1,76 @@
+import { References, DocumentationList, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# User Select
+
+The `user-select` property controls whether the user can select text.
+
+## Basic Concepts
+
+The behavior for `user-select: auto` is as follows:
+
+- On the `::before` and `::after` pseudo elements, the used value is `none`
+- If the element is an editable element (e.g. `<input>`), the used value is `contain`
+- Otherwise, if the `user-select` value of the parent is `all`, the used value is `all`
+- Otherwise, if the `user-select` value of the parent is `none`, the used value is `none`
+- Otherwise, the used value is `text`
+
+## CSS Properties
+
+### `user-select`
+
+Controls whether the user can select text.
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: <>use default behavior (see above)</>,
+    },
+    {
+      name: 'none',
+      description: <>the text of the element and its children is not selectable</>,
+    },
+    {
+      name: 'text',
+      description: <>the text can be selected</>,
+    },
+    {
+      name: 'all',
+      description: <>when selecting the text, select ALL of the element's text</>,
+    },
+    {
+      name: 'contain',
+      description: (
+        <>
+          the text can be selected, but the selection will be contained by the bounds of that
+          element
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="user-select-example">
+      Select all text automatically!
+    </div>
+  `)}
+  css={smartTrim(`
+    #user-select-example {
+      user-select: all;
+    }
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'user-select (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/user-select`,
+    },
+  ]}
+></References>

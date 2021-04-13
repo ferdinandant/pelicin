@@ -1,0 +1,161 @@
+import { References, FixedColumnWidthTable, Code, Image } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Cursor
+
+The `cursor` CSS property sets the appearance of the mouse cursor.
+
+## Basic Concepts
+
+### Custom Cursors
+
+You can specify zero or more custom cursors using `url(...)`.
+
+For each one, you can optionally specify `<x>` AND `<y>` values (ranging from 0 to 32) which determines the cursor "hotspot" coordinate
+(the coordinate of the cursor that interacts with elements).
+
+```css
+div {
+  cursor: url(cursor1.png);
+  cursor: url(cursor1.png) 1 1;
+}
+```
+
+### Cursor Keywords
+
+When specifying the value of `cursor`, you will always specify one of these mandatory cursor keywords as the last value (after listing custom cursors):
+
+<FixedColumnWidthTable
+  headers={[
+    {
+      key: 'keyword',
+      text: 'Keyword',
+      formatContent: (content, rowData) => <Code str={content} />,
+      width: 160,
+    },
+    {
+      key: 'preview',
+      text: 'Preview / Description',
+      formatContent: (content, rowData) => {
+        if (rowData.keyword === 'none' || rowData.keyword === 'auto') {
+          return content;
+        }
+        return (
+          <img
+            style={{ cursor: rowData.keyword }}
+            src={`/res/web/css/cursor/${rowData.keyword}.gif`}
+            alt={`Preview of ${rowData.keyword}`}
+          />
+        );
+      },
+    },
+  ]}
+  contents={[
+    { '@separator': 'General' },
+    {
+      keyword: 'auto',
+      preview: 'Let the browser decide automatically depending on the context',
+    },
+    {
+      keyword: 'none',
+      preview: "Don't display the cursor",
+    },
+    { keyword: 'default' },
+    { keyword: 'pointer' },
+    { keyword: 'not-allowed' },
+    { '@separator': 'Selection' },
+    { keyword: 'text' },
+    { keyword: 'vertical-text' },
+    { keyword: 'crosshair' },
+    { keyword: 'cell' },
+    { '@separator': 'Drag & Drop' },
+    { keyword: 'move' },
+    { keyword: 'grab' },
+    { keyword: 'grabbing' },
+    { keyword: 'no-drop' },
+    { '@separator': 'Resizing & Scrolling' },
+    { keyword: 'all-scroll' },
+    { keyword: 'col-resize' },
+    { keyword: 'row-resize' },
+    { keyword: 'n-resize' },
+    { keyword: 'e-resize' },
+    { keyword: 's-resize' },
+    { keyword: 'w-resize' },
+    { keyword: 'ne-resize' },
+    { keyword: 'nw-resize' },
+    { keyword: 'se-resize' },
+    { keyword: 'sw-resize' },
+    { keyword: 'ns-resize' },
+    { keyword: 'ew-resize' },
+    { keyword: 'nesw-resize' },
+    { keyword: 'nwse-resize' },
+    { '@separator': 'Zooming' },
+    { keyword: 'zoom-in' },
+    { keyword: 'zoom-out' },
+    { '@separator': 'Others' },
+    { keyword: 'context-menu' },
+    { keyword: 'help' },
+    { keyword: 'alias' },
+    { keyword: 'copy' },
+    { keyword: 'progress' },
+    { keyword: 'wait' },
+  ]}
+/>
+
+## CSS Properties
+
+### `cursor`
+
+Sets the appearance of the cursor property. Specify:
+
+- zero or more `url(...)` or `url(...) <x> <y>` (each one representing link to custom cursor and the cursor's hotspot coordinate)
+- AND one cursor keyword (e.g. `pointer`)
+
+```css
+div {
+  cursor: pointer;
+  cursor: url(hand.cur), pointer;
+  cursor: url(cursor1.png) 4 12, auto;
+}
+```
+
+<WebEditor
+  html={smartTrim(`
+    <div id="height-example">
+      Hi!
+    </div>
+  `)}
+  css={smartTrim(`
+    #height-example {
+    }
+  `)}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+<DocumentationList
+  items={[
+    {
+      name: 'row',
+      description: <>aaa</>,
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'cursor (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/cursor`,
+    },
+  ]}
+></References>

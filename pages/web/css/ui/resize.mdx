@@ -1,0 +1,57 @@
+import { References, WebEditor, DocumentationList } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Resize
+
+The `resize` CSS property sets if an element can be resized.
+
+## CSS Properties
+
+### `resize`
+
+Sets if an element can be resized, and in which direction.
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: <>the element can't be resized (default)</>,
+    },
+    {
+      name: 'both',
+      description: <>the element can be resized in both directions</>,
+    },
+    {
+      name: 'horizontally',
+      description: <>the element can be resized in the horizontal direction</>,
+    },
+    {
+      name: 'vertical',
+      description: <>the element can be resized in the vertical direction</>,
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <textarea id="resize-example">
+    I can be resized in both direction!
+    </textarea>
+  `)}
+  css={smartTrim(`
+    #resize-example {
+      resize: both
+    }
+`)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'resize (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/resize`,
+    },
+  ]}
+></References>
