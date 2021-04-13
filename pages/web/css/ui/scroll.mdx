@@ -1,0 +1,292 @@
+import {
+  References,
+  DocumentationList,
+  WebEditor,
+  NoteBox,
+  Image,
+  Link,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Scroll
+
+This page lists the CSS properties related to scroll and "scroll snapping".
+
+## Basic Concepts
+
+### Scroll Snapping
+
+For scroll snapping, the basic idea is like this (CSS-Tricks):
+
+```html
+<style>
+  .container {
+    scroll-snap-type: y mandatory;
+  }
+  .child {
+    scroll-snap-align: start;
+  }
+</style>
+
+<div class="container">
+  <section class="child"></section>
+  <section class="child"></section>
+  <section class="child"></section>
+</div>
+```
+
+### Scroll Padding and Scroll Margin
+
+Scroll padding and margin has the similar effect:
+they add space from the edge of the scrolling container when an element snapped into place.
+
+The difference is that:
+
+- `scroll-padding` is normally specified on the container
+- `scroll-margin` is specified on individual children
+
+<Image
+  path="/res/web/css/scroll-padding.png"
+  caption="Illustration of scroll-padding"
+  sourceString="CSS-Tricks"
+  sourceLink="https://css-tricks.com/almanac/properties/s/scroll-padding/"
+/>
+
+### Block vs Inline Direction
+
+These directions are based on `writing-mode`, `direction`, and `text-orientation` values.
+Also note that each directions have the "start" and "end" edge (e.g. inline-start, inline-end).
+
+- <dfn>Inline direction</dfn> &mdash; is the direction of writing (e.g. left-to-right, right-to-left,
+  top-to-bottom). If you're writing left to right, then the inline-start = left side, inline-end = right.
+
+- <dfn>Block direction</dfn> &mdash; is the direction perpendicular to inline position (i.e. the direction
+  of how you add new lines to your paragraph). If you're writing left to right, then top to bottom, then
+  block-start: top, block-end: bottom.
+
+## Scroll Behavior Properties
+
+### `scroll-behavior`
+
+Defines how to scroll to target (when triggered by the navigation).
+
+<DocumentationList
+  items={[
+    {
+      name: 'auto',
+      description: <>scroll to target instantly (default)</>,
+    },
+    {
+      name: 'smooth',
+      description: <>scroll to target smoothly</>,
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="scroll-behavior-example">
+      <nav>
+        Click me:
+        <a href="#one">1</a>
+        <a href="#two">2</a>
+        <a href="#three">3</a>
+      </nav>
+      <div class="view">
+        <h1 id="one">One</h1>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <h1 id="two">Two</h1>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <h1 id="three">Three</h1>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </div>
+    </div>
+  `)}
+  css={smartTrim(`
+    #scroll-behavior-example .view {
+      width: 350px;
+      height: 150px;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+    }
+  `)}
+/>
+
+## Scroll Snapping Properties
+
+### `scroll-snap-type`
+
+Defines how strictly snap points are enforced.
+
+Specify a snapping axis (`none`, `x`, `y`, `block`, `inline`, or `both`), AND optionally a `mandatory` or `proximity` keyword.
+
+<DocumentationList
+  items={[
+    {
+      name: 'mandatory',
+      description: <>always snap to a snap point</>,
+    },
+    {
+      name: 'proximity',
+      description: (
+        <>
+          only snaps to a snap point if it's "in proximity" (depends on the browser); may cause the
+          scroll container to stop "in-between"
+        </>
+      ),
+    },
+  ]}
+/>
+
+```css
+.scrollbox {
+  scroll-snap-type: x;
+  scroll-snap-type: x mandatory;
+}
+```
+
+### `scroll-snap-align`
+
+Specifies which part of the element is supposed to snap to the container.
+(Only makes sense if the element to snap is _larger_ than the container.)
+
+"These are relative to the scroll direction. If you’re scrolling vertically,
+`start` refers to the top edge of the element. If you’re scrolling horizontally, it refers to the left edge.
+`center` and `end` follow the same principle." (CSS-Tricks)
+
+Specify up to 2 values, representing the block and inline direction (if you only give 1 value, it will be used for both directions):
+`none`, `start`, `center`, `end`.
+
+```css
+.scrollbox > .child {
+  scroll-snap-align: none;
+  /* <block-direction> <inline-direction> */
+  scroll-snap-align: start end;
+}
+```
+
+### `scroll-snap-stop`
+
+<NoteBox type="warning">Only works on Chrome at the time of writing</NoteBox>
+
+Defined on a children element of a scroll container,
+determines if the user "can skip over several snap points before coming to a stop."
+
+<DocumentationList
+  items={[
+    {
+      name: 'normal',
+      description: <>can skip over this snap point (default)</>,
+    },
+    {
+      name: 'always',
+      description: <>can't skip over this snap points (must stop?)</>,
+    },
+  ]}
+/>
+
+### `scroll-padding`
+
+Sets scroll container's scroll padding (see picture below).
+
+Shorthand for `scroll-padding-top`, `scroll-padding-right`, `scroll-padding-bottom`, `scroll-padding-left`
+(remember: clockwise direction).
+
+Specify 1 to 4 lengths. (If you specified less than 4, it will attempt to make symmetrical margin.)
+
+<Image
+  path="/res/web/css/scroll-padding.png"
+  caption="Illustration of scroll-padding"
+  sourceString="CSS-Tricks"
+/>
+
+### <code>scroll-padding-<var>&lt;side&gt;</var></code>
+
+E.g. `scroll-padding-top` or `scroll-padding-block-start`.
+
+Sets the scroll padding at the specified side.
+
+### `scroll-margin`
+
+Offsets the children element from the scrolling container when it snapped into place.
+(You would normally specify this on individual scrolling container's _child_ elements.)
+
+Shorthand for `scroll-margin-top`, `scroll-margin-right`, `scroll-margin-bottom`, `scroll-margin-left`
+(remember: clockwise direction).
+
+Specify 1 to 4 lengths. (If you specified less than 4, it will attempt to make symmetrical margin.)
+
+<Image
+  path="/res/web/css/scroll-margin.png"
+  caption="Illustration of scroll-margin"
+  sourceString="CSS-Tricks"
+/>
+
+### <code>scroll-margin-<var>&lt;side&gt;</var></code>
+
+E.g. `scroll-margin-top` or `scroll-margin-block-start`.
+
+Sets the scroll margin at the specified side.
+
+## Assets
+
+<References
+  references={[
+    {
+      text: 'scroll-padding (CSS-Tricks)',
+      description: (
+        <>
+          Appeared in <Link link="https://css-tricks.com/almanac/properties/s/scroll-padding/" />
+        </>
+      ),
+      link: `https://css-tricks.com/wp-content/uploads/2019/02/scroll-padding.png`,
+    },
+    {
+      text: 'scroll-margin (CSS-Tricks)',
+      description: (
+        <>
+          Appeared in <Link link="https://css-tricks.com/almanac/properties/s/scroll-margin/" />
+        </>
+      ),
+      link: `https://css-tricks.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-11-at-3.36.52-PM.png`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'scroll-behavior (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior`,
+    },
+    {
+      text: 'Practical CSS Scroll Snapping (CSS-Tricks)',
+      link: `https://css-tricks.com/practical-css-scroll-snapping/`,
+    },
+    {
+      text: 'scroll-snap-type (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type`,
+    },
+    {
+      text: 'scroll-snap-align (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align`,
+    },
+    {
+      text: 'scroll-snap-stop (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-stop`,
+    },
+    {
+      text: 'scroll-padding (MDN)',
+      link: `https://css-tricks.com/almanac/properties/s/scroll-padding/`,
+    },
+    {
+      text: 'scroll-margin (MDN)',
+      link: `https://css-tricks.com/almanac/properties/s/scroll-margin/`,
+    },
+  ]}
+></References>

@@ -216,12 +216,6 @@ const chapters: TopicChapters = [
       {
         title: 'Scroll',
         path: '/web/css/ui/scroll',
-        badge: 'TODO',
-      },
-      {
-        title: 'Scrollbar',
-        path: '/web/css/ui/scrollbar',
-        badge: 'TODO',
       },
     ],
   },
