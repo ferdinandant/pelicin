@@ -35,7 +35,7 @@ export default function HTMLTagsIndexTable(props: Props) {
           formatContent(tag: string) {
             return (
               <>
-                <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#${tag}`}>
+                <a href={specialMapping[tag] ? `#${specialMapping[tag]}` : `#<${tag}>`}>
                   <code>&lt;{tag}&gt;</code>
                 </a>
               </>
