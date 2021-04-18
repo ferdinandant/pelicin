@@ -1,0 +1,122 @@
+import { References, DocumentationList, WebEditor, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Object Fit and Position
+
+`object-fit` and `object-position` governs how "replaced elements" (e.g. `<img>` or `<video>`) should fill their container.
+
+## CSS Properties
+
+### `object-fit`
+
+Sets how the content of a replaced element should be resized to fit its container.
+
+Specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'fill',
+      description: <>stretch the object to fill the container (default)</>,
+    },
+    {
+      name: 'none',
+      description: <>don't resize</>,
+    },
+    {
+      name: 'contain',
+      description: (
+        <>
+          resize the object to fill the container (maintaining its aspect ratio), ensuring the whole
+          object is "contained" in the container (some part of the container can be empty if the
+          aspect ratios do not match)
+        </>
+      ),
+    },
+    {
+      name: 'cover',
+      description: (
+        <>
+          resize the object to fill the container (maintaining its aspect ratio), ensuring the
+          object "covers" the whole container (some part of the object can be clipped to make it
+          fit)
+        </>
+      ),
+    },
+    {
+      name: 'scale-down',
+      description: (
+        <>
+          behave like <Code str="none" /> or <Code str="contain" />, whichever results in smaller
+          object size (basically never scale-up).
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <div id="object-fit-example">
+      <img src="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg">
+    </div>
+  `)}
+  css={smartTrim(`
+    #object-fit-example img {
+      height: 200px;
+      width: 300px;
+      object-fit: contain;
+      border: 4px solid red;
+    }
+  `)}
+/>
+
+### `object-position`
+
+Sets the position (offset) of a replaced element inside its container.
+
+Specify keyword(s) (e.g. `left`, `top left`, `center`), OR up to two lengths/percentages
+(e.g. `50% 50%` or `10px 10px`)
+
+<WebEditor
+  html={smartTrim(`
+    <div id="object-position-example">
+      <img src="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg">
+    </div>
+  `)}
+  css={smartTrim(`
+    #object-position-example img {
+      height: 200px;
+      width: 300px;
+      object-fit: containe;
+      object-position: 100px 20px;
+      border: 4px solid blue;
+    }
+  `)}
+/>
+
+## Assets
+
+<References
+  references={[
+    {
+      text: 'Andrew Ridley (Unsplash)',
+      link: `https://unsplash.com/photos/jR4Zf-riEjI`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'object-fit (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit`,
+    },
+    {
+      text: 'object-position (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/object-position`,
+    },
+  ]}
+></References>

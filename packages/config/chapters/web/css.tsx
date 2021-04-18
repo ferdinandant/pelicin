@@ -229,12 +229,10 @@ const chapters: TopicChapters = [
       {
         title: 'Counter',
         path: '/web/css/others/counter',
-        badge: 'TODO',
       },
       {
         title: 'Object Fit and Position',
-        path: '/web/css/aesthetics/object-fit-and-position',
-        badge: 'TODO',
+        path: '/web/css/others/object-fit-and-position',
       },
       {
         title: 'Page Break',
