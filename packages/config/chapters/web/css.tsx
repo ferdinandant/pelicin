@@ -223,9 +223,8 @@ const chapters: TopicChapters = [
     chapter: 'Others',
     children: [
       {
-        title: 'List',
-        path: '/web/css/others/list',
-        badge: 'TODO',
+        title: 'List Style',
+        path: '/web/css/others/list-style',
       },
       {
         title: 'Counter',

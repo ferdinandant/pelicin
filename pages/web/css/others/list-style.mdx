@@ -1,0 +1,159 @@
+import { References, DocumentationList, WebEditor, Code, Link } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# List Style
+
+This page lists the CSS properties related to styling a list.
+
+To select the list/marker pseudo-element itself, use [`::marker`](http://localhost:3000/web/css/selectors/pseudo-elements#::marker).
+
+## CSS Properties
+
+### `list-style`
+
+Shorthand for `list-style-type`, `list-style-image`, `list-style-position`
+
+```css
+ul {
+  list-style: inside;
+  list-style: georgian inside;
+  /* <list-style-type> <list-style-image> <list-style-position> */
+  list-style: lower-roman url('../img/shape.png') outside;
+}
+```
+
+### `list-style-type`
+
+Sets the item marker to use (disc, character, etc.).
+The color of the marker will be the same as the color of the element it applies to.
+
+Specify ([see the complete list-style-type here](https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type)):
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: <>no item marker is shown</>,
+    },
+    {
+      nameSpecial: (
+        <>
+          the name of a <Code str="@counter-style" />
+        </>
+      ),
+    },
+    {
+      name: 'disc',
+      description: 'a filled circle (●)',
+    },
+    {
+      name: 'circle',
+      description: 'a hollow circle (○)',
+    },
+    {
+      name: 'square',
+      description: 'a filled square (■)',
+    },
+    {
+      name: 'decimal',
+      description: '1, 2, 3, ...',
+    },
+    {
+      name: 'decimal-leading-zero',
+      description: '01, 02, 03, ...',
+    },
+    {
+      name: 'lower-roman',
+      description: 'i, ii, iii, ...',
+    },
+    {
+      name: 'upper-roman',
+      description: 'I, II, III, ...',
+    },
+    {
+      name: 'lower-alpha',
+      description: 'a, b, c, ...',
+    },
+    {
+      name: 'upper-alpha',
+      description: 'A, B, C, ...',
+    },
+  ]}
+/>
+
+### `list-style-image`
+
+Sets the image to be used as item marker.
+
+```css
+ul {
+  list-style-image: url('starsolid.gif');
+}
+```
+
+### `list-style-position`
+
+Sets the position of the `::marker` outside or inside of the list item.
+
+Specify `outside` (default) or `inside`.
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+    <div id="list-style-position-example">
+      <code>li { background-color: '...' }</code>
+      <ul class="outside">
+        <li>Outside</li>
+        <li>Outside</li>
+        <li>Outside</li>
+      </ul>
+      <ul class="inside">
+        <li>Inside</li>
+        <li>Inside</li>
+        <li>Inside</li>
+      </ul>
+    </div>
+  `)}
+  css={smartTrim(`
+    #list-style-position-example li {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    #list-style-position-example .outside {
+      list-style-position: outside
+    }
+    #list-style-position-example .outside li {
+      background-color: #00f2;
+    }
+    #list-style-position-example .inside {
+      list-style-position: inside
+    }
+    #list-style-position-example .inside li {
+      background-color: #f002;
+    }
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'list-style (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/list-style`,
+    },
+    {
+      text: 'list-style-type (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type`,
+    },
+    {
+      text: 'list-style-image (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image`,
+    },
+    {
+      text: 'list-style-position (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position`,
+    },
+  ]}
+></References>
