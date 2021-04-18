@@ -1,0 +1,182 @@
+import { References, NoteBox, WebEditor, Code, Link } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Counter
+
+This page lists the CSS properties related to _counters_.
+
+Counters are "variables" maintained by CSS whose values can be incremented by CSS rules (MDN).
+You can use counters, for example, to automatically number the headings in the document.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="counter-example">
+      <h4>Nama Mugi</h4>
+      <h4>Nama Gome</h4>
+      <h4>Nama Tamago</h4>
+    </div>
+  `)}
+  css={smartTrim(`
+    #counter-example {
+      counter-reset: chapter;
+    }
+    #counter-example h4::before {
+      content: 'Chapter ' counter(chapter) ': ';
+      counter-increment: chapter 1;
+    }
+  `)}
+/>
+
+## Basic Concepts
+
+### Using Counters
+
+To use CSS counter, it must first be initialized to a value using `counter-reset`.
+Once initialized, a counter's value can be increased or decreased with `counter-increment`.
+
+### Displaying Counter's Value
+
+The value of a counter can be displayed using the `counter(...)` or `counters(...)` function in a `content` property.
+
+For example,
+
+```css
+h2::before {
+  /* Will prepend "Chapter <number>: " */
+  content: 'Chapter ' counter(chapter) ': ';
+  counter-increment: chapter;
+}
+```
+
+## CSS Properties
+
+### `counter-reset`
+
+Instantiates the specified counter name and sets its value to the specified number (defaults to `0`).
+
+```css
+h2 {
+  /* instantiate and set the value to 0 */
+  counter-reset: my-counter;
+  counter-reset: my-counter 0;
+  /* instantiate and set the value to 1 and 4 respectively */
+  counter-reset: counter-a 1 counter-b 2;
+}
+```
+
+### `counter-increment`
+
+Increments the specified counter name with the specified number (defaults to `1`).
+
+```css
+h2 {
+  /* increment by 1 */
+  counter-reset: my-counter;
+  counter-reset: my-counter 1;
+  /* increment by 2 and -3 respectively */
+  counter-reset: counter-a 2 counter-b -3;
+}
+```
+
+### `counter-set`
+
+Manipulates the value of existing counters.
+(Only instantiates a new counter if there is no counter of the given name on the element yet.)
+
+```css
+h2 {
+  /* set the value to 0 */
+  counter-set: my-counter;
+  counter-set: my-counter 0;
+  /* set the value to 1 and 4 respectively */
+  counter-set: counter-a 1 counter-b 2;
+}
+```
+
+## CSS Functions
+
+<NoteBox type="info">
+  The <Code str="style" /> argument for these functions are <em>optional</em>. If you want to supply
+  the value, you can use any value from{' '}
+  <Link
+    link="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type"
+    str="list-style-type"
+  />
+  .
+</NoteBox>
+
+### <code>counter(<var>counterName</var>, <var>style</var>)</code>
+
+Returns the current value of `counterName`, and optionally format it using list-style-type of `style`.
+
+For example, `counter(my-counter, lower-roman)` will return `i`, `ii`, `iii`, etc.
+
+### <code>counters(<var>counterName</var>, <var>separator</var>, <var>style</var>)</code>
+
+Enables nested counters: returns the current value of `counterName` (taking account of nesting),
+separated using `separator`, and optionally format it using list-style-type of `style`.
+
+For example, `counter(my-counter, '.', decimal)` can return something like `1`, `1.1`, `1.2.3`, `2`. etc.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="counters-example">
+      <ol>
+        <li>
+          <ol>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ol>
+        </li>
+        <li></li>
+        <li>
+          <ol>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+  `)}
+  css={smartTrim(`
+    #counters-example ol {
+      counter-reset: listCounter;
+    }
+    #counters-example li {
+      counter-increment: listCounter;
+    }
+    #counters-example li::marker {
+      content: counters(listCounter, '.', decimal) ') ';
+    }
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Using CSS counters (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Lists_and_Counters/Using_CSS_counters`,
+    },
+    {
+      text: 'counter-reset (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/counter-reset`,
+    },
+    {
+      text: 'counter-increment (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/counter-increment`,
+    },
+    {
+      text: 'counter-set (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/counter-set`,
+    },
+    {
+      text:
+        'CSS Lists and Counters Module Level 3: Editor’s Draft, 8 April 2021 - Automatic Numbering With Counters (W3C)',
+      link: `https://drafts.csswg.org/css-lists-3/#auto-numbering`,
+    },
+  ]}
+></References>

@@ -223,8 +223,12 @@ const chapters: TopicChapters = [
     chapter: 'Others',
     children: [
       {
-        title: 'List',
-        path: '/web/css/others/list',
+        title: 'List Style',
+        path: '/web/css/others/list-style',
+      },
+      {
+        title: 'Counter',
+        path: '/web/css/others/counter',
         badge: 'TODO',
       },
       {
@@ -274,6 +278,29 @@ const chapters: TopicChapters = [
       {
         title: 'Filter Function',
         path: '/web/css/data-type/filter-function',
+      },
+    ],
+  },
+  {
+    chapter: 'At-Rules',
+    children: [
+      {
+        title: '@media',
+        path: '/web/css/at-rules/media',
+        badge: 'TODO',
+      },
+      {
+        title: '@keyframes',
+        path: '/web/css/animation/animation#@keyframes',
+      },
+      {
+        title: '@font-face',
+        path: '/web/css/typography/font#@font-face',
+      },
+      {
+        title: '@counter-style',
+        path: '/web/css/at-rules/counter-style',
+        badge: 'TODO',
       },
     ],
   },
