@@ -11,7 +11,7 @@ const group: TopicGroup = {
       topics: [
         {
           title: 'HTML',
-          path: '/web/html/introduction',
+          path: '/web/html',
           description: (
             <>
               Reference summary from{' '}
@@ -21,7 +21,7 @@ const group: TopicGroup = {
         },
         {
           title: 'CSS',
-          path: '/web/css/introduction',
+          path: '/web/css',
           description: (
             <>
               Reference summary from{' '}

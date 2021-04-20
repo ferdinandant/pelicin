@@ -7,7 +7,7 @@ const chapters: TopicChapters = [
     children: [
       {
         title: 'Introduction',
-        path: '/web/html/introduction',
+        path: '/web/html',
       },
       {
         title: 'Where to Develop',

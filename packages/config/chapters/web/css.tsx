@@ -6,7 +6,7 @@ const chapters: TopicChapters = [
     children: [
       {
         title: 'Introduction',
-        path: '/web/css/introduction',
+        path: '/web/css',
       },
       {
         title: 'Embedding CSS',
