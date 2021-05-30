@@ -36,7 +36,7 @@ export default function Image(props: Props) {
     const optionalSpace = caption ? ' ' : '';
     sourceNode = (
       <>
-        {optionalSpace}(
+        {optionalSpace}(Source:{' '}
         <a target="_blank" rel="noreferrer" href={sourceLink}>
           {parsedSourceString}
         </a>
@@ -56,7 +56,7 @@ export default function Image(props: Props) {
     <>
       <figure>
         <img width={width} src={path} alt={parsedAlt} />
-        {caption && (
+        {(caption || sourceNode) && (
           <figcaption>
             {caption}
             {sourceNode}
