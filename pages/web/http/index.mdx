@@ -1,9 +1,14 @@
-import { References } from '@pelicin/components';
+import { References, Image } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
-# Template
+# Introduction to HTTP
 
-Lorem Ipsum Dolor Sit Amet
+HTTP is a common protocol used to transfer data on the Web (e.g. to transfer HTML documents). It is:
+
+- **simple** &mdash; it's human-readable
+- **extensible** &mdash; thanks to _HTTP headers_ (you can extend HTTP functionality as long as the client and the server agree on the headers' semantic)
+- **based on client-server architecture** &mdash; i.e., the client initiates a connection to the server and waits for response
+- **stateless, but not sessionless** &mdash; HTTP itself is stateless, but the usage of _cookies_ allows us to create stateful _sessions_
 
 <WebEditor
   html={smartTrim(`
@@ -17,31 +22,100 @@ Lorem Ipsum Dolor Sit Amet
   `)}
 />
 
-<WebEditor
-  hideHTML
-  hideCSS
-  html={smartTrim(`
-  `)}
-  css={smartTrim(`
-  `)}
+## Components of HTTP-based System
+
+<Image
+  path="/res/web/http/client-server-chain.png"
+  caption="Components of HTTP-based systems"
+  sourceString="MDN"
+  sourceLink="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview/client-server-chain.png"
 />
 
-<DocumentationList
-  items={[
-    {
-      name: 'row',
-      description: <>aaa</>,
-    },
-  ]}
-/>
+- **Client** &mdash; the user-agent (e.g. browser or bot) that initiates the _request_
+- **Server** &mdash; the one that serves the _response_
+- **Proxies** &mdash; systems between the client and the server (through which requests/responses pass),
+  which can perform functions such as: caching, filtering, load-balancing, authentication, logging
+
+## Flow of HTTP
+
+How the client initiates connection to the server:
+
+1. Open a TCP connection to the server
+2. Send an HTTP request to the server
+3. Read the HTTP response sent by the server
+4. Close or reuse the connection for further requests
+
+## HTTP Messages
+
+You can debug HTTP request/response by using your browser's dev console,
+using external tools like [Insomnia](https://insomnia.rest/),
+or running command like:
+
+```bash
+# -v is for verbose
+curl -v http://www.example.com/
+```
+
+### Sample Request
+
+```http
+GET / HTTP/1.1
+Host: www.example.com
+User-Agent: curl/7.64.1
+Accept: */*
+```
+
+- The first line ("start line") contains:
+  - **HTTP method** &mdash; e.g. `GET` or `POST`
+  - **Request path** &mdash; e.g. `/` or `/test.html?query=alibaba`
+  - **HTTP version** &mdash; e.g. `HTTP/1.1`
+- The next lines contain (optional):
+  - **HTTP Headers** &mdash; in the form of `<headerName>: <value>`
+- The next line is an empty line indicating all meta-information has been sent
+- The next line is the request body (optional)
+
+### Sample Response
+
+```http
+HTTP/1.1 200 OK
+Age: 207119
+Cache-Control: max-age=604800
+Content-Type: text/html; charset=UTF-8
+Date: Sun, 30 May 2021 18:04:08 GMT
+Etag: "3147526947+ident"
+Expires: Sun, 06 Jun 2021 18:04:08 GMT
+Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT
+Server: ECS (oxr/830D)
+Vary: Accept-Encoding
+X-Cache: HIT
+Content-Length: 1256
+
+<!doctype html>
+<html>
+  ...
+</html>
+```
+
+- The first line ("status line") contains:
+  - **HTTP version** &mdash; e.g. `HTTP/1.1`
+  - **Status code** &mdash; e.g. `200` or `404`
+  - **Status text** &mdash; e.g. `OK` or `Not Found`
+- The next lines contain (optional):
+  - **HTTP Headers** &mdash; in the form of `<headerName>: <value>`
+- The next line is an empty line indicating all meta-information has been sent
+- The next line is the response body (optional)
 
 ## References
 
 <References
   references={[
     {
-      text: '(MDN)',
-      link: `https`,
+      text: 'An overview of HTTP (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview`,
+    },
+    {
+      text: 'An overview of HTTP (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages`,
     },
   ]}
 ></References>
