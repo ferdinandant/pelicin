@@ -1,0 +1,47 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Template
+
+Lorem Ipsum Dolor Sit Amet
+
+<WebEditor
+  html={smartTrim(`
+    <div id="height-example">
+      Hi!
+    </div>
+  `)}
+  css={smartTrim(`
+    #height-example {
+    }
+  `)}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+<DocumentationList
+  items={[
+    {
+      name: 'row',
+      description: <>aaa</>,
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: '(MDN)',
+      link: `https`,
+    },
+  ]}
+></References>

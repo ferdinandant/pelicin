@@ -11,7 +11,10 @@ type CoreTopicConfig = Omit<TopicConfig, 'basePath'>;
  * `accentColor` is picked from https://mycolor.space/?hex=%23563D7C&sub=1
  */
 const map: Record<string, CoreTopicConfig> = {
+  // --------------------------------------------------------------------------------
   // Web
+  // --------------------------------------------------------------------------------
+
   '/web/html': {
     topicKey: 'web/html',
     topicTitle: 'HTML',
@@ -24,8 +27,17 @@ const map: Record<string, CoreTopicConfig> = {
     mainColor: '#563d7c',
     accentColor: '#9f4a84',
   },
+  '/web/http': {
+    topicKey: 'web/http',
+    topicTitle: 'HTTP',
+    mainColor: '#3e4c59',
+    accentColor: '#3e4c59',
+  },
 
+  // --------------------------------------------------------------------------------
   // Sample & default
+  // --------------------------------------------------------------------------------
+
   '/sample': {
     topicKey: 'sample',
     topicTitle: 'Sample',
