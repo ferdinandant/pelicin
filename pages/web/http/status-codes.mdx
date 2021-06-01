@@ -1,0 +1,81 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# HTTP Response Status Codes
+
+HTTP status codes indicate the status of an HTTP request (e.g. succesful, error, etc.). They are grouped into five classes:
+
+- **1xx** &mdash; Informational
+- **2xx** &mdash; Succesful
+- **3xx** &mdash; Redirection
+- **4xx** &mdash; Client Error
+- **5xx** &mdash; Server Error
+
+This page lists some of them, based on RFC 7231.
+
+## 1xx &mdash; Informational
+
+### 100 Continue
+
+Everything is good so far, and the client can continue (by sending another request). The server would send the final response once the full request have been received and processed.
+
+**Sample usage:** Using `Expect: 100-continue` request header to check before sending a large message body. The server would respond by 100 (Continue) or 417 (Expectation Failed). (See: [Status code 100 example: large message body](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect#large_message_body).)
+
+### 101 Switching Protocol
+
+The server agrees to switch protocol listed on the `Upgrade` request header. (The response will also have the `Upgrade` response header, mentioning the protocol the server is switching to.)
+
+**Sample usage:** [Switching protocol to websocket](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/101#examples)
+
+## 2xx &mdash; Succesful
+
+### 200 OK
+
+The request has succeeded.
+
+### 201 Created
+
+The request has succeeded, and has resulted in new resource(s) being created. You can send the newly created resource in the response body, or using the `Location` response header.
+
+### 202 Accepted
+
+The request has been accepted for processing, but the processing itself has not been completed or has not been started (i.e. "in queue").
+
+### 203 Non-Authoritative Information
+
+The request has succeeded, but the response body has been modified by a proxy from the original 200 (OK) response.
+
+### 204 No Content
+
+The request has succeeded, and there's no content to send in the response body. This hints the browser to not navigate away from the current page (and give the indication of succcess somehow).
+
+**Sample usage:** "Save and continue editing" functionality for a wiki site.
+
+### 205 Reset Content
+
+The request has succeeded, and the browser should reset the document view (e.g. to reset a form, UI, or canvas state).
+
+### 206 Partial Content
+
+The request has succeeded, and the response body contains the requested range of data as described in the `Range` request header. (See: [`Range` request header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range), e.g. `Range: bytes=200-1000, 2000-6576, 19000-`.)
+
+## 3xx &mdash; Redirection
+
+## 4xx &mdash; Client Error
+
+## 5xx &mdash; Server Error
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTTP response status codes (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status`,
+    },
+    {
+      text: 'RFC 7231: Response Status Codes',
+      link: `https://datatracker.ietf.org/doc/html/rfc7231#section-6`,
+    },
+  ]}
+></References>

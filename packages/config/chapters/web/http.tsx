@@ -8,6 +8,10 @@ const chapters: TopicChapters = [
         title: 'Introduction',
         path: '/web/http',
       },
+      {
+        title: 'HTTP Status Codes',
+        path: '/web/http/status-codes',
+      },
     ],
   },
 ]
