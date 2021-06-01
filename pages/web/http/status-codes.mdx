@@ -47,19 +47,55 @@ The request has succeeded, but the response body has been modified by a proxy fr
 
 ### 204 No Content
 
-The request has succeeded, and there's no content to send in the response body. This hints the browser to not navigate away from the current page (and give the indication of succcess somehow).
+The request has succeeded, and there's no content to send in the response body. This hints the user agent to not navigate away from the current page (and give the indication of succcess somehow).
 
 **Sample usage:** "Save and continue editing" functionality for a wiki site.
 
 ### 205 Reset Content
 
-The request has succeeded, and the browser should reset the document view (e.g. to reset a form, UI, or canvas state).
+The request has succeeded, and the user agent should reset the document view (e.g. to reset a form, UI, or canvas state).
 
 ### 206 Partial Content
 
 The request has succeeded, and the response body contains the requested range of data as described in the `Range` request header. (See: [`Range` request header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range), e.g. `Range: bytes=200-1000, 2000-6576, 19000-`.)
 
 ## 3xx &mdash; Redirection
+
+### 300 Multiple Choices
+
+Indicates the request has more than one possible responses (listed in the response body), and the user agent should pick one of them. If the server has a preferred choice, it should generate a `Location` response header.
+
+Rarely used because of lack of standardization (MDN).
+
+### 301 Moved Permanently
+
+Indicates permanent redirection to the location pointed by the `Location` response header.
+
+For historical reasons, some browsers may change the method used to hit the new URI with a GET method (RFC 7231). To keep using the original method, use 308 (Permanent Redirect) instead.
+
+**Warning:** The user agent will usually remember this redirection and will not hit the old URI again. (You will need to delete the browser's preference to undo this.)
+
+### 302 Found
+
+Indicates temporary redirection to the location pointed by the `Location` response header.
+
+For historical reasons, some browsers may change the method used to hit the new URI with a GET method (RFC 7231). To keep using the original method, use 307 (Temporary Redirect). If you want the method to be changed to GET, use 303 (See Other) instead.
+
+### 303 See Other
+
+Indicates that the server is redirecting the user agent to a different resource (e.g. a confirmation page, an upload progress page, or a representation of the actual resource being requested).
+
+### 304 Not Modified
+
+Indicates that there is no need to retransmit the requested resources (just use the cached version).
+
+### 307 Temporary Redirect
+
+Like 302 (Found), but does not allow changing the request method to GET.
+
+### 308 Permanent Redirect
+
+Like 301 (Moved Permanently), but does not allow changing the request method to GET.
 
 ## 4xx &mdash; Client Error
 
