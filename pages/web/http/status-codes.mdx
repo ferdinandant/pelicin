@@ -191,6 +191,30 @@ The server refuses to perform the request using the current protocol, but might 
 
 ## 5xx: Server Error
 
+### 500 Internal Server Error
+
+The server encountered an unexpected condition that prevented it from fulfilling the request. This is a generic "catch-all" response for server-side errors.
+
+### 501 Not Implemented
+
+The server doesn't support the functionality required to fulfill the request (e.g. in the case of unrecognized HTTP method).
+
+### 502 Bad Gateway
+
+The server (while acting as a gateway/proxy) received an invalid response from the target server (e.g. the target server is down).
+
+### 503 Service Unavailable
+
+The server is not ready to handle the request (e.g. it's overloaded or is down for maintenance). The server may send a `Retry-After` response header to suggest an appropriate amount of time for the client to wait before retrying the request.
+
+### 504 Gateway Timeout
+
+The server (while acting as a gateway/proxy) did not receive a timely response from the target server.
+
+### 505 HTTP Version Not Supported
+
+The server does not support, or refuses to support, the major version of HTTP that was used in the request.
+
 ## References
 
 <References
