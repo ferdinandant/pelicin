@@ -1,0 +1,74 @@
+import { References, Image } from '@pelicin/components';
+
+# HTTP Authentication
+
+The general HTTP authentication flow is as follows. Note the use of the following headers:
+
+- `WWW-Authenticate` (sent by the server)
+- `Authorization` (sent by the client)
+
+<Image
+  path="/res/web/http/authentication-flow.png"
+  caption="Basic HTTP authentication flow"
+  sourceString="MDN"
+  sourceLink="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication"
+/>
+
+There are several [authentication type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes) maintained by IANA. The most common one is `Basic` (i.e. `WWW-Authenticate: Basic`).
+
+## Relevant Headers
+
+### `WWW-Authenticate`
+
+Defines the authentication method that should be used to gain access to a resource. It's sent with a 401 (Unauthorized) response.
+
+- **`<type>`** &mdash; the authentication type, e.g. `Basic`
+- **`realm=<realm>`** &mdash; a description of the protected area, e.g. `realm="Access to the staging site"`
+- **`charset=<charset>`** &mdash; the server's preferred encoding when submitting a username and password. Only `UTF-8` is allowed.
+
+```http
+WWW-Authenticate: <type> realm=<realm>
+WWW-Authenticate: <type> realm=<realm>, charset="UTF-8"
+```
+
+### `Proxy-Authenticate`
+
+Like `WWW-Authenticate`, but for proxy servers. It's sent with a 407 (Proxy Authentication Required) response.
+
+```http
+Proxy-Authenticate: <type> realm=<realm>
+```
+
+### `Authorization`
+
+Provides credentials to authenticate a user agent.
+
+- **`<type>`** &mdash; the authentication type, e.g. `Basic`
+- **`<credentials>`** &mdash; for authentication type of `Basic`, it's the base64 encoding of the string `<username>:<password>` (use `btoa` function in JavaScript). For instance, `aladdin:opensesame` will become `YWxhZGRpbjpvcGVuc2VzYW1l`.
+
+```http
+Authorization: <type> <credentials>
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Authentication (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication`,
+    },
+    {
+      text: 'WWW-Authenticate (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate`,
+    },
+    {
+      text: 'Proxy-Authenticate (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authenticate`,
+    },
+    {
+      text: 'Authorization (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization`,
+    },
+  ]}
+></References>

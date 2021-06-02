@@ -18,6 +18,15 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  {
+    chapter: 'Headers',
+    children: [
+      {
+        title: 'Authentication',
+        path: '/web/http/headers/authentication',
+      },
+    ],
+  },
 ]
 
 export default chapters;
