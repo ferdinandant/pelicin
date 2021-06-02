@@ -12,23 +12,12 @@ const group: TopicGroup = {
         {
           title: 'HTML',
           path: '/web/html',
-          description: (
-            <>
-              Reference summary from{' '}
-              <Link link="https://developer.mozilla.org/en-US/docs/Learn" str="MDN" />.
-            </>
-          ),
+          description: <>Reference summary from MDN.</>,
         },
         {
           title: 'CSS',
           path: '/web/css',
-          description: (
-            <>
-              Reference summary from{' '}
-              <Link link="https://developer.mozilla.org/en-US/docs/Learn" str="MDN" /> (mainly) and{' '}
-              <Link link="https://css-tricks.com/almanac/" str="CSS-Tricks" />.
-            </>
-          ),
+          description: <>Reference summary from MDN and CSS-Tricks.</>,
         },
       ],
     },
@@ -38,12 +27,7 @@ const group: TopicGroup = {
         {
           title: 'HTTP',
           path: '/web/http',
-          description: (
-            <>
-              Reference summary from{' '}
-              <Link link="https://developer.mozilla.org/en-US/docs/Web/HTTP" str="MDN" />.
-            </>
-          ),
+          description: <>Reference summary from MDN and relevant RFC documents.</>,
         },
       ],
     },
