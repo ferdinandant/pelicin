@@ -1,0 +1,47 @@
+import { References, Badge } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# HTTP Request Methods
+
+HTTP request methods indicate the desired action to be performed on the given resource.
+
+## Types of Request Methods
+
+<Badge color="gray">"Getter" methods</Badge>
+
+- **GET** &mdash; Requests a representation of the target resource.
+
+- **HEAD** &mdash; Identical to GET, but requests for the headers only (no body).
+
+<Badge color="gray">"Setter" methods</Badge>
+
+- **POST** &mdash; Requests the target resource to process the given data according to its semantics.
+
+- **PUT** &mdash; Creates or replaces the state of the target resource with the given data.
+
+- **DELETE** &mdash; Deletes the target resource.
+
+- **PATCH** &mdash; Applies partial modification to the resource (e.g. replace only the "name" field of a user).
+
+<Badge color="gray">Other methods</Badge>
+
+- **OPTIONS** &mdash; Requests information about the communication options available for the target resource (you can specify a URL or `*` to refer to the entire server). This method allows a client to determine the options and/or requirements associated with a resource, without implying a resource action.
+
+- **CONNECT** &mdash; Requests that the recipient establish a tunnel to the destination origin server (intended only for proxies, usually for SSL connections). When succesful, the proxy will no longer blindly forward packets (in both direction) until the tunnel is closed (i.e., it will only forward data through the tunnel?).
+
+- **TRACE** &mdash; Requests a loop-back of the request message. The final recipient of the request should reflect the message received with 200 (OK) and `Content-Type: message/http`. (Used to see what is received at the other end of the request chain, bearing in mind that proxies can also alter data.)
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTTP request methods (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods`,
+    },
+    {
+      text: 'RFC 7231: Request Methods',
+      link: `https://datatracker.ietf.org/doc/html/rfc7231#section-4`,
+    },
+  ]}
+></References>
