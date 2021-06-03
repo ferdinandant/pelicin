@@ -25,6 +25,10 @@ const chapters: TopicChapters = [
         title: 'Authentication',
         path: '/web/http/headers/authentication',
       },
+      {
+        title: 'Cross-Origin Resource Sharing',
+        path: '/web/http/headers/cors',
+      },
     ],
   },
 ]
