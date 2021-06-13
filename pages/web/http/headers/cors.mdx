@@ -103,7 +103,7 @@ Access-Control-Allow-Headers: <header-name>, <header-name>, ...
 
 ### `Access-Control-Expose-Headers`
 
-Allows JavaScript to read the given response headers.
+Allows JavaScript to read the given response headers. (Only [CORS-safelisted response headers](https://developer.mozilla.org/en-US/docs/Glossary/CORS-safelisted_response_header) are exposed by default.)
 
 ```http
 Access-Control-Expose-Headers: <header-name>, <header-name>, ...
