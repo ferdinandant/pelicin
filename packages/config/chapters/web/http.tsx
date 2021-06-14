@@ -33,6 +33,10 @@ const chapters: TopicChapters = [
         title: 'Caching',
         path: '/web/http/headers/caching',
       },
+      {
+        title: 'Cookie',
+        path: '/web/http/headers/cookie',
+      },
     ],
   },
 ]
