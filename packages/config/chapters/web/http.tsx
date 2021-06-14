@@ -18,6 +18,27 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  {
+    chapter: 'Headers',
+    children: [
+      {
+        title: 'Authentication',
+        path: '/web/http/headers/authentication',
+      },
+      {
+        title: 'Cross-Origin Resource Sharing',
+        path: '/web/http/headers/cors',
+      },
+      {
+        title: 'Caching',
+        path: '/web/http/headers/caching',
+      },
+      {
+        title: 'Cookie',
+        path: '/web/http/headers/cookie',
+      },
+    ],
+  },
 ]
 
 export default chapters;

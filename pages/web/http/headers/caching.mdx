@@ -1,0 +1,171 @@
+import { References, Image, Badge } from '@pelicin/components';
+
+# Caching
+
+Caching means storing a given response so it can be served back immediately when requested. Caching improves performance (reduces network transmission) and eases the load of the origin server.
+
+## Types of caches
+
+There are two types of cache:
+
+- **Shared proxy caches** &mdash; cache for multiple users ("shared cache")
+- **Private browser caches** &mdash; cache for only a single user ("private/local cache")
+
+Reading from the response headers, they will determine what responses should be cached, and how (e.g. how long, how to revalidate for freshness).
+
+<Image
+  path="/res/web/http/cache-shared-private.png"
+  caption="Shared and private cache"
+  sourceString="MDN"
+  sourceLink="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching"
+/>
+
+## Cache validation
+
+Once a cached resource goes past its expiration time (determined by the `max-age` directive or `Expire` response header), when its value is about to be used again (e.g. when the user presses the reload button), it must either be:
+
+- validated (rechecked by the origin server that the cached copy is still valid), or
+- fetched again (e.g. if the resource has changed).
+
+### How it works
+
+Validation can only occur if the server provided either a strong validator (`ETag`) or a weak validator (`Last-Modified`) in the response header.
+
+When the client asks for a resource by including the `If-None-Match` (if the resource is using Etag) or the `If-Modified-Since` request header, the server may respond with:
+
+- **200 (OK)** &mdash; indicating the client should use this newly sent response
+- **304 (Not Modified)** &mdash; (with an empty body, optionally including headers that update the expiration time of the cached resource) indicating the client should use its cached copy
+
+## Relevant response headers
+
+### `Cache-Control`
+
+Controls caching behavior. Multiple directives should be separated by comma.
+
+"Revalidation for freshness" here is done by the client sending
+(via `If-None-Match` or `If-Modified-Since` request header)
+
+<Badge color="blue">Cachability directives</Badge>
+
+- **`no-store`** &mdash; don't store response in any cache
+- **`no-cache`** &mdash; the response can be stored in any cache, but it must _always_ be revalidated for freshness by the origin server before its value can be used.
+- **`public`** &mdash; the response can be stored in any cache
+- **`private`** &mdash; the response can be stored only in a browser's cache
+
+<Badge color="blue">Expiration directives</Badge>
+
+- **`max-age=<seconds>`** &mdash; how long the resource should be considered fresh (relative to the time of request)
+- **`s-maxage=<seconds>`** &mdash; overrides `max-age`, but only for shared caches (private caches will ignore it)
+
+<Badge color="blue">Revalidation directives</Badge>
+
+- **`must-revalidate`** &mdash; local copy can be used if it's younger than `max-age`; otherwise it must first be revalidated for freshness by the origin server. The origin server can respond
+
+```http
+Cache-Control: no-store
+Cache-Control: no-cache
+Cache-Control: public
+Cache-Control: private
+Cache-Control: max-age=<seconds>
+Cache-Control: s-maxage=<seconds>
+Cache-Control: must-revalidate
+Cache-Control: proxy-revalidate
+Cache-Control: no-transform
+```
+
+### `ETag`
+
+Indicates the version of a resource. You can use the content hash, last modified timestamp, or a revision number.
+
+If this response header is present, the client will send `If-None-Match` on future requests of the resource to validate the cached resource.
+
+You can use "strong" or "weak" ETag value:
+
+- **Strong Etag** (e.g. `ETag: "1f2b3d"`) &mdash; If two strong ETags match, it means the resource is byte-for-byte identical. (It can be cached for [byte range requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Ranges).)
+- **Weak Etag** (e.g. `ETag: W/"1f2b3d"`) &mdash; If two weak ETags match, it means the resource is semantically equivalent, but not necessarily byte-for-byte identical (e.g. different date of generation in the footer). (It cannot be cached for [byte range requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Ranges).)
+
+```http
+ETag: "<etag_value>"
+ETag: W/"<etag_value>"
+```
+
+### `Last-Modified`
+
+Indicates the time at which the resource was last modified, e.g. `Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT` (it's precise up to seconds, and always in GMT).
+
+If this response header is present, the client will send `If-Modified-Since` on future requests of the resource to validate the cached resource.
+
+```http
+Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
+```
+
+### `Vary`
+
+Indicates the response should be considered unique if any request/response header listed on `Vary` differs in value.
+
+Any cache should remember the combination of header values listed on `Vary`, and should only give the cached resource copy if all header values match. Otherwise, a fresh response must be requested from the origin server.
+
+Using `Vary: *` means each requests should be treated unique and should not be cached. (Consider using `Cache-Control: no-store` instead.)
+
+Since `Accept-Encoding: gzip,deflate`, `Accept-Encoding: gzip` are considered different, to avoid unnecessary requests and duplicated cache entries, caching servers should consider [normalization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#normalization) (i.e. preprocessing the request by normalizing/rewriting the value of the request headers).
+
+```http
+Vary: *
+Vary: <header-name>, <header-name>, ...
+```
+
+## Relevant request headers
+
+### `If-None-Match`
+
+Requests the server to only send a full 200 (OK) response if it doesn't have an `ETag` matching the given ones. Otherwise, the server will send 304 (Not Modified) response with an empty body.
+
+- **`<etag-value>`** &mdash; may be prefixed with `W/` to indicate weak etag.
+- **`*`** &mdash; a special value to represent any resource (e.g. used with PUT to check if the same resource has been uploaded before)
+
+```http
+If-None-Match: "<etag-value>"
+If-None-Match: "<etag-value>", "<etag-value>", ...
+If-None-Match: *
+```
+
+### `If-Modified-Since`
+
+Requests the server to only send a full 200 (OK) response if the resource has been last modified after the given time. Otherwise, the server will send 304 (Not Modified) response with an empty body.
+
+Used in conjuction with `Last-Modified` response header. Ignored if `If-None-Match` is also present.
+
+```http
+If-Modified-Since: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTTP Caching (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching`,
+    },
+    {
+      text: 'Demystifying HTTP Caching (codeburst.io)',
+      link: `https://codeburst.io/demystifying-http-caching-7457c1e4eded`,
+    },
+    {
+      text: 'Cache-Control (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control`,
+    },
+    {
+      text: 'Last-Modified (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified`,
+    },
+    {
+      text: 'If-None-Match` (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match`,
+    },
+    {
+      text: 'If-Modified-Since (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since`,
+    },
+  ]}
+></References>

@@ -1,0 +1,127 @@
+import { References, Badge } from '@pelicin/components';
+
+# Cookie
+
+Cookies are small pieces of data sent between the server and client. Cookies are used to store state over the stateless HTTP protocol.
+
+## Cookie exchange
+
+### Setting Cookies
+
+The server can instruct the browser to set cookies via response headers:
+
+```http
+HTTP/2.0 200 OK
+Content-Type: text/html
+Set-Cookie: yummy_cookie=choco
+Set-Cookie: tasty_cookie=strawberry
+
+[page content]
+```
+
+Additionally, JavaScript code running on client-side can also instruct the browser to set cookies:
+
+```js
+document.cookie = 'yummy_cookie=choco';
+document.cookie = 'tasty_cookie=strawberry';
+
+// Logs 'yummy_cookie=choco; tasty_cookie=strawberry'
+console.log(document.cookie);
+```
+
+### Sending Cookies
+
+The browser will then send the cookies on all future requests to the server:
+
+```http
+GET /sample_page.html HTTP/2.0
+Host: www.example.org
+Cookie: yummy_cookie=choco; tasty_cookie=strawberry
+```
+
+## Cookie lifetime
+
+Cookies are deleted on these occasions:
+
+- when the current session ends (browsers have their own definition of "current session", normally until the browser is closed), OR
+- when the cookie expiry time specified by the `Expires` or `Max-Age` directive is reached.
+
+```http
+Set-Cookie: id=a3fWa; Expires=Thu, 31 Oct 2021 07:28:00 GMT;
+```
+
+## Relevant response headers
+
+### `Set-Cookie`
+
+Instructs the client to set a cookie. To set multiple cookies, multiple `Set-Cookie` headers should be set in the same response.
+
+The cookie name/value pair can be followed by directive(s) separated by `;`, e.g. `Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>; Secure; HttpOnly`.
+
+<Badge color="blue">Name/value</Badge>
+
+- **`<cookie-name>=<cookie-value>`** &mdash; Sets the name and the value of the cookie. `<cookie-value>` can optionally be wrapped in double quotes, and you can also use URL encoding for the value.
+
+<Badge color="blue">Expiration</Badge>
+
+- **`Expires=<date>`** &mdash; Delete the cookie after this date (formatted like `Thu, 31 Oct 2021 07:28:00 GMT`, relative to the client's time).
+- **`Max-Age=<non-zero-digit>`** &mdash; Delete the cookie after this many seconds. Has precendence over `Expires`.
+
+<Badge color="blue">Scope</Badge>
+
+- **`Domain=<domain-value>`** &mdash; If specified, only send the cookie to the host of the current document URL and its subdomains. If omitted, only send the cookie to the host of the current document URL, _excluding_ subdomain.
+- **`Path=<path-value>`** &mdash; Only send the cookie if the requested URL matches the given path or its subdirectories (e.g. `Path: /a` will match for `/a` and `/a/b`).
+- **`Secure`** &mdash; Only send the cookie on HTTPS (except on localhost)
+- **`HttpOnly`** &mdash; Disallow JavaScript from reading the value of the cookie (only the browser and the server can read it)
+
+<Badge color="blue">SameSite</Badge>
+
+- **`SameSite=Lax`** &mdash; Only send the cookie for same-site requests, AND if the user is navigating to the site from external sites (e.g. by following a link). This is the default.
+- **`SameSite=Strict`** &mdash; Only send the cookie for same-site requests.
+- **`SameSite=None`** &mdash; Send the cookie for both cross-site and same-site requests. The `Secure` directive must also be set.
+
+```http
+Set-Cookie: <cookie-name>=<cookie-value>
+
+Set-Cookie: <cookie-name>=<cookie-value>; Expires=<date>
+Set-Cookie: <cookie-name>=<cookie-value>; Max-Age=<non-zero-digit>
+
+Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>
+Set-Cookie: <cookie-name>=<cookie-value>; Path=<path-value>
+Set-Cookie: <cookie-name>=<cookie-value>; Secure
+Set-Cookie: <cookie-name>=<cookie-value>; HttpOnly
+
+Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Lax
+Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Strict
+Set-Cookie: <cookie-name>=<cookie-value>; SameSite=None
+```
+
+## Relevant request headers
+
+### `Cookie`
+
+Lists the cookie name/value pairs.
+
+```http
+Cookie: name=value
+Cookie: name=value; name2=value2; name3=value3; ...
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Cookies (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies`,
+    },
+    {
+      text: 'Set-Cookie (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie`,
+    },
+    {
+      text: 'Cookie (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie`,
+    },
+  ]}
+></References>

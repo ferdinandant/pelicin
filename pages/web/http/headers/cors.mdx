@@ -1,0 +1,151 @@
+import { References, Image, NoteBox } from '@pelicin/components';
+
+# Cross-Origin Resource Sharing (CORS)
+
+<NoteBox>Cross-origin refer to URI with different protocol, host, OR port.</NoteBox>
+
+For security reasons, browsers block cross-origin HTTP requests from scripts. To allow this, the cross-origin server being hit must send `Cross-Origin-Allow-Origin` response header.
+
+## How it works
+
+In general, the browser will send a "preflight" OPTION request to the origin server, and upon the cross-origin server's approval, proceeds to send the actual request.
+
+There are, however, requests that are considered "simple requests" that do not require sending the preflight request (see: [simple requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#simple_requests)).
+
+### Simple request CORS flow
+
+The browser simply sends the actual request without a preflight request.
+
+<Image
+  path="/res/web/http/cors-simple-flow.png"
+  caption="Simple CORS flow"
+  sourceString="MDN"
+  sourceLink="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
+/>
+
+### Preflighted request CORS flow
+
+The browser sends a preflight request before sending the actual request. Note the use of the following request headers:
+
+- `Access-Control-Request-Method` (specifying the HTTP request method)
+- `Access-Control-Request-Headers` (specifiying list of request headers in the actual request)
+
+<Image
+  path="/res/web/http/cors-preflighted-flow.png"
+  caption="Preflighted CORS flow"
+  sourceString="MDN"
+  sourceLink="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
+/>
+
+## Sending credentials with CORS
+
+By default, for cross-origin requests, the browser will not send credentials (e.g. cookies and HTTP Authentication information).
+
+If you want to send credentials, you have to set a special flag on the `XMLHttpRequest` object or the `Request` constructor (such as the `withCredentials` property below).
+
+```js
+// Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+const invocation = new XMLHttpRequest();
+const url = 'http://bar.other/resources/credentialed-content/';
+
+function callOtherDomain() {
+  if (invocation) {
+    invocation.open('GET', url, true);
+    invocation.withCredentials = true; // <-
+    invocation.onreadystatechange = handler;
+    invocation.send();
+  }
+}
+```
+
+**Expected server response:** For the request to be successful AND for the response to be given to JavaScript, the cross-origin server _must_ send the `Access-Control-Allow-Credentials: true` response header, AND the `Access-Control-Allow-Origin` response header _must not_ be `*`.
+
+Note that third-party cookie policies (e.g. [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite) cookie attribute or third-party cookie browser settings) will still apply.
+
+## Relevant response headers
+
+### `Access-Control-Allow-Origin`
+
+Enables CORS on the specified origin (or any origin if `*` is given).
+
+```http
+Access-Control-Allow-Origin: <origin>
+Access-Control-Allow-Origin: *
+```
+
+**Dynamic origin:** You can only specify a single origin. If the `Access-Control-Allow-Origin` value changes dynamically based on the request origin, you should also include `Vary: Origin` response header.
+
+### `Access-Control-Allow-Credentials`
+
+**For a preflight request:** indicates if the actual request can be made using credentials. (If omitted, it will fail and the response would not be given to JavaScript.)
+
+**For an actual request:** tells the browser whether to expose the response to JavaScript.
+
+```http
+Access-Control-Allow-Credentials: true
+```
+
+### `Access-Control-Allow-Methods`
+
+Lists allowed HTTP methods on the resource (URI).
+
+```http
+Access-Control-Allow-Methods: <method>, <method>, ...
+```
+
+### `Access-Control-Allow-Headers`
+
+Indicates which HTTP headers can be used when making the actual request.
+
+```http
+Access-Control-Allow-Headers: <header-name>, <header-name>, ...
+```
+
+### `Access-Control-Expose-Headers`
+
+Allows JavaScript to read the given response headers. (Only [CORS-safelisted response headers](https://developer.mozilla.org/en-US/docs/Glossary/CORS-safelisted_response_header) are exposed by default.)
+
+```http
+Access-Control-Expose-Headers: <header-name>, <header-name>, ...
+```
+
+### `Access-Control-Max-Age`
+
+Indicates how long (in seconds) response to a preflight request can be cached. (Referring to the `Access-Control-Allow-Methods` and `Access-Control-Allow-Headers` response headers).
+
+E.g. `Access-Control-Max-Age: 600`.
+
+```http
+Access-Control-Max-Age: <delta-seconds>
+```
+
+## Relevant request headers
+
+### `Origin`
+
+Marks from which URI the request was sent (it can be null).
+
+### `Access-Control-Request-Method`
+
+In the preflight request: specifies which HTTP method is to be used in the actual request (e.g. `POST`).
+
+### `Access-Control-Request-Headers`
+
+In the preflight request: specifies which request headers are to be included in the actual request.
+
+The server "response" would be on the `Access-Control-Allow-Headers` response header.
+
+```http
+Access-Control-Request-Headers: <header-name>, <header-name>, ...
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'CORS (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS`,
+    },
+  ]}
+></References>
