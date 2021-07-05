@@ -39,6 +39,10 @@ const group: TopicGroup = {
           path: 'https://frontendmasters.com/books/front-end-handbook/2019/#1.2',
         },
         {
+          title: "andreasbm's Web skills",
+          path: 'https://andreasbm.github.io/web-skills/',
+        },
+        {
           title: 'Google web.dev',
           path: 'https://web.dev/learn/',
         },
