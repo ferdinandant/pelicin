@@ -16,7 +16,7 @@ The general HTTP authentication flow is as follows. Note the use of the followin
 
 There are several [authentication type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes) maintained by IANA. The most common one is `Basic` (i.e. `WWW-Authenticate: Basic`).
 
-## Relevant headers
+## Response headers
 
 ### `WWW-Authenticate`
 
@@ -38,6 +38,8 @@ Like `WWW-Authenticate`, but for proxy servers. It's sent with a 407 (Proxy Auth
 ```http
 Proxy-Authenticate: <type> realm=<realm>
 ```
+
+## Request headers
 
 ### `Authorization`
 

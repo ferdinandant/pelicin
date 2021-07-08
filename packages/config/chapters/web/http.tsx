@@ -22,20 +22,24 @@ const chapters: TopicChapters = [
     chapter: 'Headers',
     children: [
       {
-        title: 'Authentication',
-        path: '/web/http/headers/authentication',
-      },
-      {
-        title: 'Cross-Origin Resource Sharing',
-        path: '/web/http/headers/cors',
+        title: 'Cookie',
+        path: '/web/http/headers/cookie',
       },
       {
         title: 'Caching',
         path: '/web/http/headers/caching',
       },
       {
-        title: 'Cookie',
-        path: '/web/http/headers/cookie',
+        title: 'Authentication',
+        path: '/web/http/headers/authentication',
+      },
+      {
+        title: 'Cross-Origin Resource Sharing (CORS)',
+        path: '/web/http/headers/cors',
+      },
+      {
+        title: 'Content Security Policy (CSP)',
+        path: '/web/http/headers/csp',
       },
     ],
   },

@@ -35,16 +35,16 @@ const group: TopicGroup = {
       sectionTitle: 'Other Resources',
       topics: [
         {
-          title: 'Front End Developer Handbook 2019',
-          path: 'https://frontendmasters.com/books/front-end-handbook/2019/#1.2',
-        },
-        {
           title: 'Google web.dev',
           path: 'https://web.dev/learn/',
         },
         {
-          title: 'Webgems',
-          path: 'https://webgems.io',
+          title: "andreasbm's Web skills",
+          path: 'https://andreasbm.github.io/web-skills/',
+        },
+        {
+          title: 'Front End Developer Handbook 2019',
+          path: 'https://frontendmasters.com/books/front-end-handbook/2019/#1.2',
         },
       ],
     },

@@ -36,7 +36,7 @@ When the client asks for a resource by including the `If-None-Match` (if the res
 - **200 (OK)** &mdash; indicating the client should use this newly sent response
 - **304 (Not Modified)** &mdash; (with an empty body, optionally including headers that update the expiration time of the cached resource) indicating the client should use its cached copy
 
-## Relevant response headers
+## Response headers
 
 ### `Cache-Control`
 
@@ -114,7 +114,7 @@ Vary: *
 Vary: <header-name>, <header-name>, ...
 ```
 
-## Relevant request headers
+## Request headers
 
 ### `If-None-Match`
 

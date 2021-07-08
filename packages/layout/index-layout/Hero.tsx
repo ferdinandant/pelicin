@@ -12,7 +12,11 @@ export default function Hero() {
             pelicin!
           </h1>
           <hr />
-          <p className="description">Ferdinand's study notes and cheat sheets</p>
+          <p className="description">
+            Ferdinand's study notes and cheat sheets.
+            <br />
+            Remember better&mdash;defeat the forgetting curve.
+          </p>
           <div className="linksContainer">
             <a className="cta" href={`#${INDEX_DOM_ID}`}>
               Explore
