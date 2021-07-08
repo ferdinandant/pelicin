@@ -1,0 +1,238 @@
+import { References, Badge } from '@pelicin/components';
+
+# Content Security Policy (CSP)
+
+The Content Security Policy (CSP) header tells the browser what resources (e.g. scripts, images, fonts) can be trusted. Resources that violate CSP will not be run/fetched by the browser.
+
+CSP is used to mitigate Cross Site Scripting (XSS) and data injection attacks.
+
+## Reporting CSP
+
+Since enforcing CSP right off the bat may break your site, you should consider only reporting CSP violations first.
+
+You decide which CSP directives are enforced or only-reported by using the following headers, and setting the `report-uri <url>` directive (both headers are honored):
+
+- `Content-Security-Policy` (enforced)
+- `Content-Security-Policy-Report-Only` (report only)
+
+### Structure of CSP report
+
+On CSP violations, the browser would send a JSON POST request like the following to your `report-uri` endpoint.
+
+- **`blocked-uri`** &mdash; will not include the full path (only the origin) for cross-origin requests. This is to prevent leaking sensitive information about cross-origin resources.
+- **`disposition`** &mdash; `encorce` or `report`, depending on which CSP header is used.
+
+```json
+{
+  "csp-report": {
+    "document-uri": "http://example.com/signup.html",
+    "referrer": "",
+    "blocked-uri": "http://example.com/css/style.css",
+    "violated-directive": "style-src cdn.example.com",
+    "original-policy": "default-src 'none'; style-src cdn.example.com; report-uri /_/csp-reports",
+    "disposition": "report"
+  }
+}
+```
+
+## Response headers
+
+### `Content-Security-Policy`
+
+Enforces CSP.
+
+You can specify `Content-Security-Policy` header multiple times, e.g. to have different policy violations report to different `report-uri` URLs, or to have some policy violations not reported.
+
+All policies are evaluated and reported individually (Csper). Additional policies can only _further restrict_ the protected resources (MDN).
+
+```http
+Content-Security-Policy: <policy-directive>
+Content-Security-Policy: <policy-directive>; <policy-directive>; ...
+```
+
+### `Content-Security-Policy-Report-Only`
+
+Only reports CSP violation.
+
+You can specify `Content-Security-Policy-Report-Only` header multiple times, e.g. to have different policy violations report to different `report-uri` URLs.
+
+```http
+Content-Security-Policy-Report-Only: <policy-directive>
+Content-Security-Policy-Report-Only: <policy-directive>; <policy-directive>; ...
+```
+
+## CSP source list
+
+All CSP directives that end with `-src` can be filled with a _source list_, which is space-separated list of the following values. For example, you may specify:
+
+```http
+Content-Security-Policy: script-src 'self' www.mysite.com api.mysite.com
+```
+
+<Badge color="blue">Keyword</Badge>
+
+- **`'none'`** &mdash; don't load any resources.
+- **`'self'`** &mdash; only load resources from the same origin (same scheme, host, and port).
+
+<Badge color="blue">Any domain</Badge>
+
+- **`*`** &mdash; allows loading from any URLs, except from `data://`, `blob://`, and `filesystem://` schemes.
+- **`https:`** &mdash; allows loading from `https://` scheme. (You can also specify other schemes, like `data:` for example.)
+
+<Badge color="blue">Specific domain</Badge>
+
+- **`https://domain.com`** &mdash; allows loading only from `https://` scheme matching the specified domain.
+- **`domain.example.com`** &mdash; allows loading from the specified domain.
+- **`*.example.com`** &mdash; allows loading from any subdomain of `example.com`.
+
+<Badge color="blue">Hash/nonce</Badge>
+
+- **`'sha256-<base64hash>'`** &mdash; allows an inline script or CSS to execute if its hash matches the specified hash. You can also use `sha384` or `sha512`.
+- **`'nonce-<base64hash>'`** &mdash; allows an inline script or CSS to execute if has `nonce="..."` attribute matching the specified nonce. (The nonce should be a secure random string, and should not be reused.)
+
+<Badge color="blue">Unsafe</Badge>
+
+- **`'unsafe-eval'`** &mdash; allows use of `eval()` and similar methods for creating code from strings.
+- **`'unsafe-inline'`** &mdash; allows inline sources like `<script>`, `<style>`, `javascript://` URLs, and event handler attributes (e.g. `onclick="..."`).
+- **`'unsafe-hashes'`** &mdash; allows inline sources in event handler attributes (e.g. `onclick="..."`), but not `<script>`, `<style>`, and `javascript://` URLs.
+
+<Badge color="blue">Others</Badge>
+
+- **`'strict-dynamic'`** &mdash; if a script trusted via nonce/hash loads additional scripts, trust those scripts as well.
+- **`'report-sample'`** &mdash; only for `script-src`, report a sample of the violating code in the CSP report.
+
+## CSP directives
+
+### Fetch directives
+
+<Badge color="blue">Default</Badge>
+
+- **`default-src`** &mdash; fallback for other directives.
+
+<Badge color="blue">Scripts</Badge>
+
+- **`script-src`** &mdash; lists trusted sources for JavaScript.
+- **`script-src-elem`** &mdash; lists trusted sources for `<script>` elements.
+- **`script-src-attr`** &mdash; lists trusted sources for JavaScript event handlers (e.g. `onclick`).
+
+<Badge color="blue">Styles</Badge>
+
+- **`style-src`** &mdash; lists trusted sources for CSS.
+- **`style-src-elem`** &mdash; lists trusted sources for `<style>` and `<link rel="stylesheets">` elements.
+- **`style-src-attr`** &mdash; lists trusted sources for `style="..."` attributes.
+
+<Badge color="blue">Assets</Badge>
+
+- **`image-src`** &mdash; lists trusted sources for images.
+- **`fonts-src`** &mdash; lists trusted sources for fonts loaded using `@font-face`.
+- **`media-src`** &mdash; lists trusted sources for media, e.g. `<audio>` and `<video>` elements.
+- **`object-src`** &mdash; lists trusted sources for objects, e.g. `<object>` and `<embed>` elements.
+
+<Badge color="blue">Others</Badge>
+
+- **`connect-src`** &mdash; lists URLs that can be loaded from script interfaces (e.g. AJAX and `fetch()` requests). Connection to unallowed URLs will yield an emulated 400 (Bad Request) response.
+- **`child-src`** &mdash; lists trusted sources for [web worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) scripts and nested browsing contexts (e.g. `<frame>` and `<iframe>` elements).
+- **`worker-src`** &mdash; lists trusted sources for web worker scripts.
+- **`frame-src`** &mdash; lists trusted sources for nested browsing contexts (e.g. `<frame>` and `<iframe>` elements).
+
+### Navigation directives
+
+- **`form-action`** &mdash; lists URLs to which forms may be submitted.
+- **`base-uri`** &mdash; lists valid parents that may embed a page using `<frame>`, `<iframe>`, `<object>`, or `<embed>`.
+- **`base-uri`** &mdash; lists URLs to which the document can navigate by any means
+
+### Document directives
+
+- **`base-uri`** &mdash; lists which URLs can be used in the document's `<base>` element.
+- **`sandbox`** &mdash; enables sandboxing for frames, similar to `<iframe sandbox="...">`. No values mean restrict all. Otherwise, specify space-separated values of the following:
+  - `allow-forms` &mdash; allows the frame to submit forms
+  - `allow-modals` &mdash; allows the frame to open [modal windows](https://html.spec.whatwg.org/multipage/origin.html#sandboxed-modals-flag) (e.g. via `alert()`)
+  - `allow-orientation-lock` &mdash; allows the frame to lock screen rotation
+  - `allow-pointer-lock` &mdash; allows the frame to use [Pointer Lock API](https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API) (e.g. to read or change mouse pointer movement)
+  - `allow-popups` &mdash; allows the frame to open popup (e.g. via `window.open()` or `target="_blank"`)
+  - `allow-popups-to-escape-sandbox` &mdash; when the frame opens a popup, don't force sandboxing flags it (allows it to have new or different restrictions)
+  - `allow-presentation` &mdash; allows the frame to start presentation session
+  - `allow-same-origin` &mdash; allows the frame content to be treated as being from its normal origin (by default, `sandbox` directive forces the “different origin” policy for the iframe, even if its `src` points to the same site)
+  - `allow-scripts` &mdash; allows the frame to run scripts (but not open popup windows)
+  - `allow-top-navigation` &mdash; allows the frame to navigate the top-level browsing context (e.g. via `top.location = ...` or `<a target="_top">`)
+  - `allow-top-navigation-by-user-activation` &mdash; allows the frame to navigate the top-level browsing context, but only if initiated by a user gesture
+
+### Reporting directives
+
+- **`report-uri`** &mdash; where to send CSP violation reports.
+
+### Other directives
+
+- **`upgrade-insecure-requests`** &mdash; treat all insecure URLs in the page as if they have been replaced with secure URLs (HTTPS). Navigation links to external sites (e.g. `<a href="http://external-site.com">`) are not upgraded.
+- **`trusted-types`** &mdash; restricts the creation of Trusted Type policies (via `trustedTypes.createPolicy`). Accepts:
+  - `'none'` &mdash; disallows creating any Trusted Type policy
+  - `'allow-duplicate'` &mdash; creating policies with a name that was already used
+  - space-separated Trusted Type policy names
+- **`require-trusted-types-for`** &mdash; controls the data passable to DOM XSS "sink functions" like `Element.innerHTML = '...'`. When used, those functions only accept typed values created by Trusted Type policies, and reject strings (MDN). Accepts:
+  - `'script'` &mdash; disallows using strings with DOM XSS injection sink functions (MDN)
+
+## Read More
+
+<References
+  references={[
+    {
+      text: 'Prevent DOM-based cross-site scripting vulnerabilities with Trusted Types (web.dev)',
+      link: `https://web.dev/trusted-types/`,
+    },
+    {
+      text: 'Trusted Types API (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Content Security Policy (CSP) (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP`,
+    },
+    {
+      text: 'Content-Security-Policy (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy`,
+    },
+    {
+      text: 'Content-Security-Policy-Report-Only (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only`,
+    },
+    {
+      text: 'Using Content-Security-Policy with multiple policies (Csper)',
+      link: `https://csper.io/blog/multiple-policies`,
+    },
+    {
+      text: 'Content Security Policy (CSP) Quick Reference Guide',
+      link: `https://content-security-policy.com/`,
+    },
+    {
+      text: 'CSP: style-src (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src`,
+    },
+    {
+      text: 'CSP: script-src (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src`,
+    },
+    {
+      text: 'CSP: sandbox (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox`,
+    },
+    {
+      text: 'Cross-window communication (javascript.info)',
+      link: `https://javascript.info/cross-window-communication#the-sandbox-iframe-attribute`,
+    },
+    {
+      text: 'CSP: require-trusted-types-for (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/require-trusted-types-for`,
+    },
+    {
+      text: 'CSP: trusted-types (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types`,
+    },
+  ]}
+></References>
