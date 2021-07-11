@@ -307,6 +307,26 @@ const chapters: TopicChapters = [
     ],
   },
   {
+    chapter: 'Special Values',
+    children: [
+      {
+        title: 'Initial',
+        path: '/web/css/special-values/initial',
+        badge: 'TODO',
+      },
+      {
+        title: 'Inherit',
+        path: '/web/css/special-values/inherit',
+        badge: 'TODO',
+      },
+      {
+        title: 'Unset',
+        path: '/web/css/special-values/unset',
+        badge: 'TODO',
+      },
+    ],
+  },
+  {
     chapter: 'Concepts',
     children: [
       {
@@ -316,11 +336,6 @@ const chapters: TopicChapters = [
       {
         title: 'Specificity and !important',
         path: '/web/css/concepts/specificity',
-      },
-      {
-        title: 'Initial, Inherit, and Unset',
-        path: '/web/css/concepts/initial-inherit-unset',
-        badge: 'TODO',
       },
       {
         title: 'Block Formatting Context',
