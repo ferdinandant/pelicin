@@ -152,6 +152,11 @@ const chapters: TopicChapters = [
         path: '/web/css/aesthetics/background',
       },
       {
+        title: 'Blend Mode',
+        path: '/web/css/at-rules/blend-mode',
+        badge: 'TODO',
+      },
+      {
         title: 'Box and Text Shadow',
         path: '/web/css/aesthetics/shadow',
       },
@@ -305,6 +310,10 @@ const chapters: TopicChapters = [
   {
     chapter: 'Concepts',
     children: [
+      {
+        title: 'Variable',
+        path: '/web/css/concepts/variable',
+      },
       {
         title: 'Specificity and !important',
         path: '/web/css/concepts/specificity',
