@@ -1,0 +1,25 @@
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Revert
+
+The `revert` value sets a property value:
+
+- to the browser's default value if that property is not inherited, or
+- to the parent's value if that property is inherited.
+
+The difference between `revert` and `unset` is that:
+
+- `revert` resets to the browser's default value
+- `unset` resets to the specification's default value
+
+## References
+
+<References
+  references={[
+    {
+      text: 'revert (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/revert`,
+    },
+  ]}
+></References>

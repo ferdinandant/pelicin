@@ -152,6 +152,11 @@ const chapters: TopicChapters = [
         path: '/web/css/aesthetics/background',
       },
       {
+        title: 'Blend Mode',
+        path: '/web/css/at-rules/blend-mode',
+        badge: 'TODO',
+      },
+      {
         title: 'Box and Text Shadow',
         path: '/web/css/aesthetics/shadow',
       },
@@ -174,6 +179,11 @@ const chapters: TopicChapters = [
       {
         title: 'Clip',
         path: '/web/css/aesthetics/clip',
+      },
+      {
+        title: 'Mask',
+        path: '/web/css/aesthetics/mask',
+        badge: 'TODO',
       },
     ],
   },
@@ -222,6 +232,11 @@ const chapters: TopicChapters = [
   {
     chapter: 'Others',
     children: [
+      {
+        title: 'All',
+        path: '/web/css/others/all',
+        badge: 'TODO',
+      },
       {
         title: 'List Style',
         path: '/web/css/others/list-style',
@@ -280,6 +295,16 @@ const chapters: TopicChapters = [
     ],
   },
   {
+    chapter: 'Other Functions',
+    children: [
+      {
+        title: 'Math Functions',
+        path: '/web/css/functions/math-functions',
+        badge: 'TODO',
+      },
+    ],
+  },
+  {
     chapter: 'At-Rules',
     children: [
       {
@@ -298,7 +323,27 @@ const chapters: TopicChapters = [
       {
         title: '@counter-style',
         path: '/web/css/at-rules/counter-style',
-        badge: 'TODO',
+      },
+    ],
+  },
+  {
+    chapter: 'Special Values',
+    children: [
+      {
+        title: 'Initial',
+        path: '/web/css/special-values/initial',
+      },
+      {
+        title: 'Inherit',
+        path: '/web/css/special-values/inherit',
+      },
+      {
+        title: 'Unset',
+        path: '/web/css/special-values/unset',
+      },
+      {
+        title: 'Revert',
+        path: '/web/css/special-values/revert',
       },
     ],
   },
@@ -306,13 +351,12 @@ const chapters: TopicChapters = [
     chapter: 'Concepts',
     children: [
       {
-        title: 'Specificity and !important',
-        path: '/web/css/concepts/specificity',
+        title: 'Variable',
+        path: '/web/css/concepts/variable',
       },
       {
-        title: 'Initial, Inherit, and Unset',
-        path: '/web/css/concepts/initial-inherit-unset',
-        badge: 'TODO',
+        title: 'Specificity and !important',
+        path: '/web/css/concepts/specificity',
       },
       {
         title: 'Block Formatting Context',

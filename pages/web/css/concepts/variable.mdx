@@ -1,0 +1,106 @@
+import { NoteBox, References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# CSS Variable
+
+CSS variables (a.k.a. CSS custom properties) are declared by prefixing a property name with `--` (e.g. `--my-color`).
+
+You can access the variable's value using the `val()` function.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="variable-example">
+      <p>Lorem ipsum dolor sit amet</p>
+    </div>
+  `)}
+  css={smartTrim(`
+    :root {
+      /* Usable anywhere */
+      --my-color: blue;
+    }
+    p, i, u {
+      /* Only usable in p, i, and u */
+      --my-underline-color: red;
+    }
+    #variable-example p {
+      color: var(--my-color);
+      border-bottom: 1px solid var(--my-underline-color);
+    }
+`)}
+/>
+
+## Concepts
+
+### Scope
+
+CSS variables can only be used in the scope where they are declared (see example above).
+To make them usable anywhere (the usual practice), declare them inside `:root`.
+
+### Inheritance
+
+If a variable value is not defined on the given element, the value of its parent is used.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="var-inheritance-example">
+      <div class="parent">
+        <div class="child-a">Variable defined</div>
+        <div class="child-b">Variable undefined (value inherited)</div>
+      </div>
+      Variable undefined (use normal inherited/initial value)
+    </div>
+  `)}
+  css={smartTrim(`
+    /* Variable declaration */
+    #var-inheritance-example .parent {
+      --custom-color: red;
+    }
+    #var-inheritance-example .child-a {
+      --custom-color: green;
+    }
+    /* Setting color */
+    #var-inheritance-example div {
+      color: var(--custom-color);
+    }
+`)}
+/>
+
+## CSS Functions
+
+### <code>var(<var>name</var>)</code>
+
+Replaces this expression with the value of _`name`_.
+
+```css
+blockquote {
+  border-left: 4px solid var(--my-color);
+}
+```
+
+### <code>var(<var>name</var>, <var>fallback</var>)</code>
+
+Replaces this expression with the value of _`name`_. If it's undefined or invalid, use the value of _`fallback`_.
+
+You can use more than one fallback by nesting `var()`. The technique has been seen to cause performance issues as it takes more time to parse through the variables (MDN).
+
+```css
+p.important {
+  color: var(--error-color, red);
+  color: var(--error-color, var(--alert-color, red));
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Using CSS custom properties (variables) (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties`,
+    },
+    {
+      text: 'var() (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/var()`,
+    },
+  ]}
+></References>
