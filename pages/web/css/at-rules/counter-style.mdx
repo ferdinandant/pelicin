@@ -1,0 +1,137 @@
+import { NoteBox, References, WebEditor, Link, Badge } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# @counter-style
+
+`@counter-style` at-rule is used to define a custom list type. Each `@counter-style` is identified by a name and has a set of descriptors.
+
+[Click here to see some ready-made templates (W3.org)](https://www.w3.org/TR/predefined-counter-styles/).
+
+<WebEditor
+  html={smartTrim(`
+    <ul id="counter-style-example">
+      <li>One</li>
+      <li>Two</li>
+      <li>Three</li>
+      <li>Four</li>
+      <li>Five</li>
+    </ul>
+  `)}
+  css={smartTrim(`
+    @counter-style my-list-style {
+      system: fixed;
+      symbols: '①' '②' '③';
+      suffix: ":";
+    }
+    #counter-style-example {
+      list-style: my-list-style;
+    }
+`)}
+/>
+
+## Numbering Descriptors
+
+### `system`
+
+Specifies the algorithm used to convert the "counter value" (1st item, 2nd item, etc.) to a string representation. Possible values are:
+
+<Badge color="blue">Symbolic</Badge>
+
+- **`cyclic`** &mdash; Cycles through the symbols. For example, with `symbols: 'A', 'B', 'C'`, it generates: `A`, `B`, `C`, `A`, `B`, `C`, ...
+- **`symbolic`** &mdash; Cycles through the symbols. Once it reaches the end, the symbols are doubled, tripled, and so on. For example, with `symbols: 'A', 'B'`, it generates: `A`, `B`, `AA`, `BB`, `AAA`, `BBB`, ...
+
+<Badge color="blue">Number-like</Badge>
+
+- **`alphabetic`** &mdash; Interprets the symbols as alphabets. For example, with `symbols: 'A', 'B', 'C'`, it generates: `A`, `B`, `C`, `AA`, `AB`, `AC`, `BA` ...
+- **`numeric`** &mdash; Interprets the symbols like numbers (the first symbol treated as the "0"). For example, with `symbols: '0', '1', '2'`, it generates: `1`, `2`, `10`, `11`, `12`, `20`, ... (notice that it starts with the "0", i.e. the second symbol)
+- **`additive`** &mdash; Requires the `additive-symbols` descriptor to be defined (instead of `symbols`). Uses Roman-like numbering system (the numeric value is the total of each symbol's value, e.g. "VII" is 5 + 1 + 1 = 7). For example, with `additive-symbols: 10 X, 9 IX, 5 V, 4 IV, 1 I`, it generates: `I`, `II`, `III`, `IV`, `V`, `VI`, `VII`. `VIII`, `IX`, `X`, `XI`, ..., `XX`, ..., `XXX`, ..., `XXXX`, ...
+
+<Badge color="blue">Others</Badge>
+
+- **`fixed`** or **`fixed <integer>`**, e.g. `fixed 1` &mdash; Use the given `symbols` (no cycling), starting at `<integer>`-th list item (default is 1). For counter values that are outside the range (before `<integer>`, and after all symbols have been used), `fallback` value is used to generate the string representations.
+- **`extends <name>`**, e.g. `extends my-counter-style` &mdash; Inherits the descriptor values of another `@counter-style`. The current `@counter-style` definition must not include a `symbols` or `additive-symbols` descriptor.
+
+### `fallback`
+
+Defines which list-item to use if `system` cannot create a marker representation for a particular counter value. (E.g. if the current counter value is outside of `range`, or if we have run out of symbols with `fixed` system.)
+
+Specify a value of [`list-style-type`](/web/css/others/list-style#list-style-type): e.g. `disc`, `decimal`, `lower-roman`, or `lower-alpha` or your other `@counter-style` name.
+
+### `range`
+
+Specifies the range(s) of valid counter values. Specify:
+
+- **`auto`** &mdash; Use the default value, depending on `system`
+- **a min-and-max range `<min> <max>`** &mdash; E.g. `2 5`, `infinite 6`, `6 infinite`, or `infinite infinite`. Represents the min and max range values (inclusive). If you specify `infinity` as `<min>`, it represents negative infinity.
+- **comma-separated ranges** &mdash; E.g. `2 5, 8 10` or `infinite 6, 10 infinite`.
+
+## Symbols Descriptors
+
+### `symbols`
+
+List of symbols to be used if `system` is not `additive`.
+
+Specify space-separated strings.
+
+```css
+@counter-style my-list {
+  system: alphabetic
+  symbols: 'A' 'B' 'C';
+}
+```
+
+### `additive-symbols`
+
+List of symbols to be used if `system` is `additive`.
+
+Specify (in descending order) comma-separated list of pairs: non-negative value and its symbol.
+
+```css
+@counter-style my-upper-roman {
+  system: additive;
+  range: 1 499;
+  additive-symbols: 100 C, 90 XC, 50 L, 40 XL, 10 X, 9 IX, 5 V, 4 IV, 1 I;
+}
+```
+
+## Number-Formatting Descriptors
+
+### `negative`
+
+Defines howw to format negative marker representation. Specify:
+
+- **`<prefix>`** &mdash; e.g. `negative: '-'` to prepends negative marker representation with `-`
+- **`<prefix> <suffix>`** &mdash; e.g. `negative: '(' ')'` to surround negative marker representation with `(` and `)`
+
+### `pad`
+
+Defines how to pad the marker representation if its length is below the `<minimum-length>` value.
+Specify **`<minimum-length> <padding>`**, e.g. `pad: 3 '0'`, to ensure that:
+
+- the marker representation has at minimum `<minimum-length>` symbols
+- the padding character is `<padding>`
+
+## String-Formatting Descriptors
+
+### `prefix`
+
+Adds prefix to the marker representation.
+
+### `suffix`
+
+Adds suffix to the marker representation.
+
+## References
+
+<References
+  references={[
+    {
+      text: '@counter-style (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style`,
+    },
+    {
+      text: 'system (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style/system`,
+    },
+  ]}
+></References>

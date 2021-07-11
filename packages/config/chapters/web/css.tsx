@@ -303,7 +303,6 @@ const chapters: TopicChapters = [
       {
         title: '@counter-style',
         path: '/web/css/at-rules/counter-style',
-        badge: 'TODO',
       },
     ],
   },
