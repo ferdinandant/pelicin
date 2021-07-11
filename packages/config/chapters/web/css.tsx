@@ -340,7 +340,10 @@ const chapters: TopicChapters = [
       {
         title: 'Unset',
         path: '/web/css/special-values/unset',
-        badge: 'TODO',
+      },
+      {
+        title: 'Revert',
+        path: '/web/css/special-values/revert',
       },
     ],
   },

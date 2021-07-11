@@ -1,0 +1,22 @@
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Unset
+
+The `unset` value sets a property value:
+
+- to the specification's default value if that property is not inherited, or
+- to the parent's value if that property is inherited.
+
+In other words, it behaves like `initial` or `inherit` depending on whether the property is inherited or not.
+
+## References
+
+<References
+  references={[
+    {
+      text: 'unset (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/unset`,
+    },
+  ]}
+></References>
