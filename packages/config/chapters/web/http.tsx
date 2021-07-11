@@ -19,7 +19,7 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'Headers',
+    chapter: 'Uncategorized Headers',
     children: [
       {
         title: 'Cookie',
@@ -29,17 +29,26 @@ const chapters: TopicChapters = [
         title: 'Caching',
         path: '/web/http/headers/caching',
       },
+    ],
+  },
+  {
+    chapter: 'Security Headers',
+    children: [
       {
         title: 'Authentication',
-        path: '/web/http/headers/authentication',
+        path: '/web/http/security-headers/authentication',
       },
       {
         title: 'Cross-Origin Resource Sharing (CORS)',
-        path: '/web/http/headers/cors',
+        path: '/web/http/security-headers/cors',
       },
       {
         title: 'Content Security Policy (CSP)',
-        path: '/web/http/headers/csp',
+        path: '/web/http/security-headers/csp',
+      },
+      {
+        title: 'HTTP Strict-Transport-Security (HSTS)',
+        path: '/web/http/security-headers/hsts',
       },
     ],
   },
