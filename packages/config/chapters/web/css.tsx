@@ -180,6 +180,11 @@ const chapters: TopicChapters = [
         title: 'Clip',
         path: '/web/css/aesthetics/clip',
       },
+      {
+        title: 'Mask',
+        path: '/web/css/aesthetics/mask',
+        badge: 'TODO',
+      },
     ],
   },
   {
@@ -281,6 +286,16 @@ const chapters: TopicChapters = [
       {
         title: 'Filter Function',
         path: '/web/css/data-type/filter-function',
+      },
+    ],
+  },
+  {
+    chapter: 'Other Functions',
+    children: [
+      {
+        title: 'Math Functions',
+        path: '/web/css/functions/math-functions',
+        badge: 'TODO',
       },
     ],
   },
