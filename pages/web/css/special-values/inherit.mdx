@@ -1,0 +1,44 @@
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Initial
+
+The `inherit` value sets a property value to match its parent's value.
+
+Remember that some properties are _inherited_ (e.g. `color`) and the others _not inherited_ (e.g. `border`). Even without you specifying `inherit`, by default CSS always inherits inherited property values to children elements.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="inherit-example">
+      <p>Lorem ipsum dolor sit amet</p>
+      <p>Lorem ipsum dolor sit amet</p>
+      <p class="inherit">Follows the parent's color</p>
+      <p class="initial">Back to browser's default</p>
+    </div>
+  `)}
+  css={smartTrim(`
+    #inherit-example {
+      color: blue;
+    }
+    #inherit-example p {
+      color: red;
+    }
+    #inherit-example .inherit {
+      color: inherit;
+    }
+    #inherit-example .initial {
+      color: initial;
+    }
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'inherit (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance#non-inherited_properties`,
+    },
+  ]}
+></References>

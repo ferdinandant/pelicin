@@ -233,6 +233,11 @@ const chapters: TopicChapters = [
     chapter: 'Others',
     children: [
       {
+        title: 'All',
+        path: '/web/css/others/all',
+        badge: 'TODO',
+      },
+      {
         title: 'List Style',
         path: '/web/css/others/list-style',
       },
@@ -327,12 +332,10 @@ const chapters: TopicChapters = [
       {
         title: 'Initial',
         path: '/web/css/special-values/initial',
-        badge: 'TODO',
       },
       {
         title: 'Inherit',
         path: '/web/css/special-values/inherit',
-        badge: 'TODO',
       },
       {
         title: 'Unset',

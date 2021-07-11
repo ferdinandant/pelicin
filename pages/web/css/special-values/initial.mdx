@@ -1,0 +1,41 @@
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Initial
+
+The `initial` value sets a property value to the [specification's default/initial value](https://drafts.csswg.org/css-cascade-4/#initial-values). Usually, it's the same as resetting the value to the browser's default value.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="initial-example">
+      <p>Lorem ipsum dolor sit amet</p>
+      <p>Lorem ipsum dolor sit amet</p>
+      <p class="initial">Back to browser's default!</p>
+    </div>
+  `)}
+  css={smartTrim(`
+    #initial-example {
+      color: red;
+      font-family: monospace;
+    }
+    #initial-example .initial {
+      color: initial;
+      font-family: initial;
+    }
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'initial (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/initial`,
+    },
+    {
+      text: 'Getting Acquainted with Initial (CSS-Tricks)',
+      link: `https://css-tricks.com/getting-acquainted-with-initial/`,
+    },
+  ]}
+></References>
