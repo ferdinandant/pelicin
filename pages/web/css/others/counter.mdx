@@ -111,6 +111,13 @@ Returns the current value of `counterName`, and optionally format it using list-
 
 For example, `counter(my-counter, lower-roman)` will return `i`, `ii`, `iii`, etc.
 
+```css
+h3::before {
+  counter-increment: section;
+  content: 'Section ' counter(section) ': ';
+}
+```
+
 ### <code>counters(<var>counterName</var>, <var>separator</var>, <var>style</var>)</code>
 
 Enables nested counters: returns the current value of `counterName` (taking account of nesting),
