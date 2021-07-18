@@ -81,6 +81,8 @@ Access-Control-Allow-Origin: *
 
 **For an actual request:** tells the browser whether to expose the response to JavaScript.
 
+The only valid value is `true`. To set false, omit this header entirely.
+
 ```http
 Access-Control-Allow-Credentials: true
 ```
@@ -89,6 +91,8 @@ Access-Control-Allow-Credentials: true
 
 Lists allowed HTTP methods on the resource (URI).
 
+`*` means allow all.
+
 ```http
 Access-Control-Allow-Methods: <method>, <method>, ...
 ```
@@ -96,6 +100,8 @@ Access-Control-Allow-Methods: <method>, <method>, ...
 ### `Access-Control-Allow-Headers`
 
 Indicates which HTTP headers can be used when making the actual request.
+
+`*` means allow all.
 
 ```http
 Access-Control-Allow-Headers: <header-name>, <header-name>, ...
