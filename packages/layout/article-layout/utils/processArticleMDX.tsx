@@ -34,14 +34,14 @@ function processChild(child: ReactNode, index = 0) {
     const anchorHash = extractHashFromNode(children);
     const titleString = extractStringFromNode(children);
     return (
-      <>
+      <React.Fragment key={index}>
         <Head key="title">
           <title>{titleString} - Pelicin</title>
         </Head>
         <Heading heading={mdxType} anchor={anchorHash} key={index}>
           {children}
         </Heading>
-      </>
+      </React.Fragment>
     );
   } else if (mdxType.match(/h([2-6])/)) {
     // Map heading to include anchor hash
