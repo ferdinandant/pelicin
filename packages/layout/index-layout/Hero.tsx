@@ -9,13 +9,11 @@ export default function Hero() {
           <h1>
             <span className="logo">_(:3」∠)_</span>
             <br />
-            pelicin!
+            <span className="title">pelicin!</span>
           </h1>
-          <hr />
           <p className="description">
-            Ferdinand's study notes and cheat sheets.
-            <br />
-            Remember better&mdash;defeat the forgetting curve.
+            Welcome to Ferdi's study notes and cheat sheets!
+            <br />I hope somebody (e.g. me!) would find this useful :D
           </p>
           <div className="linksContainer">
             <a className="cta" href={`#${INDEX_DOM_ID}`}>
@@ -65,10 +63,14 @@ export default function Hero() {
           border-bottom: none;
           color: var(--color-blue-0);
           text-align: center;
+          line-height: 1.2;
         }
         .logo {
           color: var(--color-blue-2);
           opacity: 0.6;
+        }
+        .title {
+          font-size: 64pt;
         }
         .description {
           font-size: var(--font-size-title-2);

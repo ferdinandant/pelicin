@@ -5,6 +5,7 @@ export * from './types';
 // ================================================================================
 
 export { default as pathPrefixToTopicConfig } from './constants/pathPrefixToTopicConfig';
+export * from './constants/sessionStorageKeys';
 
 export const topicKeys = ['sample', 'web/html', 'web/css', 'web/http'];
 
