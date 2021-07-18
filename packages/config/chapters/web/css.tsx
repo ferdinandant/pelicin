@@ -233,11 +233,6 @@ const chapters: TopicChapters = [
     chapter: 'Others',
     children: [
       {
-        title: 'All',
-        path: '/web/css/others/all',
-        badge: 'TODO',
-      },
-      {
         title: 'List Style',
         path: '/web/css/others/list-style',
       },
@@ -252,6 +247,11 @@ const chapters: TopicChapters = [
       {
         title: 'Page Break',
         path: '/web/css/aesthetics/page-break',
+        badge: 'TODO',
+      },
+      {
+        title: 'The \'All\' Property',
+        path: '/web/css/others/all',
         badge: 'TODO',
       },
     ],
@@ -297,6 +297,11 @@ const chapters: TopicChapters = [
   {
     chapter: 'Other Functions',
     children: [
+      {
+        title: 'Calc Function',
+        path: '/web/css/functions/calc-function',
+        badge: 'TODO',
+      },
       {
         title: 'Math Functions',
         path: '/web/css/functions/math-functions',

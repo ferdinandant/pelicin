@@ -29,10 +29,10 @@ export default function ChapterSidebarContent() {
         {topicChapters.map((chapterData, chapterIndex) => {
           if ('@separator' in chapterData) {
             return (
-              <>
+              <React.Fragment key={chapterIndex}>
                 <hr />
                 <div className="dividerTitle">{chapterData['@separator']}</div>
-              </>
+              </React.Fragment>
             );
           }
           const { chapter, children } = chapterData;
