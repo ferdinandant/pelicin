@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from '@pelicin/components';
 import { TopicGroup } from '@pelicin/config';
 
 const group: TopicGroup = {
