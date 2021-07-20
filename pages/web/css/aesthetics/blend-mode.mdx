@@ -22,14 +22,17 @@ Specify comma-separated list of [blend mode](/web/css/data-type/blend-mode), in 
     </div>
   `)}
   css={smartTrim(`
+    /* Background credit: https://www.medyathick.com/ornek-sayfa/abstract-colors-png-transparent-image/ */
     #background-blend-mode-example {
       color: white;
-      display: inline;
-      padding: 10px 20px;
-      /* Note that the background become reddish */
-      background-image: url('/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg');
+      display: inline-block;
+      padding: 50px 100px;
+      /* Note that the 2nd background becomes reddish, */
+      /* and the 1st background blends normally */
+      background-image: url('/res/others/abstract-colors-transparent.png'), url('/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg');
       background-color: red;
-      background-blend-mode: multiply;
+      background-blend-mode: normal, multiply;
+      background-size: cover;
     }
   `)}
 />
