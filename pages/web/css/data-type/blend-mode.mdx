@@ -1,0 +1,86 @@
+import { References, Latex, LatexBox, NoteBox } from '@pelicin/components';
+import { LoadKatex } from '@pelicin/loaders';
+
+<LoadKatex />
+
+# Blend mode
+
+The blend-mode data type defines how colors should blend when elements overlap.
+
+## The Maths
+
+<NoteBox type="info">
+  Feel free to skip this section. This just introduces the terms/notations that I want to use.
+</NoteBox>
+
+The behind-the-scene math on how to perform color blend can be seen in the [compositing and blending spec](https://drafts.fxtf.org/compositing/#ltblendmodegt) (created by Adobe people) and in the [Adobe blend modes specification](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdf_reference_archive/blend_modes.pdf). Here, I summarize the key points.
+
+### Blending
+
+Blending is how we mix colors. The blending function <Latex exp="B"/> determines how we get the _result color_ <Latex exp="C_{\mathrm{RES}}"/> from the _source color_ <Latex exp="C_{\mathrm{SRC}}"/> and the _background color_ <Latex exp="C_{\mathrm{BG}}"/>:
+
+<LatexBox>{String.raw`
+  C_{\mathrm{RES}} = B(C_{\mathrm{SRC}}, C_{\mathrm{BG}})
+`}</LatexBox>
+
+A blending mode is _separable_ if we can calculate each RGB component of the result color separately:
+
+<LatexBox>{String.raw`
+  c_{\mathrm{RES}} = B(c_{\mathrm{SRC}}, c_{\mathrm{BG}})
+`}</LatexBox>
+
+### Composting
+
+Composting is how we "merge" the layers into the final image (taking into account the alpha channels and the blend-color result). The method used is called [Porter–Duff composting](http://ssp.impulsetrain.com/porterduff.html), which will be out of our discussion.
+
+Consequently, we will also not discuss about alpha channels here.
+
+### Color
+
+A color <Latex exp="C"/> is comprised of red, green, and blue components. Each component has a value between 0 and 1 (inclusive):
+
+<LatexBox>{String.raw`
+  C = \langle c_\mathrm{red}, c_\mathrm{green}, c_\mathrm{blue} \rangle
+`}</LatexBox>
+
+From individual RGB values, we can calculate the _saturation_ and _luminosity_ using these functions:
+
+<LatexBox>{String.raw`
+  \mathrm{Sat}(C) = \mathrm{max}(c_\mathrm{red}, c_\mathrm{green}, c_\mathrm{blue}) - \mathrm{min}(c_\mathrm{red}, c_\mathrm{green}, c_\mathrm{blue})
+`}</LatexBox>
+
+<LatexBox>{String.raw`
+  \mathrm{Lum}(C) = 0.3 \cdot c_\mathrm{red} + 0.59 \cdot c_\mathrm{green} + 0.11 \cdot c_\mathrm{blue}
+`}</LatexBox>
+
+## Types of Blending Mode
+
+### Normal
+
+#### `normal`
+
+Just take the source (top) color.
+
+<LatexBox block>{String.raw`
+  \mathrm{Lum}(C) = 0.3 \cdot c_\mathrm{red} + 0.59 \cdot c_\mathrm{green} + 0.11 \cdot c_\mathrm{blue}
+`}</LatexBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: '<blend-mode> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode`,
+    },
+    {
+      text:
+        'Compositing and Blending Level 2: Editor’s Draft, 3 December 2019 » CSS Properties » The mix-blend-mode property (fxtf.org)',
+      link: `https://drafts.fxtf.org/compositing/#ltblendmodegt`,
+    },
+    {
+      text: 'PDF Blend Modes: Addendum (Adobe)',
+      link: `https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdf_reference_archive/blend_modes.pdf`,
+    },
+  ]}
+></References>
