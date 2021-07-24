@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { LayoutRenderer } from '@pelicin/layout';
+import { LoadSyntaxHighlighter } from '@pelicin/loaders';
 import resetStyle from '@pelicin/styles/reset.global.css';
 import varsStyle from '@pelicin/styles/vars.global.css';
 import mainStyle from '@pelicin/styles/main.global.css';
@@ -18,7 +19,7 @@ type Props = {
 };
 
 // So we don't have to repeat it in every page
-const useSyntaxHighlighterPaths = new Set(['/web', '/sample']);
+const useSyntaxHighlighterPaths = new Set(['/web']);
 
 const gtagScript = `
   window.dataLayer = window.dataLayer || [];
@@ -36,7 +37,10 @@ function MyApp(props: Props) {
   const { pathname } = useRouter();
   const pathPrefixes = getPathPrefixes(pathname);
 
-  const useSyntaxHighlighter = checkShouldEnableFeature(useSyntaxHighlighterPaths, pathPrefixes);
+  const isUsingSyntaxHighlighter = checkShouldEnableFeature(
+    useSyntaxHighlighterPaths,
+    pathPrefixes
+  );
 
   return (
     <>
@@ -63,18 +67,12 @@ function MyApp(props: Props) {
           integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
           crossOrigin="anonymous"
         />
-        {/* Highlight.js (Syntax Highlighter) */}
-        {/* Not deferring because prism sometimes don't highlight syntaxes if loaded too late */}
-        {useSyntaxHighlighter && (
-          <>
-            <link rel="stylesheet" href="/lib/prism/prism.css" />
-            <script src="/lib/prism/prism.js" data-manual />
-          </>
-        )}
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-0Q02ZPV32H" />
         <script dangerouslySetInnerHTML={{ __html: gtagScript }} />
       </Head>
+      {/* Highlight.js (Syntax Highlighter) */}
+      {isUsingSyntaxHighlighter && <LoadSyntaxHighlighter />}
 
       <LayoutRenderer>
         <Component {...pageProps} />
