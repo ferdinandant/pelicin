@@ -17,9 +17,8 @@ type Props = {
   pageProps: any;
 };
 
+// So we don't have to repeat it in every page
 const useSyntaxHighlighterPaths = new Set(['/web', '/sample']);
-
-const useLatexPaths = new Set(['/sample', '/web/css/data-type']);
 
 const gtagScript = `
   window.dataLayer = window.dataLayer || [];
@@ -38,7 +37,6 @@ function MyApp(props: Props) {
   const pathPrefixes = getPathPrefixes(pathname);
 
   const useSyntaxHighlighter = checkShouldEnableFeature(useSyntaxHighlighterPaths, pathPrefixes);
-  const useLatex = checkShouldEnableFeature(useLatexPaths, pathPrefixes);
 
   return (
     <>
@@ -65,15 +63,6 @@ function MyApp(props: Props) {
           integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
           crossOrigin="anonymous"
         />
-        {/* Katex (LaTeX displayer) */}
-        {useLatex && (
-          <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-            integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-            crossOrigin="anonymous"
-          />
-        )}
         {/* Highlight.js (Syntax Highlighter) */}
         {/* Not deferring because prism sometimes don't highlight syntaxes if loaded too late */}
         {useSyntaxHighlighter && (

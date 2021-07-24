@@ -1,8 +1,11 @@
 import { Latex } from '@pelicin/components';
+import { LoadKatex } from '@pelicin/loaders';
+
+<LoadKatex />
 
 # Sample Article with Math
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, <Latex>x = 5</Latex>.
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, <Latex exp="x = 5"/> or <Latex>x = -5</Latex>.
 
 <Latex block>{String.raw`
   \begin{aligned}

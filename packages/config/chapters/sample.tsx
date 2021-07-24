@@ -1,6 +1,5 @@
 import React from 'react';
 import { TopicChapters } from '@pelicin/config';
-import { Latex } from '@pelicin/components';
 
 const chapters: TopicChapters = [
   {
@@ -16,7 +15,7 @@ const chapters: TopicChapters = [
     chapter: <>Feature Showcase</>,
     children: [
       {
-        title: <>With <Latex>{String.raw`\mathrm{Math}`}</Latex></>,
+        title: 'With math',
         path: '/sample/math',
       },
       {
