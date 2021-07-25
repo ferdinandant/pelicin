@@ -17,16 +17,16 @@ The behind-the-scene math on how to perform color blend can be seen in the [comp
 
 ### Blending
 
-Blending is how we mix colors. The blending function <Latex exp="B"/> determines how we get the _result color_ <Latex exp="C_{\mathrm{RES}}"/> from the _source color_ <Latex exp="C_{\mathrm{SRC}}"/> and the _background color_ <Latex exp="C_{\mathrm{BG}}"/>:
+Blending is how we mix colors. The blending function <Latex exp="B"/> determines how we get the _result color_ <Latex exp="C_r"/> from the _background/bottom color_ <Latex exp="C_b"/> and _source/top color_ <Latex exp="C_s"/>:
 
 <LatexBox>{String.raw`
-  C_{\mathrm{RES}} = B(C_{\mathrm{SRC}}, C_{\mathrm{BG}})
+  C_r = B(C_s, C_b)
 `}</LatexBox>
 
-A blending mode is _separable_ if we can calculate each RGB component of the result color separately:
+A blending mode is _separable_ if we can calculate each RGB component of the result color separately (note that we use lowercase <Latex exp="c"/> to denote a component of <Latex exp="C"/>):
 
 <LatexBox>{String.raw`
-  c_{\mathrm{RES}} = B(c_{\mathrm{SRC}}, c_{\mathrm{BG}})
+  c_r = B(c_s, c_b)
 `}</LatexBox>
 
 ### Composting
@@ -55,15 +55,162 @@ From individual RGB values, we can calculate the _saturation_ and _luminosity_ u
 
 ## Types of Blending Mode
 
-### Normal
+### `normal`
 
-#### `normal`
+Takes the top color.
 
-Just take the source (top) color.
-
-<LatexBox block>{String.raw`
-  \mathrm{Lum}(C) = 0.3 \cdot c_\mathrm{red} + 0.59 \cdot c_\mathrm{green} + 0.11 \cdot c_\mathrm{blue}
+<LatexBox>{String.raw`
+  \mathrm{Normal}(c_b, c_s) = c_s
 `}</LatexBox>
+
+### `darken`
+
+Takes the darkest color for each RGB component.
+
+<LatexBox>{String.raw`
+  \mathrm{Darken}(c_b, c_s) = \mathrm{min}(c_b, c_s)
+`}</LatexBox>
+
+### `lighten`
+
+Takes the lightest color for each RGB component.
+
+<LatexBox>{String.raw`
+  \mathrm{Lighten}(c_b, c_s) = \mathrm{max}(c_b, c_s)
+`}</LatexBox>
+
+---
+
+### `multiply`
+
+Multiplies the color value for each RGB component.
+
+- Multiplying with white results in the initial color (akin to multiplying with 1)
+- Multiplying with black results in a black color (akin to multiplying with 0)
+
+<LatexBox>{String.raw`
+  \mathrm{Multiply}(c_b, c_s) = c_b \cdot c_s
+`}</LatexBox>
+
+### `screen`
+
+Like projecting an image/light (the source color) to a screen (the background color). Mathematically, it inverts the colors, multiplies them, then inverts the result.
+
+- Screening with white results in a white color ("projecting a bright white light on any screen color results in a white color")
+- Screening with black results in the initial color ("projecting nothing to a screen results in the screen color")
+
+<LatexBox>{String.raw`
+  \mathrm{Screen}(c_b, c_s) = 1 - \lbrace (1 - c_b) (1 - c_s) \rbrace
+`}</LatexBox>
+
+### `overlay`
+
+Overlays the top color to the bottom color, preserving its hightlights and shadows. Equivalent to `hard-light`, but with the layers swapped.
+
+<LatexBox>{String.raw`
+  \mathrm{Overlay}(c_b, c_s) = \mathrm{HardLight}(c_s, c_b)
+`}</LatexBox>
+
+---
+
+### `color-dodge`
+
+Brightens the bottom color to reflect the top color.
+
+Similar to `screen`, but it's easier to create a fully lit color (the top color only needs to be as light as the inverse of the bottom color).
+
+<LatexBox>{String.raw`
+  \mathrm{ColorDodge}(c_b, c_s) = \begin{cases}
+    \mathrm{min}\left(1, \dfrac{c_b}{1-c_s}\right) &\text{if } c_s < 1 \\
+    1 &\text{if } c_s = 1
+  \end{cases}
+`}</LatexBox>
+
+### `color-burn`
+
+Darkens the backdrop color to reflect the source color.
+
+Similar to `multiply`, but it's easier to create a black color (the top color only needs to be as dark as the inverse of the bottom color).
+
+<LatexBox>{String.raw`
+  \mathrm{ColorBurn}(c_b, c_s) = \begin{cases}
+    1 - \mathrm{min}\left(1, \dfrac{1-c_b}{c_s}\right) &\text{if } c_s > 0 \\
+    0 &\text{if } c_s = 0
+  \end{cases}
+`}</LatexBox>
+
+---
+
+### `hard-light`
+
+Multiplies or screens the colors, depending on the top color value. Similar to shining a _harsh_ spotlight on the bottom color.
+
+<LatexBox>{String.raw`
+  \mathrm{HardLight}(c_b, c_s) = \begin{cases}
+    \mathrm{Multiply}(c_b, 2c_s) &\text{if } c_s \le 0.5 \\
+    \mathrm{Screen}(c_b, 2c_s - 1) &\text{if } c_s > 0.5
+  \end{cases}
+`}</LatexBox>
+
+### `soft-light`
+
+Darkens or lightens the colors, depending on the top color value. Similar to shining a _diffused_ spotlight on the bottom color.
+
+<LatexBox>{String.raw`
+  \mathrm{SoftLight}(c_b, c_s) = \begin{cases}
+    c_b - (1-2c_s)(c_b)(1-c_b) &\text{if } c_s \le 0.5 \\
+    c_b + (2c_s-1)(D(c_b)-c_b) &\text{if } c_s > 0
+  \end{cases}
+`}</LatexBox>
+
+<Latex block>{String.raw`
+  D(c_b) = \begin{cases}
+    \left(\left(16c_b - 12\right)c_b + 4\right)c_b &\text{if } c_b \le 0.25 \\
+    \sqrt{c_b} &\text{if } c_b > 0.25
+  \end{cases}
+`}</Latex>
+
+---
+
+### `difference`
+
+Substracts the darker color from the lighter color.
+
+- Painting with white inverts the bottom color
+- Painting with black produces no change
+
+<LatexBox>{String.raw`
+  \mathrm{Difference}(c_b, c_s) = |c_b - c_s|
+`}</LatexBox>
+
+### `exclusion`
+
+Like `difference`, but with less contrast.
+
+- Painting with white inverts the bottom color
+- Painting with black produces no change
+
+<LatexBox>{String.raw`
+  \mathrm{Exclusion}(c_b, c_s) = c_b + c_s - (2 \cdot c_b \cdot c_s)
+`}</LatexBox>
+
+---
+
+### `hue`
+
+Use the _hue_ (H) of the top color, and the saturation and luminosity of the bottom color.
+
+### `saturation`
+
+Use the _saturation_ (S) of the top color, and the hue and luminosity of the bottom color.
+
+### `color`
+
+Use the _hue and saturation_ (HS) of the top color, and the luminosity of the bottom color.
+
+### `luminosity`
+
+Use the _luminosity_ (L) of the top color, and the hue and saturation of the bottom color.
 
 ## References
 

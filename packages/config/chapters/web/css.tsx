@@ -294,7 +294,6 @@ const chapters: TopicChapters = [
       {
         title: 'Blend Mode',
         path: '/web/css/data-type/blend-mode',
-        badge: 'TODO'
       },
     ],
   },
