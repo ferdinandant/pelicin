@@ -179,11 +179,6 @@ const chapters: TopicChapters = [
         title: 'Clip',
         path: '/web/css/aesthetics/clip',
       },
-      {
-        title: 'Mask',
-        path: '/web/css/aesthetics/mask',
-        badge: 'TODO',
-      },
     ],
   },
   {
@@ -249,9 +244,8 @@ const chapters: TopicChapters = [
         badge: 'TODO',
       },
       {
-        title: 'The \'All\' Property',
+        title: 'All',
         path: '/web/css/others/all',
-        badge: 'TODO',
       },
     ],
   },
@@ -359,7 +353,7 @@ const chapters: TopicChapters = [
     chapter: 'Concepts',
     children: [
       {
-        title: 'Variable',
+        title: 'Variable (Custom Property)',
         path: '/web/css/concepts/variable',
       },
       {
