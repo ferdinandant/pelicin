@@ -90,7 +90,7 @@ const chapters: TopicChapters = [
     chapter: 'Others',
     children: [
       {
-        title: 'HTML entities',
+        title: 'HTML Entities',
         path: '/web/html/others/html-entities'
       },
     ]
