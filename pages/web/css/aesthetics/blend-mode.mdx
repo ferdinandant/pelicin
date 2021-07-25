@@ -1,0 +1,81 @@
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Blend Mode
+
+The `background-blend-mode` property sets how an element's `background` (i.e. `background-image`, `background-color`) should blend with each other.
+
+The `mix-blend-mode` property sets how an element's content should blend with its `background` and its parents' content.
+
+## CSS Properties
+
+### `background-blend-mode`
+
+Sets how an element's `background` should blend with each other. Note that there could be more than one "background" if you specify more than one images in `background-image`.
+
+Specify comma-separated list of [blend mode](/web/css/data-type/blend-mode), in the same order as `background-image`. (Truncation/repetition of blend mode will occur if the numbers don't match.)
+
+<WebEditor
+  html={smartTrim(`
+    <div id="background-blend-mode-example">
+      Hello!
+    </div>
+  `)}
+  css={smartTrim(`
+    /* Background credit: https://www.medyathick.com/ornek-sayfa/abstract-colors-png-transparent-image/ */
+    #background-blend-mode-example {
+      color: white;
+      display: inline-block;
+      padding: 50px 100px;
+      /* Note that the 2nd background becomes reddish, */
+      /* and the 1st background blends normally */
+      background-image: url('/res/others/abstract-colors-transparent.png'), url('/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg');
+      background-color: red;
+      background-blend-mode: normal, multiply;
+      background-size: cover;
+    }
+  `)}
+/>
+
+### `mix-blend-mode`
+
+Sets how an element's content should blend with its `background` and its parents' content ("mixes through multiple layer of elements").
+
+Specify a [blend mode](/web/css/data-type/blend-mode), e.g. `normal` or `multiply`.
+
+<WebEditor
+  html={smartTrim(`
+    <div id="mix-blend-mode-example">
+      <div class="inner">
+        The whole content blends!
+      </div>
+    </div>
+  `)}
+  css={smartTrim(`
+    #mix-blend-mode-example {
+      padding: 10px;
+      background-color: red;
+    }
+    #mix-blend-mode-example .inner {
+      padding: 10px;
+      color: yellow;
+      background-color: blue;
+      mix-blend-mode: difference;
+    }
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'background-blend-mode (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/background-blend-mode`,
+    },
+    {
+      text: 'mix-blend-mode (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode`,
+    },
+  ]}
+></References>

@@ -25,6 +25,7 @@ export { default as Icon } from './icon/Icon';
 
 // Math
 export { default as Latex } from './math/Latex';
+export { default as LatexBox } from './math/LatexBox';
 
 // Table
 export { default as FixedColumnWidthTable } from './table/FixedColumnWidthTable';

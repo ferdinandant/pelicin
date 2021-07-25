@@ -153,8 +153,7 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Blend Mode',
-        path: '/web/css/at-rules/blend-mode',
-        badge: 'TODO',
+        path: '/web/css/aesthetics/blend-mode',
       },
       {
         title: 'Box and Text Shadow',
@@ -291,6 +290,10 @@ const chapters: TopicChapters = [
       {
         title: 'Filter Function',
         path: '/web/css/data-type/filter-function',
+      },
+      {
+        title: 'Blend Mode',
+        path: '/web/css/data-type/blend-mode',
       },
     ],
   },
