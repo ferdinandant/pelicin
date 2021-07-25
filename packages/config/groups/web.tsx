@@ -18,6 +18,11 @@ const group: TopicGroup = {
           path: '/web/css',
           description: <>Reference summary from MDN and CSS-Tricks.</>,
         },
+        {
+          title: 'SVG',
+          path: '/web/svg',
+          description: <>Reference summary from MDN.</>,
+        },
       ],
     },
     {
