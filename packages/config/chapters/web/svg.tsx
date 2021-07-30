@@ -15,12 +15,11 @@ const chapters: TopicChapters = [
     children: [
       {
         title: 'Coordinate System',
-        path: '/web/concepts/coordinate-system',
+        path: '/web/svg/concepts/coordinate-system',
       },
       {
         title: 'View Box',
-        path: '/web/concepts/view-box',
-        badge: 'TODO'
+        path: '/web/svg/concepts/view-box',
       },
     ],
   },
@@ -30,22 +29,22 @@ const chapters: TopicChapters = [
     children: [
       {
         title: 'Basic Shape',
-        path: '/web/drawing/basic-shape',
+        path: '/web/svg/drawing/basic-shape',
         badge: 'TODO'
       },
       {
         title: 'Path',
-        path: '/web/drawing/path',
+        path: '/web/svg/drawing/path',
         badge: 'TODO'
       },
       {
         title: 'Text',
-        path: '/web/drawing/text',
+        path: '/web/svg/drawing/text',
         badge: 'TODO'
       },
       {
         title: 'Image',
-        path: '/web/drawing/text',
+        path: '/web/svg/drawing/text',
         badge: 'TODO'
       },
     ],
@@ -55,32 +54,32 @@ const chapters: TopicChapters = [
     children: [
       {
         title: 'Fill and Stroke',
-        path: '/web/aesthetics/fill-and-stroke',
+        path: '/web/svg/aesthetics/fill-and-stroke',
         badge: 'TODO'
       },
       {
         title: 'Gradient',
-        path: '/web/aesthetics/gradient',
+        path: '/web/svg/aesthetics/gradient',
         badge: 'TODO'
       },
       {
         title: 'Pattern',
-        path: '/web/aesthetics/gradient',
+        path: '/web/svg/aesthetics/gradient',
         badge: 'TODO'
       },
       {
         title: 'Clipping and Masking',
-        path: '/web/aesthetics/clipping-and-masking',
+        path: '/web/svg/aesthetics/clipping-and-masking',
         badge: 'TODO'
       },
       {
         title: 'Transformation',
-        path: '/web/aesthetics/transformation',
+        path: '/web/svg/aesthetics/transformation',
         badge: 'TODO'
       },
       {
         title: 'Filter',
-        path: '/web/aesthetics/filter',
+        path: '/web/svg/aesthetics/filter',
         badge: 'TODO'
       },
     ],
@@ -90,7 +89,7 @@ const chapters: TopicChapters = [
     children: [
       {
         title: 'Grouping',
-        path: '/web/others/grouping',
+        path: '/web/svg/others/grouping',
         badge: 'TODO'
       },
     ],

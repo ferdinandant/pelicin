@@ -1,0 +1,42 @@
+import { References, NoteBox, WebEditor, Image, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# View Box
+
+<NoteBox type="info">
+  You can use the <Code str="viewBox" /> attribute on these elements: <Code str="<svg>" />,{' '}
+  <Code str="<marker>" />
+  , <Code str="<pattern>" />, <Code str="<symbol>" />, <Code str="<view>" />
+</NoteBox>
+
+The `viewBox` attribute defines the _position_ (x, y) and _dimension_ (width, height) of an SVG viewport.
+
+Specify 4 numbers of `min-x`, `min-y`, `width`, and `height`.
+
+- `min-x` and `min-y` can be negative.
+- Negative or zero of `width` or `height` disables rendering of an element.
+
+<WebEditor
+  html={smartTrim(`
+    <!-- Only see the top-left portion of the SVG -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+      width="100"
+      height="100"
+    >
+      <circle cx="100" cy="100" r="50" fill="red"/>
+    </svg>
+`)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Positions (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox`,
+    },
+  ]}
+></References>
