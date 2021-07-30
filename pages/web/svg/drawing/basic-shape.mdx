@@ -1,0 +1,80 @@
+import { References, WebEditor, DocumentationList, Code, Link } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Basic Shape
+
+Let's learn how to draw basic shapes.
+
+## SVG attributes
+
+### `pathLength`
+
+Changes how the path length is computed. Instead of using the actual computed length, force the computer to use this number.
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <style>
+        #path-length-example {
+          stroke-width: 5;
+          stroke-dasharray: 10;
+          fill: yellow;
+          stroke: blue;
+        }
+      </style>
+      <!-- stroke-dasharray length is 10 -->
+      <!-- with path length of 60, you will have 6 segments -->
+      <!-- (dashed, empty, dashed, empty, dashed, empty) -->
+      <circle id="path-length-example" cx="50" cy="50" r="40" pathLength="60" />
+    </svg>
+  `)}
+/>
+
+## SVG elements
+
+### `<circle>`
+
+<DocumentationList
+  items={[
+    {
+      name: 'cx',
+      description: <>center x</>,
+    },
+    {
+      name: 'cy',
+      description: <>center y</>,
+    },
+    {
+      name: 'r',
+      description: <>radius</>,
+    },
+    {
+      name: 'pathLength',
+      description: (
+        <>
+          when drawing the stroke, assume the circumference of the circle is this number (this won't
+          change the size of the circle)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <circle cx="50" cy="50" r="50" fill="red"/>
+    </svg>
+`)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Positions (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox`,
+    },
+  ]}
+></References>
