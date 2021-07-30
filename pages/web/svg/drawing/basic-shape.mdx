@@ -1,0 +1,302 @@
+import { References, WebEditor, DocumentationList, Code, Link } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Basic Shape
+
+Let's learn how to draw basic shapes.
+
+## SVG attributes
+
+### `pathLength`
+
+Changes how the path length is computed. Instead of using the actual computed length, force the computer to use this number.
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <style>
+        #path-length-example {
+          stroke-width: 5;
+          stroke-dasharray: 10;
+          fill: yellow;
+          stroke: blue;
+        }
+      </style>
+      <!-- stroke-dasharray length is 10 -->
+      <!-- with path length of 60, you will have 6 segments -->
+      <!-- (dashed, empty, dashed, empty, dashed, empty) -->
+      <circle id="path-length-example" cx="50" cy="50" r="40" pathLength="60" />
+    </svg>
+  `)}
+/>
+
+## SVG elements
+
+### `<circle>`
+
+<DocumentationList
+  items={[
+    {
+      name: 'cx',
+      description: <>center x (specify length or percentage)</>,
+    },
+    {
+      name: 'cy',
+      description: <>center y (specify length or percentage)</>,
+    },
+    {
+      name: 'r',
+      description: <>radius (specify length or percentage)</>,
+    },
+    {
+      name: 'pathLength',
+      description: (
+        <>
+          when drawing the stroke, assume the circumference of the circle is this number (this won't
+          change the size of the circle)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <circle cx="50" cy="50" r="50" fill="red" />
+    </svg>
+  `)}
+/>
+
+### `<ellipse>`
+
+<DocumentationList
+  items={[
+    {
+      name: 'cx',
+      description: <>center x (specify length or percentage)</>,
+    },
+    {
+      name: 'cy',
+      description: <>center y (specify length or percentage)</>,
+    },
+    {
+      name: 'rx',
+      description: <>radius in the x-axis (specify length or percentage)</>,
+    },
+    {
+      name: 'rx',
+      description: <>radius in the y-axis (specify length or percentage)</>,
+    },
+    {
+      name: 'pathLength',
+      description: (
+        <>
+          when drawing the stroke, assume the circumference of the ellipse is this number (this
+          won't change the size of the ellipse)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <ellipse cx="50" cy="50" rx="40" ry="20" fill="orange" />
+    </svg>
+  `)}
+/>
+
+### `<rect>`
+
+<DocumentationList
+  items={[
+    {
+      name: 'x',
+      description: <>top-left x coordinate (specify length or percentage)</>,
+    },
+    {
+      name: 'y',
+      description: <>top-left x coordinate (specify length or percentage)</>,
+    },
+    {
+      name: 'width',
+      description: <>width (specify length or percentage)</>,
+    },
+    {
+      name: 'height',
+      description: <>height (specify length or percentage)</>,
+    },
+    {
+      name: 'rx',
+      description: (
+        <>
+          horizontal corner radius of the rectangle (specify length or percentage, takes the value
+          of <Code str="ry" /> if it's specified)
+        </>
+      ),
+    },
+    {
+      name: 'ry',
+      description: (
+        <>
+          horizontal corner radius of the rectangle (specify length or percentage, takes the value
+          of <Code str="rx" /> if it's specified)
+        </>
+      ),
+    },
+    {
+      name: 'pathLength',
+      description: (
+        <>
+          when drawing the stroke, assume the perimeter of the rectangle is this number (this won't
+          change the size of the rectangle)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <rect x="10" y="20" width="80" height="60" rx="10" fill="green" />
+    </svg>
+  `)}
+/>
+
+### `<polygon>`
+
+<DocumentationList
+  items={[
+    {
+      name: 'points',
+      description: (
+        <>
+          space-separated <Code str="x,y" /> coordinates of the polygon (only accepts numbers for
+          both x and y)
+        </>
+      ),
+    },
+    {
+      name: 'pathLength',
+      description: (
+        <>
+          when drawing the stroke, assume the perimeter of the polygon is this number (this won't
+          change the size of the polygon)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <polygon points="50,0 100,100 0,100" fill="blue" />
+    </svg>
+  `)}
+/>
+
+---
+
+### `<line>`
+
+<DocumentationList
+  items={[
+    {
+      name: 'x1',
+      description: <>starting x coordinate (specify length or percentage)</>,
+    },
+    {
+      name: 'y1',
+      description: <>starting y coordinate (specify length or percentage)</>,
+    },
+    {
+      name: 'x2',
+      description: <>ending x coordinate (specify length or percentage)</>,
+    },
+    {
+      name: 'y2',
+      description: <>ending y coordinate (specify length or percentage)</>,
+    },
+    {
+      name: 'pathLength',
+      description: <>when drawing the stroke, assume the length of the line is this number</>,
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <line x1="0" y1="0" x2="100" y2="100" stroke="purple"  stroke-width="5" />
+    </svg>
+  `)}
+/>
+
+### `<polyline>`
+
+Creates an open shape (unlike `<polygon>`).
+
+<DocumentationList
+  items={[
+    {
+      name: 'points',
+      description: (
+        <>
+          space-separated <Code str="x,y" /> coordinates of the polyline (only accepts numbers for
+          both x and y)
+        </>
+      ),
+    },
+    {
+      name: 'pathLength',
+      description: <>when drawing the stroke, assume the length of the polyline is this number</>,
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <polyline points="0,100, 50,0 50,100, 100,0" fill="gray" stroke="black" stroke-width="5" />
+    </svg>
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'pathLength (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/pathLength`,
+    },
+    {
+      text: '<circle> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle`,
+    },
+    {
+      text: '<ellipse> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/ellipse`,
+    },
+    {
+      text: '<rect> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect`,
+    },
+    {
+      text: '<polygon> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polygon`,
+    },
+    {
+      text: '<line> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line`,
+    },
+    {
+      text: '<polyline> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polyline`,
+    },
+  ]}
+></References>
