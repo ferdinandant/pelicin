@@ -101,8 +101,6 @@ export default function TopBar(props: Props) {
           align-items: center;
           color: var(--color-gray-0);
           background-image: linear-gradient(45deg, ${mainColor}, ${accentColor});
-          background-blend-mode: multiply;
-          box-shadow: 0 0 4px var(--color-gray-9);
           z-index: 999;
         }
 

@@ -27,6 +27,12 @@ const map: Record<string, CoreTopicConfig> = {
     mainColor: '#563d7c',
     accentColor: '#9f4a84',
   },
+  '/web/svg': {
+    topicKey: 'web/svg',
+    topicTitle: 'SVG',
+    mainColor: '#ff9900',
+    accentColor: '#ff675b',
+  },
   '/web/http': {
     topicKey: 'web/http',
     topicTitle: 'HTTP',
