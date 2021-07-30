@@ -30,7 +30,6 @@ const chapters: TopicChapters = [
       {
         title: 'Basic Shape',
         path: '/web/svg/drawing/basic-shape',
-        badge: 'TODO'
       },
       {
         title: 'Path',
