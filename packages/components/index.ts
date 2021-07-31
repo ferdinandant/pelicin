@@ -1,6 +1,7 @@
 // Article
 export { default as Heading } from './article/Heading';
 export { default as References } from './article/References';
+export { default as Asterisk } from './article/Asterisk';
 export { default as Image } from './article/Image';
 export { default as Code } from './article/Code';
 export { default as Link } from './article/Link';

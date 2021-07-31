@@ -1,0 +1,517 @@
+import {
+  References,
+  WebEditor,
+  DocumentationList,
+  Code,
+  Latex,
+  Image,
+  Asterisk,
+} from '@pelicin/components';
+import { LoadKatex } from '@pelicin/loaders';
+import { smartTrim } from '@pelicin/utils';
+
+<LoadKatex />
+
+# Path
+
+The `<path>` element is the generic element to define a shape. All basic shapes (including curves and arcs) can be created using `<path>`.
+
+## SVG elements
+
+### `<path>`
+
+<DocumentationList
+  items={[
+    {
+      name: 'd',
+      description: <>defines the shape/coordinates of the path (see path commands below)</>,
+    },
+    {
+      name: 'pathLength',
+      description: (
+        <>
+          when drawing the stroke, assume the the total length of the path is this number instead of
+          the actual length (e.g. for use with <Code str="stroke-dasharray" />)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <path fill="hotpink" d="
+        M 10,30
+        A 20,20 0,0,1 50,30
+        A 20,20 0,0,1 90,30
+        Q 90,60 50,90
+        Q 10,60 10,30
+        z
+      " />
+    </svg>
+  `)}
+/>
+
+## Path commands
+
+For the `d` attribute, you define the drawn path using these commands.
+
+Note that _all commands are case-sensitive_:
+
+- uppercase command (e.g. `M`) means _absolute coordinate_
+- lowercase command (e.g. `m`) means _relative coordinate_ (relative to the last point)
+
+### Move-to (M)
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: (
+        <>
+          <code>
+            M <var>x</var>,<var>y</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          move the current point to <Latex exp="(x, y)" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            m <var>dx</var>,<var>dy</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          if the current point is <Latex exp="(x_0, y_0)" />, move the current point to{' '}
+          <Latex exp="(x_0 + dx, y_0 + dy)" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <path stroke="black" stroke-width="5" d="
+        M 0,10 H 100
+        M 0,50 H 100
+        M 0,90 H 100
+      " />
+    </svg>
+  `)}
+/>
+
+### Line-to (L, H, V)
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: (
+        <>
+          <code>
+            L <var>x</var>,<var>y</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a line from the current point <Latex exp="(x_0, y_0)" /> to <Latex exp="(x, y)" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            l <var>dx</var>,<var>dy</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a line from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x_0 + dx, y_0 + dy)" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            H <var>x</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a horizontal line from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x, y_0)" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            h <var>dx</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a horizontal line from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x_0 + dx, y_0)" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            V <var>y</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a vertical line from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x_0, y)" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            v <var>dy</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a vertical line from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x_0, y_0 + dy)" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+### Cubic Bézier curve (C, S)
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: (
+        <>
+          <code>
+            C <var>x1</var>,<var>y1</var> <var>x2</var>,<var>y2</var> <var>x</var>,<var>y</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a Bézier curve from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x, y)" />, using <Latex exp="(x_1, y_1)" /> as the start control point and{' '}
+          <Latex exp="(x_2, y_2)" /> as the end control point
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            c <var>dx1</var>,<var>dy1</var> <var>dx2</var>,<var>dy2</var> <var>dx</var>,
+            <var>dy</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a Bézier curve from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x_0 + dx, y_0 + dy)" />, using <Latex exp="(x_0 + dx_1, y_0 + dy_1)" /> as
+          the start control point and <Latex exp="(x_0 + dx_2, y_0 + dy_2)" /> as the end control
+          point{' '}
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            S <var>x2</var>,<var>y2</var> <var>x</var>,<var>y</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a smooth Bézier curve from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x, y)" />, using <i>reflection</i> of the end control point of the previous
+          curve command as the start control point and <Latex exp="(x_2, y_2)" /> as the end control
+          point
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            s <var>dx2</var>,<var>dy2</var> <var>dx</var>,<var>dy</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a smooth Bézier curve from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x_0 + dx, y_0 + dy)" />, using <i>reflection</i> of the end control point of
+          the previous curve command as the start control point and{' '}
+          <Latex exp="(x_0 + dx_2, y_0 + dy_2)" /> as the end control point
+        </>
+      ),
+    },
+  ]}
+/>
+
+<Image
+  path="/res/web/svg/bezier-cubic.gif"
+  caption={
+    <>
+      Illustration of a Cubic Bézier curve and its control points <Latex exp="P_1" /> and{' '}
+      <Latex exp="P_2" />
+    </>
+  }
+  sourceString="Wikipedia"
+/>
+
+### Quadratic Bézier curve (Q, T)
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: (
+        <>
+          <code>
+            Q <var>x1</var>,<var>y1</var> <var>x</var>,<var>y</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a Bézier curve from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x, y)" />, using <Latex exp="(x_1, y_1)" /> as the control point
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            q <var>dx1</var>,<var>dy1</var> <var>dx</var>,<var>dy</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a Bézier curve from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x_0 + dx, y_0 + dy)" />, using <Latex exp="(x_0 + dx_1, y_0 + dy_1)" /> as
+          the control point
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            T <var>x</var>,<var>y</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a smooth Bézier curve from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x, y)" />, using <i>reflection</i> of the control point of the previous curve
+          command as the control point
+        </>
+      ),
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            t <var>dx</var>,<var>dy</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw a smooth Bézier curve from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x_0 + dx, y_0 + dy)" />, using <i>reflection</i> of the control point of the
+          previous curve command as the control point
+        </>
+      ),
+    },
+  ]}
+/>
+
+<Image
+  path="/res/web/svg/bezier-quadratic.gif"
+  caption={
+    <>
+      Illustration of a Cubic Bézier curve and its control point <Latex exp="P_1" />
+    </>
+  }
+  sourceString="Wikipedia"
+/>
+
+### Elliptical arc curve (A)
+
+Note that for any given two points <Latex exp="(x_0, y_0)" /> and <Latex exp="(x_1, y_1)" />, generally, there are 2 possible ellipses with radii <Latex exp="r_x" /> and <Latex exp="r_y" /> and rotation <Latex exp="\theta" /> that can be drawn that passes through those points.<Asterisk str="*" />
+
+Each ellipse has 2 possible arcs that can be drawn (the "large" and the "small" arc), giving us a total of 4 arcs to choose from.
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: (
+        <>
+          <code>
+            A <var>rx</var> <var>ry</var> <var>angle</var> <var>large-arc-flag</var>{' '}
+            <var>sweep-flag</var> <var>x</var> <var>y</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw an arc of an ellipse from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x, y)" />, given:
+        </>
+      ),
+      subitems: [
+        {
+          name: 'rx',
+          description: 'the radius of the ellipse in the x-axis',
+        },
+        {
+          name: 'ry',
+          description: 'the radius of the ellipse in the y-axis',
+        },
+        {
+          name: 'angle',
+          description: 'rotation of the ellipse relative to the x-axis',
+        },
+        {
+          name: 'large-arc-flag',
+          description: (
+            <>
+              set <Code str="1" /> to choose the "large" arc, or <Code str="0" /> to choose the
+              "small" arc
+            </>
+          ),
+        },
+        {
+          name: 'sweep-flag',
+          description: (
+            <>
+              set <Code str="1" /> to choose the "clockwise" arc when moving from the start point to
+              the end point, or <Code str="0" /> to choose the "counter-clockwise" arc
+            </>
+          ),
+        },
+      ],
+    },
+    {
+      nameSpecial: (
+        <>
+          <code>
+            A <var>rx</var> <var>ry</var> <var>angle</var> <var>large-arc-flag</var>{' '}
+            <var>sweep-flag</var> <var>dx</var> <var>dy</var>
+          </code>
+        </>
+      ),
+      description: (
+        <>
+          draw an arc of an ellipse from the current point <Latex exp="(x_0, y_0)" /> to{' '}
+          <Latex exp="(x_0 + dx, y_0 + dy)" />, given the same parameters as above
+        </>
+      ),
+    },
+  ]}
+/>
+
+<Image
+  path="/res/web/svg/path-arc.png"
+  caption={
+    <>
+      Illustration of the two possible ellipses that passes through the given 2 points (given the
+      ellipse parameters), and how <Code str="large-arc-flag" /> and <Code str="sweep-flag" />{' '}
+      selects which arc to be drawn.
+    </>
+  }
+  sourceString="W3"
+/>
+
+<Asterisk
+  str="*"
+  explanation={
+    <>
+      If the ellipse's radii is not "big enough" to reach the two points, the ellipse's radii will
+      be "minimally enlarged" to reach the two points (MDN).
+    </>
+  }
+/>
+
+### Close path (Z)
+
+<DocumentationList
+  items={[
+    {
+      nameSpecial: (
+        <>
+          <Code str="Z" /> or <Code str="z" />
+        </>
+      ),
+      description: (
+        <>
+          Close the path by connecting the last point of the path with its initial point. (If the
+          two points are at different coordinates, a straight line is drawn between them.)
+        </>
+      ),
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: '<path> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path`,
+    },
+    {
+      text: 'Paths (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths`,
+    },
+    {
+      text: 'd (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d`,
+    },
+    {
+      text: 'Bézier curve (Wikipedia)',
+      link: `https://en.wikipedia.org/wiki/B%C3%A9zier_curve`,
+    },
+    {
+      text: 'Chapter 9: Paths » The elliptical arc curve commands (W3)',
+      link: `https://www.w3.org/TR/SVG/paths.html`,
+    },
+  ]}
+></References>
