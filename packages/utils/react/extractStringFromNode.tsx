@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
 export default function extractStringFromNode(node: string | ReactNode): string | null {
-  if (node === null) {
+  if (node === null || node === undefined) {
     return null;
   }
   if (typeof node === 'string' || typeof node === 'number') {
@@ -10,8 +10,8 @@ export default function extractStringFromNode(node: string | ReactNode): string 
   if (Array.isArray(node)) {
     return node.map((childNode) => extractStringFromNode(childNode)).join('');
   }
-
   const { props } = node as React.Component<any, any>;
-  const { children, str } = props;
-  return extractStringFromNode(children !== undefined ? children : str);
+  const { children, str, exp } = props;
+  const fallbackString = str || exp || '';
+  return extractStringFromNode(children !== undefined ? children : fallbackString);
 }
