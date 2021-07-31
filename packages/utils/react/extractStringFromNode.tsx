@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
 export default function extractStringFromNode(node: string | ReactNode): string | null {
-  if (node === null || node === undefined) {
+  if (node === null) {
     return null;
   }
   if (typeof node === 'string' || typeof node === 'number') {
