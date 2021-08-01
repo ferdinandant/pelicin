@@ -105,17 +105,164 @@ You would declare gradients inside the `<defs>` element, and you must give the g
 
 ### `radialGradient`
 
+<DocumentationList
+  items={[
+    {
+      name: 'cx',
+      description: (
+        <>
+          x coordinate of the end circle's center (default is <Code str="50%" />)
+        </>
+      ),
+    },
+    {
+      name: 'cy',
+      description: (
+        <>
+          y coordinate of the end circle's center (default is <Code str="50%" />)
+        </>
+      ),
+    },
+    {
+      name: 'r',
+      description: (
+        <>
+          radius of the end circle (default is <Code str="50%" />)
+        </>
+      ),
+    },
+    {
+      name: 'fx',
+      description: (
+        <>
+          x coordinate of the start circle's center (default is the same as <Code str="cx" />)
+        </>
+      ),
+    },
+    {
+      name: 'fy',
+      description: (
+        <>
+          y coordinate of the start circle's center (default is the same as <Code str="cy" />)
+        </>
+      ),
+    },
+    {
+      name: 'fr',
+      description: (
+        <>
+          radius of the start circle (default is <Code str="0%" />)
+        </>
+      ),
+    },
+    {
+      name: 'href',
+      description: (
+        <>
+          reference to another <Code str="<linearGradient>" /> that will be used as a template
+        </>
+      ),
+    },
+    {
+      name: 'gradientUnits',
+      description: (
+        <>
+          defines the coordinate system for attributes <Code str="x1" />, <Code str="y1" />,{' '}
+          <Code str="x2" />, <Code str="y2" />: specify <Code str="userSpaceOnUse" /> (use the
+          viewport coordinate) or <Code str="objectBoundingBox" /> (use the bounding box of the
+          element that references this gradient)
+        </>
+      ),
+    },
+    {
+      name: 'spreadMethod',
+      description: (
+        <>
+          defines how the shape is filled beyond the defined edges of the gradient; specify{' '}
+          <Code str="pad" /> (just use the edge color, default), <Code str="reflect" />, or{' '}
+          <Code str="repeat" />
+        </>
+      ),
+    },
+    {
+      name: 'gradientTransform',
+      description: (
+        <>
+          space-separated{' '}
+          <Link link="/web/css/data-type/transform-function" str="CSS transform functions" />, e.g.{' '}
+          <Code str="skewX(20) translate(-35, 0)" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <!-- gradient definition -->
+      <defs>
+        <radialGradient fx="50%" fy="10%" spreadMethod="repeat" id="gradient2">
+          <stop offset="0%"  stop-color="aqua" />
+          <stop offset="100%" stop-color="blue" />
+        </radialGradient>
+      </defs>
+      <!-- test rectangle -->
+      <rect x="10" y="10" width="80" height="80" rx="10" fill="url(#gradient2)" />
+    </svg>
+  `)}
+/>
+
 ## Stop SVG element
 
 ### `stop`
+
+Represents a color stop in a gradient vector.
+
+<DocumentationList
+  items={[
+    {
+      name: 'offset',
+      description: (
+        <>
+          where the stop is; specify a number like <Code str="0.5" /> or <Code str="50%" />
+        </>
+      ),
+    },
+    {
+      name: 'stop-color',
+      description: (
+        <>
+          color of the stop, e.g. <Code str="#ff0000" />
+        </>
+      ),
+    },
+    {
+      name: 'stop-opacity',
+      description: (
+        <>
+          opacity of the stop, e.g. <Code str="1" />
+        </>
+      ),
+    },
+  ]}
+/>
 
 ## References
 
 <References
   references={[
     {
+      text: 'Gradients in SVG (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Gradients`,
+    },
+    {
       text: '<linearGradient> (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/linearGradient`,
+    },
+    {
+      text: '<radialGradient> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/radialGradient`,
     },
     {
       text: 'gradientUnits (MDN)',
@@ -128,6 +275,10 @@ You would declare gradients inside the `<defs>` element, and you must give the g
     {
       text: 'gradientTransform (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/gradientTransform`,
+    },
+    {
+      text: '<stop> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/stop`,
     },
   ]}
 ></References>
