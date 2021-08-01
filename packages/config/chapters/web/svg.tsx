@@ -50,7 +50,6 @@ const chapters: TopicChapters = [
       {
         title: 'Fill and Stroke',
         path: '/web/svg/aesthetics/fill-and-stroke',
-        badge: 'TODO'
       },
       {
         title: 'Gradient',

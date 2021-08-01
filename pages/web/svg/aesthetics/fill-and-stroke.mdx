@@ -1,0 +1,130 @@
+import { References, WebEditor, DocumentationList, Code, Asterisk } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Fill and Stroke
+
+The `fill` and `stroke` attribute lets you color shapes.
+
+## Fill SVG attributes
+
+### `fill`
+
+Sets the interior color of an object. Specify:
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: <>transparent fill</>,
+    },
+    {
+      nameSpecial: 'a color',
+      description: (
+        <>
+          e.g. <Code str="red" />, <Code str="#ff0000" />, <Code str="rgba(255,0,0,1)" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a URL',
+      description: (
+        <>
+          e.g. <Code str="url(#my-gradient)" />,
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `fill-opacity`
+
+Sets the fill opacity. Specify something like `0.5` or `50%`.
+
+### `fill-rule`
+
+Specify how to decide the "inside part" of the shape.
+
+<DocumentationList
+  items={[
+    {
+      name: 'nonzero',
+      description: (
+        <>
+          color anything "inside" the shape
+          <Asterisk str="*" />
+        </>
+      ),
+    },
+    {
+      name: 'evenodd',
+      description: (
+        <>
+          color anything "inside" the shape; but parts of the shape that are crossed even number of
+          times by the path are considered "outside" (it's "cancelled out")
+          <Asterisk str="**" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 200 120"
+      width="200"
+      height="120"
+    >
+      <!-- Nonzero -->
+      <path fill="orange" stroke="black" stroke-width="2"
+        d="M 20,90 L 50,10 L 80,90 L 10,40 L 90,40 z" />
+      <text x="50" y="120" text-anchor="middle" font-size="15">
+        nonzero
+      </text>
+      <!-- Even-odd -->
+      <path fill="red" stroke="black" stroke-width="2" fill-rule="evenodd"
+        d="M 120,90 L 150,10 L 180,90 L 110,40 L 190,40 z" />
+      <text x="150" y="120" text-anchor="middle" font-size="15">
+        evenodd
+      </text>
+    </svg>
+  `)}
+/>
+
+<Asterisk str="*">
+  Mathematically, you test the "insideness" of a point in the shape by drawing a ray from that point
+  to infinity in any direction, then counting how many segments of the path crosses the ray. By{' '}
+  <Code str="nonzero" /> rule, if there is at least one path segment crossing the ray, it's
+  considered "inside", otherwise it's considered "outside"
+</Asterisk>
+
+<Asterisk str="**">
+  Similar as above. With <Code str="evenodd" /> rule, if there is an odd amount of path segments
+  crossing the ray, it's considered "inside", otherwise it's considered "outside"{' '}
+</Asterisk>
+
+## Stroke SVG attributes
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Fills and Strokes (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes`,
+    },
+    {
+      text: 'fill (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill`,
+    },
+    {
+      text: 'Chapter 13: Painting: Filling, Stroking and Marker Symbols » Fill properties (SVGWG)',
+      link: `https://svgwg.org/svg2-draft/painting.html#FillProperty`,
+    },
+    {
+      text: 'fill-rule (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule`,
+    },
+  ]}
+></References>
