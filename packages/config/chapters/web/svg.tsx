@@ -54,11 +54,10 @@ const chapters: TopicChapters = [
       {
         title: 'Gradient',
         path: '/web/svg/aesthetics/gradient',
-        badge: 'TODO'
       },
       {
         title: 'Pattern',
-        path: '/web/svg/aesthetics/gradient',
+        path: '/web/svg/aesthetics/pattern',
         badge: 'TODO'
       },
       {

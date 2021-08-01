@@ -1,0 +1,133 @@
+import { References, WebEditor, DocumentationList, Link, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Gradient
+
+There are two types of gradient in SVG: linear and radial gradient.
+
+You would declare gradients inside the `<defs>` element, and you must give the gradient an `id` attribute so you can reference it.
+
+## Gradient SVG elements
+
+### `linearGradient`
+
+<DocumentationList
+  items={[
+    {
+      name: 'x1',
+      description: (
+        <>
+          start x coordinate (default is <Code str="0%" />)
+        </>
+      ),
+    },
+    {
+      name: 'y1',
+      description: (
+        <>
+          start y coordinate (default is <Code str="100%" />)
+        </>
+      ),
+    },
+    {
+      name: 'x2',
+      description: (
+        <>
+          end x coordinate (default is <Code str="0%" />)
+        </>
+      ),
+    },
+    {
+      name: 'y2',
+      description: (
+        <>
+          end y coordinate (default is <Code str="0%" />)
+        </>
+      ),
+    },
+    {
+      name: 'href',
+      description: (
+        <>
+          reference to another <Code str="<linearGradient>" /> that will be used as a template
+        </>
+      ),
+    },
+    {
+      name: 'gradientUnits',
+      description: (
+        <>
+          defines the coordinate system for attributes <Code str="x1" />, <Code str="y1" />,{' '}
+          <Code str="x2" />, <Code str="y2" />: specify <Code str="userSpaceOnUse" /> (use the
+          viewport coordinate) or <Code str="objectBoundingBox" /> (use the bounding box of the
+          element that references this gradient)
+        </>
+      ),
+    },
+    {
+      name: 'spreadMethod',
+      description: (
+        <>
+          defines how the shape is filled beyond the defined edges of the gradient; specify{' '}
+          <Code str="pad" /> (just use the edge color, default), <Code str="reflect" />, or{' '}
+          <Code str="repeat" />
+        </>
+      ),
+    },
+    {
+      name: 'gradientTransform',
+      description: (
+        <>
+          space-separated{' '}
+          <Link link="/web/css/data-type/transform-function" str="CSS transform functions" />, e.g.{' '}
+          <Code str="skewX(20) translate(-35, 0)" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <!-- gradient definition -->
+      <defs>
+        <linearGradient id="gradient1">
+          <stop offset="10%"  stop-color="gold" />
+          <stop offset="95%" stop-color="red" />
+        </linearGradient>
+      </defs>
+      <!-- test rectangle -->
+      <rect x="10" y="10" width="80" height="80" rx="10" fill="url(#gradient1)" />
+    </svg>
+  `)}
+/>
+
+### `radialGradient`
+
+## Stop SVG element
+
+### `stop`
+
+## References
+
+<References
+  references={[
+    {
+      text: '<linearGradient> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/linearGradient`,
+    },
+    {
+      text: 'gradientUnits (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/gradientUnits`,
+    },
+    {
+      text: 'spreadMethod (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/spreadMethod`,
+    },
+    {
+      text: 'gradientTransform (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/gradientTransform`,
+    },
+  ]}
+></References>
