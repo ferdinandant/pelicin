@@ -4,11 +4,9 @@ type CoreTopicConfig = Omit<TopicConfig, 'basePath'>;
 
 /**
  * Maps `basePath` (e.g. '/web/html') to topic config
- *
- * `topicKey` refers to the path inside 'chapters'
- *
- * `mainColor` is picked from https://github.com/ozh/github-colors
- * `accentColor` is picked from https://mycolor.space/?hex=%23563D7C&sub=1
+ * - `topicKey` refers to the path inside 'chapters'
+ * - `mainColor` is picked from https://github.com/ozh/github-colors
+ * - `accentColor` is picked from https://mycolor.space/?hex=%23563D7C&sub=1
  */
 const map: Record<string, CoreTopicConfig> = {
   // --------------------------------------------------------------------------------
@@ -36,8 +34,8 @@ const map: Record<string, CoreTopicConfig> = {
   '/web/http': {
     topicKey: 'web/http',
     topicTitle: 'HTTP',
-    mainColor: '#3e4c59',
-    accentColor: '#3e4c59',
+    mainColor: '#005c9c',
+    accentColor: '#0084b8',
   },
 
   // --------------------------------------------------------------------------------
@@ -53,8 +51,8 @@ const map: Record<string, CoreTopicConfig> = {
   '/': {
     topicKey: 'default',
     topicTitle: '',
-    mainColor: '#3e4c59',
-    accentColor: '#3e4c59',
+    mainColor: '#6f7788',
+    accentColor: '#6f7788',
   },
 };
 
