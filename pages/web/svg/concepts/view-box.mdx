@@ -39,9 +39,12 @@ Specify 4 numbers representing `min-x`, `min-y`, `width`, and `height`.
 
 Indicates how an element with a `viewBox` (or an `<image>` element) with a given aspect ratio must fit into a viewport with a different aspect ratio.
 
-Specify `none` (just squeeze/stretch the content to fit the viewport), or an "alignment" and optionally a `meet` or `slice` value (e.g. `xMidYMid meet`).
+Specify `none` (just squeeze/stretch the content to fit the viewport), or an "alignment" and optionally a `meet` or `slice` value (this will preserve the aspect ratio).
 
-- An "alignment" value is in the form of `x(Min|Mid|Max)Y(Min|Mid|Max)`, e.g. `xMidYMid`. Specifying the alignment value tells the browser to preserve the aspect ratio, and how to align the element's `viewBox` with the viewport.
+- An "alignment" value is in the form of `x(Min|Mid|Max)Y(Min|Mid|Max)`:
+  - `Min` means align the top/left
+  - `Mid` means align the center
+  - `Max` means align the bottom/right
 - `meet` (default) means the entire `viewBox` must be contained in the viewport ("contain").
 - `slice` means the `viewBox` must cover the entire viewport ("cover").
 

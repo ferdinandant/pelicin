@@ -23,7 +23,6 @@ const chapters: TopicChapters = [
       },
     ],
   },
-  { '@separator': 'SVG Elements' },
   {
     chapter: 'Drawing',
     children: [
