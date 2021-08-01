@@ -37,7 +37,6 @@ const chapters: TopicChapters = [
       {
         title: 'Text',
         path: '/web/svg/drawing/text',
-        badge: 'TODO'
       },
       {
         title: 'Image',

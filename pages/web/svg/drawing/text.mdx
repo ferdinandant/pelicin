@@ -1,0 +1,111 @@
+import { References, WebEditor, DocumentationList, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Text
+
+This page explains how to insert texts in SVG.
+
+## SVG attributes
+
+### `font-family`
+
+A prioritized list of what font family to use, e.g. `Arial, Helvetica, sans-serif`.
+
+### `font-size`
+
+Constrols size of text (from baseline to baseline), e.g. `10` or `2em`.
+
+### `font-style`
+
+Specify `normal`, `italic`, or `oblique`.
+
+### `font-weight`
+
+Sets the font weight (boldness). Specify `normal`, `bold`, `lighter` (one relative weight lighter), `bolder` (one relative weight bolder), or a number between 1&ndash;1000 like `400` or `700`.
+
+### `font-variant`
+
+Indicates which glyph variants to use (separated by space), e.g. `small-caps` or `common-ligatures small-caps`. See [CSS font-variant](https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant#values) for the complete list.
+
+## SVG elements
+
+### `<text>`
+
+<DocumentationList
+  items={[
+    {
+      name: 'x',
+      description: <>x coordinate of the starting point of the baseline</>,
+    },
+    {
+      name: 'y',
+      description: <>y coordinate of the starting point of the baseline</>,
+    },
+    {
+      name: 'dx',
+      description: <>from the starting point of the baseline, shifts the text in the x-axis</>,
+    },
+    {
+      name: 'dy',
+      description: <>from the starting point of the baseline, shifts the text in the y-axis</>,
+    },
+    {
+      name: 'rotate',
+      description: (
+        <>
+          rotate each individual glyph (separate with comma to specify different rotation for each
+          glyph)
+        </>
+      ),
+    },
+    {
+      name: 'textLength',
+      description: <>width of the "text box" (controls letter spacing)</>,
+    },
+    {
+      name: 'lengthAdjust',
+      description: (
+        <>
+          controls how the text should fill the width of the "text box"; specify{' '}
+          <Code str="spacing" /> or <Code str="spacingAndGlyphs" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" width="300" height="100">
+      <text x="0" y="50" font-size="50" font-family="sans-serif" fill="orange">
+        Hello,
+      </text>
+      <text x="30" y="85" font-size="60" rotate="-30" textLength="280" lengthAdjust="spacingAndGlyphs" font-family="serif" fill="red" font-style="italic" font-weight="700">
+        Everyone!
+      </text>
+    </svg>
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'font-family (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-family`,
+    },
+    {
+      text: 'font-size (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-size`,
+    },
+    {
+      text: '<text> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text`,
+    },
+    {
+      text: 'lengthAdjust (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/lengthAdjust`,
+    },
+  ]}
+></References>
