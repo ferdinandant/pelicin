@@ -1,4 +1,11 @@
-import { References, WebEditor, DocumentationList, Code, Asterisk } from '@pelicin/components';
+import {
+  References,
+  WebEditor,
+  DocumentationList,
+  Code,
+  Asterisk,
+  Image,
+} from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Fill and Stroke
@@ -106,6 +113,115 @@ Specify how to decide the "inside part" of the shape.
 
 ## Stroke SVG attributes
 
+### `stroke`
+
+Sets the outline color of the shape.
+
+<DocumentationList
+  items={[
+    {
+      name: 'none',
+      description: <>no stroke</>,
+    },
+    {
+      nameSpecial: 'a color',
+      description: (
+        <>
+          e.g. <Code str="red" />, <Code str="#ff0000" />, <Code str="rgba(255,0,0,1)" />
+        </>
+      ),
+    },
+    {
+      nameSpecial: 'a URL',
+      description: (
+        <>
+          e.g. <Code str="url(#my-gradient)" />,
+        </>
+      ),
+    },
+  ]}
+/>
+
+### `stroke-width`
+
+Sets the width of the stroke. Specify a number or a percentage (relative to the size of the view).
+
+### `stroke-opacity`
+
+Sets the opacity of the stroke. Specify something like `0.5` or `50%`.
+
+### `stroke-linecap`
+
+Sets the shape at the end of open paths ("the caps"). Specify `butt`, `round`, or `square`.
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="200" height="100">
+      <!-- stroke-linecap effects -->
+      <path stroke-width="20" d="M 20,10 H 100" stroke="black" stroke-linecap="butt" />
+      <path stroke-width="20" d="M 20,50 H 100" stroke="black" stroke-linecap="round" />
+      <path stroke-width="20" d="M 20,90 H 100" stroke="black" stroke-linecap="square" />
+      <!-- Position of path and caption -->
+      <path stroke-width="1" d="M 20,10 H 100" stroke="pink" />
+      <path stroke-width="1" d="M 20,50 H 100" stroke="pink" />
+      <path stroke-width="1" d="M 20,90 H 100" stroke="pink" />
+      <text x="130" y="15" font-size="15">butt</text>
+      <text x="130" y="55" font-size="15">round</text>
+      <text x="130" y="95" font-size="15">square</text>
+    </svg>
+  `)}
+/>
+
+### `stroke-linejoin`
+
+Defines the shape to be used at the path corners. Specify `miter`, `round`, `bevel`, or `arcs`.
+
+<Image
+  path="/res/web/svg/stroke-linejoin.svg"
+  caption={
+    <>
+      Possible values for <Code str="stroke-linejoin" />
+    </>
+  }
+  sourceString="SVGWG"
+  sourceLink="https://svgwg.org/svg2-draft/painting.html#StrokeLinejoinProperty"
+/>
+
+### `stroke-dasharray`
+
+Defines the pattern of dashes and gaps in the path. Specify space/comma separated array of numbers/percentages, e.g. `10 1 4 1`. If you specify an odd number of values, it will be repeated to yield an even number of values: i.e. `5 3 2` is equivalent to `5 3 2 5 3 2`.
+
+You can combine this with [`pathLength`](http://localhost:3000/web/svg/drawing/basic-shape#pathlength) to control the number of repetitions along the path.
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 100" width="270" height="100">
+      <!-- Using real length (squished) -->
+      <path stroke-width="10" d="M 20,10 H 250" stroke="black" stroke-dasharray="2 1" />
+      <!-- Using pathLength to override length calculation -->
+      <path stroke-width="10" d="M 20,50 H 250" stroke="black" stroke-dasharray="2 1" pathLength="6"/>
+      <path stroke-width="10" d="M 20,90 H 250" stroke="black" stroke-dasharray="2 1 2" pathLength="20"/>
+    </svg>
+  `)}
+/>
+
+### `stroke-dashoffset`
+
+Offsets the rendering of `stroke-dasharray`.
+Specify a number or a percentage (percentage of the current viewport).
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 100" width="270" height="100">
+      <path stroke-width="10" d="M 20,10 H 250" stroke="black" stroke-dasharray="3 1" pathLength="12"/>
+      <!-- offset by 1 user unit -->
+      <path stroke-width="10" d="M 20,50 H 250" stroke="red" stroke-dasharray="3 1" pathLength="12" stroke-dashoffset="1"/>
+      <!-- offset by 2 user units -->
+      <path stroke-width="10" d="M 20,90 H 250" stroke="blue" stroke-dasharray="3 1" pathLength="12" stroke-dashoffset="2"/>
+    </svg>
+  `)}
+/>
+
 ## References
 
 <References
@@ -119,12 +235,46 @@ Specify how to decide the "inside part" of the shape.
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill`,
     },
     {
-      text: 'Chapter 13: Painting: Filling, Stroking and Marker Symbols » Fill properties (SVGWG)',
+      text: (
+        <>
+          Chapter 13: Painting: Filling, Stroking and Marker Symbols » 13.4.1. Specifying fill
+          paint: the ‘fill’ property (SVGWG)
+        </>
+      ),
       link: `https://svgwg.org/svg2-draft/painting.html#FillProperty`,
+    },
+    {
+      text: (
+        <>
+          Chapter 13: Painting: Filling, Stroking and Marker Symbols » 13.5.5. Controlling line
+          joins: the ‘stroke-linejoin’ and ‘stroke-miterlimit’ properties (SVGWG)
+        </>
+      ),
+      link: `https://svgwg.org/svg2-draft/painting.html#StrokeLinejoinProperty`,
     },
     {
       text: 'fill-rule (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule`,
+    },
+    {
+      text: 'stroke (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke`,
+    },
+    {
+      text: 'stroke-linecap (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap`,
+    },
+    {
+      text: 'stroke-linejoin (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linejoin`,
+    },
+    {
+      text: 'stroke-dasharray (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray`,
+    },
+    {
+      text: 'stroke-dashoffset (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dashoffset`,
     },
   ]}
 ></References>
