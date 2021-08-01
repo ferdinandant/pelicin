@@ -23,7 +23,6 @@ const chapters: TopicChapters = [
       },
     ],
   },
-  { '@separator': 'SVG Elements' },
   {
     chapter: 'Drawing',
     children: [
@@ -38,7 +37,6 @@ const chapters: TopicChapters = [
       {
         title: 'Text',
         path: '/web/svg/drawing/text',
-        badge: 'TODO'
       },
       {
         title: 'Image',
