@@ -87,10 +87,185 @@ Indicates which glyph variants to use (separated by space), e.g. `small-caps` or
   `)}
 />
 
+### `<tspan>`
+
+Defines a subtext within a `<text>` element or another `<tspan>` element.
+
+<DocumentationList
+  items={[
+    {
+      name: 'x',
+      description: (
+        <>
+          x coordinate of the starting point of the baseline (normally continues where the preceding
+          text ended; setting this value affects the following text)
+        </>
+      ),
+    },
+    {
+      name: 'y',
+      description: (
+        <>
+          y coordinate of the starting point of the baseline (normally continues where the preceding
+          text ended; setting this value affects the following text)
+        </>
+      ),
+    },
+    {
+      name: 'dx',
+      description: (
+        <>
+          from the starting point of the baseline, shifts the text in the x-axis (setting this value
+          affects the following text)
+        </>
+      ),
+    },
+    {
+      name: 'dy',
+      description: (
+        <>
+          from the starting point of the baseline, shifts the text in the y-axis (setting this value
+          affects the following text)
+        </>
+      ),
+    },
+    {
+      name: 'rotate',
+      description: (
+        <>
+          rotate each individual glyph (separate with comma to specify different rotation for each
+          glyph)
+        </>
+      ),
+    },
+    {
+      name: 'textLength',
+      description: <>width of the "text box" (controls letter spacing)</>,
+    },
+    {
+      name: 'lengthAdjust',
+      description: (
+        <>
+          controls how the text should fill the width of the "text box"; specify{' '}
+          <Code str="spacing" /> or <Code str="spacingAndGlyphs" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 30">
+      <style>
+        #tspan-example .red {
+          font-family: serif;
+          fill: red;
+        }
+      </style>
+      <text id="tspan-example" x="10" y="20">
+        You are
+        <tspan class="red" dy="5">NOT</tspan>
+        a banana!
+      </text>
+    </svg>
+  `)}
+/>
+
+### `<textPath>`
+
+Renders the text along the given path.
+
+<DocumentationList
+  items={[
+    {
+      name: 'path',
+      description: (
+        <>
+          the path data, e.g. <Code str="M 10,30 A 20,20 0,0,1 50,30 ..." />
+        </>
+      ),
+    },
+    {
+      name: 'href',
+      description: (
+        <>
+          URL to the path or basic shape to render the text, e.g. <Code str="#my-path" />; if the{' '}
+          <Code str="path" /> attribute is specified, this attribute is ignored.
+        </>
+      ),
+    },
+    {
+      name: 'side',
+      description: (
+        <>
+          which side of the path to render the text, relative to the path direction; specify{' '}
+          <Code str="left" /> (default) or <Code str="right" /> (reverses the path direction)
+        </>
+      ),
+    },
+    {
+      name: 'startOffset',
+      description: <>offsets the text from the start of the path</>,
+    },
+    {
+      name: 'textLength',
+      description: <>width of the "text box" (controls letter spacing)</>,
+    },
+    {
+      name: 'lengthAdjust',
+      description: (
+        <>
+          controls how the text should fill the width of the "text box"; specify{' '}
+          <Code str="spacing" /> or <Code str="spacingAndGlyphs" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/textPath -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <!-- To hide the path, it's usually wrapped in a <defs> element -->
+      <!-- Removing the <defs> will show you the path in black stroke -->
+      <defs>
+        <path id="my-path" fill="none" stroke="black" d="
+          M 10,90
+          Q 90,90 90,45
+          Q 90,10 50,10
+          Q 10,10 10,40
+          Q 10,70 45,70
+          Q 70,70 75,50
+        " />
+      </defs>
+      <!-- The text -->
+      <text fill="red">
+        <textPath href="#my-path">
+          Quick brown fox jumps over the lazy dog.
+        </textPath>
+      </text>
+    </svg>
+  `)}
+/>
+
 ## References
 
 <References
   references={[
+    {
+      text: '<text> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text`,
+    },
+    {
+      text: '<tspan> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tspan`,
+    },
+    {
+      text: 'lengthAdjust (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/lengthAdjust`,
+    },
     {
       text: 'font-family (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-family`,
@@ -100,12 +275,16 @@ Indicates which glyph variants to use (separated by space), e.g. `small-caps` or
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-size`,
     },
     {
-      text: '<text> (MDN)',
-      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text`,
+      text: 'font-style (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-style`,
     },
     {
-      text: 'lengthAdjust (MDN)',
-      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/lengthAdjust`,
+      text: 'font-weight (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-weight`,
+    },
+    {
+      text: 'font-variant (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-variant`,
     },
   ]}
 ></References>
