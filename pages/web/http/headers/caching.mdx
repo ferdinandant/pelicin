@@ -116,6 +116,36 @@ Vary: <header-name>, <header-name>, ...
 
 ## Request headers
 
+### `Cache-Control`
+
+Requests caching behavior. Multiple directives should be separated by comma.
+
+TODO
+https://httpwg.org/specs/rfc7234.html#header.cache-control
+
+<Badge color="blue">Cachability directives</Badge>
+
+- **`no-store`** &mdash; don't store the request/response in any cache
+- **`no-cache`** &mdash; don't use any cached response, unless it has been revalidated for freshness by the origin server
+- **`no-transform`** &mdash; don't let any intermediary servers transform the response (e.g. to compress the images)
+- **`only-if-cached`** &mdash; only send cached response, otherwise send a 504 (Gateway Timeout) response
+
+<Badge color="blue">Expiration directives</Badge>
+
+- **`max-age=<seconds>`** &mdash; asks for response whose age is not greater than the given number of seconds
+- **`max-stale=<seconds>`** &mdash; it's acceptable to give stale response (exceeded its freshness lifetime), as long as it hasn't been stale for more than the given number of seconds
+- **`min-fresh=<seconds>`** &mdash; asks for response which would still be fresh for the given number of seconds (the freshness lifetime is no less than its current age plus the specified time in seconds)
+
+```http
+Cache-Control: no-store
+Cache-Control: no-cache
+Cache-Control: no-transform
+Cache-Control: only-if-cached
+Cache-Control: max-age=<seconds>
+Cache-Control: max-stale[=<seconds>]
+Cache-Control: min-fresh=<seconds>
+```
+
 ### `If-None-Match`
 
 Requests the server to only send a full 200 (OK) response if it doesn't have an `ETag` matching the given ones. Otherwise, the server will send 304 (Not Modified) response with an empty body.
@@ -166,6 +196,12 @@ If-Modified-Since: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
     {
       text: 'If-Modified-Since (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since`,
+    },
+    {
+      text:
+        'Hypertext Transfer Protocol (HTTP/1.1): Caching' +
+        ' » 5.2.1. Request Cache-Control Directives (HTTPWG)',
+      link: `https://httpwg.org/specs/rfc7234.html#header.cache-control`,
     },
   ]}
 ></References>
