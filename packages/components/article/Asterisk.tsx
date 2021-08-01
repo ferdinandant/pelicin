@@ -2,22 +2,24 @@ import React, { ReactChild } from 'react';
 
 type Props = {
   str: ReactChild;
-  explanation?: true;
+  children?: ReactChild;
 };
 
 export default function Asterisk(props: Props) {
-  const { str, explanation } = props;
+  const { str, children } = props;
   const domID = `ref-${str}`;
 
   return (
     <>
-      {explanation ? (
+      {children ? (
         <p>
           <a className="anchor" id={domID}></a>
-          <a>({str})</a> {explanation}
+          <a>({str})</a> {children}
         </p>
       ) : (
-        <a href={`#${domID}`}>{str}</a>
+        <a href={`#${domID}`}>
+          <sup>{str}</sup>
+        </a>
       )}
 
       <style jsx>{`
@@ -30,6 +32,9 @@ export default function Asterisk(props: Props) {
         a.anchor {
           position: relative;
           top: -5rem;
+        }
+        p {
+          font-size: var(--font-size-small);
         }
       `}</style>
     </>

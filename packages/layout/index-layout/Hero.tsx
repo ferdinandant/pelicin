@@ -12,8 +12,8 @@ export default function Hero() {
             <span className="title">pelicin!</span>
           </h1>
           <p className="description">
-            Welcome to Ferdi's study notes and cheat sheets! I hope somebody (e.g. me!) would find
-            this useful :D
+            Welcome to Ferdi's study notes and cheat sheets! This honestly feels like the worst way
+            to study for me (takes a lot of time and effort), but if it works, it ain't stupid >:D
           </p>
           <div className="linksContainer">
             <a className="cta" href={`#${INDEX_DOM_ID}`}>

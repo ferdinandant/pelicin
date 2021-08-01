@@ -23,8 +23,8 @@ Changes how the path length is computed. Instead of using the actual computed le
         }
       </style>
       <!-- stroke-dasharray length is 10 -->
-      <!-- with path length of 60, you will have 6 segments -->
-      <!-- (dashed, empty, dashed, empty, dashed, empty) -->
+      <!-- with path length of 60, you will have 6 segments. -->
+      <!-- I.e. 60/10 = 6: dash, gap, dash, gap, dash, gap -->
       <circle id="path-length-example" cx="50" cy="50" r="40" pathLength="60" />
     </svg>
   `)}

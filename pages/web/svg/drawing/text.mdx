@@ -1,11 +1,11 @@
-import { References, WebEditor, DocumentationList, Code } from '@pelicin/components';
+import { References, WebEditor, DocumentationList, Code, Link } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Text
 
 This page explains how to insert texts in SVG.
 
-## SVG attributes
+## SVG font attributes
 
 ### `font-family`
 
@@ -26,6 +26,19 @@ Sets the font weight (boldness). Specify `normal`, `bold`, `lighter` (one relati
 ### `font-variant`
 
 Indicates which glyph variants to use (separated by space), e.g. `small-caps` or `common-ligatures small-caps`. See [CSS font-variant](https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant#values) for the complete list.
+
+## SVG text attributes
+
+### `text-decoration`
+
+Adds decoration to text. Shorthand for <Link link="/web/css/typography/emphasis-decoration#text-decoration-line" str={<><Code str="text-decoration-line" /></>} /> and <Link link="http://localhost:3000/web/css/typography/emphasis-decoration#text-decoration-style" str={<><Code str="text-decoration-style" /></>} />
+
+Specify something like `none`, `underline`, `underline double`.
+
+### `text-anchor`
+
+How to align the text given the starting baseline point.
+Specify `start`, `middle`, or `end`.
 
 ## SVG elements
 
@@ -289,6 +302,14 @@ Renders the text along the given path.
     {
       text: 'font-variant (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-variant`,
+    },
+    {
+      text: 'text-decoration (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-decoration`,
+    },
+    {
+      text: 'text-anchor (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor`,
     },
   ]}
 ></References>
