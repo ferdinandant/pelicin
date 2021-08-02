@@ -1,0 +1,219 @@
+import { References, NoteBox } from '@pelicin/components';
+
+# Content Negotiation
+
+With content negotiation, a server can serve different representations ("formats") of a resource at the same URI (MDN).
+
+The client can tell the server which representation it supports/prefers via `Accept-*` request headers. The server indicates which representation it sent via `Content-*` response headers. (In some cases, the role is reversed.)
+
+You can also use this for compression (e.g. `Accept-Encoding: gzip`).
+
+## Terminologies
+
+### Quality value
+
+In some of the directives below, you may attach a "quality value" (`;q=`) from 0 up to 1. It's basically the priority of that item, the default being 1.
+
+Also, if they have the same quality value, more specific items (like `text/html`) will have more priority over the less specific ones (like `text/*` or `*/*`).
+
+```http
+Accept: text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8
+```
+
+### Client Hints (CH)
+
+<NoteBox type="warning">Currently, this is experimental.</NoteBox>
+
+Client Hints are request headers sent by the client to give information about the device, network, user, and the user agent.
+
+These headers include:
+
+- **`Device-Memory`** &mdash; amount of available memory in GB (rounded to a power of 2)
+- **`Save-Data`** &mdash; indicates preference to save/reduce data transfer
+- **`Downlink`** &mdash; approximate bandwidth of the client's connection to the server in Mbps
+- **`ECT`** &mdash; effective connection type; one of `slow-2g`, `2g`, `3g`, `4g`
+- **`RTT`** &mdash; approximate round-trip time on the application layer, in ms
+
+## Response headers
+
+### `Content-Type`
+
+Indicates the _original_ MIME type of the resource sent by the server (prior to any content encoding). This is the server's reply to the `Accept` request header.
+
+Browsers may ignore this value and detect the MIME type themselves (see [`X-Content-Type-Options`](#x-content-type-options) to disable this behavior).
+
+```http
+Content-Type: text/html;charset=UTF-8
+Content-Type: multipart/form-data; boundary=<boundary_string>
+```
+
+### `Content-Encoding`
+
+Lists any encoding(s) that have been applied (usually compression algorithms). This is the server's reply to the `Accept-Encoding` request header.
+
+```http
+Content-Encoding: gzip
+Content-Encoding: compress
+Content-Encoding: deflate
+Content-Encoding: br
+```
+
+### `Content-Language`
+
+Describes the language(s) of the intended audience. This is the server's reply to the `Accept-Language` request header.
+
+This may not be the language of the document itself (e.g. `Content-Language: de-DE` may be written in English if it's a language course page for German speakers). For that, use `lang` attribute instead.
+
+```http
+Content-Language: en-US
+Content-Language: de-DE
+Content-Language: de-DE, en-CA
+```
+
+### `Accept-Post`
+
+Advertises which MIME types are accepted for HTTP POST requests.
+
+```http
+Accept-Post: application/example, text/example
+Accept-Post: image/webp
+Accept-Post: */*
+```
+
+### `Accept-Patch`
+
+Advertises which MIME types are accepted for HTTP PATCH requests.
+
+```http
+Accept-Patch: application/example, text/example
+Accept-Patch: text/example;charset=utf-8
+Accept-Patch: application/merge-patch+json
+```
+
+### `Accept-CH`
+
+Indicates which [client hint](<http://localhost:3000/web/http/negotiation-headers/content-negotiation#client-hints-(ch)>) header(s) a client should include in subsequent requests.
+
+(If a client hint header determines which representation is sent, you should also include it in the `Vary` header to ensure correct caching behavior.)
+
+```http
+Accept-CH: Viewport-Width, Width
+```
+
+### `X-Content-Type-Options`
+
+Sometimes, browsers may do "MIME-type sniffing" (deducing a content's MIME type themselves by looking at the content). To prevent this behavior, you can specify `X-Content-Type-Options: nosniff`.
+
+```http
+X-Content-Type-Options: nosniff
+```
+
+## Request headers
+
+### `Accept`
+
+Lists the MIME types the client understands.
+
+You can also give "quality values" to denote priorities in the list, e.g. `Accept: text/html, application/xml;q=0.9`.
+
+```http
+Accept: <MIME_type>/<MIME_subtype>
+Accept: <MIME_type>/*
+Accept: */*
+```
+
+### `Accept-Encoding`
+
+Lists which content encoding (usually compression algorithms) the client understands.
+
+You can also give "quality values" to denote priorities in the list, e.g. `Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5`.
+
+```http
+Accept-Encoding: gzip
+Accept-Encoding: compress
+Accept-Encoding: deflate
+Accept-Encoding: br
+Accept-Encoding: identity
+Accept-Encoding: *
+```
+
+### `Accept-Language`
+
+Lists which language the client understands.
+
+You can also give "quality values" to denote priorities in the list, e.g. `Accept-Language: fr-CH, fr;q=0.9, en;q=0.8`
+
+```http
+Accept-Language: <language>
+Accept-Language: *
+```
+
+## See also
+
+<References
+  references={[
+    {
+      text: 'MIME types (IANA media types) » MIME sniffing (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#mime_sniffing`,
+    },
+    {
+      text: 'Client Hints (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Glossary/Client_hints`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Content negotiation (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation`,
+    },
+    {
+      text: 'Quality values (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Glossary/Quality_values`,
+    },
+    {
+      text: 'Content-Type (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type`,
+    },
+    {
+      text: 'Content-Encoding (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding`,
+    },
+    {
+      text: 'Content-Language (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language`,
+    },
+    {
+      text: 'Accept-Post (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Post`,
+    },
+    {
+      text: 'Accept-Patch (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Patch`,
+    },
+    {
+      text: 'Accept-CH (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-CH`,
+    },
+    {
+      text: 'X-Content-Type-Options (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options`,
+    },
+    {
+      text: 'Accept (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept`,
+    },
+    {
+      text: 'Accept-Encoding (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding`,
+    },
+    {
+      text: 'Accept-Language (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language`,
+    },
+  ]}
+></References>
