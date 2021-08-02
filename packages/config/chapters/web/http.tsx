@@ -26,9 +26,34 @@ const chapters: TopicChapters = [
         path: '/web/http/headers/cookie',
       },
       {
-        title: 'Caching',
-        path: '/web/http/headers/caching',
+        title: 'User Agent',
+        path: '/web/http/headers/user-agent',
+        badge: 'TODO'
       },
+    ],
+  },
+  {
+    chapter: 'Negotiation Headers',
+    children: [
+      {
+        title: 'Caching',
+        path: '/web/http/negotiation-headers/caching',
+      },
+      {
+        title: 'Range Requests',
+        path: '/web/http/negotiation-headers/range-requests',
+        badge: 'TODO'
+      },
+      {
+        title: 'Conditional Headers',
+        path: '/web/http/negotiation-headers/conditional-headers',
+        badge: 'TODO'
+      },
+      {
+        title: 'Content Negotiation',
+        path: '/web/http/negotiation-headers/content-negotiation',
+      },
+      
     ],
   },
   {

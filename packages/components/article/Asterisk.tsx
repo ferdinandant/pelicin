@@ -35,6 +35,7 @@ export default function Asterisk(props: Props) {
         }
         p {
           font-size: var(--font-size-small);
+          opacity: 0.5;
         }
       `}</style>
     </>
