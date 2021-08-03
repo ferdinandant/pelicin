@@ -42,18 +42,11 @@ const chapters: TopicChapters = [
       {
         title: 'Range Requests',
         path: '/web/http/negotiation-headers/range-requests',
-        badge: 'TODO'
-      },
-      {
-        title: 'Conditional Headers',
-        path: '/web/http/negotiation-headers/conditional-headers',
-        badge: 'TODO'
       },
       {
         title: 'Content Negotiation',
         path: '/web/http/negotiation-headers/content-negotiation',
       },
-      
     ],
   },
   {

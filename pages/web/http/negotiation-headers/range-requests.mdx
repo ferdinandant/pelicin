@@ -1,0 +1,89 @@
+import { References } from '@pelicin/components';
+
+# Range Requests
+
+HTTP range requests allow sending only a portion of an HTTP message from a server to a client. Useful for large media or downloading files with pause and resume functions (MDN).
+
+## Response headers
+
+### `Accept-Ranges`
+
+Indicates what range unit is supported. Specify `none` (doesn't support range request) or `bytes` (supports range request).
+
+```http
+Accept-Ranges: bytes
+Accept-Ranges: none
+```
+
+### `Content-Range`
+
+Indicates the range of bytes sent from the full document (e.g. `Content-Range: bytes 200-1000/67589`). Accompanies a 206 (Partial Content) response.
+
+```http
+Content-Range: <unit> <range-start>-<range-end>/<size>
+Content-Range: <unit> <range-start>-<range-end>/*
+Content-Range: <unit> */<size>
+```
+
+## Request headers
+
+### `Range`
+
+Request data for the specified range(s). Expects the server to respond with 206 (Partial Content), 416 (Range Not Satisfiable), or 200 (OK) (if the server ignores the `Range` and returns the whole document).
+
+- **`bytes=200-1000, 2000-6576, 19000-`** &mdash; request for this ranges
+- **`bytes=0-499, -500`** &mdash; request for the first 500 and the last 500 bytes
+
+```http
+Range: <unit>=<range-start>-
+Range: <unit>=<range-start>-<range-end>
+Range: <unit>=<range-start>-<range-end>, ...
+Range: <unit>=-<suffix-length>
+```
+
+### `If-Range`
+
+Make the range request conditional:
+
+- **if the document has not been changed:** respond with a 206 (Partial Content) and send the part(s) that is being requesting in `Range`
+- **otherwise:** respond with 200 (OK) and send the entire document
+
+The most common use case is to resume a download (MDN).
+
+You can specify the value of `If-Range` with a `Last-Modified` timestamp (e.g. `Wed, 21 Oct 2015 07:28:00 GMT`) or an `ETag` value.
+
+```http
+If-Range: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
+If-Range: <etag>
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTTP range requests (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests`,
+    },
+    {
+      text: 'Accept-Ranges (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Ranges`,
+    },
+    {
+      text: 'Content-Range (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range`,
+    },
+    {
+      text: 'Range (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range`,
+    },
+    {
+      text: 'If-Range (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Range`,
+    },
+    {
+      text: '3.2. If-Range (HTTPWG)',
+      link: `https://httpwg.org/specs/rfc7233.html#header.if-range`,
+    },
+  ]}
+></References>
