@@ -26,6 +26,11 @@ const chapters: TopicChapters = [
         path: '/web/http/headers/cookie',
       },
       {
+        title: 'Redirect',
+        path: '/web/http/headers/redirect',
+        badge: 'TODO'
+      },
+      {
         title: 'User Agent',
         path: '/web/http/headers/user-agent',
         badge: 'TODO'
