@@ -26,8 +26,18 @@ const chapters: TopicChapters = [
         path: '/web/http/headers/cookie',
       },
       {
+        title: 'Redirection',
+        path: '/web/http/headers/redirection',
+        badge: 'TODO'
+      },
+      {
         title: 'User Agent',
         path: '/web/http/headers/user-agent',
+        badge: 'TODO'
+      },
+      {
+        title: 'Proxy',
+        path: '/web/http/headers/proxy',
         badge: 'TODO'
       },
     ],
@@ -42,18 +52,16 @@ const chapters: TopicChapters = [
       {
         title: 'Range Requests',
         path: '/web/http/negotiation-headers/range-requests',
-        badge: 'TODO'
       },
       {
-        title: 'Conditional Headers',
-        path: '/web/http/negotiation-headers/conditional-headers',
+        title: 'Conditional Requests',
+        path: '/web/http/negotiation-headers/conditional-requests',
         badge: 'TODO'
-      },
+      },      
       {
         title: 'Content Negotiation',
         path: '/web/http/negotiation-headers/content-negotiation',
       },
-      
     ],
   },
   {
