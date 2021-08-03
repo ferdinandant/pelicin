@@ -99,6 +99,14 @@ If this response header is present, the client will send `If-Modified-Since` on 
 Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
 ```
 
+### `Age`
+
+Indicates the time in seconds the resource has been in a proxy cache.
+
+```http
+Age: <delta-seconds>
+```
+
 ### `Vary`
 
 Indicates the response should be considered unique if any request/response header listed on `Vary` differs in value.
@@ -196,6 +204,10 @@ If-Modified-Since: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
     {
       text: 'If-Modified-Since (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since`,
+    },
+    {
+      text: 'Age (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Age`,
     },
     {
       text:
