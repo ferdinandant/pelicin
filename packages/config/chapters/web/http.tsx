@@ -28,12 +28,14 @@ const chapters: TopicChapters = [
       {
         title: 'Redirection',
         path: '/web/http/headers/redirection',
-        badge: 'TODO'
       },
       {
-        title: 'User Agent',
-        path: '/web/http/headers/user-agent',
-        badge: 'TODO'
+        title: 'Metadata',
+        path: '/web/http/headers/metadata',
+      },
+      {
+        title: 'Referrer',
+        path: '/web/http/headers/referrer',
       },
       {
         title: 'Proxy',
@@ -69,6 +71,10 @@ const chapters: TopicChapters = [
       {
         title: 'Authentication',
         path: '/web/http/security-headers/authentication',
+      },
+      {
+        title: 'Digest',
+        path: '/web/http/security-headers/digest',
       },
       {
         title: 'Cross-Origin Resource Sharing (CORS)',

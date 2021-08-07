@@ -1,0 +1,52 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Digest
+
+A digest is a hash value of the whole message. This is used to detect if a given message has been tampered.
+
+## Response headers
+
+### `Digest`
+
+Provides digest/hash of the requested resource.
+
+```http
+Digest: <digest-algorithm>=<digest-value>
+Digest: <digest-algorithm>=<digest-value>,<digest-algorithm>=<digest-value>
+Digest: sha-256=X48E9qOokqqrvdts8nOJRJN3OWDUoyWxBf7kbu9DBPE=
+Digest: sha-256=X48E9qOokqqrvdts8nOJRJN3OWDUoyWxBf7kbu9DBPE=,unixsum=30637
+```
+
+## Request headers
+
+### `Want-Digest`
+
+Requests the server to provide the digest of the requested resource, using any of the given algorithm(s).
+You can give "quality values" to denote priorities in the list, e.g. `Want-Digest: sha-512;q=0.3, sha-256;q=1, md5;q=0`.
+
+If the server does not support any of the digest given, it should respond with 400 (Bad Request), while listing the algorithms it support in the `Want-Digest` response header.
+
+```http
+Want-Digest: <digest-algorithm>
+Want-Digest: <digest-algorithm><q-value>,<digest-algorithm><q-value>, ...
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Digest (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Glossary/Digest`,
+    },
+    {
+      text: 'Digest (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Digest`,
+    },
+    {
+      text: 'Want-Digest (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Want-Digest`,
+    },
+  ]}
+></References>

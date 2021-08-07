@@ -1,0 +1,105 @@
+import { References, Code, Link, NoteBox } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Metadata
+
+<NoteBox type="info">
+  You may also be interested to see <Code str="Content-*" /> response headers in{' '}
+  <Link str="content negotiation" link="/web/http/negotiation-headers/content-negotiation" />,
+</NoteBox>
+
+These headers give metadata about the client, the server, or the document not classified elsewhere.
+
+## Response headers
+
+### `Content-Length`
+
+Length of resource in bytes.
+
+```http
+Content-Length: <length>
+```
+
+### `Content-Disposition`
+
+Indicates if the content is expected to be displayed _inline_ in the browser (as a Web page or as part of a Web page), or as an _attachment_ (downloaded and saved locally).
+
+A <Code str="multipart/form-data" /> body requires a <Code str="Content-Disposition" /> header to provide information for each subpart of the form. In this case, the first directive is always `form-data`, followed by the `name` of the field, and optionally followed by additional directives.
+
+```http
+Content-Disposition: inline
+Content-Disposition: attachment
+Content-Disposition: attachment; filename="filename.jpg"
+Content-Disposition: form-data; name="fieldName"
+```
+
+### `Date`
+
+Indicates the date and time at which the HTTP message originated.
+
+```http
+Date: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
+```
+
+### `Server`
+
+Describes the software used by the origin server that handled the request. (Should be avoided because this makes it easier to look for known vulnerabilities.)
+
+```http
+Server: Apache/2.4.1 (Unix)
+```
+
+## Request headers
+
+### `Host`
+
+Indicates the host (and port number) of the server to which the request is being sent, e.g. `Host: pelicin.netlify.app`
+
+```http
+Host: <host>:<port>
+```
+
+### `User-Agent`
+
+Used to identify the application, operating system, vendor, and/or version of the client ("what browser the client uses").
+In reality, [user agent string is a mess](https://webaim.org/blog/user-agent-string-history/).
+
+```http
+User-Agent: Mozilla/5.0 (<system-information>) <platform> (<platform-details>) <extensions>
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Content-Length (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length`,
+    },
+    {
+      text: 'Content-Disposition (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition`,
+    },
+    {
+      text: 'Date (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Date`,
+    },
+    {
+      text: 'Server (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server`,
+    },
+    {
+      text: 'Host (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host`,
+    },
+    {
+      text: 'Referer (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer`,
+    },
+    {
+      text: 'User-Agent (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent`,
+    },
+  ]}
+></References>

@@ -70,6 +70,14 @@ Content-Language: de-DE
 Content-Language: de-DE, en-CA
 ```
 
+### `Content-Location`
+
+Indicates the direct URL to access the resource without content negotiation.
+
+```http
+Content-Location: <url>
+```
+
 ### `Accept-Post`
 
 Advertises which MIME types are accepted for HTTP POST requests.
@@ -186,6 +194,10 @@ Accept-Language: *
     {
       text: 'Content-Language (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language`,
+    },
+    {
+      text: 'Content-Location (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Location`,
     },
     {
       text: 'Accept-Post (MDN)',

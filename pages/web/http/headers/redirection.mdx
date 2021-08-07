@@ -1,0 +1,64 @@
+import { References, FixedColumnWidthTable } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Redirection
+
+HTTP Redirection is done by sending `Location` response header and any fo the following status codes.
+
+<FixedColumnWidthTable
+  headers={[
+    { key: 'code', text: 'Code' },
+    { key: 'text', text: 'Status text' },
+    { key: 'methodHandling', text: 'Method handling' },
+  ]}
+  contents={[
+    { '@separator': 'Permanent redirection' },
+    {
+      code: 301,
+      text: 'Moved Permanently',
+      methodHandling: 'GET methods unchanged. Others may be changed to GET.',
+    },
+    {
+      code: 308,
+      text: 'Permanent Redirect',
+      methodHandling: 'Method and body not changed.',
+    },
+    { '@separator': 'Temporary redirection' },
+    {
+      code: 302,
+      text: 'Found',
+      methodHandling: 'GET methods unchanged. Others may be changed to GET.',
+    },
+    {
+      code: 303,
+      text: 'See Other',
+      methodHandling: 'GET methods unchanged. Others are changed to GET.',
+    },
+    {
+      code: 302,
+      text: 'Temporary Redirect',
+      methodHandling: 'Method and body not changed.',
+    },
+  ]}
+/>
+
+## Reponse headers
+
+### `Location`
+
+Indicates the target URL of a redirection. The URL can be absolute or relative.
+
+```http
+Location: <url>
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Redirections in HTTP (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections`,
+    },
+  ]}
+></References>
