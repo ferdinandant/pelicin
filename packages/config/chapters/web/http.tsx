@@ -40,7 +40,6 @@ const chapters: TopicChapters = [
       {
         title: 'Proxy',
         path: '/web/http/headers/proxy',
-        badge: 'TODO'
       },
     ],
   },

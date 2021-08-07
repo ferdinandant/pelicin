@@ -1,0 +1,86 @@
+import { References } from '@pelicin/components';
+
+# Proxy
+
+Proxy servers can add the following HTTP headers.
+
+## Response headers
+
+### `Forwarded`
+
+The newer, standardized form for `X-Forwarded-For`, `X-Forwarded-Host`, `X-Forwarded-Protocol`. (IPv6 addreses should be encapsulated in square brackets.)
+
+```http
+Forwarded: by=<identifier>;for=<identifier>;host=<host>;proto=<http|https>, ...
+Forwarded: for=192.0.2.60;proto=http;by=203.0.113.43
+Forwarded: for=192.0.2.43, for="[2001:db8:cafe::17]"
+```
+
+### `X-Forwarded-For`
+
+Identifies the originating IP address of a client passing through HTTP proxies and/or load balancers.
+
+```http
+X-Forwarded-For: <client>, <proxy1>, <proxy2>, ...
+X-Forwarded-For: 203.0.113.195, 70.41.3.18, 150.172.238.178
+```
+
+### `X-Forwarded-Host`
+
+Identifies the original host requested by the client (in the initial `Host` request header).
+
+```http
+X-Forwarded-Host: <host>
+X-Forwarded-Host: lalala.example-cdn.com
+```
+
+### `X-Forwarded-Protocol`
+
+Identifies the original protocol used by the client to connect to your proxy or load balancer.
+
+```http
+X-Forwarded-Proto: https
+```
+
+## Other headers
+
+### `Via`
+
+Added by proxies, can appear in response/request headers.
+
+Used for "tracking message forwards, avoiding request loops, and identifying the protocol capabilities of senders along the request/response chain" (MDN)
+
+- **`<protocol-name>`** &mdash; the name of the protocol used, e.g. `HTTP`
+- **`<protocol-version>`** &mdash; version of the protocol, e.g. `1.1`
+- **`<host>` or `<host>:<port>`** &mdash; public proxy URL
+- **`<pseudonym>`** &mdash; name/alias of an internal proxy
+
+```http
+Via: [ <protocol-name> "/" ] <protocol-version> <host> [ ":" <port> ]
+Via: [ <protocol-name> "/" ] <protocol-version> <pseudonym>
+Via: HTTP/1.1 GWA
+Via: HTTP/1.0 fred, HTTP/1.1 p.example.net
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Forwarded (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Forwarded`,
+    },
+    {
+      text: 'X-Forwarded-For (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For`,
+    },
+    {
+      text: 'X-Forwarded-Host (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host`,
+    },
+    {
+      text: 'X-Forwarded-Proto (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto`,
+    },
+  ]}
+></References>
