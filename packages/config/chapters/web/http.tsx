@@ -38,6 +38,10 @@ const chapters: TopicChapters = [
         path: '/web/http/headers/referrer',
       },
       {
+        title: 'Connection',
+        path: '/web/http/headers/connection',
+      },
+      {
         title: 'Proxy',
         path: '/web/http/headers/proxy',
       },
