@@ -56,7 +56,6 @@ const chapters: TopicChapters = [
       {
         title: 'Conditional Requests',
         path: '/web/http/negotiation-headers/conditional-requests',
-        badge: 'TODO'
       },      
       {
         title: 'Content Negotiation',
