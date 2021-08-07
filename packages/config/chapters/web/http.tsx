@@ -36,7 +36,6 @@ const chapters: TopicChapters = [
       {
         title: 'Referrer',
         path: '/web/http/headers/referrer',
-        badge: 'TODO'
       },
       {
         title: 'Proxy',

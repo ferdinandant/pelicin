@@ -1,0 +1,75 @@
+import { References, Code, Link, NoteBox, Badge } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Referrer
+
+The `Referer` (typo of "referrer") HTTP header gives information from which URL a request is coming from.
+
+## Response headers
+
+### `Content-Length`
+
+Controls how much referrer information (sent in the `Referer` header) should be included with requests.
+
+<Badge color="blue">No referrer</Badge>
+
+- **`no-referrer`** &mdash; Don't send referer.
+- **`no-referrer-when-downgrade`** &mdash; Don't send referer if we are making request to less secure protocol (i.e. HTTPS to HTTP). Otherwise, send origin, path, and querystring as <Code str="Referer" />.
+
+<Badge color="blue">Origin</Badge>
+
+- **`origin` ("origin only")** &mdash; Only send origin as <Code str="Referer" />
+- **`same-origin` ("when same-origin, origin only")** &mdash; Only send origin as <Code str="Referer" /> when making same-origin requests. Otherwise, don't send referer.
+- **`origin-when-cross-origin` ("when cross-origin, origin only")** &mdash; Send origin, path, and querystring as <Code str="Referer" /> when making same-origin requests. Otherwise, only send origin as <Code str="Referer" /> when making cross-origin request.
+
+<Badge color="blue">Strict origin</Badge>
+
+- **`strict-origin`** &mdash; Only send origin as <Code str="Referer" /> when the protocol security level is at least the same. Otherwise, don't send referer.
+- **`strict-origin-when-cross-origin`** &mdash; (1) Only send origin as <Code str="Referer" /> when making cross-origin request and the protocol security level is at least the same. (2) Send origin, path, and querystring as <Code str="Referer" /> when making same-origin request and the protocol security level is at least the same. (3) Otherwise, don't send referer.
+
+<Badge color="blue">Unsafe URL</Badge>
+
+- **`unsafe-url`** &mdash; Send origin, path, and querystring as <Code str="Referer" />. (May leak private data over insecure HTTP.)
+
+```http
+Referrer-Policy: no-referrer
+Referrer-Policy: no-referrer-when-downgrade
+Referrer-Policy: origin
+Referrer-Policy: same-origin
+Referrer-Policy: origin-when-cross-origin
+Referrer-Policy: strict-origin
+Referrer-Policy: strict-origin-when-cross-origin
+Referrer-Policy: unsafe-url
+```
+
+## Request headers
+
+### `Referer`
+
+Identifies from where the request is coming:
+
+- when following a link, this is the address of the page containing the link
+- when making a request, this is the address of the page firing the request
+
+Can be an absolute or relative path. URL fragments (i.e. `#section`) and userinfo (i.e. `username:password`) are not included.
+
+```http
+Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+Referer: https://example.com/page?q=123
+Referer: https://example.com/
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Referer (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer`,
+    },
+    {
+      text: 'Referrer-Policy (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy`,
+    },
+  ]}
+></References>
