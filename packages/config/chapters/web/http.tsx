@@ -30,9 +30,8 @@ const chapters: TopicChapters = [
         path: '/web/http/headers/redirection',
       },
       {
-        title: 'User Agent',
-        path: '/web/http/headers/user-agent',
-        badge: 'TODO'
+        title: 'Metadata',
+        path: '/web/http/headers/metadata',
       },
       {
         title: 'Proxy',
@@ -80,6 +79,11 @@ const chapters: TopicChapters = [
       {
         title: 'HTTP Strict-Transport-Security (HSTS)',
         path: '/web/http/security-headers/hsts',
+      },
+      {
+        title: 'Digest',
+        path: '/web/http/security-headers/digest',
+        badge: 'TODO'
       },
     ],
   },
