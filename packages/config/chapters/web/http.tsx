@@ -34,6 +34,11 @@ const chapters: TopicChapters = [
         path: '/web/http/headers/metadata',
       },
       {
+        title: 'Referrer',
+        path: '/web/http/headers/referrer',
+        badge: 'TODO'
+      },
+      {
         title: 'Proxy',
         path: '/web/http/headers/proxy',
         badge: 'TODO'
@@ -59,15 +64,6 @@ const chapters: TopicChapters = [
         title: 'Content Negotiation',
         path: '/web/http/negotiation-headers/content-negotiation',
       },
-      {
-        title: 'Referrer',
-        path: '/web/http/negotiation-headers/referrer',
-        badge: 'TODO'
-      },
-      {
-        title: 'Digest',
-        path: '/web/http/negotiation-headers/digest',
-      },
     ],
   },
   {
@@ -76,6 +72,10 @@ const chapters: TopicChapters = [
       {
         title: 'Authentication',
         path: '/web/http/security-headers/authentication',
+      },
+      {
+        title: 'Digest',
+        path: '/web/http/security-headers/digest',
       },
       {
         title: 'Cross-Origin Resource Sharing (CORS)',
