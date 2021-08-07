@@ -107,6 +107,16 @@ Indicates the time in seconds the resource has been in a proxy cache.
 Age: <delta-seconds>
 ```
 
+### `Expires`
+
+Indicates the time after which the response is considered stale.
+
+(If there is a `Cache-Control` response header with the `max-age` or `s-maxage` directive, this header is ignored.)
+
+```http
+Expires: Wed, 21 Oct 2015 07:28:00 GMT
+```
+
 ### `Vary`
 
 Indicates the response should be considered unique if any request/response header listed on `Vary` differs in value.
@@ -208,6 +218,10 @@ If-Modified-Since: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
     {
       text: 'Age (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Age`,
+    },
+    {
+      text: 'Expires (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires`,
     },
     {
       text:
