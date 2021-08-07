@@ -1,0 +1,111 @@
+import { References, NoteBox, Link, Asterisk } from '@pelicin/components';
+
+# Conditional Requests
+
+<NoteBox type="info">
+  Most of this chapter should have been discussed in{' '}
+  <Link str="Caching" link="/web/http/negotiation-headers/caching" /> and{' '}
+  <Link str="Range Requests" link="/web/http/negotiation-headers/range-requests" />
+</NoteBox>
+
+HTTP conditional requests are requests that are executed differently, depending on the value of specific headers. These headers define a precondition, and the result of the request will be different if the precondition is met or not (MDN).
+
+## Request headers
+
+### `If-Match`
+
+Succeeds if the requested resource matches one of the given ETag(s). The server can indicate a successful response with status code 100 (Continue)<Asterisk str="*" /> or 200 (OK).
+
+If the condition fails, the server can respond with 412 (Precondition Failed).
+
+```http
+If-Match: "<etag_value>"
+If-Match: "<etag_value>", "<etag_value>", ...
+If-Match: *
+```
+
+<Asterisk str="*">
+  E.g. for a PUT request, to indicate that the client wants to override the existing document (W3)
+</Asterisk>
+
+### `If-None-Match`
+
+Succeeds if the requested resource does not match any of the given ETag(s). The server sends back the requested resource with 200 (OK).
+
+If the condition fails, the server can respond with 304 (Not Modified) or 412 (Precondition Failed).
+
+```http
+If-None-Match: "<etag_value>"
+If-None-Match: "<etag_value>", "<etag_value>", ...
+If-None-Match: *
+```
+
+### `If-Modified-Since`
+
+Succeeds if the requested resource has been modified after the given date. The server sends back the requested resource with 200 (OK).
+
+If the condition fails, the server can respond with 304 (Not Modified) or 412 (Precondition Failed).
+
+```http
+If-Modified-Since: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
+```
+
+### `If-Unmodified-Since`
+
+Succeeds if the requested resource has not been modified after the given date. The server can indicate a successful response with status code 200 (OK).
+
+If the condition fails, the server can respond with 412 (Precondition Failed).
+
+```http
+If-Unmodified-Since: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
+```
+
+### `If-Range`
+
+Succeeds if the requested resource has not been modified, given the date or an ETag. The server can indicate a successful response with status code 206 (Partial Content) if it sends the range requested in `Range` request header, or 200 (OK) if it sends the full resource.
+
+If the condition fails, the server can respond with 416 (Range Not Satisfiable) or 412 (Precondition Failed).
+
+```http
+If-Range: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
+If-Range: <etag>
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'HTTP conditional requests (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests`,
+    },
+    {
+      text: 'If-Match (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match`,
+    },
+    {
+      text: 'If-None-Match (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match`,
+    },
+    {
+      text: 'If-Modified-Since (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since`,
+    },
+    {
+      text: 'If-Unmodified-Since (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Unmodified-Since`,
+    },
+    {
+      text: 'If-Range (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Range`,
+    },
+    {
+      text: 'Editing the Web » 3.1 Saving a Document Not Known to Exist (W3)',
+      link: `https://www.w3.org/1999/04/Editing/#3.1`,
+    },
+    {
+      text: 'Hypertext Transfer Protocol (HTTP/1.1): Range Requests » 3.2 If Range (W3)',
+      link: `https://httpwg.org/specs/rfc7233.html#header.if-range`,
+    },
+  ]}
+></References>
