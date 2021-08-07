@@ -91,6 +91,10 @@ const chapters: TopicChapters = [
         title: 'HTTP Strict-Transport-Security (HSTS)',
         path: '/web/http/security-headers/hsts',
       },
+      {
+        title: 'X-Frame-Options',
+        path: '/web/http/security-headers/x-frame-options',
+      },
     ],
   },
 ]
