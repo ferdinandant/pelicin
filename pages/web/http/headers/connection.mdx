@@ -1,0 +1,76 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Connection
+
+These headers control (or give information about) the HTTP connection.
+
+## Response headers
+
+### `Connection`
+
+Close the TCP connection after the current transaction (HTTP/1.0) or keep it alive (default in HTTP/1.1, the current standard).
+
+```http
+Connection: close
+Connection: keep-alive
+```
+
+<DocumentationList
+  items={[
+    {
+      name: 'row',
+      name: 'row',
+      description: <>aaa</>,
+    },
+  ]}
+/>
+
+### `Keep-Alive`
+
+Controls (1) how long the connection should be open and (2) what is the maximum amount of requests before it is closed. (Requires `Connection: keep-alive`.)
+
+- **`timeout=<idle-seconds>`** &mdash; how long (in seconds) the host should allow an idle connection to remain open before it's closed
+- **`max=<number>`** &mdash; the maximum number of requests that can be sent on this connection before it's closed
+
+```http
+Keep-Alive: timeout=5
+Keep-Alive: timeout=5, max=1000
+```
+
+### `Transfer-Encoding`
+
+Specifies the form of encoding used to transfer the payload body between two server nodes (to form the new "response body" that will be sent). If more than one encoding is used, they are separated with commas, e.g. `Transfer-Encoding: gzip, chunked`.
+
+Not to be confused with [`Content-Encoding`](/web/http/negotiation-headers/content-negotiation#content-encoding), which is an end-to-end encoding (the encoding is used throughout the whole connection).
+
+```http
+Transfer-Encoding: chunked
+Transfer-Encoding: compress
+Transfer-Encoding: deflate
+Transfer-Encoding: gzip
+Transfer-Encoding: identity
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Connection (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Connection`,
+    },
+    {
+      text: 'Connection (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Keep-Alive`,
+    },
+    {
+      text: 'Transfer-Encoding (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Transfer-Encoding`,
+    },
+    {
+      text: 'Learning about the HTTP “Connection: keep-alive” header (Insight)',
+      link: `https://blog.insightdatascience.com/learning-about-the-http-connection-keep-alive-header-7ebe0efa209d`,
+    },
+  ]}
+></References>

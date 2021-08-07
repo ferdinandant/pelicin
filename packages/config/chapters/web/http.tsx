@@ -38,6 +38,10 @@ const chapters: TopicChapters = [
         path: '/web/http/headers/referrer',
       },
       {
+        title: 'Connection',
+        path: '/web/http/headers/connection',
+      },
+      {
         title: 'Proxy',
         path: '/web/http/headers/proxy',
       },
@@ -86,6 +90,10 @@ const chapters: TopicChapters = [
       {
         title: 'HTTP Strict-Transport-Security (HSTS)',
         path: '/web/http/security-headers/hsts',
+      },
+      {
+        title: 'X-Frame-Options',
+        path: '/web/http/security-headers/x-frame-options',
       },
     ],
   },

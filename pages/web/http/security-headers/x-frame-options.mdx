@@ -1,0 +1,32 @@
+import { References } from '@pelicin/components';
+
+# X-Frame-Options
+
+The `X-Frame-Options` controls if the browser should be allowed to render a page inside a frame (e.g. `<iframe>`).
+
+Disabling this behavior can prevent "click-jacking", by ensuring that a page content cannot be embedded into other sites (MDN).
+
+## Response headers
+
+### `X-Frame-Options`
+
+Controls whether or not the page can be embedded inside a frame (`<frame>`, `<iframe>`, `<embed>` or `<object>`).
+
+- **`DENY`** &mdash; the page cannot be embedded inside a frame
+- **`SAMEORIGIN`** &mdash; the page can be embedded inside a frame on the same origin as the page itself (whether this applies recursively to the frame inside a frame is up to the browser)
+
+```http
+X-Frame-Options: DENY
+X-Frame-Options: SAMEORIGIN
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'X-Frame-Options (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options`,
+    },
+  ]}
+></References>
