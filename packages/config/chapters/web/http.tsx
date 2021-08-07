@@ -59,6 +59,15 @@ const chapters: TopicChapters = [
         title: 'Content Negotiation',
         path: '/web/http/negotiation-headers/content-negotiation',
       },
+      {
+        title: 'Referrer',
+        path: '/web/http/negotiation-headers/referrer',
+        badge: 'TODO'
+      },
+      {
+        title: 'Digest',
+        path: '/web/http/negotiation-headers/digest',
+      },
     ],
   },
   {
@@ -79,11 +88,6 @@ const chapters: TopicChapters = [
       {
         title: 'HTTP Strict-Transport-Security (HSTS)',
         path: '/web/http/security-headers/hsts',
-      },
-      {
-        title: 'Digest',
-        path: '/web/http/security-headers/digest',
-        badge: 'TODO'
       },
     ],
   },
