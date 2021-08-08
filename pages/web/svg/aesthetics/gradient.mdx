@@ -1,15 +1,26 @@
-import { References, WebEditor, DocumentationList, Link, Code } from '@pelicin/components';
+import { References, WebEditor, DocumentationList, Link, Code, NoteBox } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Gradient
+
+<NoteBox type="info">You can apply gradients as fills or strokes.</NoteBox>
 
 There are two types of gradient in SVG: linear and radial gradient.
 
 You would declare gradients inside the `<defs>` element, and you must give the gradient an `id` attribute so you can reference it.
 
+## Gradient SVG attributes
+
+### `gradientUnits`
+
+Defines the coordinate system for the gradient. Specify either:
+
+- **`objectBoundingBox`** &mdash; uses the size of the object that references the gradient (the coordinate values will range from 0 to 1).
+- **`userSpaceOnUse`** &mdash; uses the viewport coordinates (you need to know where the object is and place the gradient coordinates accordingly).
+
 ## Gradient SVG elements
 
-### `linearGradient`
+### `<linearGradient>`
 
 <DocumentationList
   items={[
@@ -103,7 +114,7 @@ You would declare gradients inside the `<defs>` element, and you must give the g
   `)}
 />
 
-### `radialGradient`
+### `<radialGradient>`
 
 <DocumentationList
   items={[
@@ -167,10 +178,11 @@ You would declare gradients inside the `<defs>` element, and you must give the g
       name: 'gradientUnits',
       description: (
         <>
-          defines the coordinate system for attributes <Code str="x1" />, <Code str="y1" />,{' '}
-          <Code str="x2" />, <Code str="y2" />: specify <Code str="userSpaceOnUse" /> (use the
-          viewport coordinate) or <Code str="objectBoundingBox" /> (use the bounding box of the
-          element that references this gradient)
+          defines the coordinate system for attributes <Code str="cx" />, <Code str="cy" />,{' '}
+          <Code str="r" />, <Code str="fx" />, <Code str="fy" />, <Code str="fr" />: specify{' '}
+          <Code str="userSpaceOnUse" /> (use the viewport coordinate) or{' '}
+          <Code str="objectBoundingBox" /> (use the bounding box of the element that references this
+          gradient)
         </>
       ),
     },
@@ -215,7 +227,7 @@ You would declare gradients inside the `<defs>` element, and you must give the g
 
 ## Stop SVG element
 
-### `stop`
+### `<stop>`
 
 Represents a color stop in a gradient vector.
 

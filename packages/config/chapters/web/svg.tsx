@@ -58,7 +58,6 @@ const chapters: TopicChapters = [
       {
         title: 'Pattern',
         path: '/web/svg/aesthetics/pattern',
-        badge: 'TODO'
       },
       {
         title: 'Clipping and Masking',
