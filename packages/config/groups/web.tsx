@@ -21,7 +21,7 @@ const group: TopicGroup = {
         {
           title: 'SVG',
           path: '/web/svg',
-          description: <>Reference summary from MDN.</>,
+          description: <>Reference summary from MDN's SVG Tutorial.</>,
         },
       ],
     },
