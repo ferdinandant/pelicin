@@ -1,0 +1,166 @@
+import {
+  References,
+  WebEditor,
+  DocumentationList,
+  NoteBox,
+  Code,
+  Link,
+  Badge,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Pattern
+
+<NoteBox type="info">You can apply patterns as fills or strokes.</NoteBox>
+
+Use the `<pattern>` element to create a pattern.
+
+Like gradients, you would declare patterns inside the `<defs>` element, and you must give the gradient an `id` attribute so you can reference it.
+
+## SVG elements
+
+### `<pattern>`
+
+<Badge color="blue">Pattern tile</Badge>
+
+<DocumentationList
+  items={[
+    {
+      name: 'width',
+      description: <>width of the pattern tile</>,
+    },
+    {
+      name: 'height',
+      description: <>height of the pattern tile</>,
+    },
+    {
+      name: 'x',
+      description: <>x coordinate offset of the pattern tile</>,
+    },
+    {
+      name: 'y',
+      description: <>y coordinate offset of the pattern tile</>,
+    },
+  ]}
+/>
+
+<Badge color="blue">Units</Badge>
+
+<DocumentationList
+  items={[
+    {
+      name: 'patternUnits',
+      description: (
+        <>
+          defines the coordinate system for attributes <Code str="x" />, <Code str="y" />,{' '}
+          <Code str="width" />, <Code str="height" />; specify <Code str="userSpaceOnUse" /> (use
+          viewport/absolute coordinate) or <Code str="objectBoundingBox" /> (use the bounding box of
+          the element that references this pattern, coordinate values will range from 0 to 1)
+        </>
+      ),
+    },
+    {
+      name: 'patternContentUnits',
+      description: (
+        <>
+          defines the coordinate system for children elements of <Code str="<pattern>" />; specify
+          <Code str="userSpaceOnUse" /> (use viewport/absolute coordinate) or <Code str="objectBoundingBox" />{' '}
+          (use the bounding box of the element that references this pattern, coordinate values will range
+          from 0 to 1)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<Badge color="blue">View box</Badge>
+
+<DocumentationList
+  items={[
+    {
+      name: 'viewBox',
+      description: (
+        <>
+          the position and dimension of the viewbox of the pattern, e.g. <Code str="0 0 100 100" />{' '}
+          (if the viewbox's aspect ratio does not match the pattern's <Code str="width" /> and{' '}
+          <Code str="height" />, parts outside the viewbox will be visible in the pattern tile)
+        </>
+      ),
+    },
+    {
+      name: 'preserveAspectRatio',
+      description: (
+        <>
+          how to fit the <Code str="viewBox" /> if the viewbox's aspect ratio does not match the
+          pattern's <Code str="width" /> and <Code str="height" />, e.g. <Code str="none" />{' '}
+          (stretch) or <Code str="xMidYMid" /> (preserve aspect ratio and align at center)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<Badge color="blue">Others</Badge>
+
+<DocumentationList
+  items={[
+    {
+      name: 'href',
+      description: (
+        <>
+          reference to another <Code str="<pattern>" /> that will be used as a template
+        </>
+      ),
+    },
+    {
+      name: 'patternTransform',
+      description: (
+        <>
+          space-separated{' '}
+          <Link str="CSS transform functions" link="/web/css/data-type/transform-function" />, e.g.{' '}
+          <Code str="skewX(20) translate(-35, 0)" />
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+      <defs>
+        <!-- Gradient definition -->
+        <linearGradient id="Gradient1">
+          <stop offset="5%" stop-color="white" />
+          <stop offset="95%" stop-color="blue" />
+        </linearGradient>
+        <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="5%" stop-color="red" />
+          <stop offset="95%" stop-color="orange" />
+        </linearGradient>
+        <!-- Pattern definition -->
+        <pattern id="Pattern" x="0" y="0" width=".25" height=".25">
+          <rect x="0" y="0" width="50" height="50" fill="skyblue" />
+          <rect x="0" y="0" width="25" height="25" fill="url(#Gradient2)" />
+          <circle cx="25" cy="25" r="20" fill="url(#Gradient1)" fill-opacity="0.5" />
+        </pattern>
+      </defs>
+      <rect fill="url(#Pattern)" stroke="black" width="200" height="200"/>
+    </svg>
+`)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Patterns (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Patterns`,
+    },
+    {
+      text: '<pattern> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/pattern`,
+    },
+  ]}
+></References>
