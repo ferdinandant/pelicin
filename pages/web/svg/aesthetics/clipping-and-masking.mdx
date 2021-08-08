@@ -1,0 +1,143 @@
+import { References, WebEditor, DocumentationList, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Clipping and Masking
+
+With clipping, you define the clipping shape with the `<clipPath>` element, and only those _inside_ the clipping shape will be visible. It's an "all-or-nothing" approach: half-transparent effects are not possible.
+
+Masking, on the other hand, allows soft edges by _taking transparency and grey values of the mask_ into account (MDN).
+
+You would declare `<clipPath>` and `<mask>` inside the `<defs>` element, and you must give the gradient an `id` attribute so you can reference it.
+
+## SVG elements
+
+### `<clipPath>`
+
+<DocumentationList
+  items={[
+    {
+      name: 'clipPathUnits',
+      description: (
+        <>
+          defines the coordinate system for the clipping path; specify <Code str="userSpaceOnUse" />{' '}
+          (use viewport/absolute coordinate) or <Code str="objectBoundingBox" /> (use the bounding
+          box of the element that references this pattern, coordinate values will range from 0 to 1)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <!-- only show the top part -->
+        <clipPath id="clip-cut-off-bottom">
+          <rect x="0" y="0" width="100" height="50" />
+        </clipPath>
+      </defs>
+      <!-- see the clip-path attribute below -->
+      <circle cx="50" cy="50" r="50" fill="red" clip-path="url(#clip-cut-off-bottom)" />
+    </svg>
+  `)}
+/>
+
+### `<mask>`
+
+Everything under a white pixel will be visible; everything under a black pixel will be invisible ("white is ON, black is OFF").
+
+<DocumentationList
+  items={[
+    {
+      name: 'x',
+      description: <>x coordinate offset of the masking area</>,
+    },
+    {
+      name: 'y',
+      description: <>y coordinate offset of the masking area</>,
+    },
+    {
+      name: 'width',
+      description: (
+        <>
+          width of the masking area; specify a number like <Code str="0.5" /> or <Code str="50%" />{' '}
+          (will clip)
+        </>
+      ),
+    },
+    {
+      name: 'height',
+      description: (
+        <>
+          height of the masking area; specify a number like <Code str="0.5" /> or <Code str="50%" />{' '}
+          (will clip)
+        </>
+      ),
+    },
+    {
+      name: 'maskUnits',
+      description: (
+        <>
+          {' '}
+          defines the coordinate system for attributes <Code str="x" />, <Code str="y" />, <Code str="width" />
+          , <Code str="height" />; specify <Code str="userSpaceOnUse" /> (use viewport/absolute coordinate)
+          or <Code str="objectBoundingBox" /> (use the bounding box of the element that references this
+          pattern, coordinate values will range from 0 to 1)
+        </>
+      ),
+    },
+    {
+      name: 'maskContentUnits',
+      description: (
+        <>
+          defines the coordinate system for children elements of <Code str="<mask>" />; specify{' '}
+          <Code str="userSpaceOnUse" /> (use viewport/absolute coordinate) or{' '}
+          <Code str="objectBoundingBox" /> (use the bounding box of the element that references this
+          pattern, coordinate values will range from 0 to 1)
+        </>
+      ),
+    },
+  ]}
+/>
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="300" height="100">
+      <defs>
+        <!-- gradient from white to black (to the right) -->
+        <linearGradient id="gradient" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="white" />
+          <stop offset="1" stop-color="black" />
+        </linearGradient>
+        <!-- the mask -->
+        <mask id="mask">
+          <rect x="0" y="0" width="300" height="100" fill="url(#gradient)"  />
+        </mask>
+      </defs>
+      <!-- see the mask attribute below -->
+      <text x="20" y="75" font-size="60" fill="blue" mask="url(#mask)">
+        Oh noes!
+      </text>
+    </svg>
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Clipping and masking (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Clipping_and_masking`,
+    },
+    {
+      text: '<clipPath> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/clipPath`,
+    },
+    {
+      text: '<mask> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask`,
+    },
+  ]}
+></References>
