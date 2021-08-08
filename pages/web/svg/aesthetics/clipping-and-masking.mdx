@@ -47,6 +47,60 @@ You would declare `<clipPath>` and `<mask>` inside the `<defs>` element, and you
 
 Everything under a white pixel will be visible; everything under a black pixel will be invisible ("white is ON, black is OFF").
 
+<DocumentationList
+  items={[
+    {
+      name: 'x',
+      description: <>x coordinate offset of the masking area</>,
+    },
+    {
+      name: 'y',
+      description: <>y coordinate offset of the masking area</>,
+    },
+    {
+      name: 'width',
+      description: (
+        <>
+          width of the masking area; specify a number like <Code str="0.5" /> or <Code str="50%" />{' '}
+          (will clip)
+        </>
+      ),
+    },
+    {
+      name: 'height',
+      description: (
+        <>
+          height of the masking area; specify a number like <Code str="0.5" /> or <Code str="50%" />{' '}
+          (will clip)
+        </>
+      ),
+    },
+    {
+      name: 'maskUnits',
+      description: (
+        <>
+          {' '}
+          defines the coordinate system for attributes <Code str="x" />, <Code str="y" />, <Code str="width" />
+          , <Code str="height" />; specify <Code str="userSpaceOnUse" /> (use viewport/absolute coordinate)
+          or <Code str="objectBoundingBox" /> (use the bounding box of the element that references this
+          pattern, coordinate values will range from 0 to 1)
+        </>
+      ),
+    },
+    {
+      name: 'maskContentUnits',
+      description: (
+        <>
+          defines the coordinate system for children elements of <Code str="<mask>" />; specify{' '}
+          <Code str="userSpaceOnUse" /> (use viewport/absolute coordinate) or{' '}
+          <Code str="objectBoundingBox" /> (use the bounding box of the element that references this
+          pattern, coordinate values will range from 0 to 1)
+        </>
+      ),
+    },
+  ]}
+/>
+
 <WebEditor
   html={smartTrim(`
     <svg xmlns="http://www.w3.org/2000/svg" width="300" height="100">
