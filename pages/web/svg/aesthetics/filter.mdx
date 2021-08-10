@@ -1,0 +1,161 @@
+import { References, WebEditor, NoteBox, Code, Image, Asterisk, Link } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Filter
+
+Filters are SVG's mechanism to create sophisticated effects.
+
+Filters are defined by the `<filter>` element, which should be put in the `<defs>` section of your SVG, and you must give the filter an `id` so you can reference it elsewhere.
+(You would reference the filter using the `filter` attribute.)
+
+## How filter primitive works
+
+Between the `<filter>` tags, goes a list of _primitives_ (the `<fe*>` tags). Primitives are basic operations like blurring, adding a lighting effect, etc.
+
+They take in images specified by the `in` and/or `in2` attributes, and store the result in a name specified by the `result` attribute.
+
+### Primitive global attributes
+
+All primitives accept these attributes:
+
+- **`result`** &mdash; name for the filter primitive result; the name can be referenced in the `in` or `in2` attribute of another primitive.
+- **`x`, `y`, `width`, `height`** &mdash; position and dimension of the filter primitive viewport (probably to "crop out" the filter primitive layer?)
+
+### Primitive `in` and `in2` attributes
+
+For `in` or `in2`, you can specify one of the following:<Asterisk str="*"/>
+
+- **`SourceGraphic`** &mdash; use the graphic elements that use the `<filter>`
+- **`SourceAlpha`** &mdash; use the graphic elements that use the `<filter>`, but only use the alpha channel (the colors will become gray)
+- **The name from a `result` attribute**
+
+The default value is `SourceGraphic` for first filter primitive, otherwise it's the result of the previous filter primitive.
+
+<Image
+  path="/res/web/svg/in-test.png"
+  caption={
+    <>
+      Illustration of different <Code str="in" /> values. The image consists a group of 3 RGB
+      circles on top of a vertical rectangle. The blur filter effect is applied on the group of RGB
+      circles.
+    </>
+  }
+  sourceString="W3"
+  sourceLink="https://www.w3.org/Graphics/SVG/Test/20110816/harness/htmlObjectMiniApproved/filters-overview-01-b.html"
+/>
+
+<Asterisk str="*">
+  I omit <Code str="BackgroundImage" />, <Code str="BackgroundAlpha" />, <Code str="FillPaint" />,
+  and <Code str="StrokePaint" /> as I don't understand what the spec is saying, and it's not
+  consistent on Chrome and Firefox.{' '}
+  <Link
+    str={
+      <>
+        (See the <Code str="in" /> attribute test)
+      </>
+    }
+    link="https://www.w3.org/Graphics/SVG/Test/20110816/harness/htmlObjectMiniApproved/filters-overview-01-b.html"
+  />
+</Asterisk>
+
+## Filter SVG element
+
+### `<filter>`
+
+- **`x`** &mdash; x coordinate offset of the filter
+- **`y`** &mdash; y coordinate offset of the filter
+- **`width`** &mdash; width the filter
+- **`height`** &mdash; height of the filter
+- **`filterUnits`** &mdash; defines the coordinate system for attributes `x`, `y`, `width`, `height`; specify `userSpaceOnUse` (use viewport/absolute coordinate) or `objectBoundingBox` (use the bounding box of the element that references the filter, with coordinate values ranging from 0 to 1)
+- **`primitiveUnits`** &mdash; defines the coordinate system for the filter primitives (the children of `<filter>`); specify `userSpaceOnUse` (use viewport/absolute coordinate) or `objectBoundingBox` (use the bounding box of the element that references the filter, with coordinate values ranging from 0 to 1)
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="240" height="120">
+      <defs>
+        <filter id="filter-blur">
+          <feGaussianBlur stdDeviation="5"/>
+        </filter>
+      </defs>
+      <circle cx="60" cy="60" r="50" fill="orange" />
+      <circle cx="180" cy="60" r="50" fill="orange" filter="url(#filter-blur)" />
+    </svg>
+  `)}
+/>
+
+## Primitive SVG elements
+
+<NoteBox type="info">
+  In addition to the attributes mentioned below, all primitives also accept the following "global"
+  attributes: <Code str="result" />, <Code str="x" />, <Code str="y" />, <Code str="width" />,{' '}
+  <Code str="height" />.
+</NoteBox>
+
+### `<feBlend>`
+
+Composes objects together and apply a blending mode.
+
+- **`in`** &mdash; first input
+- **`in2`** &mdash; second input
+- **`mode`** &mdash; the [blending mode](/web/css/data-type/blend-mode) to use; specify: `normal`, `darken`, `lighten`, `multiply`, `screen`, `overlay`, `color-dodge`, `color-burn`, `hard-light`, `soft-light`, `difference`, `exclusion`, `hue`, `saturation`, `color`, or `luminosity`
+
+### `<feColorMatrix>`
+
+### `<feComponentTransfer>`
+
+### `<feComposite>`
+
+### `<feConvolveMatrix>`
+
+### `<feDiffuseLighting>`
+
+### `<feDisplacementMap>`
+
+### `<feDropShadow>`
+
+### `<feFlood>`
+
+### `<feFuncR>`
+
+### `<feFuncG>`
+
+### `<feFuncB>`
+
+### `<feFuncA>`
+
+### `<feGaussianBlur>`
+
+### `<feImage>`
+
+### `<feMerge>`
+
+### `<feMergeNode>`
+
+### `<feMorphology>`
+
+### `<feOffset>`
+
+### `<feSpecularLighting>`
+
+### `<feTile>`
+
+### `<feTurbulence>`
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Filter effects (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Filter_effects`,
+    },
+    {
+      text: '<filter> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/filter`,
+    },
+    {
+      text: 'in (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/in`,
+    },
+  ]}
+></References>
