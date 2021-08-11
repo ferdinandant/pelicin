@@ -194,6 +194,42 @@ Changes colors based on a transformation matrix. (The final RGBA value will be c
 
 ### `<feComponentTransfer>`
 
+Performs remapping for each color component. It allows operations like brightness adjustment, contrast adjustment, color balance, or thresholding (MDN).
+
+- **`in`** &mdash; the input
+
+`<feComponentTransfer>` expects you to provide these "transfer function" children elements: `<feFuncR>`, `<feFuncG>`, `<feFuncB>`, `<feFuncA>`. Each transfer function element accepts:
+
+- **`type`** &mdash; defines how to map each color component <Latex exp="c" /> to <Latex exp="c'" />. specify one of:
+  - `identity` &mdash; <Latex exp="c' = c" />
+  - `table` &mdash; use linear interpolation using values given in `tableValues`. `tableValues` contains <Latex exp="n+1" /> values (each ranging from 0 to 1), specifying the "start" and "end" values for <Latex exp="n" /> evenly sized interpolation regions. A color <Latex exp="c" /> would fall into one of these interpolation regions; you would then perform a linear interpolation using the "start" and "end" values of the region.
+  - `discrete` &mdash; use the step function using values given in `tableValues`. `tableValues` contains <Latex exp="n" /> values (each ranging from 0 to 1), specifying a step function consisting of <Latex exp="n" /> evenly sized steps. A color <Latex exp="c" /> would fall into one of these "steps", you just use the `tableValues` value representing the step.
+  - `linear` &mdash; expects you to give `slope` and `intercept` attributes, representing <Latex exp="m" /> and <Latex exp="b" /> respectively. Then, <Latex exp="c' = mc + b" />.
+  - `gamma` &mdash; expects you to give `amplitude`, `exponent`, and `offset` attributes, representing <Latex exp="A" />, <Latex exp="x" />, and <Latex exp="b" /> respectively. Then, <Latex exp="c' = ac^x + b" />.
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-component-transfer">
+          <!-- use linear transformation -->
+          <feComponentTransfer in="SourceGraphic">
+            <feFuncR type="linear" slope="1" intercept="0" />
+            <feFuncG type="linear" slope="2" intercept="-0.5" />
+            <feFuncB type="linear" slope="2" intercept="0" />
+          </feComponentTransfer>
+        </filter>
+      </defs>
+      <image
+        x="0" y="0" width="100" height="100"
+        href="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg"
+        preserveAspectRatio="xMidYMid slice"
+        filter="url(#filter-component-transfer)"
+      />
+    </svg>
+  `)}
+/>
+
 ### `<feComposite>`
 
 ### `<feConvolveMatrix>`
@@ -205,14 +241,6 @@ Changes colors based on a transformation matrix. (The final RGBA value will be c
 ### `<feDropShadow>`
 
 ### `<feFlood>`
-
-### `<feFuncR>`
-
-### `<feFuncG>`
-
-### `<feFuncB>`
-
-### `<feFuncA>`
 
 ### `<feGaussianBlur>`
 
@@ -259,6 +287,10 @@ Changes colors based on a transformation matrix. (The final RGBA value will be c
     {
       text: '15.10 Filter primitive ‘feColorMatrix’ (W3)',
       link: `https://www.w3.org/TR/SVG11/filters.html#feColorMatrixTypeAttribute`,
+    },
+    {
+      text: '9.7.1. Transfer function feFuncR (W3C)',
+      link: `https://drafts.fxtf.org/filter-effects/#feFuncRElement`,
     },
   ]}
 ></References>
