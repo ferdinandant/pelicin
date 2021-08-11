@@ -1,0 +1,803 @@
+import {
+  References,
+  WebEditor,
+  NoteBox,
+  Code,
+  Image,
+  Asterisk,
+  Link,
+  Latex,
+} from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+import { LoadKatex } from '@pelicin/loaders';
+
+<LoadKatex />
+
+# Filter
+
+Filters are SVG's mechanism to create sophisticated effects.
+
+Filters are defined by the `<filter>` element, which should be put in the `<defs>` section of your SVG, and you must give the filter an `id` so you can reference it elsewhere.
+(You would reference the filter using the `filter` attribute.)
+
+## How filter primitive works
+
+Between the `<filter>` tags, goes a list of _primitives_ (the `<fe*>` tags). Primitives are basic operations like blurring, adding a lighting effect, etc.
+
+They take in images specified by the `in` and/or `in2` attributes, and store the result in a name specified by the `result` attribute.
+
+### Primitive global attributes
+
+All primitives accept these attributes:
+
+- **`result`** &mdash; name for the filter primitive result; the name can be referenced in the `in` or `in2` attribute of another primitive.
+- **`x`, `y`, `width`, `height`** &mdash; position and dimension of the filter primitive viewport (to "crop out" the filter primitive layer)
+
+### Primitive `in` and `in2` attributes
+
+For `in` or `in2`, you can specify one of the following:<Asterisk str="*"/>
+
+- **`SourceGraphic`** &mdash; use the graphic elements that use the `<filter>`
+- **`SourceAlpha`** &mdash; use the graphic elements that use the `<filter>`, but only use the alpha channel (the colors will become gray)
+- **The name from a `result` attribute**
+
+The default value is `SourceGraphic` for first filter primitive, otherwise it's the result of the previous filter primitive.
+
+<Image
+  path="/res/web/svg/in-test.png"
+  caption={
+    <>
+      Illustration of different <Code str="in" /> values. The image consists a group of 3 RGB
+      circles on top of a vertical rectangle. The blur filter effect is applied on the group of RGB
+      circles.
+    </>
+  }
+  sourceString="W3"
+  sourceLink="https://www.w3.org/Graphics/SVG/Test/20110816/harness/htmlObjectMiniApproved/filters-overview-01-b.html"
+/>
+
+<Asterisk str="*">
+  I omit <Code str="BackgroundImage" />, <Code str="BackgroundAlpha" />, <Code str="FillPaint" />,
+  and <Code str="StrokePaint" /> as I don't understand what the spec is saying, and it's not
+  consistent on Chrome and Firefox.{' '}
+  <Link
+    str={
+      <>
+        (See the <Code str="in" /> attribute test)
+      </>
+    }
+    link="https://www.w3.org/Graphics/SVG/Test/20110816/harness/htmlObjectMiniApproved/filters-overview-01-b.html"
+  />
+</Asterisk>
+
+## Filter SVG element
+
+### `<filter>`
+
+- **`x`** &mdash; x coordinate offset of the filter
+- **`y`** &mdash; y coordinate offset of the filter
+- **`width`** &mdash; width the filter
+- **`height`** &mdash; height of the filter
+- **`filterUnits`** &mdash; defines the coordinate system for attributes `x`, `y`, `width`, `height`; specify `userSpaceOnUse` (use viewport/absolute coordinate) or `objectBoundingBox` (use the bounding box of the element that references the filter, with coordinate values ranging from 0 to 1)
+- **`primitiveUnits`** &mdash; defines the coordinate system for the filter primitives (the children of `<filter>`); specify `userSpaceOnUse` (use viewport/absolute coordinate) or `objectBoundingBox` (use the bounding box of the element that references the filter, with coordinate values ranging from 0 to 1)
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="240" height="120">
+      <defs>
+        <filter id="filter-blur">
+          <feGaussianBlur stdDeviation="5"/>
+        </filter>
+      </defs>
+      <circle cx="60" cy="60" r="50" fill="orange" />
+      <circle cx="180" cy="60" r="50" fill="orange" filter="url(#filter-blur)" />
+    </svg>
+  `)}
+/>
+
+## Primitive SVG elements
+
+<NoteBox type="info">
+  In addition to the attributes mentioned below, all primitives also accept the following "global"
+  attributes: <Code str="result" />, <Code str="x" />, <Code str="y" />, <Code str="width" />,{' '}
+  <Code str="height" />.
+</NoteBox>
+
+### `<feBlend>`
+
+Composes objects together and apply a blending mode.
+
+- **`in`** &mdash; first input (the "top" image)
+- **`in2`** &mdash; second input (the "bottom" image)
+- **`mode`** &mdash; the [blending mode](/web/css/data-type/blend-mode) to use; specify: `normal`, `darken`, `lighten`, `multiply`, `screen`, `overlay`, `color-dodge`, `color-burn`, `hard-light`, `soft-light`, `difference`, `exclusion`, `hue`, `saturation`, `color`, or `luminosity`
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-blend">
+          <feFlood result="floodFill" x="0" y="0" width="100%" height="100%" flood-color="red" flood-opacity="1" />
+          <feBlend in="SourceGraphic" in2="floodFill" mode="multiply" />
+        </filter>
+      </defs>
+      <image
+        x="0" y="0" width="100" height="100"
+        href="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg"
+        preserveAspectRatio="xMidYMid slice"
+        filter="url(#filter-blend)"
+      />
+    </svg>
+  `)}
+/>
+
+### `<feColorMatrix>`
+
+Changes colors based on a transformation matrix. (The final RGBA value will be clamped between 0 and 1.)
+
+<Latex block>{String.raw`
+  \begin{bmatrix}
+    r' \\
+    g' \\
+    b' \\
+    a' \\
+    1 \\
+  \end{bmatrix} = \begin{bmatrix}
+    r_1 & r_2 & r_3 & r_4 & r_5 \\
+    g_1 & g_2 & g_3 & g_4 & g_5 \\
+    b_1 & b_2 & b_3 & b_4 & b_5 \\
+    a_1 & a_2 & a_3 & a_4 & a_5 \\
+    0 & 0 & 0 & 0 & 1 \\
+  \end{bmatrix}\begin{bmatrix}
+    r \\
+    g \\
+    b \\
+    a \\
+    1 \\
+  \end{bmatrix}
+`}</Latex>
+
+- **`in`** &mdash; the input image
+- **`type`** &mdash; `matrix`, `saturate`, `hueRotate`, or `luminanceToAlpha`
+- **`values`** &mdash; depends on `type` (if you specify `type` other than `matrix`, it will construct the matrix based on the value of `type` and `values`):
+  - for `type="matrix"`: input the first four rows of the matrix (ignore the last row because it's a constant)
+  - for `type="saturate"`: input a single real number from 0 to 1
+  - for `type="hueRotate"`: input a single real number (representing the degrees)
+  - for `type="luminanceToAlpha"`: `values` is not required
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-color-matrix">
+          <!-- remove red color component -->
+          <!-- note that we don't input the last row of the matrix -->
+          <feColorMatrix
+            in="SourceGraphic"
+            type="matrix"
+            values="
+              0 0 0 0 0
+              0 1 0 0 0
+              0 0 1 0 0
+              0 0 0 1 0
+            " />
+        </filter>
+      </defs>
+      <image
+        x="0" y="0" width="100" height="100"
+        href="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg"
+        preserveAspectRatio="xMidYMid slice"
+        filter="url(#filter-color-matrix)"
+      />
+    </svg>
+  `)}
+/>
+
+### `<feComponentTransfer>`
+
+Performs remapping for each color component. It allows operations like brightness adjustment, contrast adjustment, color balance, or thresholding (MDN).
+
+- **`in`** &mdash; the input image
+
+`<feComponentTransfer>` expects you to provide these "transfer function" children elements: `<feFuncR>`, `<feFuncG>`, `<feFuncB>`, `<feFuncA>`. Each transfer function element accepts:
+
+- **`type`** &mdash; defines how to map each color component <Latex exp="c" /> to <Latex exp="c'" />. specify one of:
+  - `identity` &mdash; <Latex exp="c' = c" />
+  - `table` &mdash; use linear interpolation using values given in `tableValues`. `tableValues` contains <Latex exp="n+1" /> values (each ranging from 0 to 1), specifying the "start" and "end" values for <Latex exp="n" /> evenly sized interpolation regions. A color <Latex exp="c" /> would fall into one of these interpolation regions; you would then perform a linear interpolation using the "start" and "end" values of the region.
+  - `discrete` &mdash; use the step function using values given in `tableValues`. `tableValues` contains <Latex exp="n" /> values (each ranging from 0 to 1), specifying a step function consisting of <Latex exp="n" /> evenly sized steps. A color <Latex exp="c" /> would fall into one of these "steps", you just use the `tableValues` value representing the step.
+  - `linear` &mdash; expects you to give `slope` and `intercept` attributes, representing <Latex exp="m" /> and <Latex exp="b" /> respectively. Then, <Latex exp="c' = mc + b" />.
+  - `gamma` &mdash; expects you to give `amplitude`, `exponent`, and `offset` attributes, representing <Latex exp="A" />, <Latex exp="x" />, and <Latex exp="b" /> respectively. Then, <Latex exp="c' = ac^x + b" />.
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-component-transfer">
+          <!-- use linear transformation -->
+          <feComponentTransfer in="SourceGraphic">
+            <feFuncR type="linear" slope="1" intercept="0" />
+            <feFuncG type="linear" slope="2" intercept="-0.5" />
+            <feFuncB type="linear" slope="2" intercept="0" />
+          </feComponentTransfer>
+        </filter>
+      </defs>
+      <image
+        x="0" y="0" width="100" height="100"
+        href="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg"
+        preserveAspectRatio="xMidYMid slice"
+        filter="url(#filter-component-transfer)"
+      />
+    </svg>
+  `)}
+/>
+
+### `<feComposite>`
+
+Performs Porter&ndash;Duff compositing operations.
+
+- **`in`** &mdash; first input (the "top" image)
+- **`in2`** &mdash; second input (the "bottom" image)
+- **`operator`** &mdash; `over`, `in`, `out`, `atop`, `xor`, `lighter` or `arithmetic` (default is `over`)
+- **`k1`, `k2`, `k3`, `k4`** &mdash; required when `operator="arithmetic"`. With <Latex exp="i_1" /> and <Latex exp="i_2" /> representing pixel channel values of `in` and `in2` respectively, the result pixel channel value is given as <Latex exp="r = k_1 (i_1 \cdot i_2) + k_2(i_1) + k_3(i_2) + k_4" />
+
+<Image
+  path="/res/web/svg/porter-duff-operations.png"
+  caption={
+    <>
+      Illustration of different <Code str="operator" /> values
+    </>
+  }
+  sourceString="Codepen"
+  sourceLink="https://codepen.io/enxaneta/pen/eBjLOV"
+/>
+
+### `<feConvolveMatrix>`
+
+Applies a matrix convolution filter effect. Operations that can be achieved through convolution include blurring, edge detection, sharpening, embossing and beveling (MDN).
+
+A convolution combines pixels in the input image with its neighboring pixels to produce a resulting image. The convolution matrix <Latex exp="\omega" /> (the "convolution kernel") is an `orderY` (<Latex exp="o_y" />) by `orderX` (<Latex exp="o_x" />) matrix; together with `divisor` <Latex exp="d" />, `bias` <Latex exp="b" />, `targetX` <Latex exp="t_x" />, `targetY` <Latex exp="t_y" />, yield the calculation:
+
+<Latex block>{String.raw`
+  c'_{x,y} = \frac{1}{d} \left\{
+    \sum_{i=0}^{o_y-1} \sum_{j=0}^{o_x-1} c_{(x-t_x+j),(y-t_i+i)} \cdot \omega_{(o_x-j-1),(o_y-i-1)}
+  \right\} + b \cdot \alpha_{x,y}
+`}</Latex>
+
+- **`in`** &mdash; the input image
+- **`order`** &mdash; size of the kernel matrix (default is 3); if you specify two numbers (e.g. `3 4`), the first number represents `orderX` (number of columns), and the second number respresents `orderY` (number or rows)
+- **`kernelMatrix`** &mdash; space-separated list of numbers, representing the kernel matrix
+- **`divisor`** &mdash; represents <Latex exp="d" /> in the equation above (default is sum of all values inside the `kernelMatrix`)
+- **`bias`** &mdash; represents <Latex exp="b" /> in the equation above (default is 0)
+- **`targetX`** &mdash; offsets the x positioning of the kernel matrix relative to the target pixel (default is centered around the target pixel, i.e. <Latex exp="t_x = \lfloor o_x / 2 \rfloor" />)
+- **`targetY`** &mdash; offsets the y positioning of the kernel matrix relative to the target pixel (default is centered around the target pixel, i.e. <Latex exp="t_y = \lfloor o_y / 2 \rfloor" />)
+- **`edgeMode`** &mdash; how to handle the case near the edge of the input image; specify `duplicate` (default), `wrap`, or `none`
+- **`preserveAlpha`** &mdash; a value of `false` (default) indicates that the convolution will apply to all channels (including alpha channel)
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-convolve-matrix">
+          <!-- use linear transformation -->
+          <feConvolveMatrix kernelMatrix="
+            0 -1 0
+            -1 3 -1
+            0 -1 0
+          " />
+        </filter>
+      </defs>
+      <image
+        x="0" y="0" width="100" height="100"
+        href="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg"
+        preserveAspectRatio="xMidYMid slice"
+        filter="url(#filter-convolve-matrix)"
+      />
+    </svg>
+  `)}
+/>
+
+### `<feDiffuseLighting>`
+
+Lights an image using the alpha channel as a bump map. (Bump mapping is a "texture mapping technique in computer graphics for simulating bumps and wrinkles on the surface of an object," Wikipedia.)
+
+- **`in`** &mdash; the input image
+- **`surfaceScale`** &mdash; height of surface for an alpha value of 1
+- **`diffuseConstant`** &mdash; <Latex exp="k_d" /> (diffuse reflection constant) in [Phong reflection model](https://en.wikipedia.org/wiki/Phong_reflection_model)
+- **`lighting-color`** &mdash; color of the light
+
+`<feDiffuseLighting>` expects you to provide the light sources using `<fePointLight>`, `<feDistantLight>`, or `<feSpotLight>` children elements.
+
+<WebEditor
+  html={smartTrim([`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDiffuseLighting -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="480" height="140">
+      <defs>
+        <!-- the light source is a fePointLight element -->
+        <filter id="filter-diffuse-fePointLight">
+          <feDiffuseLighting
+            in="SourceGraphic" result="light"
+            lighting-color="white">
+            <fePointLight x="160" y="60" z="20" />
+          </feDiffuseLighting>
+          <feComposite
+            in="SourceGraphic" in2="light"
+            operator="arithmetic" k1="1" k2="0" k3="0" k4="0"
+          />
+        </filter>
+        <!-- the light source is a fePointLight element -->
+        <filter id="filter-diffuse-feDistantLight">
+          <feDiffuseLighting
+            in="SourceGraphic" result="light"
+            lighting-color="white">
+            <feDistantLight azimuth="240" elevation="30" />
+          </feDiffuseLighting>
+          <feComposite
+            in="SourceGraphic" in2="light"
+            operator="arithmetic" k1="1" k2="0" k3="0" k4="0"
+          />
+        </filter>
+        <!-- the light source is a feSpotLight source -->
+        <filter id="filter-diffuse-feSpotLight">
+          <feDiffuseLighting
+            in="SourceGraphic" result="light"
+            lighting-color="white">
+            <feSpotLight
+              x="420" y="20" z="30"
+              pointsAtX="420" pointsAtY="80" pointsAtZ="0"
+              limitingConeAngle="20"
+            />
+          </feDiffuseLighting>
+          <feComposite
+            in="SourceGraphic" in2="light"
+            operator="arithmetic" k1="1" k2="0" k3="0" k4="0"
+          />
+        </filter>
+      </defs>
+      <!-- No light is applied -->
+      <text text-anchor="middle" x="60" y="22">
+        No Light
+      </text>
+      <circle cx="60" cy="80" r="50" fill="green" />
+      <!-- the light source is a fePointLight element -->
+      <text text-anchor="middle" x="180" y="22">fePointLight</text>
+      <circle cx="180" cy="80" r="50" fill="green" filter="url(#filter-diffuse-fePointLight)" />
+      <!-- the light source is a feDistantLight element -->
+      <text text-anchor="middle" x="300" y="22">feDistantLight</text>
+      <circle cx="300" cy="80" r="50" fill="green" filter="url(#filter-diffuse-feDistantLight)" />
+      <!-- the light source is a feSpotLight source -->
+      <text text-anchor="middle" x="420" y="22">feSpotLight</text>
+      <circle cx="420" cy="80" r="50" fill="green" filter="url(#filter-diffuse-feSpotLight)" />
+    </svg>
+  `])}
+/>
+
+### `<feSpecularLighting>`
+
+Lights an image using the alpha channel as a bump map. (Bump mapping is a "texture mapping technique in computer graphics for simulating bumps and wrinkles on the surface of an object," Wikipedia.)
+
+- **`in`** &mdash; the input image
+- **`surfaceScale`** &mdash; height of surface for an alpha value of 1
+- **`specularConstant`** &mdash; <Latex exp="k_s" /> (specular reflection constant) in [Phong reflection model](https://en.wikipedia.org/wiki/Phong_reflection_model)
+- **`specularExponent`** &mdash; larger value means more "shiny"
+- **`lighting-color`** &mdash; color of the light
+
+`<feDiffuseLighting>` expects you to provide the light sources using `<fePointLight>`, `<feDistantLight>`, or `<feSpotLight>` children elements.
+
+<WebEditor
+  html={smartTrim([`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpecularLighting -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100">
+      <defs>
+        <filter id="filter-specular">
+          <feSpecularLighting
+            result="specOut"
+            specularExponent="20" lighting-color="#ff0000">
+            <fePointLight x="25" y="25" z="100"/>
+          </feSpecularLighting>
+          <feComposite
+            in="SourceGraphic" in2="specOut" result="compositeLight"
+            operator="arithmetic" k1="0" k2="1" k3="1" k4="0"
+          />
+          <feComposite
+            in2="SourceGraphic" in1="compositeLight"
+            operator="in"
+          />
+        </filter>
+      </defs>
+      <circle cx="50" cy="50" r="40" style="filter:url(#filter-specular)"/>
+    </svg>
+  `])}
+/>
+
+### `<feDisplacementMap>`
+
+Use the pixel values from `in2` to spatially displace the pixels from `in`:
+
+<Latex block>{String.raw`
+  P'(x,y) ← P\big( x + s \cdot (\mathrm{XC}(x,y) - 0.5),\,y + s \cdot (\mathrm{YC}(x,y) - 0.5)\big)
+`}</Latex>
+
+where <Latex exp="P(x,y)" /> is the input image (`in`), <Latex exp="P'(x, y)" /> is the destination, <Latex exp="s" /> is the `scale`, <Latex exp="\mathrm{XC}(x,y)" /> and <Latex exp="\mathrm{YC}(x,y)" /> are the component values of the channel designated by the `xChannelSelector` and `yChannelSelector`.
+
+- **`in`** &mdash; input image to be displaced
+- **`in2`** &mdash; input image that governs how we displace `in`
+- **`scale`** &mdash; displacement scale factor (see above)
+- **`xChannelSelector`** &mdash; which channel to use to displace the pixels in `in` along the x-axis; specify `R`, `G`, `B`, or `A` (default is `A`)
+- **`yChannelSelector`** &mdash; which channel to use to displace the pixels in `in` along the y-axis; specify `R`, `G`, `B`, or `A` (default is `A`)
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTurbulence -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" >
+      <defs>
+        <filter id="filter-splotch">
+        <!-- create noise -->
+        <feTurbulence
+          type="turbulence" baseFrequency="0.05"
+          numOctaves="2" result="turbulence" />
+        <!-- displacement map -->
+        <feDisplacementMap
+          in2="turbulence" in="SourceGraphic"
+          scale="50" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      </defs>
+      <circle cx="100" cy="100" r="90" fill="blue" filter="url(#filter-splotch)" />
+    </svg>
+  `)}
+/>
+
+### `<feDropShadow>`
+
+Creates a drop shadow of the input image.
+
+- **`dx`** &mdash; x offset of the drop shadow
+- **`dy`** &mdash; y offset of the drop shadow
+- **`stdDeviation`** &mdash; the standard deviation for the blur operation in the drop shadow
+- **`flood-color`** &mdash; color of the shadow
+- **`flood-opacity`** &mdash; opacity of the shadow
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" >
+      <defs>
+        <!-- allow the blur to bleed outside by increasing the width/height -->
+        <filter id="filter-shadow" width="150%" height="150%">
+          <feDropShadow dx="5" dy="5" stdDeviation="5" flood-color="red" flood-opacity="0.5" />
+        </filter>
+      </defs>
+      <circle cx="50" cy="50" r="30" fill="pink" filter="url(#filter-shadow)" />
+    </svg>
+  `)}
+/>
+
+### `<feFlood>`
+
+Fills the filter subregion with a color.
+
+- **`flood-color`** &mdash; color of the fill
+- **`flood-opacity`** &mdash; opacity of the fill
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-flood" filterUnits="userSpaceOnUse">
+          <feFlood
+            x="10" y="10" width="80" height="80"
+            flood-color="green" flood-opacity="0.5"
+          />
+        </filter>
+      </defs>
+      <use style="filter: url(#filter-flood);" />
+    </svg>
+  `)}
+/>
+
+### `<feGaussianBlur>`
+
+Applies a gaussian blur.
+
+- **`in`** &mdash; the input image
+- **`stdDeviation`** &mdash; the standard deviation for the blur operation
+- **`edgeMode`** &mdash; how to handle the case near the edge of the input image; specify `duplicate`, `wrap`, or `none` (default)
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-gaussian-blur">
+          <feGaussianBlur stdDeviation="2" />
+        </filter>
+      </defs>
+      <image
+        x="0" y="0" width="100" height="100"
+        href="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg"
+        preserveAspectRatio="xMidYMid slice"
+        filter="url(#filter-gaussian-blur)"
+      />
+    </svg>
+  `)}
+/>
+
+### `<feImage>`
+
+Fetches the image data from an external source and provides the pixel data as output (if the external source is an SVG image, it is rasterized).
+
+- **`href`** &mdash; URL to the image
+- **`preserveAspectRatio`** &mdash; see [`preserveAspectRatio`](/web/svg/concepts/view-box#preserveaspectratio) (default is `xMidYMid meet`)
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-image">
+          <feImage href="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg" />
+        </filter>
+      </defs>
+      <rect x="10%" y="10%" width="80%" height="80%" style="filter: url(#filter-image);"/>
+    </svg>
+  `)}
+/>
+
+### `<feMerge>`
+
+Allows you to show/merge multiple results at once.
+
+`<feMerge>` expects you to put `<feMergeNode>` elements as its children. (`<feMergeNode>` only accepts the attribute `in`.)
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMerge -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <defs>
+      <filter id="feOffset" x="-40" y="-20" width="100" height="200">
+        <feOffset in="SourceGraphic" dx="30" dy="30" />
+        <feGaussianBlur result="blur" stdDeviation="5" />
+        <!-- Otherwise you can't display the offset+blurred image
+        <!-- and the original image at once -->
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+    <rect x="20" y="20" width="60" height="60" style="stroke: #000000; fill: green; filter: url(#feOffset);" />
+  </svg>
+`)}
+/>
+
+### `<feMorphology>`
+
+Erodes or dilates the input image (thickens or thins it).
+
+- **`in`** &mdash; the input image
+- **`operator`** &mdash; `erode` (default) or `dilate`
+- **`radius`** &mdash; radius for the operation
+
+<WebEditor
+  html={smartTrim(`
+    <div id="morphology-example">
+      <!-- filter definition -->
+      <svg xmlns="http://www.w3.org/2000/svg" style="height: 0">
+        <defs>
+          <filter id="filter-erode">
+            <feMorphology operator="erode" radius="1" />
+          </filter>
+          <filter id="filter-dilate">
+            <feMorphology operator="dilate" radius="1" />
+          </filter>
+        </defs>
+      </svg>
+      <!-- sample texts -->
+      <p>Normal text</p>
+      <p class="thin">Thinned text</p>
+      <p class="thick">Fattened text</p>
+      </div>
+  `)}
+  css={smartTrim(`
+  #morphology-example p {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
+  }
+  /* You can refer to the SVG filter ID from CSS! */
+  #morphology-example .thin {
+    filter: url(#filter-erode);
+  }
+  #morphology-example .thick {
+    filter: url(#filter-dilate);
+  }
+  `)}
+/>
+
+### `<feOffset>`
+
+Offsets the input image.
+
+- **`in`** &mdash; the input image
+- **`dx`** &mdash; offset in the x axis
+- **`dy`** &mdash; offset in the y axis
+
+### `<feTile>`
+
+Fill a target rectangle with a repeated, tiled pattern of an input image. The effect is similar to the one of a `<pattern>`.
+
+- **`in`** &mdash; the input image
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+      <defs>
+        <filter id="filter-tile" x="0" y="0" width="100%" height="100%">
+          <!-- idk why you need to write <feTile /> twice, -->
+          <!-- otherwise the image is not tiled (displayed only once) -->
+          <feTile in="SourceGraphic" x="50" y="50" width="100" height="100" />
+          <feTile />
+        </filter>
+      </defs>
+      <image
+        x="0" y="0" width="200" height="200"
+        href="/res/unsplash/lucas-benjamin-wQLAGv4_OYs-unsplash.jpg"
+        preserveAspectRatio="xMidYMid slice"
+        filter="url(#filter-tile)"
+      />
+    </svg>
+  `)}
+/>
+
+### `<feTurbulence>`
+
+Creates an image using [Perlin turbulence function](https://en.wikipedia.org/wiki/Perlin_noise).
+
+- **`type`** &mdash; specify `fractalNoise` or `turbulence` (default)
+- **`baseFrequency`** &mdash; the base frequency parameter(s) for the noise function (if two numbers are provided, the first number represents the base frequency for the x axis, and the other for the y axis)
+- **`numOctaves`** &mdash; the number of octaves for the noise function (the higher this number is, the more natural the noise looks, but requires more computation)
+- **`seed`** &mdash; the starting number for the pseudo random number generator
+- **`stitchTiles`** defines how the Perlin Noise tiles behave at the border; specify `noStitch` (default) or `stitch`
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTurbulence -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" >
+      <defs>
+        <filter id="filter-turbulence">
+          <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" />
+        </filter>
+      </defs>
+      <!-- the shape does not matter -->
+      <!-- everything will be turned into noise -->
+      <circle cx="100" cy="100" r="90" fill="blue" filter="url(#filter-turbulence)" />
+    </svg>
+  `)}
+/>
+
+## Light source elements
+
+### `<fePointLight>`
+
+- **`x`, `y`, `z`** &mdash; position of light
+
+### `<feSpotLight>`
+
+- **`x`, `y`, `z`** &mdash; position of light
+- **`pointsAtX`, `pointsAtY`, `pointsAtZ`** &mdash; to where the light is pointing
+- **`specularExponent`** &mdash; bigger means bricghter
+- **`limitingConeAngle`** &mdash; angle in degrees between the spot light axis (between the light source and the point to which it is pointing); no light is projected outside the cone.
+
+### `<feDistantLight>`
+
+- **`azimuth`** &mdash; the direction angle for the light source on the xy-plane (clockwise), from the positive x-axis. (Controls which side/edge of the shape is reflecting the light.)
+- **`elevation`** &mdash; the direction angle for the light source from the XY plane towards the Z-axis.
+
+<Image
+  path="/res/web/svg/azimuth-elevation.png"
+  caption="Illustration of azimuth and elevation angles"
+  sourceString="W3C"
+  sourceLink="https://www.w3.org/TR/SVG11/filters.html#feDistantLightElevationAttribute"
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Filter effects (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Filter_effects`,
+    },
+    {
+      text: '<filter> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/filter`,
+    },
+    {
+      text: 'in (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/in`,
+    },
+    {
+      text: '<feBlend> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feBlend`,
+    },
+    {
+      text: '<feColorMatrix> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix`,
+    },
+    {
+      text: '15.10 Filter primitive ‘feColorMatrix’ (W3C)',
+      link: `https://www.w3.org/TR/SVG11/filters.html#feColorMatrixTypeAttribute`,
+    },
+    {
+      text: '<feComponentTransfer> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComponentTransfer`,
+    },
+    {
+      text: '9.7.1. Transfer function feFuncR (W3C)',
+      link: `https://drafts.fxtf.org/filter-effects/#feFuncRElement`,
+    },
+    {
+      text: '<feComposite> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite`,
+    },
+    {
+      text: '9.8. Filter primitive feComposite (W3C)',
+      link: `https://drafts.fxtf.org/filter-effects/#feCompositeElement`,
+    },
+    {
+      text: '<feConvolveMatrix> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feConvolveMatrix`,
+    },
+    {
+      text: '15.13 Filter primitive ‘feConvolveMatrix’ (W3C)',
+      link: `https://www.w3.org/TR/SVG11/filters.html#feConvolveMatrixElementTargetXAttribute`,
+    },
+    {
+      text: '<feDiffuseLighting> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDiffuseLighting`,
+    },
+    {
+      text: '<feSpecularLighting> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpecularLighting`,
+    },
+    {
+      text: '<feDisplacementMap> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDisplacementMap`,
+    },
+    {
+      text: '<feDropShadow> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDropShadow`,
+    },
+    {
+      text: '<feFlood> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFlood`,
+    },
+    {
+      text: '<feGaussianBlur> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feGaussianBlur`,
+    },
+    {
+      text: '<feImage> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feImage`,
+    },
+    {
+      text: '<feMerge> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMerge`,
+    },
+    {
+      text: '<feMorphology> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMorphology`,
+    },
+    {
+      text: '<feOffset> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feOffset`,
+    },
+    {
+      text: '<feTile> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTile`,
+    },
+    {
+      text: '<feTurbulence> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTurbulence`,
+    },
+    {
+      text: '9.21. Filter primitive feTurbulence (W3C)',
+      link: `https://drafts.fxtf.org/filter-effects/#feTurbulenceElement`,
+    },
+  ]}
+></References>
