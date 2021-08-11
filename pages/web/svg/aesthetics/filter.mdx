@@ -232,7 +232,64 @@ Performs remapping for each color component. It allows operations like brightnes
 
 ### `<feComposite>`
 
+Performs Porter&ndash;Duff compositing operations.
+
+- **`in`** &mdash; first input (the "top" image)
+- **`in2`** &mdash; second input (the "bottom" image)
+- **`operator`** &mdash; `over`, `in`, `out`, `atop`, `xor`, `lighter` or `arithmetic` (default is `over`)
+- **`k1`, `k2`, `k3`, `k4`** &mdash; required when `operator="arithmetic"`. With <Latex exp="i_1" /> and <Latex exp="i_2" /> representing pixel channel values of `in` and `in2` respectively, the result pixel channel value is given as <Latex exp="r = k_1 (i_1 \cdot i_2) + k_2(i_1) + k_3(i_2) + k_4" />
+
+<Image
+  path="/res/web/svg/porter-duff-operations.png"
+  caption=""
+  sourceString="Codepen"
+  sourceLink="https://codepen.io/enxaneta/pen/eBjLOV"
+/>
+
 ### `<feConvolveMatrix>`
+
+Applies a matrix convolution filter effect. Operations that can be achieved through convolution include blurring, edge detection, sharpening, embossing and beveling (MDN).
+
+A convolution combines pixels in the input image with its neighboring pixels to produce a resulting image. The convolution matrix <Latex exp="\omega" /> (the "convolution kernel") is an `orderY` (<Latex exp="o_y" />) by `orderX` (<Latex exp="o_x" />) matrix; together with `divisor` <Latex exp="d" />, `bias` <Latex exp="b" />, `targetX` <Latex exp="t_x" />, `targetY` <Latex exp="t_y" />, yield the calculation:
+
+<Latex block>{String.raw`
+  c'_{x,y} = \frac{1}{d} \left\{
+    \sum_{i=0}^{o_y-1} \sum_{j=0}^{o_x-1} c_{(x-t_x+j),(y-t_i+i)} \cdot \omega_{(o_x-j-1),(o_y-i-1)}
+  \right\} + b \cdot \alpha_{x,y}
+`}</Latex>
+
+- **`in`** &mdash; the input
+- **`order`** &mdash; size of the kernel matrix (default is 3); if you specify two numbers (e.g. `3 4`), the first number represents `orderX` (number of columns), and the second number respresents `orderY` (number or rows)
+- **`kernelMatrix`** &mdash; space-separated list of numbers, representing the kernel matrix
+- **`divisor`** &mdash; represents <Latex exp="d" /> in the equation above (default is sum of all values inside the `kernelMatrix`)
+- **`bias`** &mdash; represents <Latex exp="b" /> in the equation above (default is 0)
+- **`targetX`** &mdash; offsets the x positioning of the kernel matrix relative to the target pixel (default is centered around the target pixel, i.e. <Latex exp="t_x = \lfloor o_x / 2 \rfloor" />)
+- **`targetY`** &mdash; offsets the y positioning of the kernel matrix relative to the target pixel (default is centered around the target pixel, i.e. <Latex exp="t_y = \lfloor o_y / 2 \rfloor" />)
+- **`edgeMode`** &mdash; how to handle the case near the edge of the input image; specify `duplicate` (default), `wrap`, or `none`
+- **`preserveAlpha`** &mdash; a value of `false` (default) indicates that the convolution will apply to all channels (including alpha channel)
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-convolve-matrix">
+          <!-- use linear transformation -->
+          <feConvolveMatrix kernelMatrix="
+            0 -1 0
+            -1 3 -1
+            0 -1 0
+          " />
+        </filter>
+      </defs>
+      <image
+        x="0" y="0" width="100" height="100"
+        href="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg"
+        preserveAspectRatio="xMidYMid slice"
+        filter="url(#filter-convolve-matrix)"
+      />
+    </svg>
+  `)}
+/>
 
 ### `<feDiffuseLighting>`
 
@@ -285,12 +342,32 @@ Performs remapping for each color component. It allows operations like brightnes
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix`,
     },
     {
-      text: '15.10 Filter primitive ‘feColorMatrix’ (W3)',
+      text: '15.10 Filter primitive ‘feColorMatrix’ (W3C)',
       link: `https://www.w3.org/TR/SVG11/filters.html#feColorMatrixTypeAttribute`,
+    },
+    {
+      text: '<feComponentTransfer> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComponentTransfer`,
     },
     {
       text: '9.7.1. Transfer function feFuncR (W3C)',
       link: `https://drafts.fxtf.org/filter-effects/#feFuncRElement`,
+    },
+    {
+      text: '<feComposite> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite`,
+    },
+    {
+      text: '9.8. Filter primitive feComposite (W3C)',
+      link: `https://drafts.fxtf.org/filter-effects/#feCompositeElement`,
+    },
+    {
+      text: '<feConvolveMatrix> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feConvolveMatrix`,
+    },
+    {
+      text: '15.13 Filter primitive ‘feConvolveMatrix’ (W3C)',
+      link: `https://www.w3.org/TR/SVG11/filters.html#feConvolveMatrixElementTargetXAttribute`,
     },
   ]}
 ></References>
