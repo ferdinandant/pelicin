@@ -327,7 +327,7 @@ Lights an image using the alpha channel as a bump map. (Bump mapping is a "textu
           <feDiffuseLighting
             in="SourceGraphic" result="light"
             lighting-color="white">
-            <feDistantLight azimuth="240" elevation="30"/>
+            <feDistantLight azimuth="240" elevation="30" />
           </feDiffuseLighting>
           <feComposite
             in="SourceGraphic" in2="light"
@@ -340,7 +340,7 @@ Lights an image using the alpha channel as a bump map. (Bump mapping is a "textu
             in="SourceGraphic" result="light"
             lighting-color="white">
             <feSpotLight
-              x="420" y="30" z="30"
+              x="420" y="20" z="30"
               pointsAtX="420" pointsAtY="80" pointsAtZ="0"
               limitingConeAngle="20"
             />
@@ -432,9 +432,26 @@ Lights an image using the alpha channel as a bump map. (Bump mapping is a "textu
 
 ### `<fePointLight>`
 
-### `<feDistantLight>`
+- **`x`, `y`, `z`** &mdash; position of light
 
 ### `<feSpotLight>`
+
+- **`x`, `y`, `z`** &mdash; position of light
+- **`pointsAtX`, `pointsAtY`, `pointsAtZ`** &mdash; to where the light is pointing
+- **`specularExponent`** &mdash; bigger means bricghter
+- **`limitingConeAngle`** &mdash; angle in degrees between the spot light axis (between the light source and the point to which it is pointing); no light is projected outside the cone.
+
+### `<feDistantLight>`
+
+- **`azimuth`** &mdash; the direction angle for the light source on the xy-plane (clockwise), from the positive x-axis. (Controls which side/edge of the shape is reflecting the light.)
+- **`elevation`** &mdash; the direction angle for the light source from the XY plane towards the Z-axis.
+
+<Image
+  path="/res/web/svg/azimuth-elevation.png"
+  caption="Illustration of azimuth and elevation angles"
+  sourceString="W3C"
+  sourceLink="https://www.w3.org/TR/SVG11/filters.html#feDistantLightElevationAttribute"
+/>
 
 ## References
 
@@ -491,6 +508,10 @@ Lights an image using the alpha channel as a bump map. (Bump mapping is a "textu
     {
       text: '<feDiffuseLighting> (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDiffuseLighting`,
+    },
+    {
+      text: '<feSpecularLighting> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpecularLighting`,
     },
   ]}
 ></References>
