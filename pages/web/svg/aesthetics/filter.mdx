@@ -1,5 +1,17 @@
-import { References, WebEditor, NoteBox, Code, Image, Asterisk, Link } from '@pelicin/components';
+import {
+  References,
+  WebEditor,
+  NoteBox,
+  Code,
+  Image,
+  Asterisk,
+  Link,
+  Latex,
+} from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
+import { LoadKatex } from '@pelicin/loaders';
+
+<LoadKatex />
 
 # Filter
 
@@ -19,7 +31,7 @@ They take in images specified by the `in` and/or `in2` attributes, and store the
 All primitives accept these attributes:
 
 - **`result`** &mdash; name for the filter primitive result; the name can be referenced in the `in` or `in2` attribute of another primitive.
-- **`x`, `y`, `width`, `height`** &mdash; position and dimension of the filter primitive viewport (probably to "crop out" the filter primitive layer?)
+- **`x`, `y`, `width`, `height`** &mdash; position and dimension of the filter primitive viewport (to "crop out" the filter primitive layer)
 
 ### Primitive `in` and `in2` attributes
 
@@ -95,11 +107,90 @@ The default value is `SourceGraphic` for first filter primitive, otherwise it's 
 
 Composes objects together and apply a blending mode.
 
-- **`in`** &mdash; first input
-- **`in2`** &mdash; second input
+- **`in`** &mdash; first input (the "top" image)
+- **`in2`** &mdash; second input (the "bottom" image)
 - **`mode`** &mdash; the [blending mode](/web/css/data-type/blend-mode) to use; specify: `normal`, `darken`, `lighten`, `multiply`, `screen`, `overlay`, `color-dodge`, `color-burn`, `hard-light`, `soft-light`, `difference`, `exclusion`, `hue`, `saturation`, `color`, or `luminosity`
 
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-blend">
+          <feFlood result="floodFill" x="0" y="0" width="100%" height="100%" flood-color="red" flood-opacity="1" />
+          <feBlend in="SourceGraphic" in2="floodFill" mode="multiply" />
+        </filter>
+      </defs>
+      <image
+        x="0" y="0" width="100" height="100"
+        href="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg"
+        preserveAspectRatio="xMidYMid slice"
+        filter="url(#filter-blend)"
+      />
+    </svg>
+  `)}
+/>
+
 ### `<feColorMatrix>`
+
+Changes colors based on a transformation matrix. (The final RGBA value will be clamped between 0 and 1.)
+
+<Latex block>{String.raw`
+  \begin{bmatrix}
+    r' \\
+    g' \\
+    b' \\
+    a' \\
+    1 \\
+  \end{bmatrix} = \begin{bmatrix}
+    r_1 & r_2 & r_3 & r_4 & r_5 \\
+    g_1 & g_2 & g_3 & g_4 & g_5 \\
+    b_1 & b_2 & b_3 & b_4 & b_5 \\
+    a_1 & a_2 & a_3 & a_4 & a_5 \\
+    0 & 0 & 0 & 0 & 1 \\
+  \end{bmatrix}\begin{bmatrix}
+    r \\
+    g \\
+    b \\
+    a \\
+    1 \\
+  \end{bmatrix}
+`}</Latex>
+
+- **`in`** &mdash; the input
+- **`type`** &mdash; `matrix`, `saturate`, `hueRotate`, or `luminanceToAlpha`
+- **`values`** &mdash; depends on `type` (if you specify `type` other than `matrix`, it will construct the matrix based on the value of `type` and `values`):
+  - for `type="matrix"`: input the first four rows of the matrix (ignore the last row because it's a constant)
+  - for `type="saturate"`: input a single real number from 0 to 1
+  - for `type="hueRotate"`: input a single real number (representing the degrees)
+  - for `type="luminanceToAlpha"`: `values` is not required
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <filter id="filter-color-matrix">
+          <!-- remove red color component -->
+          <!-- note that we don't input the last row of the matrix -->
+          <feColorMatrix
+            in="SourceGraphic"
+            type="matrix"
+            values="
+              0 0 0 0 0
+              0 1 0 0 0
+              0 0 1 0 0
+              0 0 0 1 0
+            " />
+        </filter>
+      </defs>
+      <image
+        x="0" y="0" width="100" height="100"
+        href="/res/unsplash/andrew-ridley-jR4Zf-riEjI-unsplash.jpg"
+        preserveAspectRatio="xMidYMid slice"
+        filter="url(#filter-color-matrix)"
+      />
+    </svg>
+  `)}
+/>
 
 ### `<feComponentTransfer>`
 
@@ -156,6 +247,18 @@ Composes objects together and apply a blending mode.
     {
       text: 'in (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/in`,
+    },
+    {
+      text: '<feBlend> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feBlend`,
+    },
+    {
+      text: '<feColorMatrix> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix`,
+    },
+    {
+      text: '15.10 Filter primitive ‘feColorMatrix’ (W3)',
+      link: `https://www.w3.org/TR/SVG11/filters.html#feColorMatrixTypeAttribute`,
     },
   ]}
 ></References>

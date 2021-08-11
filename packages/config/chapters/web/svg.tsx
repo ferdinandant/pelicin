@@ -65,13 +65,11 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Transformation',
-        path: '/web/svg/aesthetics/transformation',
-        badge: 'TODO'
+        path: '/web/css/data-type/transform-function',
       },
       {
         title: 'Filter',
         path: '/web/svg/aesthetics/filter',
-        badge: 'TODO'
       },
     ],
   },
@@ -81,6 +79,21 @@ const chapters: TopicChapters = [
       {
         title: 'Grouping',
         path: '/web/svg/others/grouping',
+        badge: 'TODO'
+      },
+      {
+        title: 'Reusing Components',
+        path: '/web/svg/others/reusing-components',
+        badge: 'TODO'
+      },
+      {
+        title: 'Hyperlinks',
+        path: '/web/svg/others/hyperlinks',
+        badge: 'TODO'
+      },
+      {
+        title: 'Metadata',
+        path: '/web/svg/others/metadata',
         badge: 'TODO'
       },
     ],
