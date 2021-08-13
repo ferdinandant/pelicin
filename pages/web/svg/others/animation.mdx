@@ -75,6 +75,11 @@ Animates an attribute over time.
 - **`keyTimes`** &mdash; specifies the keyframe timing for `values`; specify non-decreasing numbers from 0 to 1, separated by semicolon<Asterisk str="*"/>
 - **`keySplines`** &mdash; only for `calcMode="spline"`, defines a set of Bézier curve control points associated with `keyTimes`; specify a list of control points in the form of `x1 y1 x2 y2`, all must be in the range of 0 to 1, e.g. `keySplines="0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1"`<Asterisk str="**"/>
 
+<Badge color="red">Others</Badge>
+
+- **`additive`** &mdash; controls whether or not an animation is additive; specify `replace` (animation value will overwrite the attribute's value, default) or `sum` (animation value will add to the attribute's value)
+- **`cummulative`** &mdash; controls whether or not an animation is cumulative (on each repeat); specify `none` (repeat iterations are not cumulative, default) or `sum` (the value on each repeat builds upon the last value of the previous iteration)
+
 <WebEditor
   html={smartTrim(`
     <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
@@ -164,6 +169,14 @@ Animates an attribute over time.
     {
       text: 'keySplines (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keySplines`,
+    },
+    {
+      text: 'additive (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/additive`,
+    },
+    {
+      text: 'cummulative (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/cummulative`,
     },
   ]}
 ></References>
