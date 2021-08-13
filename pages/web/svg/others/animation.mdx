@@ -1,0 +1,55 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Animation
+
+SVG Animations is initially defined in the [SMIL Animation](https://www.w3.org/TR/2001/REC-smil-animation-20010904/) specification.
+
+_SMIL (Synchronized Multimedia Integration Language)_ itself is an "HTML-like language" used for "authoring of interactive audiovisual presentations" (W3C), which defines the following elements for animation: `<animation>`, `<set>`, `<animateMotion>`.
+
+SVG extends the SMIL Animation spec and introduces these additional elements and attributes: `<animateTransform>`, `<mpath>`, `path`, `keypoints`, `rotate` (CSS-Tricks).
+
+<WebEditor
+  html={smartTrim(`
+    <div id="height-example">
+      Hi!
+    </div>
+  `)}
+  css={smartTrim(`
+    #height-example {
+    }
+  `)}
+/>
+
+<WebEditor
+  hideHTML
+  hideCSS
+  html={smartTrim(`
+  `)}
+  css={smartTrim(`
+  `)}
+/>
+
+<DocumentationList
+  items={[
+    {
+      name: 'row',
+      description: <>aaa</>,
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'A Guide to SVG Animations (SMIL) (CSS-Tricks)',
+      link: `https://css-tricks.com/guide-svg-animations-smil/`,
+    },
+    {
+      text: '(MDN)',
+      link: `https`,
+    },
+  ]}
+></References>
