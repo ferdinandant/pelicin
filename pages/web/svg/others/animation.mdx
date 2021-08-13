@@ -1,4 +1,4 @@
-import { References } from '@pelicin/components';
+import { References, WebEditor, Badge, Asterisk, Code } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Animation
@@ -33,37 +33,69 @@ Otherwise, you can nest them inside an element you want to animate; by default `
 </rect>
 ```
 
+## SVG attributes
+
+### `begin` and `end`
+
+These controls when an animation begins or ends. Multiple values can be given, separated by semicolon (e.g. `begin="3s; otherElement.begin"`). Acceptable values:
+
+- **an offset value** &mdash; e.g. `2s` or `500ms`: begin/end after this much time has elapsed
+- **a syncbase value** &mdash; e.g. `myAnimationID.begin` or `myAnimationID.end`: assuming you have another animation with `id="myAnimationID"`, begins/ends the animation when that other animation begins/ends
+- **an event value** &mdash; e.g. `myElementID.click`: assuming you have another element with `id="myElementID"`, begins/ends the animation when that other element fires the specified event
+- **a repeat value** &mdash; e.g. `myAnimationID.repeat(2)`: assuming you have another animation with `id="myAnimationID"`, begins/ends the animation when that other animation has repeated the specified amount of times
+- **`indefinite`** &mdash; expects you to use scripting to manually start/end the animation
+
 ## SVG elements
 
+### `<animate>`
+
+Animates an attribute over time.
+
+- **`attributeName`** &mdash; name of attribute to animate
+
+<Badge color="red">Animation timing</Badge>
+
+- **`begin`** &mdash; when to begin the animation, e.g. `2s`
+- **`dur`** &mdash; how long is the duration; specify a clock value like `2s` or `indefinite`
+- **`end`** &mdash; when to end the animation (constrains the animation duration)
+- **`min`** &mdash; sets the lower bound of the active duration value
+- **`max`** &mdash; sets the upper bound of the active duration value
+- **`restart`** &mdash; sets whether or not an animation can restart; specify `always`, `whenNotActive`, or `never`
+- **`repeatCount`** &mdash; how many times the animation will repeat; specify a number or `indefinite`
+- **`repeatDur`** &mdash; total duration for repeating an animation, e.g. `10s`
+- **`fill`** &mdash; defines the final state of the animation; specify `freeze` (keep the last frame of the animation) or `remove` (keep the first frame of the animation)
+
+<Badge color="red">Animation value</Badge>
+
+- **`from`** &mdash; the initial value of the attribute
+- **`to`** &mdash; the final value of the attribute
+- **`by`** &mdash; the relative offset value for the attribute (alternative to specifying `to`; the initial value depends on the element, or is specified from `from`)
+- **`values`** &mdash; list of values over the course of the animation, separated by semicolon (if specified, `from`, `to`, and `by` will be ignored)
+- **`calcMode`** &mdash; specifies the interpolation mode for the animation; specify `linear` (default), `discrete` (step function), `paced` (produce an even pace of change across the animation), or `spline` (interpolate `values` using cubic Bézier spline)
+- **`keyTimes`** &mdash; specifies the keyframe timing for `values`; specify non-decreasing numbers from 0 to 1, separated by semicolon<Asterisk str="*"/>
+- **`keySplines`** &mdash; only for `calcMode="spline"`, defines a set of Bézier curve control points associated with `keyTimes`; specify a list of control points in the form of `x1 y1 x2 y2`, all must be in the range of 0 to 1, e.g. `keySplines="0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1"`<Asterisk str="**"/>
+
 <WebEditor
   html={smartTrim(`
-    <div id="height-example">
-      Hi!
-    </div>
-  `)}
-  css={smartTrim(`
-    #height-example {
-    }
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <rect width="100" height="100">
+        <animate attributeName="rx" values="0; 50; 0" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="fill" values="red; pink; red" dur="2s" repeatCount="indefinite" />
+      </rect>
+    </svg>
   `)}
 />
 
-<WebEditor
-  hideHTML
-  hideCSS
-  html={smartTrim(`
-  `)}
-  css={smartTrim(`
-  `)}
-/>
+<Asterisk str="*">
+  There must be as many values in <Code str="keyTimes" /> as there are values in{' '}
+  <Code str="values" />
+</Asterisk>
 
-<DocumentationList
-  items={[
-    {
-      name: 'row',
-      description: <>aaa</>,
-    },
-  ]}
-/>
+<Asterisk str="**">
+  There must be one fewer sets of control points than there are values in <Code str="keyTimes" />,
+  because if we have <var>n</var> anchor points, we would have <var>n</var>&ndash;1 segments, and
+  each segment has 2 control points (each for the "start" and "end" anchor points)
+</Asterisk>
 
 ## References
 
@@ -74,8 +106,64 @@ Otherwise, you can nest them inside an element you want to animate; by default `
       link: `https://css-tricks.com/guide-svg-animations-smil/`,
     },
     {
-      text: '(MDN)',
-      link: `https`,
+      text: '<animation> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate`,
+    },
+    {
+      text: 'begin (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/begin`,
+    },
+    {
+      text: 'dur (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dur`,
+    },
+    {
+      text: 'end (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/end`,
+    },
+    {
+      text: 'restart (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/begin`,
+    },
+    {
+      text: 'repeatCount (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/repeatCount`,
+    },
+    {
+      text: 'repeatDur (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/repeatDur`,
+    },
+    {
+      text: 'fill (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill`,
+    },
+    {
+      text: 'from (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/from`,
+    },
+    {
+      text: 'to (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/to`,
+    },
+    {
+      text: 'by (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/by`,
+    },
+    {
+      text: 'values (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/values`,
+    },
+    {
+      text: 'calcMode (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/calcMode`,
+    },
+    {
+      text: 'keyTimes (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keyTimes`,
+    },
+    {
+      text: 'keySplines (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keySplines`,
     },
   ]}
 ></References>
