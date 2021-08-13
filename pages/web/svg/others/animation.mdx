@@ -9,6 +9,32 @@ _SMIL (Synchronized Multimedia Integration Language)_ itself is an "HTML-like la
 
 SVG extends the SMIL Animation spec and introduces these additional elements and attributes: `<animateTransform>`, `<mpath>`, `path`, `keypoints`, `rotate` (CSS-Tricks).
 
+## Specifying animation
+
+### 1. Using `href` attribute
+
+You can specify the target of an animation by using the `href` attribute on `<animate>`:
+
+```html
+<defs>
+  <!-- target the shape with href -->
+  <animate href="#cool-shape" ... />
+</defs>
+<rect id="cool-shape" ... />
+```
+
+### 2. Declaring animation as children
+
+Otherwise, you can nest them inside an element you want to animate; by default `<animate>` attributes will target their immediate parent:
+
+```html
+<rect id="cool_shape" ...>
+  <animate ... />
+</rect>
+```
+
+## SVG elements
+
 <WebEditor
   html={smartTrim(`
     <div id="height-example">
