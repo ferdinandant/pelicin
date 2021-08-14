@@ -102,6 +102,84 @@ Animates an attribute over time.
   each segment has 2 control points (each for the "start" and "end" anchor points)
 </Asterisk>
 
+### `<set>`
+
+Sets an attribute value for a specified duration.
+
+- **`attributeName`** &mdash; name of attribute to set
+- **`to`** &mdash; to value to set the attribute value to
+- _for other attributes, see "Animation timing" attributes of [`<animate>`](#<animate>)_
+
+<WebEditor
+  html={smartTrim(`
+    <!-- Click the square below -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/set -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <style>
+        rect { cursor: pointer; }
+        .round { rx: 50px; fill: green; }
+      </style>
+      <rect id="me" width="100" height="100">
+        <!-- you can even set the class attribute! -->
+        <set attributeName="class" to="round" begin="me.click" dur="1s" />
+      </rect>
+    </svg>
+  `)}
+/>
+
+### `<animateMotion>`
+
+Defines how an element moves along a motion path
+
+- **`path`** &mdash; the motion path (alternatively, you can also use `<mpath>` child element to refer to an existing path)
+- **`rotate`** &mdash; specify the degrees of rotation, `auto` (automatically rotate along the path), or `auto-reverse`
+- **`rotate`** &mdash; how far the object is along the path for each `keyTimes` values, separated by semicolon (specify values ranging from 0 to 1; 0 = start of path, 1 = end of path)
+- _for other attributes, see "Animation timing", "Animation values", and "Others" attributes of [`<animate>`](#<animate>)_
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="100">
+      <!-- draw the path -->
+      <path fill="none" stroke="lightgrey"
+        d="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z" />
+      <!-- animate the rectangle -->
+      <!-- note that the path is the same -->
+      <rect x="-5" y="-5" width="10" height="10" fill="red">
+        <animateMotion
+          dur="5s" repeatCount="indefinite" rotate="auto"
+          path="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z"
+        />
+      </circle>
+    </svg>
+  `)}
+/>
+
+### `<mpath>`
+
+A child element for `<animateMotion>`. Specifies an external `<path>` to use as motion path.
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keyPoints -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <!-- path definition -->
+      <path
+        id="motionPath" stroke="lightgrey" stroke-width="2" fill="none"
+        d="M10,110 A120,120 -45 0,1 110 10 A120,120 -45 0,1 10,110"
+      />
+      <circle r="5" fill="red">
+        <animateMotion
+          dur="3s" repeatCount="indefinite"
+          keyPoints="0;0.5;1" keyTimes="0;0.15;1" calcMode="linear">
+          <!-- use existing path -->
+          <mpath href="#motionPath"/>
+        </animateMotion>
+      </circle>
+    </svg>
+  `)}
+/>
+
 ## References
 
 <References
@@ -177,6 +255,22 @@ Animates an attribute over time.
     {
       text: 'cummulative (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/cummulative`,
+    },
+    {
+      text: '<set> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/set`,
+    },
+    {
+      text: '<animateMotion> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion`,
+    },
+    {
+      text: 'keyPoints (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keyPoints`,
+    },
+    {
+      text: '<mpath> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mpath`,
     },
   ]}
 ></References>
