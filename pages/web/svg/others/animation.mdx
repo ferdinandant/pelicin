@@ -159,6 +159,8 @@ Defines how an element moves along a motion path
 
 A child element for `<animateMotion>`. Specifies an external `<path>` to use as motion path.
 
+- **`href`** &mdash; e.g. `#myPath`, reference to the `<path>` to use
+
 <WebEditor
   html={smartTrim(`
     <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keyPoints -->
@@ -176,6 +178,36 @@ A child element for `<animateMotion>`. Specifies an external `<path>` to use as 
           <mpath href="#motionPath"/>
         </animateMotion>
       </circle>
+    </svg>
+  `)}
+/>
+
+### `<animateTransform>`
+
+Animates a transformation attribute on a target element.
+
+- **`attributeName`** &mdash; only `transform` is acceptable for this case
+- **`type`** &mdash; what transformation to animate
+  - for `type="translate"`: expects animation values to be given as `<tx>, <ty>`
+  - for `type="scale"`: expects animation values to be given as `<sx>, <sy>`
+  - for `type="rotate"`: expects animation values to be given as `<rotate-angle>` or `<rotate-angle> <cx> <cy>`
+  - for `type="skewX"`: expects animation values to be given as `<skew-angle>`
+  - for `type="skewY"`: expects animation values to be given as `<skew-angle>`
+- _for other attributes, see "Animation timing", "Animation values", and "Others" attributes of [`<animate>`](#<animate>)_
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateTransform -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <polygon points="60,30 90,90 30,90">
+        <animateTransform
+          type="rotate"
+          from="0 60 70"
+          to="360 60 70"
+          dur="10s"
+          repeatCount="indefinite"
+        />
+      </polygon>
     </svg>
   `)}
 />
@@ -271,6 +303,14 @@ A child element for `<animateMotion>`. Specifies an external `<path>` to use as 
     {
       text: '<mpath> (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mpath`,
+    },
+    {
+      text: '<animateTransform> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateTransform`,
+    },
+    {
+      text: '2.17. The ‘animateTransform’ element (W3C)',
+      link: `https://svgwg.org/specs/animations/#AnimateTransformElement`,
     },
   ]}
 ></References>
