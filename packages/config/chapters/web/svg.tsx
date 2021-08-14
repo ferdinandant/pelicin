@@ -77,6 +77,10 @@ const chapters: TopicChapters = [
     chapter: 'Others',
     children: [
       {
+        title: 'Animation',
+        path: '/web/svg/others/animation',
+      },
+      {
         title: 'Grouping',
         path: '/web/svg/others/grouping',
         badge: 'TODO'

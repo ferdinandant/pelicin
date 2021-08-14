@@ -1,0 +1,316 @@
+import { References, WebEditor, Badge, Asterisk, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Animation
+
+SVG Animations is initially defined in the [SMIL Animation](https://www.w3.org/TR/2001/REC-smil-animation-20010904/) specification.
+
+_SMIL (Synchronized Multimedia Integration Language)_ itself is an "HTML-like language" used for "authoring of interactive audiovisual presentations" (W3C), which defines the following elements for animation: `<animation>`, `<set>`, `<animateMotion>`.
+
+SVG extends the SMIL Animation spec and introduces these additional elements and attributes: `<animateTransform>`, `<mpath>`, `path`, `keypoints`, `rotate` (CSS-Tricks).
+
+## Specifying animation
+
+### 1. Using `href` attribute
+
+You can specify the target of an animation by using the `href` attribute on `<animate>`:
+
+```html
+<defs>
+  <!-- target the shape with href -->
+  <animate href="#cool-shape" ... />
+</defs>
+<rect id="cool-shape" ... />
+```
+
+### 2. Declaring animation as children
+
+Otherwise, you can nest them inside an element you want to animate; by default `<animate>` attributes will target their immediate parent:
+
+```html
+<rect id="cool_shape" ...>
+  <animate ... />
+</rect>
+```
+
+## SVG attributes
+
+### `begin` and `end`
+
+These controls when an animation begins or ends. Multiple values can be given, separated by semicolon (e.g. `begin="3s; otherElement.begin"`). Acceptable values:
+
+- **an offset value** &mdash; e.g. `2s` or `500ms`: begin/end after this much time has elapsed
+- **a syncbase value** &mdash; e.g. `myAnimationID.begin` or `myAnimationID.end`: assuming you have another animation with `id="myAnimationID"`, begins/ends the animation when that other animation begins/ends
+- **an event value** &mdash; e.g. `myElementID.click`: assuming you have another element with `id="myElementID"`, begins/ends the animation when that other element fires the specified event
+- **a repeat value** &mdash; e.g. `myAnimationID.repeat(2)`: assuming you have another animation with `id="myAnimationID"`, begins/ends the animation when that other animation has repeated the specified amount of times
+- **`indefinite`** &mdash; expects you to use scripting to manually start/end the animation
+
+## SVG elements
+
+### `<animate>`
+
+Animates an attribute over time.
+
+- **`attributeName`** &mdash; name of attribute to animate
+
+<Badge color="red">Animation timing</Badge>
+
+- **`begin`** &mdash; when to begin the animation, e.g. `2s`
+- **`dur`** &mdash; how long is the duration; specify a clock value like `2s` or `indefinite`
+- **`end`** &mdash; when to end the animation (constrains the animation duration)
+- **`min`** &mdash; sets the lower bound of the active duration value
+- **`max`** &mdash; sets the upper bound of the active duration value
+- **`restart`** &mdash; sets whether or not an animation can restart; specify `always`, `whenNotActive`, or `never`
+- **`repeatCount`** &mdash; how many times the animation will repeat; specify a number or `indefinite`
+- **`repeatDur`** &mdash; total duration for repeating an animation, e.g. `10s`
+- **`fill`** &mdash; defines the final state of the animation; specify `freeze` (keep the last frame of the animation) or `remove` (keep the first frame of the animation)
+
+<Badge color="red">Animation value</Badge>
+
+- **`from`** &mdash; the initial value of the attribute
+- **`to`** &mdash; the final value of the attribute
+- **`by`** &mdash; the relative offset value for the attribute (alternative to specifying `to`; the initial value depends on the element, or is specified from `from`)
+- **`values`** &mdash; list of values over the course of the animation, separated by semicolon (if specified, `from`, `to`, and `by` will be ignored)
+- **`calcMode`** &mdash; specifies the interpolation mode for the animation; specify `linear` (default), `discrete` (step function), `paced` (produce an even pace of change across the animation), or `spline` (interpolate `values` using cubic Bézier spline)
+- **`keyTimes`** &mdash; specifies the keyframe timing for `values`; specify non-decreasing numbers from 0 to 1, separated by semicolon<Asterisk str="*"/>
+- **`keySplines`** &mdash; only for `calcMode="spline"`, defines a set of Bézier curve control points associated with `keyTimes`; specify a list of control points in the form of `x1 y1 x2 y2`, all must be in the range of 0 to 1, e.g. `keySplines="0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1"`<Asterisk str="**"/>
+
+<Badge color="red">Others</Badge>
+
+- **`additive`** &mdash; controls whether or not an animation is additive; specify `replace` (animation value will overwrite the attribute's value, default) or `sum` (animation value will add to the attribute's value)
+- **`cummulative`** &mdash; controls whether or not an animation is cumulative (on each repeat); specify `none` (repeat iterations are not cumulative, default) or `sum` (the value on each repeat builds upon the last value of the previous iteration)
+
+<WebEditor
+  html={smartTrim(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <rect width="100" height="100">
+        <animate attributeName="rx" values="0; 50; 0" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="fill" values="red; pink; red" dur="2s" repeatCount="indefinite" />
+      </rect>
+    </svg>
+  `)}
+/>
+
+<Asterisk str="*">
+  There must be as many values in <Code str="keyTimes" /> as there are values in{' '}
+  <Code str="values" />
+</Asterisk>
+
+<Asterisk str="**">
+  There must be one fewer sets of control points than there are values in <Code str="keyTimes" />,
+  because if we have <var>n</var> anchor points, we would have <var>n</var>&ndash;1 segments, and
+  each segment has 2 control points (each for the "start" and "end" anchor points)
+</Asterisk>
+
+### `<set>`
+
+Sets an attribute value for a specified duration.
+
+- **`attributeName`** &mdash; name of attribute to set
+- **`to`** &mdash; to value to set the attribute value to
+- _for other attributes, see "Animation timing" attributes of [`<animate>`](#<animate>)_
+
+<WebEditor
+  html={smartTrim(`
+    <!-- Click the square below -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/set -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <style>
+        rect { cursor: pointer; }
+        .round { rx: 50px; fill: green; }
+      </style>
+      <rect id="me" width="100" height="100">
+        <!-- you can even set the class attribute! -->
+        <set attributeName="class" to="round" begin="me.click" dur="1s" />
+      </rect>
+    </svg>
+  `)}
+/>
+
+### `<animateMotion>`
+
+Defines how an element moves along a motion path
+
+- **`path`** &mdash; the motion path (alternatively, you can also use `<mpath>` child element to refer to an existing path)
+- **`rotate`** &mdash; specify the degrees of rotation, `auto` (automatically rotate along the path), or `auto-reverse`
+- **`rotate`** &mdash; how far the object is along the path for each `keyTimes` values, separated by semicolon (specify values ranging from 0 to 1; 0 = start of path, 1 = end of path)
+- _for other attributes, see "Animation timing", "Animation values", and "Others" attributes of [`<animate>`](#<animate>)_
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="100">
+      <!-- draw the path -->
+      <path fill="none" stroke="lightgrey"
+        d="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z" />
+      <!-- animate the rectangle -->
+      <!-- note that the path is the same -->
+      <rect x="-5" y="-5" width="10" height="10" fill="red">
+        <animateMotion
+          dur="5s" repeatCount="indefinite" rotate="auto"
+          path="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z"
+        />
+      </circle>
+    </svg>
+  `)}
+/>
+
+### `<mpath>`
+
+A child element for `<animateMotion>`. Specifies an external `<path>` to use as motion path.
+
+- **`href`** &mdash; e.g. `#myPath`, reference to the `<path>` to use
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keyPoints -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <!-- path definition -->
+      <path
+        id="motionPath" stroke="lightgrey" stroke-width="2" fill="none"
+        d="M10,110 A120,120 -45 0,1 110 10 A120,120 -45 0,1 10,110"
+      />
+      <circle r="5" fill="red">
+        <animateMotion
+          dur="3s" repeatCount="indefinite"
+          keyPoints="0;0.5;1" keyTimes="0;0.15;1" calcMode="linear">
+          <!-- use existing path -->
+          <mpath href="#motionPath"/>
+        </animateMotion>
+      </circle>
+    </svg>
+  `)}
+/>
+
+### `<animateTransform>`
+
+Animates a transformation attribute on a target element.
+
+- **`attributeName`** &mdash; only `transform` is acceptable for this case
+- **`type`** &mdash; what transformation to animate
+  - for `type="translate"`: expects animation values to be given as `<tx>, <ty>`
+  - for `type="scale"`: expects animation values to be given as `<sx>, <sy>`
+  - for `type="rotate"`: expects animation values to be given as `<rotate-angle>` or `<rotate-angle> <cx> <cy>`
+  - for `type="skewX"`: expects animation values to be given as `<skew-angle>`
+  - for `type="skewY"`: expects animation values to be given as `<skew-angle>`
+- _for other attributes, see "Animation timing", "Animation values", and "Others" attributes of [`<animate>`](#<animate>)_
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateTransform -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <polygon points="60,30 90,90 30,90">
+        <animateTransform
+          type="rotate"
+          from="0 60 70"
+          to="360 60 70"
+          dur="10s"
+          repeatCount="indefinite"
+        />
+      </polygon>
+    </svg>
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'A Guide to SVG Animations (SMIL) (CSS-Tricks)',
+      link: `https://css-tricks.com/guide-svg-animations-smil/`,
+    },
+    {
+      text: '<animation> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate`,
+    },
+    {
+      text: 'begin (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/begin`,
+    },
+    {
+      text: 'dur (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dur`,
+    },
+    {
+      text: 'end (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/end`,
+    },
+    {
+      text: 'restart (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/begin`,
+    },
+    {
+      text: 'repeatCount (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/repeatCount`,
+    },
+    {
+      text: 'repeatDur (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/repeatDur`,
+    },
+    {
+      text: 'fill (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill`,
+    },
+    {
+      text: 'from (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/from`,
+    },
+    {
+      text: 'to (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/to`,
+    },
+    {
+      text: 'by (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/by`,
+    },
+    {
+      text: 'values (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/values`,
+    },
+    {
+      text: 'calcMode (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/calcMode`,
+    },
+    {
+      text: 'keyTimes (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keyTimes`,
+    },
+    {
+      text: 'keySplines (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keySplines`,
+    },
+    {
+      text: 'additive (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/additive`,
+    },
+    {
+      text: 'cummulative (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/cummulative`,
+    },
+    {
+      text: '<set> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/set`,
+    },
+    {
+      text: '<animateMotion> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion`,
+    },
+    {
+      text: 'keyPoints (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/keyPoints`,
+    },
+    {
+      text: '<mpath> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mpath`,
+    },
+    {
+      text: '<animateTransform> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateTransform`,
+    },
+    {
+      text: '2.17. The ‘animateTransform’ element (W3C)',
+      link: `https://svgwg.org/specs/animations/#AnimateTransformElement`,
+    },
+  ]}
+></References>
