@@ -47,6 +47,10 @@ const chapters: TopicChapters = [
         path: '/web/svg/drawing/path',
       },
       {
+        title: 'Marker',
+        path: '/web/svg/drawing/marker',
+      },
+      {
         title: 'Text',
         path: '/web/svg/drawing/text',
       },
