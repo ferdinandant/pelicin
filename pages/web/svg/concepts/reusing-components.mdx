@@ -1,4 +1,4 @@
-import { References, WebEditor } from '@pelicin/components';
+import { References, WebEditor, Badge } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Reusing Components
@@ -17,7 +17,7 @@ Note that except for `x`, `y`, `width`, `height` and `href` attributes, you cann
 
 - **`href`** &mdash; URL/fragment to the element to be duplicated
 - **`x`** &mdash; top-left x coordinate to place the duplicated element
-- **`y`** &mdash; top-left y coordinate the duplicated element
+- **`y`** &mdash; top-left y coordinate to place the duplicated element
 - **`width`** &mdash; width of the duplicated element (has no effect if the referenced element does not have a viewbox)
 - **`height`** &mdash; height of the duplicated element (has no effect if the referenced element does not have a viewbox)
 
@@ -33,6 +33,41 @@ Note that except for `x`, `y`, `width`, `height` and `href` attributes, you cann
   `)}
 />
 
+### `<symbol>`
+
+Defines graphical _template_ objects which can be instantiated by a `<use>` element. (Just for structure and semantics.)
+
+<Badge color="red">View box</Badge>
+
+- **`x`** &mdash; x coordinate of the symbol
+- **`y`** &mdash; y coordinate of the symbol
+- **`width`** &mdash; width of the symbol
+- **`height`** &mdash; height of the symbol
+- **`viewBox`** &mdash; bounds of the SVG viewport, e.g. `0 0 80 20` (see [View Box](/web/svg/concepts/view-box))
+- **`preserveAspectRatio`** &mdash; defines how to fit the viewport if aspect ratio of the `viewBox` does not match the given `width` and `height`, e.g. `xMidYMid meet` (see [`preserveAspectRatio`](/web/svg/concepts/view-box#preserveaspectratio))
+- **`refX`** &mdash; defines the x coordinate of the symbol (which is defined by the cumulative effect of the `x` attribute, any transformations on the `<symbol>`, and its host `<use>` element)
+- **`refY`** &mdash; defines the y coordinate of the symbol (which is defined by the cumulative effect of the `y` attribute, any transformations on the `<symbol>`, and its host `<use>` element)
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/symbol -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 20" width="300">
+      <!-- Our symbol, using its own coordinate system -->
+      <symbol id="myDot" width="10" height="10" viewBox="0 0 2 2">
+        <circle cx="1" cy="1" r="1" />
+      </symbol>
+      <!-- A grid to materialize our symbol positioning -->
+      <path d="M0,10 h80 M10,0 v20 M25,0 v20 M40,0 v20 M55,0 v20 M70,0 v20" fill="none" stroke="pink" />
+      <!-- All instances of our symbol -->
+      <use href="#myDot" x="5"  y="5" style="opacity:1.0" />
+      <use href="#myDot" x="20" y="5" style="opacity:0.8" />
+      <use href="#myDot" x="35" y="5" style="opacity:0.6" />
+      <use href="#myDot" x="50" y="5" style="opacity:0.4" />
+      <use href="#myDot" x="65" y="5" style="opacity:0.2" />
+    </svg>
+  `)}
+/>
+
 ## References
 
 <References
@@ -40,6 +75,14 @@ Note that except for `x`, `y`, `width`, `height` and `href` attributes, you cann
     {
       text: '<use> (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use`,
+    },
+    {
+      text: '<symbol> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/symbol`,
+    },
+    {
+      text: 'refX » symbol (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/refX#symbol`,
     },
   ]}
 ></References>

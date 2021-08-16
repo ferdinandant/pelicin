@@ -1,0 +1,90 @@
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Metadata
+
+These elements add metadata/description to your elements.
+
+## SVG elements
+
+### `<metadata>`
+
+Adds metadata to an SVG content. The children of `<metadata>` should be elements from other XML namespaces such as [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework), [FOAF](<https://en.wikipedia.org/wiki/FOAF_(ontology)>), etc. (MDN).
+
+```xml
+<svg xmlns="http://www.w3.org/2000/svg">
+  <!-- sample of metadata in RDF -->
+  <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/metadata -->
+  <metadata>
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:connect="http://www.w3.org/1999/08/29-svg-connections-in-RDF#"
+    >
+      <rdf:Description about="#CableA">
+        <connect:ends rdf:resource="#socket1" />
+        <connect:ends rdf:resource="#ComputerA" />
+      </rdf:Description>
+      <rdf:Description about="#CableB">
+        <connect:ends rdf:resource="#socket2" />
+        <connect:ends rdf:resource="#ComputerB" />
+      </rdf:Description>
+    </rdf:RDF>
+  </metadata>
+  <!-- other metadata -->
+  <title>Network</title>
+  <desc>An example of a computer network based on a hub.</desc>
+  ...
+</svg>
+```
+
+### `<title>`
+
+Provides an accessible, short-text description of any SVG elements. (Browsers usually display them as a tooltip when hovered.)
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" width="200" height="100">
+      <circle cx="5" cy="5" r="4" fill="DarkSlateBlue">
+        <title>I'm a circle</title>
+      </circle>
+      <rect x="11" y="1" width="8" height="8" fill="DarkCyan">
+        <title>I'm a square</title>
+      </rect>
+    </svg>
+  `)}
+/>
+
+### `<desc>`
+
+Provides an accessible, long-text description of any SVG elements. (This text not rendered.)
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" width="200" height="100">
+      <circle cx="5" cy="5" r="4" fill="brown">
+        <desc>Long description</desc>
+      </circle>
+    </svg>
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: '<metadata> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/metadata`,
+    },
+    {
+      text: '<title> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title`,
+    },
+    {
+      text: '<desc> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/desc`,
+    },
+  ]}
+></References>

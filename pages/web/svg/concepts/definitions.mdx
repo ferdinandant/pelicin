@@ -1,0 +1,40 @@
+import { References, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Definitions
+
+Use `<defs>` to define objects (shapes, filters, gradients, etc.).
+
+Objects defined inside `<defs>` will not be rendered directly. To use them, you need to reference them using their `id` attribute.
+
+<WebEditor
+  html={smartTrim([
+    `
+      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+        <defs>
+          <!-- define a circle, id="myCircle"-->
+          <circle id="myCircle" cx="0" cy="0" r="50" />
+          <!-- define a gradient, id="myGradient" -->
+          <linearGradient id="myGradient" gradientTransform="rotate(90)">
+            <stop offset="20%" stop-color="gold" />
+            <stop offset="90%" stop-color="red" />
+          </linearGradient>
+        </defs>
+    `, `
+        <!-- use defined items -->
+        <use x="50" y="50" href="#myCircle" fill="url('#myGradient')" />
+      </svg>
+    `
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: '<defs> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs`,
+    },
+  ]}
+></References>

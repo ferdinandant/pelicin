@@ -1,0 +1,95 @@
+import { References, Badge, WebEditor } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Hyperlinks
+
+Use the `<a>` attribute to create hyperlinks to other URLs.
+
+## Styling with CSS
+
+Since CSS may confuse SVG `<a>` elements with normal HTML `<a>` elements, you can use CSS [`@namespace`](https://developer.mozilla.org/en-US/docs/Web/CSS/@namespace) rule to differentiate them.
+
+<!-- prettier-ignore -->
+```css
+@namespace url(http://www.w3.org/1999/xhtml);
+@namespace svg url(http://www.w3.org/2000/svg);
+
+/* This matches all XHTML <a> elements, as XHTML is the default unprefixed namespace */
+a {}
+
+/* This matches only SVG <a> elements */
+svg|a {}
+
+/* This matches any <a> elements */
+*|a {}
+```
+
+## SVG elements
+
+### `<a>`
+
+Creates a hyperlink.
+
+<Badge color="red">Common attributes</Badge>
+
+- **`href`** &mdash; where the link points to
+- **`target`** &mdash; where to open the link (see [`target`](/web/html/attributes/html-attributes-recurring#target=[...]))
+
+<Badge color="red">Rarer attributes</Badge>
+
+- **`download`** &mdash; instead of opening the link, prompt the user to download it. If value is not empty, it will be the name of the downloaded file. (Only works for same-origin URLs, or `blob:` and `data:` schemes)
+- **`ping`** &mdash; list of space-separated URLs to which the browser will send PING POST requests when the hyperlink is followed (usable for tracking).
+- **`hreflang`** &mdash; indicates the language of the linked resource (e.g. `en-US`)
+- **`rel`** &mdash; relation of the linked resource (see [`rel`](/web/html/attributes/html-attributes-recurring#rel=[...]))
+- **`referrerpolicy`** &mdash; which referrer to send when fetching the URL (see [`referrerpolicy`](/web/html/attributes/html-attributes-recurring#referrerpolic[...]))
+
+<WebEditor
+  html={smartTrim(`
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/a -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <!-- A link around a shape -->
+      <a href="https://www.example.com">
+        <circle cx="50" cy="40" r="35"/>
+      </a>
+      <!-- A link around a text -->
+      <a href="https://www.example.com">
+        <text x="50" y="90" text-anchor="middle">
+          &lt;circle&gt;
+        </text>
+      </a>
+    </svg>
+  `)}
+  css={smartTrim(`
+    @namespace svg url(http://www.w3.org/2000/svg);
+    /* As SVG does not provide a default visual style for links, */
+    /* it's considered best practice to add some */
+    svg|a:link,
+    svg|a:visited {
+      cursor: pointer;
+    }
+    svg|a text {
+      /* Even for text, SVG uses fill over color */
+      fill: blue;
+      text-decoration: underline;
+    }
+    svg|a:hover,
+    svg|a:active {
+      outline: dotted 1px blue;
+    }
+  `)}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: '<a> (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/a`,
+    },
+    {
+      text: '@namespace (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS/@namespace`,
+    },
+  ]}
+></References>

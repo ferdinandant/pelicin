@@ -18,6 +18,10 @@ const chapters: TopicChapters = [
         path: '/web/svg/concepts/coordinate-system',
       },
       {
+        title: 'Definitions',
+        path: '/web/svg/concepts/definitions',
+      },
+      {
         title: 'View Box',
         path: '/web/svg/concepts/view-box',
       },
@@ -91,12 +95,10 @@ const chapters: TopicChapters = [
       {
         title: 'Hyperlinks',
         path: '/web/svg/others/hyperlinks',
-        badge: 'TODO'
       },
       {
         title: 'Metadata',
         path: '/web/svg/others/metadata',
-        badge: 'TODO'
       },
     ],
   },
