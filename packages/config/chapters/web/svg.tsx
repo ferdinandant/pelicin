@@ -95,7 +95,6 @@ const chapters: TopicChapters = [
       {
         title: 'Hyperlinks',
         path: '/web/svg/others/hyperlinks',
-        badge: 'TODO'
       },
       {
         title: 'Metadata',
