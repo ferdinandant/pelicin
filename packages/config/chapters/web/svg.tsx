@@ -21,6 +21,14 @@ const chapters: TopicChapters = [
         title: 'View Box',
         path: '/web/svg/concepts/view-box',
       },
+      {
+        title: 'Grouping',
+        path: '/web/svg/concepts/grouping',
+      },
+      {
+        title: 'Reusing Components',
+        path: '/web/svg/concepts/reusing-components',
+      },
     ],
   },
   {
@@ -79,16 +87,6 @@ const chapters: TopicChapters = [
       {
         title: 'Animation',
         path: '/web/svg/others/animation',
-      },
-      {
-        title: 'Grouping',
-        path: '/web/svg/others/grouping',
-        badge: 'TODO'
-      },
-      {
-        title: 'Reusing Components',
-        path: '/web/svg/others/reusing-components',
-        badge: 'TODO'
       },
       {
         title: 'Hyperlinks',
