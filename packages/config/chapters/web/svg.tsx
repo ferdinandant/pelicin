@@ -99,7 +99,6 @@ const chapters: TopicChapters = [
       {
         title: 'Metadata',
         path: '/web/svg/others/metadata',
-        badge: 'TODO'
       },
     ],
   },
