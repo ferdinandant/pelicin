@@ -1,4 +1,4 @@
-import { References, WebEditor } from '@pelicin/components';
+import { References, WebEditor, Badge } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Reusing Components
@@ -17,7 +17,7 @@ Note that except for `x`, `y`, `width`, `height` and `href` attributes, you cann
 
 - **`href`** &mdash; URL/fragment to the element to be duplicated
 - **`x`** &mdash; top-left x coordinate to place the duplicated element
-- **`y`** &mdash; top-left y coordinate the duplicated element
+- **`y`** &mdash; top-left y coordinate to place the duplicated element
 - **`width`** &mdash; width of the duplicated element (has no effect if the referenced element does not have a viewbox)
 - **`height`** &mdash; height of the duplicated element (has no effect if the referenced element does not have a viewbox)
 
@@ -36,6 +36,17 @@ Note that except for `x`, `y`, `width`, `height` and `href` attributes, you cann
 ### `<symbol>`
 
 Defines graphical _template_ objects which can be instantiated by a `<use>` element. (Just for structure and semantics.)
+
+<Badge color="red">View box</Badge>
+
+- **`x`** &mdash; x coordinate of the symbol
+- **`y`** &mdash; y coordinate of the symbol
+- **`width`** &mdash; width of the symbol
+- **`height`** &mdash; height of the symbol
+- **`refX`** &mdash; x coordinate of the reference point of the symbol (?)
+- **`refY`** &mdash; y coordinate of the reference point of the symbol (?)
+- **`viewBox`** &mdash; bounds of the SVG viewport, e.g. `0 0 80 20` (see [View Box](/web/svg/concepts/view-box))
+- **`preserveAspectRatio`** &mdash; defines how to fit the viewport if aspect ratio of the `viewBox` does not match the given `width` and `height`, e.g. `xMidYMid meet` (see [`preserveAspectRatio`](/web/svg/concepts/view-box#preserveaspectratio))
 
 <WebEditor
   html={smartTrim(`
