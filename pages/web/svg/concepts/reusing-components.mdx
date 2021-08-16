@@ -43,10 +43,10 @@ Defines graphical _template_ objects which can be instantiated by a `<use>` elem
 - **`y`** &mdash; y coordinate of the symbol
 - **`width`** &mdash; width of the symbol
 - **`height`** &mdash; height of the symbol
-- **`refX`** &mdash; x coordinate of the reference point of the symbol (?)
-- **`refY`** &mdash; y coordinate of the reference point of the symbol (?)
 - **`viewBox`** &mdash; bounds of the SVG viewport, e.g. `0 0 80 20` (see [View Box](/web/svg/concepts/view-box))
 - **`preserveAspectRatio`** &mdash; defines how to fit the viewport if aspect ratio of the `viewBox` does not match the given `width` and `height`, e.g. `xMidYMid meet` (see [`preserveAspectRatio`](/web/svg/concepts/view-box#preserveaspectratio))
+- **`refX`** &mdash; defines the x coordinate of the symbol (which is defined by the cumulative effect of the `x` attribute, any transformations on the `<symbol>`, and its host `<use>` element)
+- **`refY`** &mdash; defines the y coordinate of the symbol (which is defined by the cumulative effect of the `y` attribute, any transformations on the `<symbol>`, and its host `<use>` element)
 
 <WebEditor
   html={smartTrim(`
@@ -79,6 +79,10 @@ Defines graphical _template_ objects which can be instantiated by a `<use>` elem
     {
       text: '<symbol> (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/symbol`,
+    },
+    {
+      text: 'refX » symbol (MDN)',
+      link: `https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/refX#symbol`,
     },
   ]}
 ></References>
