@@ -18,6 +18,10 @@ const chapters: TopicChapters = [
         path: '/web/svg/concepts/coordinate-system',
       },
       {
+        title: 'Definitions',
+        path: '/web/svg/concepts/definitions',
+      },
+      {
         title: 'View Box',
         path: '/web/svg/concepts/view-box',
       },
