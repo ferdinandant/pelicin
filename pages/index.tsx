@@ -2,13 +2,7 @@ import React from 'react';
 import getConfig from 'next/config';
 
 import { TopBar, Hero, ContentIndex, Footer } from '@pelicin/layout';
-import { SampleGroup, WebGroup } from '@pelicin/config';
-
-// ================================================================================
-// TYPES/CONST
-// ================================================================================
-
-const groups = [WebGroup];
+import { SampleGroup, groups } from '@pelicin/config';
 
 // ================================================================================
 // MAIN
