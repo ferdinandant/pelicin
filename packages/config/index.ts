@@ -4,14 +4,21 @@ export * from './types';
 // CONSTANTS
 // ================================================================================
 
+import pathPrefixToTopicConfig from './constants/pathPrefixToTopicConfig';
 export { default as pathPrefixToTopicConfig } from './constants/pathPrefixToTopicConfig';
 export * from './constants/sessionStorageKeys';
-
-export const topicKeys = ['sample', 'web/html', 'web/css', 'web/svg', 'web/http'];
 
 // ================================================================================
 // CHAPTERS
 // ================================================================================
+
+export const topicKeys = Object.values(pathPrefixToTopicConfig).reduce((result, topicConfig) => {
+  const { topicKey } = topicConfig;
+  if (topicKey !== 'default') {
+    result.push(topicKey);
+  }
+  return result;
+}, []);
 
 export const topicKeyToChapters = topicKeys.reduce((acc, topicKey) => {
   return Object.assign(acc, {
