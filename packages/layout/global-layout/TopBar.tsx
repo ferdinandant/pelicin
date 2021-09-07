@@ -44,8 +44,6 @@ export default function TopBar(props: Props) {
     setIsTOCToggled(!isTOCToggled);
   }
 
-  const hamburgerFillColor = isHamburgerToggled ? 'var(--color-gray-9)' : 'var(--color-gray-0)';
-
   return (
     <>
       <header>
@@ -55,11 +53,7 @@ export default function TopBar(props: Props) {
             className={classNames(['hamburgerToggle', { active: isHamburgerToggled }])}
             onClick={handleClickHamburger}
           >
-            <svg viewBox="0 0 100 72" width="16" height="16">
-              <rect y="0" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
-              <rect y="30" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
-              <rect y="60" width="100" height="12" rx="8" style={{ fill: hamburgerFillColor }} />
-            </svg>
+            <i className={classNames(['fas fa-bars', { active: isHamburgerToggled }])} />
           </button>
         )}
 
@@ -100,6 +94,8 @@ export default function TopBar(props: Props) {
           display: flex;
           align-items: center;
           color: var(--color-gray-0);
+          box-shadow: 0 0 2px rgb(0, 0, 0);
+          text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
           background-image: linear-gradient(45deg, ${mainColor}, ${accentColor});
           z-index: 999;
         }
@@ -109,14 +105,20 @@ export default function TopBar(props: Props) {
           position: absolute;
           display: flex;
           margin-left: var(--spacing-m);
-          padding: var(--spacing-s) var(--spacing-m);
+          padding: 6px var(--spacing-m);
           border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: var(--border-radius-normal);
           background-color: transparent;
+          color: var(--color-gray-0);
+          font-size: var(--font-size-title-3);
+          text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
           cursor: pointer;
         }
         .hamburgerToggle.active {
           background-color: var(--color-gray-1);
+          color: var(--color-gray-9);
+          text-shadow: none;
         }
         .hamburgerToggle:hover {
           border: 1px solid rgba(255, 255, 255, 0.6);
@@ -179,6 +181,7 @@ export default function TopBar(props: Props) {
         .buttonsContainer i.active {
           background-color: var(--color-gray-1);
           color: var(--color-gray-9);
+          text-shadow: none;
         }
         @media (min-width: ${SHOW_TOC_SIDEBAR_BREAKPOINT_PX}px) {
           .tocToggleIcon {
