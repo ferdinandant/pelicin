@@ -9,6 +9,7 @@ import {
   useTOCToggle,
   getBreadcrumbSegments,
 } from '@pelicin/layout';
+import { convertHSLToHex, convertHexToHSL } from '@pelicin/utils';
 
 // ================================================================================
 // TYPES/CONST
@@ -19,13 +20,20 @@ type Props = {
   showTOCToggle?: boolean;
 };
 
+const MIN_COLOR_LIGHTNESS = 45;
+
 // ================================================================================
 // MAIN
 // ================================================================================
 
 export default function TopBar(props: Props) {
   const { showHamburgerToggle, showTOCToggle } = props;
-  const { basePath, mainColor, accentColor, topicTitle } = useTopicConfig();
+  const {
+    basePath,
+    mainColor: rawMainColor,
+    accentColor: rawAccentColor,
+    topicTitle,
+  } = useTopicConfig();
   const { isToggled: isTOCToggled, setIsToggled: setIsTOCToggled } = useTOCToggle();
   const {
     isToggled: isHamburgerToggled,
@@ -35,6 +43,18 @@ export default function TopBar(props: Props) {
   const segments = useMemo(() => {
     return getBreadcrumbSegments({ basePath, topicTitle });
   }, [basePath, topicTitle]);
+
+  // Ensure color is not too light
+  const mainColor = useMemo(() => {
+    const { h, s, l } = convertHexToHSL(rawMainColor);
+    return convertHSLToHex({ h, s, l: Math.min(l, MIN_COLOR_LIGHTNESS) });
+  }, [rawMainColor]);
+
+  // Ensure color is not too light
+  const accentColor = useMemo(() => {
+    const { h, s, l } = convertHexToHSL(rawAccentColor);
+    return convertHSLToHex({ h, s, l: Math.min(l, MIN_COLOR_LIGHTNESS) });
+  }, [rawAccentColor]);
 
   function handleClickHamburger() {
     setIsHamburgerToggled(!isHamburgerToggled);
