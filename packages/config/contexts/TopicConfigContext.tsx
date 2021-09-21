@@ -9,8 +9,10 @@ const defaultTopicConfig = {
   basePath: '/',
   topicKey: 'default',
   topicTitle: '',
-  mainColor: 'var(--color-blue-7)',
-  accentColor: 'var(--color-purple-8)',
+  // var(--color-blue-7)
+  mainColor: '#0f369b',
+  // var(--color-purple-7)
+  accentColor: '#42379a',
 };
 
 const TopicConfigContext = React.createContext<TopicConfig>(defaultTopicConfig);
