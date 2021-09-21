@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import classNames from 'classnames';
 import { debounce } from 'debounce';
 
@@ -10,6 +10,7 @@ import {
   useOnScreenAnchorHash,
   getDisplayedTOCAnchorHashes,
 } from '@pelicin/layout';
+import { convertHexToHSL, convertHSLToHex } from '@pelicin/utils';
 
 // ================================================================================
 // TYPES/CONST
@@ -35,11 +36,17 @@ const SCROLL_EVENT_COOLDOWN_MS = 50;
 
 export default function TOCSidebarContent({ minimalistic }: Props) {
   const toc = useArticleTOC();
-  const { accentColor } = useTopicConfig();
+  const { accentColor: rawAccentColor } = useTopicConfig();
   const anchorHashes = getDisplayedTOCAnchorHashes(toc);
 
   const [onScreenAnchorHash, setOnScreenAnchorHash] = useState<string>(null);
   const lastClickSidebarItemTsRef = useRef<number>(Date.now() - 1000);
+
+  // Ensure accent color is not too light
+  const accentColor = useMemo(() => {
+    const { h, s, l } = convertHexToHSL(rawAccentColor);
+    return convertHSLToHex({ h, s, l: Math.min(l, 50) });
+  }, [rawAccentColor]);
 
   useEffect(() => {
     const debouncedHandleScroll = debounce(handleScroll, SCROLL_EVENT_COOLDOWN_MS);
@@ -130,10 +137,16 @@ export default function TOCSidebarContent({ minimalistic }: Props) {
 
 function TOCSidebarItem(props: TOCSidebarItemProps) {
   const { tocItem, headerLevel = 1, onClickSidebarItem } = props;
-  const { accentColor } = useTopicConfig();
+  const { accentColor: rawAccentColor } = useTopicConfig();
   const onScreenAnchorHash = useOnScreenAnchorHash();
   const { hash, titleNode, children } = tocItem;
   const isOnScreen = hash === onScreenAnchorHash;
+
+  // Ensure accent color is not too light
+  const accentColor = useMemo(() => {
+    const { h, s, l } = convertHexToHSL(rawAccentColor);
+    return convertHSLToHex({ h, s, l: Math.min(l, 50) });
+  }, [rawAccentColor]);
 
   if (headerLevel > 3) {
     return null;

@@ -2,5 +2,9 @@
   "name": "@pelicin/utils",
   "version": "1.0.0",
   "main": "index.ts",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "hex-to-hsl": "^1.0.2",
+    "hsl-to-hex": "^1.0.0"
+  }
 }

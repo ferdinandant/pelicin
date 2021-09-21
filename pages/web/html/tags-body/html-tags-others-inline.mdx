@@ -181,12 +181,21 @@ Represents an abbreviation.
 
 ## `<cite>`
 
-Represents a citation
+Represents a citation.
 
 <WebEditor
-  html={smartTrim(`
-    More information can be found in <cite>[ISO-0000]</cite>.
-  `)}
+  html={smartTrim([
+    `
+      <p>More information can be found in <cite>[ISO-0000]</cite>.</p>
+    `,
+    `
+      <p>
+        First sentence in
+        <cite><a href="http://www.george-orwell.org/1984/0.html">Nineteen Eighty-Four</a></cite>
+        by George Orwell (Part 1, Chapter 1).
+      </p>
+    `,
+  ])}
 />
 
 ## `<dfn>`

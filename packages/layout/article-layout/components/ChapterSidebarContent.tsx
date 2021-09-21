@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
 import { useTopicConfig, useTopicChapters } from '@pelicin/config';
+import { convertHexToHSL, convertHSLToHex } from '@pelicin/utils';
 
 // ================================================================================
 // TYPES/CONST
@@ -20,8 +21,14 @@ type BadgeProps = {
 
 export default function ChapterSidebarContent() {
   const { pathname } = useRouter();
-  const { mainColor } = useTopicConfig();
+  const { mainColor: rawMainColor } = useTopicConfig();
   const { topicChapters } = useTopicChapters();
+
+  // Ensure main color is not too light
+  const mainColor = useMemo(() => {
+    const { h, s, l } = convertHexToHSL(rawMainColor);
+    return convertHSLToHex({ h, s, l: Math.min(l, 40) });
+  }, [rawMainColor]);
 
   return (
     <>
@@ -140,7 +147,13 @@ export default function ChapterSidebarContent() {
 
 function Badge(props: BadgeProps) {
   const { isActive, text } = props;
-  const { mainColor } = useTopicConfig();
+  const { mainColor: rawMainColor } = useTopicConfig();
+
+  // Ensure main color is not too light
+  const mainColor = useMemo(() => {
+    const { h, s, l } = convertHexToHSL(rawMainColor);
+    return convertHSLToHex({ h, s, l: Math.min(l, 40) });
+  }, [rawMainColor]);
 
   return (
     <>
