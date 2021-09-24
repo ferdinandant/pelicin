@@ -19,7 +19,7 @@ type Props = {
 };
 
 // So we don't have to repeat it in every page
-const useSyntaxHighlighterPaths = new Set(['/web']);
+const useSyntaxHighlighterPaths = new Set(['/web', '/prog']);
 
 const gtagScript = `
   window.dataLayer = window.dataLayer || [];
