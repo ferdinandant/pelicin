@@ -14,6 +14,15 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  {
+    chapter: 'The Basics',
+    children: [
+      {
+        title: 'Lexical Structure',
+        path: '/prog/js/basics/lexical-structure'
+      }
+    ],
+  }
 ]
 
 export default chapters;
