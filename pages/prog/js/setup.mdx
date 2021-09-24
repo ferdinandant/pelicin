@@ -1,0 +1,55 @@
+import { References, Image, NoteBox } from '@pelicin/components';
+
+# Setup
+
+There are two ways you can code in JavaScript:
+
+- Using your browser
+- Using [Node.js](https://nodejs.org/en/)
+
+Note that there will be differences. For example, you will have the `window` object on your browser, but you will instead have the `process` object on Node.js.
+
+However, to do basic algorithm, you should be able to adapt the code written for the browser for Node.js (and vice-versa).
+
+## 1. Using your browser
+
+1. Hit <kbd>F12</kbd> to open your browser's Developer Tool
+2. Select the "Console" tab
+3. Type in some code and press <kbd>Enter</kbd>
+
+```js
+console.log('Hello world!');
+```
+
+<Image path="/res/prog/js/browser-console.png" caption="Using your browser's console" />
+
+## 2. Using Node.js
+
+Normally, you would follow the installation guide on https://nodejs.org/en/.
+
+However, to make your life easier, I advise you to [install `nvm`](https://github.com/nvm-sh/nvm#installing-and-updating) instead. You should install Node.js through `nvm`. (This makes it easier to change into different version of Node.js, which may happen when you are working on multiple projects/repositories.)
+
+```bash
+# E.g. to install Node v16
+# (do this when `nvm` has been installed)
+nvm install 16
+nvm use 16
+```
+
+<NoteBox type="info">
+  Note that when you install Node.js, you will also automatically install the matching version of
+  NPM (Node Package Manager). You can use NVM to install other people's "libraries" to your project.
+</NoteBox>
+
+When `nvm` has been installed, you can create a JavaScript file:
+
+```js
+console.log('Hello world!');
+```
+
+Then run it:
+
+```bash
+# Assuming you save your file at '~/projects/hello/index.js'
+node ~/projects/hello/index.js
+```
