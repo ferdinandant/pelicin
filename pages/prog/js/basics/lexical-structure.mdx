@@ -1,0 +1,179 @@
+import { References, Image, NoteBox, Code } from '@pelicin/components';
+
+# Lexical Structure
+
+This is low-level syntax information on how you would write a JavaScript program. You can simply use common sense if you have written any program before.
+
+## Case-Sensitivity
+
+JavaScript is a case-sensitive language:
+
+- Keywords like `while` must be typed as "while", not as "While" or "WHILE"
+- `data`, `Data`, and `DATA` are distinct variable names
+
+## Whitespaces
+
+Spaces and tabs between tokens are ignored. Use this to format/indent your program neatly for readability.
+
+```js
+// The JS community usually uses 2 spaces to indent codes
+if (value < 10) {
+  console.log('Not big enough');
+  console.log('Try a bigger number');
+}
+```
+
+## Comments
+
+Codes are used to put remarks/explanations on codes. They are ignored by JavaScript.
+
+Use `//` to insert a single-line comment:
+
+```js
+// Single-line comment
+```
+
+Use `/*` and `*/` to insert a multi-line comment:
+
+```js
+/*
+ * Multi-line comment
+ * (The extra '*' characters at the start of each
+ * line are optional --- they just look cool)
+ */
+```
+
+Use `/**` and `*/` to insert a [JSDOC](https://jsdoc.app/) comment (this behaves like a multi-line comment, but your editor may parse this information and aids you during programming, e.g. by providing you with type hints and/or better autocomplete):
+
+```js
+/**
+ * Checks if `str` is a palindrome
+ * (i.e., it reads the same forwards and backwards)
+ * @param {string} str - string to test
+ * @returns true iff `str` is a palindrome
+ */
+function checkIsPalindrome(str) {
+  const finalIdxToCheck = Math.floor(str.length / 2);
+  const lastIdx = str.length - 1;
+  for (let i = 0; i < finalIdxToCheck; i++) {
+    if (str[i] !== str[lastIdx - i]) {
+      return false;
+    }
+  }
+  return true;
+}
+```
+
+## Identifiers
+
+_Identifiers_ (names for your variables, functions, etc.) must begin with a letter, an underscore (`_`), or a dollar sign (`$`). Its subsequent characters may be letters, digits, underscores, and/or dollar signs.
+
+### Reserved keywords
+
+Your identifier also cannot be any of the following keywords:
+
+```
+as      const      export     get         null     target   void
+async   continue   extends    if          of       this     while
+await   debugger   false      import      return   throw    with
+break   default    finally    in          set      true     yield
+case    delete     for        instanceof  static   try
+catch   do         from       let         super    typeof
+class   else       function   new         switch   var
+```
+
+These might also be used in future versions:
+
+```
+enum  implements  interface  package  private  protected  public
+```
+
+### Unicode characters
+
+You can use Unicode characters in your identifier (as well as in strings and comments).
+
+To escape them using ASCII characters, you can write `\uXXXX` or `\u{XXXX}`. (The version with curly braces is introduced in ES6 "to better support Unicode codepoints that require more than 16 bits," Flanagan.)
+
+<!-- prettier-ignore -->
+```js
+const π = 3.14;
+
+// These will also work:
+// (Note that '\u00E9' is the Unicode for 'é')
+// - `let caf\u00e9 = '你要买什么?'`
+// - `let caf\u{E9} = '你要买什么?'`
+let café = '你要买什么?';
+```
+
+<NoteBox type="warning">
+  <p>
+    <strong>Unicode normalization</strong>
+  </p>
+  <p>
+    You can encode <Code str="café" /> as <Code str="caf\u{00e9}" /> ("caf" + "é") or{' '}
+    <Code str="cafe\u{0301}" /> ("cafe" + acute accent combining mark), which, although appear the
+    same on text editors, are considered <em>different</em> by JavaScript.
+  </p>
+  <p>
+    "The Unicode standard defines the preferred encoding for all characters. JavaScript assumes that
+    the source code it is interpreting has already been normalized and does not do any normalization
+    on its own" (Flanagan).
+  </p>
+</NoteBox>
+
+## Semicolons
+
+JavaScript does not force you to put semicolon (`;`) at the end of every statements. It has what is called [Automatic Semicolon Insertion (ASI)](https://en.wikibooks.org/wiki/JavaScript/Automatic_semicolon_insertion).
+
+Basially, ASI works like this: if it would be a syntax error if you don't put a semicolon in the line break, then put a semicolon there. For example, in Example 1, `let a a` would be a syntax error, so it put a semicolon inbetween: `let a; a (...)`.
+
+The exceptions to this rule (Flanagan):
+
+- `return`, `throw`, `yield`, `break`, `continue` won't be combined with the next token (Example 3)
+- if `++` and `--` are to be used as postfix operator (e.g. `i++`), they must appear on the same line as the expression they apply to
+- the `=>` in arrow functions must appear on the same line as the parameter list
+
+<!-- prettier-ignore -->
+```js
+// Example 1:
+let a;
+a = 3;
+console.log(a);
+
+// is interpreted as:
+let a;
+a = 3;
+console.log(a);
+```
+
+<!-- prettier-ignore -->
+```js
+// Example 2:
+let y = x + f
+(a+b).toString()
+
+// is interpreted as:
+let y = x + f(a+b).toString();
+```
+
+<!-- prettier-ignore -->
+```js
+// Example 3:
+return
+true
+
+// is interpreted as:
+return;
+true;
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 2. Lexical Structure',
+    },
+  ]}
+></References>
