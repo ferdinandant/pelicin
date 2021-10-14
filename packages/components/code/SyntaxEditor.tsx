@@ -45,12 +45,12 @@ export default function SyntaxEditor({ language, code, onCodeChange, onCodeRun, 
         <span className="iconBar">
           {/* Run icon */}
           {onCodeRun && (
-            <span className="icon" onClick={() => onCodeRun()}>
+            <span className="icon" onClick={() => onCodeRun()} title="Run">
               <Icon name="play" />
             </span>
           )}
           {/* Reset icon */}
-          <span className="icon" onClick={() => onReset && onReset()}>
+          <span className="icon" onClick={() => onReset && onReset()} title="Reset">
             <Icon name="sync" />
           </span>
         </span>
