@@ -41,7 +41,7 @@ export default function SyntaxEditor({ language, code, onCodeChange, onCodeRun, 
     <>
       {/* Banner */}
       <div className={classNames(['banner', bannerColor])}>
-        <Icon name="edit" /> | <span className="language">{language.toUpperCase()} EDITOR</span>
+        <Icon name="edit" /> | <span className="language">{language.toUpperCase()} PLAYGROUND</span>
         <span className="iconBar">
           {/* Run icon */}
           {onCodeRun && (

@@ -44,7 +44,9 @@ export default function CodeRunner({ language, code: initialCode }: Props) {
     const argNames = globalSubstitutions.map((sub) => sub.key);
     const argValues = globalSubstitutions.map((sub) => sub.value);
     try {
-      const fn = new Function(...argNames, code);
+      // Using `eval` inside function for "cleaner" stack trace
+      const escapedCode = code.replace(/`/g, '\\`');
+      const fn = new Function(...argNames, `eval(\`${escapedCode}\`);`);
       const startTs = Date.now();
       fn(...argValues);
       const endTs = Date.now();
@@ -167,7 +169,27 @@ function toString(obj: any): string {
     return String(obj);
   }
   if (obj instanceof Error) {
-    return String('Error: ' + obj.message);
+    return stringifyError(obj);
   }
   return JSON.stringify(obj, null, 2);
+}
+
+function stringifyError(obj: Error): string {
+  const { message, stack } = obj;
+  const stackLines = stack.split('\n');
+  // Only consider the top lines that end with 'eval:<number>:<number>'
+  // Lines would be like: 'printHello@<file> line 11 > eval line 89 > Function line 3 > eval:4:9'
+  const reducedPrettiedLines = [];
+  const evalSuffixRegex = /(.*?)@.*(eval:\d+:\d+)$/;
+  for (const line of stackLines) {
+    const match = line.match(evalSuffixRegex);
+    if (match) {
+      const [_, functionName, location] = match;
+      const prettiedLine = `  at ${functionName || '<anonymous>'} (${location})`;
+      reducedPrettiedLines.push(prettiedLine);
+    } else {
+      break;
+    }
+  }
+  return `Error: ${message}\n${reducedPrettiedLines.join('\n')}`;
 }
