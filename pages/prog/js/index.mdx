@@ -1,4 +1,5 @@
-import { References } from '@pelicin/components';
+import { References, NoteBox, CodeRunner, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 # Introduction
 
@@ -8,12 +9,25 @@ When [Node.js](https://nodejs.org/en/) was born, JavaScript became available for
 
 With the dramatic success of Node.js, JavaScript is now "the most-used programming language among software developers" (Flanagan).
 
-```js
-function printHello() {
-  const message = 'Hello world!';
-  console.log(message);
-}
-```
+<NoteBox type="info">
+  You can play around with the JS editor on this site (press the "play" icon to run your code).
+  Technical note: it runs on <Code str="eval" /> and mocks the <Code str="console" /> object.
+</NoteBox>
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function printHello() {
+        const message = 'Hello world!';
+        console.log(message);
+      }
+    `,
+    `
+      printHello();
+    `,
+  ])}
+/>
 
 ## Properties of JavaScript
 

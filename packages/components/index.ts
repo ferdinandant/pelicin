@@ -17,6 +17,7 @@ export type { BadgeColor } from './box/Badge';
 export { default as SyntaxHighlighter } from './code/SyntaxHighlighter';
 export { default as SyntaxEditor } from './code/SyntaxEditor';
 export { default as WebEditor } from './code/WebEditor';
+export { default as CodeRunner } from './code/CodeRunner';
 
 // Form
 export { default as GenericInput } from './form/GenericInput';

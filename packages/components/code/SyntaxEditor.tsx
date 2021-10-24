@@ -12,6 +12,7 @@ type Props = {
   language: string;
   code: string;
   onCodeChange?: (newCode: string) => void;
+  onCodeRun?: () => void;
   onReset?: () => void;
 };
 
@@ -24,7 +25,7 @@ const languageToColor = {
 // MAIN
 // ================================================================================
 
-export default function SyntaxEditor({ language, code, onCodeChange, onReset }: Props) {
+export default function SyntaxEditor({ language, code, onCodeChange, onCodeRun, onReset }: Props) {
   const prism: any = typeof window !== 'undefined' && (window as any).Prism;
   const bannerColor = languageToColor[language] || 'gray';
 
@@ -40,9 +41,16 @@ export default function SyntaxEditor({ language, code, onCodeChange, onReset }: 
     <>
       {/* Banner */}
       <div className={classNames(['banner', bannerColor])}>
-        <Icon name="edit" /> | <span className="language">{language.toUpperCase()} EDITOR</span>
+        <Icon name="edit" /> | <span className="language">{language.toUpperCase()} PLAYGROUND</span>
         <span className="iconBar">
-          <span className="icon" onClick={() => onReset && onReset()}>
+          {/* Run icon */}
+          {onCodeRun && (
+            <span className="icon" onClick={() => onCodeRun()} title="Run">
+              <Icon name="play" />
+            </span>
+          )}
+          {/* Reset icon */}
+          <span className="icon" onClick={() => onReset && onReset()} title="Reset">
             <Icon name="sync" />
           </span>
         </span>

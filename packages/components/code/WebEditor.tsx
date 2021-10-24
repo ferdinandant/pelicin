@@ -45,11 +45,11 @@ export default function HTMLCSSEditor({ html = '', css = '', hideHTML, hideCSS }
 
       <style jsx>{`
         .editor:not(:first-child) {
-          margin-top: var(--spacing-m);
+          margin-top: var(--spacing-xs);
         }
 
         .previewBanner {
-          margin-top: var(--spacing-m);
+          margin-top: var(--spacing-xs);
           border-top-left-radius: var(--border-radius-normal);
           border-top-right-radius: var(--border-radius-normal);
           padding: var(--spacing-xs) 12px;
