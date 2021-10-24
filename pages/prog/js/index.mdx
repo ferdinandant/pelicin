@@ -1,4 +1,4 @@
-import { References, CodeRunner } from '@pelicin/components';
+import { References, NoteBox, CodeRunner, Code } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Introduction
@@ -8,6 +8,11 @@ JavaScript was initially the programming language that was run on web browsers.
 When [Node.js](https://nodejs.org/en/) was born, JavaScript became available for programming outside of web browsers (e.g. you can now make a web server with Node.js).
 
 With the dramatic success of Node.js, JavaScript is now "the most-used programming language among software developers" (Flanagan).
+
+<NoteBox type="info">
+  You can play around with the JS editor on this site (press the "play" icon to run your code).
+  Technical note: it runs on <Code str="eval" /> and mocks the <Code str="console" /> object.
+</NoteBox>
 
 <CodeRunner
   language="js"
