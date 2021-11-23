@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 
 import { LayoutRenderer } from '@pelicin/layout';
 import { LoadSyntaxHighlighter } from '@pelicin/loaders';
-import resetStyle from '@pelicin/styles/reset.global.css';
-import varsStyle from '@pelicin/styles/vars.global.css';
-import mainStyle from '@pelicin/styles/main.global.css';
+import '@pelicin/styles/reset.global.css';
+import '@pelicin/styles/vars.global.css';
+import '@pelicin/styles/main.global.css';
 
 // ================================================================================
 // TYPES/CONST
@@ -77,16 +77,6 @@ function MyApp(props: Props) {
       <LayoutRenderer>
         <Component {...pageProps} />
       </LayoutRenderer>
-
-      <style jsx global>
-        {resetStyle}
-      </style>
-      <style jsx global>
-        {varsStyle}
-      </style>
-      <style jsx global>
-        {mainStyle}
-      </style>
     </>
   );
 }
