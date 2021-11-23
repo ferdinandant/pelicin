@@ -15,13 +15,14 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.6",
+    "@mdx-js/loader": "^1.6.22",
     "next": "^12.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "peerDependencies": {},
   "devDependencies": {
+    "@next/mdx": "^12.0.4",
     "@types/node": "^13.13.4",
     "@types/react": "^16.9.34",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
