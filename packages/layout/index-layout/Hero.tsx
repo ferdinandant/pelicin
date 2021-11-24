@@ -12,8 +12,8 @@ export default function Hero() {
             <span className="title">pelicin!</span>
           </h1>
           <p className="description">
-            Welcome to Ferdi's study notes and cheat sheets! This honestly feels like the worst way
-            to study for me (takes a lot of time and effort), but if it works, it ain't stupid >:D
+            Welcome to Ferdi's study notes and cheat sheets! (Correctness and recency not
+            guaranteed) ;)
           </p>
           <div className="linksContainer">
             <a className="cta" href={`#${INDEX_DOM_ID}`}>
@@ -31,28 +31,21 @@ export default function Hero() {
           height: 75vh;
           min-height: 500px;
           display: flex;
-          background-image: url('/site/skulls.png'),
-            linear-gradient(120deg, var(--color-blue-5), var(--color-purple-6));
-          background-attachment: fixed, scroll;
-          background-blend-mode: multiply;
+          background-image: linear-gradient(to bottom, #2a272abb, #2a272abb),
+            url('/site/ben-o-bro-wpU4veNGnHg-unsplash.jpg');
+          box-shadow: 0 var(--spacing-l) 100px #00000055 inset;
           background-size: cover;
           background-position: center;
           align-items: center;
           justify-content: center;
           position: relative;
           overflow: hidden;
-          border-bottom: var(--spacing-s) solid var(--color-blue-2);
         }
         .heroContent {
           flex-basis: 640px;
           box-sizing: content-box;
           padding: var(--spacing-l) var(--spacing-xxl);
           z-index: 2;
-        }
-        hr {
-          margin: auto;
-          border-bottom: 2px solid var(--color-blue-2);
-          opacity: 0.5;
         }
 
         h1 {
@@ -61,12 +54,12 @@ export default function Hero() {
           padding-bottom: 0;
           margin-bottom: var(--spacing-l);
           border-bottom: none;
-          color: var(--color-blue-0);
+          color: var(--color-gray-0);
           text-align: center;
           line-height: 1.2;
         }
         .logo {
-          color: var(--color-blue-2);
+          color: var(--color-gray-2);
           opacity: 0.6;
         }
         .title {
@@ -74,7 +67,7 @@ export default function Hero() {
         }
         .description {
           font-size: var(--font-size-title-2);
-          color: var(--color-teal-2);
+          color: var(--color-gray-2);
           text-align: center;
         }
 
@@ -93,13 +86,13 @@ export default function Hero() {
           display: inline-block;
           padding: var(--spacing-s) var(--spacing-xxl);
           border-radius: var(--border-radius-rounded);
-          background-color: var(--color-gray-0);
-          color: var(--color-blue-5);
+          background-color: var(--color-blue-5);
+          color: var(--color-gray-0);
           text-decoration: none;
           transition: box-shadow 0.2s;
         }
         a.cta:hover {
-          box-shadow: 0 2px var(--spacing-l) var(--color-teal-1);
+          box-shadow: 0 2px var(--spacing-l) var(--color-blue-5);
           text-decoration: none;
         }
         a.secondary {

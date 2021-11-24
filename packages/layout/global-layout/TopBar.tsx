@@ -35,10 +35,8 @@ export default function TopBar(props: Props) {
     topicTitle,
   } = useTopicConfig();
   const { isToggled: isTOCToggled, setIsToggled: setIsTOCToggled } = useTOCToggle();
-  const {
-    isToggled: isHamburgerToggled,
-    setIsToggled: setIsHamburgerToggled,
-  } = useHamburgerToggle();
+  const { isToggled: isHamburgerToggled, setIsToggled: setIsHamburgerToggled } =
+    useHamburgerToggle();
 
   const segments = useMemo(() => {
     return getBreadcrumbSegments({ basePath, topicTitle });
@@ -114,9 +112,10 @@ export default function TopBar(props: Props) {
           display: flex;
           align-items: center;
           color: var(--color-gray-0);
-          box-shadow: 0 0 2px rgb(0, 0, 0);
+          box-shadow: 0 0 8px rgb(0, 0, 0, 0.2);
           text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-          background-image: linear-gradient(45deg, ${mainColor}, ${accentColor});
+          background-image: url('/site/shattered-dark.png'),
+            linear-gradient(45deg, ${mainColor}, ${accentColor});
           z-index: 999;
         }
 
