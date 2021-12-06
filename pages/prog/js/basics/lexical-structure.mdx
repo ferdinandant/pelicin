@@ -43,7 +43,7 @@ Use `/*` and `*/` to insert a multi-line comment:
  */
 ```
 
-Use `/**` and `*/` to insert a [JSDOC](https://jsdoc.app/) comment (this behaves like a multi-line comment, but your editor may parse this information and aids you during programming, e.g. by providing you with type hints and/or better autocomplete):
+Use `/**` and `*/` to insert a [JSDOC](https://jsdoc.app/) comment (this behaves like a multi-line comment, but your editor may parse this information and provide you with type hints and/or better autocomplete):
 
 ```js
 /**
@@ -66,7 +66,7 @@ function checkIsPalindrome(str) {
 
 ## Identifiers
 
-_Identifiers_ (names for your variables, functions, etc.) must begin with a letter, an underscore (`_`), or a dollar sign (`$`). Its subsequent characters may be letters, digits, underscores, and/or dollar signs.
+_Identifiers_ (names for your variables, functions, etc.) must begin with a letter, an underscore (`_`), or a dollar sign (`$`). Its subsequent characters may be letters, numbers, underscores, and/or dollar signs.
 
 ### Reserved keywords
 
@@ -82,17 +82,17 @@ catch   do         from       let         super    typeof
 class   else       function   new         switch   var
 ```
 
-These might also be used in future versions:
+These might also be added as reserved keywords in the future:
 
 ```
 enum  implements  interface  package  private  protected  public
 ```
 
-### Unicode characters
+## Unicode characters
 
-You can use Unicode characters in your identifier (as well as in strings and comments).
+You can use Unicode characters directly in your identifiers, strings, and comments.
 
-To escape them using ASCII characters, you can write `\uXXXX` or `\u{XXXX}`. (The version with curly braces is introduced in ES6 "to better support Unicode codepoints that require more than 16 bits," Flanagan.)
+To write (escape) them using ASCII characters, you can write `\uXXXX` or `\u{XXXX}`. (The version with curly braces is introduced in ES6.)
 
 <!-- prettier-ignore -->
 ```js
@@ -101,7 +101,7 @@ const π = 3.14;
 // These will also work:
 // (Note that '\u00E9' is the Unicode for 'é')
 // - `let caf\u00e9 = '你要买什么?'`
-// - `let caf\u{E9} = '你要买什么?'`
+// - `let caf\u{e9} = '你要买什么?'`
 let café = '你要买什么?';
 ```
 
@@ -123,7 +123,11 @@ let café = '你要买什么?';
 
 ## Semicolons
 
-JavaScript does not force you to put semicolon (`;`) at the end of every statements. It has what is called [Automatic Semicolon Insertion (ASI)](https://en.wikibooks.org/wiki/JavaScript/Automatic_semicolon_insertion).
+Normally, you would end every statement with a semicolon (`;`).
+
+However, JavaScript does not force you to do this. It has what is called [Automatic Semicolon Insertion (ASI)](https://en.wikibooks.org/wiki/JavaScript/Automatic_semicolon_insertion).
+
+### How ASI works
 
 Basially, ASI works like this: if it would be a syntax error if you don't put a semicolon in the line break, then put a semicolon there. For example, in Example 1, `let a a` would be a syntax error, so it put a semicolon inbetween: `let a; a (...)`.
 
@@ -136,9 +140,9 @@ The exceptions to this rule (Flanagan):
 <!-- prettier-ignore -->
 ```js
 // Example 1:
-let a;
-a = 3;
-console.log(a);
+let a
+a = 3
+console.log(a)
 
 // is interpreted as:
 let a;
