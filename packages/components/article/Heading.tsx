@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { useTopicConfig } from '@pelicin/config';
 
 // ================================================================================
 // TYPES/CONST
@@ -16,6 +17,7 @@ type Props = {
 
 export default function Heading(props: Props) {
   const { heading, anchor, children } = props;
+  const { mainColor } = useTopicConfig();
   const HeadingTag = heading;
 
   return (
@@ -43,6 +45,19 @@ export default function Heading(props: Props) {
           h6 {
             position: relative;
           }
+          h1 {
+            margin-left: calc(var(--spacing-ms) * -1);
+            margin-right: calc(var(--spacing-ms) * -1);
+            padding-left: var(--spacing-ms);
+            padding-right: var(--spacing-ms);
+            border-bottom: 4px dotted ${mainColor}88;
+          }
+          h2 {
+            margin-left: calc(var(--spacing-s) * -1);
+            margin-right: calc(var(--spacing-s) * -1);
+            padding-left: var(--spacing-s);
+            padding-right: var(--spacing-s);
+          }
 
           a.anchor {
             position: relative;
@@ -60,6 +75,9 @@ export default function Heading(props: Props) {
             text-decoration: none;
             color: var(--color-gray-2);
             opacity: 0;
+          }
+          h2 a.hashLink {
+            padding-right: 0;
           }
           a.hashLink::before {
             content: '#';
