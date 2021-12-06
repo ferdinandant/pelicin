@@ -1,10 +1,12 @@
 import { LoadSyntaxHighlighter } from '@pelicin/loaders';
+import { CodeRunner } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
 
 <LoadSyntaxHighlighter />
 
-# Sample Article with Code
+# With Code
 
-## Default syntax highlighter
+Default syntax highlighter:
 
 ```html
 <!DOCTYPE html>
@@ -17,3 +19,20 @@ import { LoadSyntaxHighlighter } from '@pelicin/loaders';
   </body>
 </html>
 ```
+
+Code editor:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function printHello() {
+        const message = 'Hello world!';
+        console.log(message);
+      }
+    `,
+    `
+      printHello();
+    `,
+  ])}
+/>
