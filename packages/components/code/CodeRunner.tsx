@@ -46,7 +46,7 @@ export default function CodeRunner({ language, code: initialCode }: Props) {
     const argValues = globalSubstitutions.map((sub) => sub.value);
     try {
       // Using `eval` inside function for "cleaner" stack trace
-      const escapedCode = code.replace(/`/g, '\\`');
+      const escapedCode = code.replace(/`/g, '\\`').replace(/[$]/g, '\\$');
       const fn = new Function(...argNames, `eval(\`${escapedCode}\`);`);
       const startTs = Date.now();
       fn(...argValues);
