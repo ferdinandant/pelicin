@@ -1,23 +1,22 @@
 import { References, CodeRunner, NoteBox, Code } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
-# Values
+# Primitive Values
 
 All values have a type. A type can be categorized as either _primitive type_ or _object type_.
 
-Primitive type includes `number`, `string`, `boolean`, `Symbol`, `null`, and `undefined`. Anything that is not primitive-type is object-type.
+Primitive type includes `number`, `string`, `boolean`, `Symbol`, `null`, and `undefined`. Anything that is not primitive-type is object-type (described latter).
 
-## Primitive types
+Properties of primitive values:
 
-Primitive types are _immutable_. They cannot be changed once they are created. To assign a new primitive value to a variable, you just simply create a new one.
+- **immutable** &mdash; they cannot be changed once they are created. To assign a new primitive value to a variable, you just simply create a new one.
+- **compared by value** &mdash; two primitive values are the same if their values are the same
 
-They are also compared _by value_. Two primitive values are the same if their values are the same.
-
-### Numbers
+## Numbers
 
 This represents integers and floating-point numbers, as well as the special `Infinity` and `NaN` (Not a Number) values.
 
-#### Integers
+### Integers
 
 <!-- prettier-ignore -->
 ```js
@@ -32,7 +31,7 @@ This represents integers and floating-point numbers, as well as the special `Inf
 0o377 //-> 255
 ```
 
-#### Floating-point numbers
+### Floating-point numbers
 
 <!-- prettier-ignore -->
 ```js
@@ -44,13 +43,13 @@ This represents integers and floating-point numbers, as well as the special `Inf
 1.47e-32 //-> 1.47 * 10^(-32)
 ```
 
-#### `Infinity` and `NaN`
+### `Infinity` and `NaN`
 
 - `Infinity` (or `-Infinity`) is the result when overflow occurs, or when you try to divide a non-zero number with zero.
 
 - `NaN` (Not a Number) is the result when you try to calculate 0/0, Infinity/Infinity, the square root of a negative number, or when you try to do an arithmatic operation with values that can't be converted to numbers.
 
-#### `BigInt`
+### `BigInt`
 
 Introduced in ES2021, this is used to store really big integers. You just suffix them with `n`.
 
@@ -61,7 +60,7 @@ Introduced in ES2021, this is used to store really big integers. You just suffix
 0x123ff000000000000n
 ```
 
-### Strings
+## Strings
 
 Strings represent texts. Javascript uses the UTF-16 encoding (so JavaScript strings are sequences of unsigned 16-bit
 values).
@@ -78,11 +77,28 @@ You can define strings using `'` (single-quote), `"` (double-quote), or `` ` `` 
 multiple lines`
 ```
 
-### Booleans
+### Template literals
+
+When you define a string using `` ` ``, you are creating a _template literal_. A template literal interprets anything inside it literally, including newlines.
+
+You can insert a value inside a template literal using the `${...}` syntax:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const name = 'Ferdinand';
+      const str = \`Hello, \${name}!\`;
+      console.log(str); //-> Hello, Ferdinand!
+    `,
+  ])}
+/>
+
+## Booleans
 
 Booleans represent `true` or `false` values.
 
-### `null`
+## `null`
 
 Represents something defined but is "empty".
 
@@ -91,11 +107,11 @@ Represents something defined but is "empty".
   <Code str="object" />. You can blame the designer for this.
 </NoteBox>
 
-### `undefined`
+## `undefined`
 
 Represents something that is undefined.
 
-### `Symbol`
+## `Symbol`
 
 Symbols was introduced in ES6 "to serve as non-string property names" (Flanagan). There is no literal syntax for `Symbol`, so you will need to do `Symbol()` or `Symbol('someString')`.
 
@@ -116,10 +132,6 @@ Note that each invocation of `Symbol()` (even with the same argument) will retur
     `,
   ])}
 />
-
-## Object types
-
-> TODO
 
 ## References
 

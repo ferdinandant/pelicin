@@ -26,8 +26,12 @@ const chapters: TopicChapters = [
         path: '/prog/js/basics/variables'
       },
       {
-        title: 'Values',
-        path: '/prog/js/basics/values'
+        title: 'Primitive Values',
+        path: '/prog/js/basics/values-primitive'
+      },
+      {
+        title: 'Object Values',
+        path: '/prog/js/basics/values-object'
       }
     ],
   }
