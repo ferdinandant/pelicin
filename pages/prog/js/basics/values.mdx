@@ -9,7 +9,113 @@ Primitive type includes `number`, `string`, `boolean`, `Symbol`, `null`, and `un
 
 ## Primitive types
 
-> TODO
+Primitive types are _immutable_. They cannot be changed once they are created. To assign a new primitive value to a variable, you just simply create a new one.
+
+They are also compared _by value_. Two primitive values are the same if their values are the same.
+
+### Numbers
+
+This represents integers and floating-point numbers, as well as the special `Infinity` and `NaN` (Not a Number) values.
+
+#### Integers
+
+<!-- prettier-ignore -->
+```js
+// Integers
+1
+-2
+// Using HEXADECIMAL (x) notation
+0xff //-> 255
+// Using BINARY (b) notation
+0b101 //-> 5
+// Using OCTAL (o) notation
+0o377 //-> 255
+```
+
+#### Floating-point numbers
+
+<!-- prettier-ignore -->
+```js
+// Floating-point numbers
+0.5123
+-0.1
+// Using scientific notation
+6.02e23 //-> 6.02 * 10^23
+1.47e-32 //-> 1.47 * 10^(-32)
+```
+
+#### `Infinity` and `NaN`
+
+- `Infinity` (or `-Infinity`) is the result when overflow occurs, or when you try to divide a non-zero number with zero.
+
+- `NaN` (Not a Number) is the result when you try to calculate 0/0, Infinity/Infinity, the square root of a negative number, or when you try to do an arithmatic operation with values that can't be converted to numbers.
+
+#### `BigInt`
+
+Introduced in ES2021, this is used to store really big integers. You just suffix them with `n`.
+
+<!-- prettier-ignore -->
+```js
+1000000000n
+0b1101010001000n
+0x123ff000000000000n
+```
+
+### Strings
+
+Strings represent texts. Javascript uses the UTF-16 encoding (so JavaScript strings are sequences of unsigned 16-bit
+values).
+
+You can define strings using `'` (single-quote), `"` (double-quote), or `` ` `` (backtick). See [Escape character](/prog/js/basics/lexical-structure#escape-character) on how to escape special characters in the string.
+
+<!-- prettier-ignore -->
+```js
+// Using ' or " is a matter of preference
+'I\'m a string'
+"So do I"
+// With `, your string can span multiple lines
+`With me, you can span
+multiple lines`
+```
+
+### Booleans
+
+Booleans represent `true` or `false` values.
+
+### `null`
+
+Represents something defined but is "empty".
+
+<NoteBox type="warning">
+  Using the <Code str="typeof" /> operator on a <Code str="null" /> value returns{' '}
+  <Code str="object" />. You can blame the designer for this.
+</NoteBox>
+
+### `undefined`
+
+Represents something that is undefined.
+
+### `Symbol`
+
+Symbols was introduced in ES6 "to serve as non-string property names" (Flanagan). There is no literal syntax for `Symbol`, so you will need to do `Symbol()` or `Symbol('someString')`.
+
+Note that each invocation of `Symbol()` (even with the same argument) will return a unique symbol value.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = {};
+      const symbolA = Symbol('lorem-ipsum');
+      const symbolB = Symbol('lorem-ipsum');
+      obj[symbolA] = 1;
+      obj[symbolB] = 2;
+      console.log(obj[symbolA]); //-> 1
+      console.log(obj[symbolB]); //-> 2
+      console.log(symbolA === symbolB);
+    `,
+  ])}
+/>
 
 ## Object types
 
