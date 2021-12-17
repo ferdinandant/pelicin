@@ -172,6 +172,93 @@ The global object contains properties that you can refer to directly (as if they
   <Code str="delete globalThis.myVar" />.
 </Asterisk>
 
+## Destructoring assignment
+
+Once you are familiar with arrays and objects, ES6 introduces the shortcut to "extract" properties of an object or elements of an array.
+
+### Object destructoring
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2, c: 3, d: 4 };
+      // The same as doing:
+      // const a = obj.a;
+      // const myB = obj.b;
+      const { a, b: myB } = obj;
+      console.log(a, myB); //-> 1 2
+    `,
+  ])}
+/>
+
+Note that you can also set the default value of the extracted variable:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2, c: 3, d: 4 };
+      const { x, y = 5 } = obj;
+      console.log(x, y); //-> undefined 5 
+    `,
+  ])}
+/>
+
+... or even get the rest of the unextracted variables:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2, c: 3, d: 4 };
+      const { a, b, ...rest } = obj;
+      console.log(rest); //-> { c: 3, d: 4 }
+    `,
+  ])}
+/>
+
+### Array destructoring
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3, 4, 5];
+      let [a, b] = arr;
+      console.log(a, b); //-> 1 2
+      [b, a] = [a, b];
+      console.log(a, b); //-> 2 1
+    `,
+  ])}
+/>
+
+Note that you can skip some indices:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3, 4, 5];
+      let [a, , b] = arr;
+      console.log(a, b); //-> 1 3
+    `,
+  ])}
+/>
+
+... or even get the rest of the array:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3, 4, 5];
+      let [a, b, ...rest] = arr;
+      console.log(rest); //-> [ 3, 4, 5 ]
+    `,
+  ])}
+/>
+
 ## References
 
 <References
