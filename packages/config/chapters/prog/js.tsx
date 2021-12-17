@@ -22,8 +22,12 @@ const chapters: TopicChapters = [
         path: '/prog/js/basics/lexical-structure'
       },
       {
-        title: 'Variables and Values',
-        path: '/prog/js/basics/variables-values'
+        title: 'Variables',
+        path: '/prog/js/basics/variables'
+      },
+      {
+        title: 'Values',
+        path: '/prog/js/basics/values'
       }
     ],
   }
