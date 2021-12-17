@@ -35,8 +35,10 @@ export default function TopBar(props: Props) {
     topicTitle,
   } = useTopicConfig();
   const { isToggled: isTOCToggled, setIsToggled: setIsTOCToggled } = useTOCToggle();
-  const { isToggled: isHamburgerToggled, setIsToggled: setIsHamburgerToggled } =
-    useHamburgerToggle();
+  const {
+    isToggled: isHamburgerToggled,
+    setIsToggled: setIsHamburgerToggled,
+  } = useHamburgerToggle();
 
   const segments = useMemo(() => {
     return getBreadcrumbSegments({ basePath, topicTitle });

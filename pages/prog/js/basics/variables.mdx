@@ -1,0 +1,184 @@
+import { References, CodeRunner, NoteBox, Code, Asterisk } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Variables
+
+A variable "stores" a value for future uses. We refer them by their _names_. We can "assign" them a new value if we want to.
+
+<NoteBox type="info">
+  <p>
+    You can use <Code str="console.log(...)" /> to print/show the current value of a variable. Using{' '}
+    <Code str="alert(...)" /> can work too, but that's going to be a bit intrusive.
+  </p>
+  <p>
+    In the examples below, we will only assign numbers as values. But there are other kinds of
+    values as you shall see later.
+  </p>
+</NoteBox>
+
+## Declaring variables
+
+You can declare a variable with `let`, `const`, or `var`. Declaring a variable with `const` turns it into a _constant_ that cannot be re-assigned.
+
+### `let`
+
+A variable declared with `let` can be re-assigned:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      let a = 100;
+      let b = 101;
+      console.log(a, b); //-> 100 101
+    `,
+    `
+      a = 200;
+      b = 201;
+      console.log(a, b); //-> 200 201
+    `,
+  ])}
+/>
+
+### `const`
+
+A variable declared with `const` cannot be re-assigned (it's a constant):
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const PI = 3.14159265359;
+      console.log(PI); //-> 3.14159265359
+    `,
+    `
+      // A constant cannot be re-assigned
+      // The statement below will throw an error
+      PI = 123456;
+    `,
+  ])}
+/>
+
+### `var`
+
+This was the only way to declare a variable prior to ES6. This behaves somewhat like `let`, but because of its "quirky" hoisting behavior, you shouldn't use this.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // You can actually declare multiple variables in one line using ','
+      var a = 1, b = 2, c = 3;
+      console.log(a, b, c); //-> 1 2 3
+      c = -1;
+      console.log(a, b, c); //-> 1 2 -1
+    `,
+  ])}
+/>
+
+## Scope of variables
+
+### Scope of `let` and `const`
+
+They are _block-scoped_. Loosely speaking, their scope is between the nearest `{` and `}`. (For `for` loops, the scope includes the loop condition and loop body.)
+
+You _cannot_ redeclare the same variable name twice in the same scope with `let` or `const` (doing so will throw an error).
+
+However, you _can_ declare the same variable name in a nested scope:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const A = 1;
+    `,
+    `
+      if (A === 1) {
+        const A = 2;
+        console.log(A); //-> 2
+      }
+    `,
+    `
+      console.log(A); //-> 1
+    `,
+  ])}
+/>
+
+### Scope of `var`
+
+They are _function-scoped_. Their scope is the current function, no matter how deep they are declared in the function. (They are "hoisted" to the top of the enclosing function.)
+
+Unlike `let` and `const`, you can redeclare the same variable name multiple times in the same scope with `var`:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function myFunction() {
+        // This doesn't throw an error because the declaration
+        // of \`a\` is "hoisted" to the top of the function 
+        console.log(a); //-> undefined
+    `,
+    `
+        // You can redeclare with var multiple times
+        var a = 1;
+        var a = 2;
+        console.log(a); //-> 2
+      }
+    `,
+    `
+      myFunction();
+    `,
+  ])}
+/>
+
+## Global variables
+
+Variables that are declared in the top-level scope are _global variables_. They are available everywhere inside their scope.
+
+### Scope of global variables
+
+- In Node.js and client-side JavaScript "modules" (.mjs), the scope of a global variable is the file that it is defined in.
+- In traditional client-side JavaScript (the default `<script>`), the scope of a global variable is the HTML document in which it is defined.
+
+### The global object
+
+As of ES2020, you can reliably access the _global object_ using `globalThis`.
+
+- In Node.js, the global object refers to `global` (`globalThis.global`)
+- In browsers, the global object refers to `window` (`globalThis.window`)
+
+The global object contains properties that you can refer to directly (as if they are global variables) like `undefined`, `Infinity`, `NaN`, `eval()`, `Date()`, `String()`, `Object()`, etc.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const globalObject = globalThis;
+      const globalPropertyNames = Object.getOwnPropertyNames(globalObject);
+      console.log(globalObject);
+      console.log(globalPropertyNames);
+    `,
+  ])}
+/>
+
+### Global variables defined using `let`, `const`, and `var`
+
+- Global variables defined using `let` and `const` cannot be accessed from the `globalThis` property
+- Global variables defined using `var` can be accessed from the `globalThis` property (it's like writing `globalThis.myVar = 'something'`)<Asterisk str="*" />
+
+<Asterisk str="*">
+  The analogy isn't perfect, though. You cannot do something like{' '}
+  <Code str="delete globalThis.myVar" />.
+</Asterisk>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 3. Types, Values, and Variables',
+    },
+  ]}
+></References>

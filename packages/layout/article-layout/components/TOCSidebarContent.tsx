@@ -160,7 +160,7 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
           onClick={() => onClickSidebarItem(hash)}
           className={classNames({ active: isOnScreen })}
         >
-          {titleNode}
+          {headerLevel === 1 ? <b>{titleNode}</b> : titleNode}
         </a>
         {/* Children TOC node */}
         {children.length > 0 && (
