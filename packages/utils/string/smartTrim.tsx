@@ -19,8 +19,13 @@ export default function smartTrim(arg: string | string[]) {
   let temp = processedString;
 
   if (ambientSpaceIndentCount > 0) {
-    const regex = new RegExp(`\\n${' '.repeat(ambientSpaceIndentCount)}`, 'g');
+    // `regex` removes the extra space prefixes in NON-EMPTY lines
+    const regex = new RegExp(`\\n {${ambientSpaceIndentCount}}`, 'g');
+    // `regex2` creates "natural" space prefix in empty lines
+    // (use the tab length of the previous line)
+    const regex2 = new RegExp(`\\n( *)([^\\n]*?)\\n {${ambientSpaceIndentCount - 2}}`, 'g');
     temp = temp.replace(regex, '\n');
+    temp = temp.replace(regex2, '\n$1$2\n$1');
   }
   return temp.trim();
 }
