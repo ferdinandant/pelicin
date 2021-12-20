@@ -30,12 +30,12 @@ A variable declared with `let` can be re-assigned:
     `
       let a = 100;
       let b = 101;
-      console.log(a, b); //-> 100 101
+      console.log(a, b); //=> 100 101
     `,
     `
       a = 200;
       b = 201;
-      console.log(a, b); //-> 200 201
+      console.log(a, b); //=> 200 201
     `,
   ])}
 />
@@ -49,7 +49,7 @@ A variable declared with `const` cannot be re-assigned (it's a constant):
   code={smartTrim([
     `
       const PI = 3.14159265359;
-      console.log(PI); //-> 3.14159265359
+      console.log(PI); //=> 3.14159265359
     `,
     `
       // A constant cannot be re-assigned
@@ -69,9 +69,9 @@ This was the only way to declare a variable prior to ES6. This behaves somewhat 
     `
       // You can actually declare multiple variables in one line using ','
       var a = 1, b = 2, c = 3;
-      console.log(a, b, c); //-> 1 2 3
+      console.log(a, b, c); //=> 1 2 3
       c = -1;
-      console.log(a, b, c); //-> 1 2 -1
+      console.log(a, b, c); //=> 1 2 -1
     `,
   ])}
 />
@@ -95,11 +95,11 @@ However, you _can_ declare the same variable name in a nested scope:
     `
       if (A === 1) {
         const A = 2;
-        console.log(A); //-> 2
+        console.log(A); //=> 2
       }
     `,
     `
-      console.log(A); //-> 1
+      console.log(A); //=> 1
     `,
   ])}
 />
@@ -117,13 +117,13 @@ Unlike `let` and `const`, you can redeclare the same variable name multiple time
       function myFunction() {
         // This doesn't throw an error because the declaration
         // of \`a\` is "hoisted" to the top of the function 
-        console.log(a); //-> undefined
+        console.log(a); //=> undefined
     `,
     `
         // You can redeclare with var multiple times
         var a = 1;
         var a = 2;
-        console.log(a); //-> 2
+        console.log(a); //=> 2
       }
     `,
     `
@@ -171,6 +171,98 @@ The global object contains properties that you can refer to directly (as if they
   The analogy isn't perfect, though. You cannot do something like{' '}
   <Code str="delete globalThis.myVar" />.
 </Asterisk>
+
+## Destructoring assignment
+
+<NoteBox>
+  If you don't get what I'm talking about here, just skip this section first and come back after you
+  learned objects and arrays.
+</NoteBox>
+Once you are familiar with arrays and objects, ES6 introduces the shortcut to "extract" properties of
+an object or elements of an array.
+
+### Object destructoring
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2, c: 3, d: 4 };
+      // The same as doing:
+      // const a = obj.a;
+      // const myB = obj.b;
+      const { a, b: myB } = obj;
+      console.log(a, myB); //=> 1 2
+    `,
+  ])}
+/>
+
+Note that you can also set the default value of the extracted variable:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2, c: 3, d: 4 };
+      const { x, y = 5 } = obj;
+      console.log(x, y); //=> undefined 5 
+    `,
+  ])}
+/>
+
+... or even get the rest of the unextracted variables:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2, c: 3, d: 4 };
+      const { a, b, ...rest } = obj;
+      console.log(rest); //=> { c: 3, d: 4 }
+    `,
+  ])}
+/>
+
+### Array destructoring
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3, 4, 5];
+      let [a, b] = arr;
+      console.log(a, b); //=> 1 2
+      [b, a] = [a, b];
+      console.log(a, b); //=> 2 1
+    `,
+  ])}
+/>
+
+Note that you can skip some indices:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3, 4, 5];
+      let [a, , b] = arr;
+      console.log(a, b); //=> 1 3
+    `,
+  ])}
+/>
+
+... or even get the rest of the array:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3, 4, 5];
+      let [a, b, ...rest] = arr;
+      console.log(rest); //=> [ 3, 4, 5 ]
+    `,
+  ])}
+/>
 
 ## References
 

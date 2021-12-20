@@ -26,9 +26,28 @@ const chapters: TopicChapters = [
         path: '/prog/js/basics/variables'
       },
       {
-        title: 'Values',
-        path: '/prog/js/basics/values'
-      }
+        title: 'Primitive Types',
+        path: '/prog/js/basics/types-primitive'
+      },
+      {
+        title: 'Object Types',
+        path: '/prog/js/basics/types-object'
+      },
+    ],
+  },
+  {
+    chapter: 'In-Depth',
+    children: [
+      {
+        title: 'Objects',
+        path: '/prog/js/in-depth/objects',
+        badge: 'TODO'
+      },
+      {
+        title: 'Arrays',
+        path: '/prog/js/in-depth/arrays',
+        badge: 'TODO'
+      },
     ],
   }
 ]

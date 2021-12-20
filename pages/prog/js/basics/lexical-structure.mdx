@@ -88,11 +88,21 @@ These might also be added as reserved keywords in the future:
 enum  implements  interface  package  private  protected  public
 ```
 
-## Unicode characters
+## Escape character
+
+Use `\` to "escape" a character, making the character(s) that follows it interpreted differently.
+
+### Common escapes
+
+- `\'`, `\"`, or `\\` &mdash; inserts `'`, `"` or `\`
+- `\n` &mdash; inserts a newline character
+- `\t` &mdash; inserts a tab character
+
+### Unicode characters
 
 You can use Unicode characters directly in your identifiers, strings, and comments.
 
-To write (escape) them using ASCII characters, you can write `\uXXXX` or `\u{XXXX}`. (The version with curly braces is introduced in ES6.)
+To write them using ASCII characters, you can write `\uXXXX` or `\u{XXXX}`. (The version with curly braces is introduced in ES6.)
 
 <!-- prettier-ignore -->
 ```js

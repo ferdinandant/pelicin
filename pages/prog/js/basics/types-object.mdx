@@ -1,0 +1,105 @@
+import { References, CodeRunner, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Object Types
+
+Anything that is not a primitive type is an object type. This includes `Object`, `Array`, `Function`, etc.
+
+Object values are actually _references_ to the physical object in the memory. When you re-assign an object value to a new variable, you are just copying the reference instead of the physical object's value.
+
+Properties of object values:
+
+- **mutable** &mdash; you can change their values (for example, you can change the properties of an object, or the elements of an array).
+- **compared by reference** &mdash; Two object values are the same if they refer to the same object in the memory.
+
+## `Object`
+
+An object is a _map_: an unordered collection of _properties_, each with a name and a value.
+
+- The property name could be a string or a `Symbol`
+- The property value could be any JavaScript value (including another object), or a getter and/or setter function.
+
+### The object literal
+
+You can create an object using the `{}` notation.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const emptyObject = {};
+    `,
+    `
+      const courseData = {
+        name: 'Programming with JavaScript',
+        description: 'Learn to code with',
+        instructor: {
+          firstName: 'John',
+          lastName: 'Book',
+          id: 12,
+        },
+      };
+    `,
+    `
+      console.log(emptyObject); //=> {}
+      console.log(courseData); //=> { name: ..., ... }
+    `,
+  ])}
+/>
+
+### Using the `new` keyword
+
+You can also create an object using the `new` keyword, followed by a [_constructor function_](#TODO).
+
+```js
+const obj = new Object();
+const arr = new Array();
+```
+
+### Using the `Object.create()` function
+
+Using `Object.create()` to create an object, you can control which [_prototype_](#TODO) will the object inherit.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // The object will have no prototype
+      const obj1 = Object.create(null);
+      // Same as \`{}\` or \`new Object()\`
+      const obj2 = Object.create(Object.prototype);
+      // The object will have this object as prototype
+      const obj3 = Object.create({ a: 1, b: 2 });
+    `,
+    `
+      // "Inherited properties" (from the prototype) are not
+      // "own properties", so these will all print '{}'
+      console.log(obj1); //=> {}
+      console.log(obj2); //=> {}
+      console.log(obj3); //=> {}
+    `,
+    `
+      // But the "inherited properties" are actually there
+      console.log(obj3.a, obj3.b); //=> 1 2
+    `,
+  ])}
+/>
+
+## `Array`
+
+An array is an ordered list of values.
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 3. Types, Values, and Variables',
+    },
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 6. Objects',
+    },
+  ]}
+></References>
