@@ -14,16 +14,76 @@ Properties of object values:
 
 ## `Object`
 
-An object is essentially a _map_: it maps a _property_ to a _value_:
+An object is a _map_: an unordered collection of _properties_, each with a name and a value.
 
-- The property could be a string or a `Symbol`
-- The value could be any JavaScript value, or a getter and/or setter functions.
+- The property name could be a string or a `Symbol`
+- The property value could be any JavaScript value (including another object), or a getter and/or setter function.
 
-### Creating an object
+### The object literal
 
-You can create an object using an _object literal_
+You can create an object using the `{}` notation.
 
-### Accesing object properties
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const emptyObject = {};
+    `,
+    `
+      const courseData = {
+        name: 'Programming with JavaScript',
+        description: 'Learn to code with',
+        instructor: {
+          firstName: 'John',
+          lastName: 'Book',
+          id: 12,
+        },
+      };
+    `,
+    `
+      console.log(emptyObject); //=> {}
+      console.log(courseData); //=> { name: ..., ... }
+    `,
+  ])}
+/>
+
+### Using the `new` keyword
+
+You can also create an object using the `new` keyword, followed by a [_constructor function_](#TODO).
+
+```js
+const obj = new Object();
+const arr = new Array();
+```
+
+### Using the `Object.create()` function
+
+Using `Object.create()` to create an object, you can control which [_prototype_](#TODO) will the object inherit.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // The object will have no prototype
+      const obj1 = Object.create(null);
+      // Same as \`{}\` or \`new Object()\`
+      const obj2 = Object.create(Object.prototype);
+      // The object will have this object as prototype
+      const obj3 = Object.create({ a: 1, b: 2 });
+    `,
+    `
+      // "Inherited properties" (from the prototype) are not
+      // "own properties", so these will all print '{}'
+      console.log(obj1); //=> {}
+      console.log(obj2); //=> {}
+      console.log(obj3); //=> {}
+    `,
+    `
+      // But the "inherited properties" are actually there
+      console.log(obj3.a, obj3.b); //=> 1 2
+    `,
+  ])}
+/>
 
 ## `Array`
 

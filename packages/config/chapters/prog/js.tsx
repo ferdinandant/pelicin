@@ -32,7 +32,22 @@ const chapters: TopicChapters = [
       {
         title: 'Object Types',
         path: '/prog/js/basics/types-object'
-      }
+      },
+    ],
+  },
+  {
+    chapter: 'In-Depth',
+    children: [
+      {
+        title: 'Objects',
+        path: '/prog/js/in-depth/objects',
+        badge: 'TODO'
+      },
+      {
+        title: 'Arrays',
+        path: '/prog/js/in-depth/arrays',
+        badge: 'TODO'
+      },
     ],
   }
 ]
