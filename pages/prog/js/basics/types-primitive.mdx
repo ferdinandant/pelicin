@@ -1,16 +1,16 @@
 import { References, CodeRunner, NoteBox, Code } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
-# Primitive Values
+# Primitive Types
 
 All values have a type. A type can be categorized as either _primitive type_ or _object type_.
 
-Primitive type includes `number`, `string`, `boolean`, `Symbol`, `null`, and `undefined`. Anything that is not primitive-type is object-type (described latter).
+Primitive types include `number`, `string`, `boolean`, `Symbol`, `null`, and `undefined`. Anything that is not a primitive type is an object type.
 
 Properties of primitive values:
 
-- **immutable** &mdash; they cannot be changed once they are created. To assign a new primitive value to a variable, you just simply create a new one.
-- **compared by value** &mdash; two primitive values are the same if their values are the same
+- **immutable** &mdash; their values cannot be changed (you cannot change a primitive value),
+- **compared by value** &mdash; two primitive values are the same if their values are the same.
 
 ## Numbers
 

@@ -22,10 +22,10 @@ export default function smartTrim(arg: string | string[]) {
     // `regex` removes the extra space prefixes in NON-EMPTY lines
     const regex = new RegExp(`\\n {${ambientSpaceIndentCount}}`, 'g');
     // `regex2` creates "natural" space prefix in empty lines
-    // (use the tab length of the previous line)
-    const regex2 = new RegExp(`\\n( *)([^\\n]*?)\\n {${ambientSpaceIndentCount - 2}}`, 'g');
+    // (use the tab length of the previous line, and only consider empty lines)
+    const regex2 = new RegExp(`\\n( *)([^\\n]*?)\\n {${ambientSpaceIndentCount - 2}}\\n`, 'g');
     temp = temp.replace(regex, '\n');
-    temp = temp.replace(regex2, '\n$1$2\n$1');
+    temp = temp.replace(regex2, '\n$1$2\n$1\n');
   }
   return temp.trim();
 }

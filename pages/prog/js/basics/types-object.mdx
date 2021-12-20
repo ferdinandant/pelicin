@@ -1,0 +1,45 @@
+import { References, CodeRunner, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Object Types
+
+Anything that is not a primitive type is an object type. This includes `Object`, `Array`, `Function`, etc.
+
+Object values are actually _references_ to the physical object in the memory. When you re-assign an object value to a new variable, you are just copying the reference instead of the physical object's value.
+
+Properties of object values:
+
+- **mutable** &mdash; you can change their values (for example, you can change the properties of an object, or the elements of an array).
+- **compared by reference** &mdash; Two object values are the same if they refer to the same object in the memory.
+
+## `Object`
+
+An object is essentially a _map_: it maps a _property_ to a _value_:
+
+- The property could be a string or a `Symbol`
+- The value could be any JavaScript value, or a getter and/or setter functions.
+
+### Creating an object
+
+You can create an object using an _object literal_
+
+### Accesing object properties
+
+## `Array`
+
+An array is an ordered list of values.
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 3. Types, Values, and Variables',
+    },
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 6. Objects',
+    },
+  ]}
+></References>
