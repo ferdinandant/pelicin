@@ -16,28 +16,35 @@ Properties of primitive values:
 
 This represents integers and floating-point numbers, as well as the special `Infinity` and `NaN` (Not a Number) values.
 
+If you want, you can use `_` (underscores) as digit separators: e.g. `360_000_000`, `3.1415_9265`, or `0xAABD_CC97_DD01`.
+
 ### Integers
 
 <!-- prettier-ignore -->
 ```js
-// Integers
 1
 -2
+
 // Using HEXADECIMAL (x) notation
-0xff //=> 255
+0xFF //=> 255
 // Using BINARY (b) notation
 0b101 //=> 5
 // Using OCTAL (o) notation
 0o377 //=> 255
+
+// BigInt (ES2021), see the 'n' suffix
+1000000000n
+0b1101010001000n
+0x123FF000000000000n
 ```
 
 ### Floating-point numbers
 
 <!-- prettier-ignore -->
 ```js
-// Floating-point numbers
 0.5123
 -0.1
+
 // Using scientific notation
 6.02e23 //=> 6.02 * 10^23
 1.47e-32 //=> 1.47 * 10^(-32)
@@ -49,23 +56,12 @@ This represents integers and floating-point numbers, as well as the special `Inf
 
 - `NaN` (Not a Number) is the result when you try to calculate 0/0, Infinity/Infinity, the square root of a negative number, or when you try to do an arithmatic operation with values that can't be converted to numbers.
 
-### `BigInt`
-
-Introduced in ES2021, this is used to store really big integers. You just suffix them with `n`.
-
-<!-- prettier-ignore -->
-```js
-1000000000n
-0b1101010001000n
-0x123ff000000000000n
-```
-
 ## Strings
 
 Strings represent texts. Javascript uses the UTF-16 encoding (so JavaScript strings are sequences of unsigned 16-bit
 values).
 
-You can define strings using `'` (single-quote), `"` (double-quote), or `` ` `` (backtick). See [Escape character](/prog/js/basics/lexical-structure#escape-character) on how to escape special characters in the string.
+You can define strings using `'` (single-quotes), `"` (double-quotes), or `` ` `` (backticks). See [Escape character](/prog/js/basics/lexical-structure#escape-character) on how to escape special characters in the string.
 
 <!-- prettier-ignore -->
 ```js
