@@ -24,11 +24,11 @@ This represents integers and floating-point numbers, as well as the special `Inf
 1
 -2
 // Using HEXADECIMAL (x) notation
-0xff //-> 255
+0xff //=> 255
 // Using BINARY (b) notation
-0b101 //-> 5
+0b101 //=> 5
 // Using OCTAL (o) notation
-0o377 //-> 255
+0o377 //=> 255
 ```
 
 ### Floating-point numbers
@@ -39,8 +39,8 @@ This represents integers and floating-point numbers, as well as the special `Inf
 0.5123
 -0.1
 // Using scientific notation
-6.02e23 //-> 6.02 * 10^23
-1.47e-32 //-> 1.47 * 10^(-32)
+6.02e23 //=> 6.02 * 10^23
+1.47e-32 //=> 1.47 * 10^(-32)
 ```
 
 ### `Infinity` and `NaN`
@@ -89,7 +89,7 @@ You can insert a value inside a template literal using the `${...}` syntax:
     `
       const name = 'Ferdinand';
       const str = \`Hello, \${name}!\`;
-      console.log(str); //-> Hello, Ferdinand!
+      console.log(str); //=> Hello, Ferdinand!
     `,
   ])}
 />
@@ -126,8 +126,8 @@ Note that each invocation of `Symbol()` (even with the same argument) will retur
       const symbolB = Symbol('lorem-ipsum');
       obj[symbolA] = 1;
       obj[symbolB] = 2;
-      console.log(obj[symbolA]); //-> 1
-      console.log(obj[symbolB]); //-> 2
+      console.log(obj[symbolA]); //=> 1
+      console.log(obj[symbolB]); //=> 2
       console.log(symbolA === symbolB);
     `,
   ])}
