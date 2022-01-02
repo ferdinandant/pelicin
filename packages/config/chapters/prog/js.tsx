@@ -26,8 +26,8 @@ const chapters: TopicChapters = [
         path: '/prog/js/basics/variables'
       },
       {
-        title: 'Types',
-        path: '/prog/js/basics/types'
+        title: 'Types and Values',
+        path: '/prog/js/basics/types-values'
       },
       {
         title: 'Expressions',
