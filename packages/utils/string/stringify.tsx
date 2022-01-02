@@ -126,7 +126,12 @@ function stringifyArray(arr: any[], depth = 0, references = new Set<any>()) {
       resultBlocks.push(`<${type}>`);
     }
   });
-  // Retusn stringification result
+  // Check for leftover empty slots at the end of array
+  if (lastNonEmptyIdx !== arr.length - 1) {
+    const numberOfEmptyItems = arr.length - lastNonEmptyIdx - 1;
+    resultBlocks.push(`<${numberOfEmptyItems} empty item(s)>`);
+  }
+  // Return stringification result
   return `[ ${resultBlocks.join(', ')} ]`;
 }
 
