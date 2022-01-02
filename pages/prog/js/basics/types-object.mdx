@@ -3,6 +3,11 @@ import { smartTrim } from '@pelicin/utils';
 
 # Object Types
 
+<NoteBox type="info">
+  We will briefly discuss objects, arrays, and functions here. They will be explained in depth
+  later.
+</NoteBox>
+
 Anything that is not a primitive type is an object type. This includes `Object`, `Array`, `Function`, etc.
 
 Object values are actually _references_ to the physical object in the memory. When you re-assign an object value to a new variable, you are just copying the reference instead of the physical object's value.
@@ -14,7 +19,7 @@ Properties of object values:
 
 ## `Object`
 
-An object is a _map_: an unordered collection of _properties_, each with a name and a value.
+An object is an unordered collection of _properties_, each with a name and a value.
 
 - The property name could be a string or a `Symbol`
 - The property value could be any JavaScript value (including another object), or a getter and/or setter function.
@@ -87,7 +92,130 @@ Using `Object.create()` to create an object, you can control which [_prototype_]
 
 ## `Array`
 
-An array is an ordered list of values.
+An array is an ordered list of _values_.
+
+- Each value is called an _element_, and its position in the array is called its _index_.
+- Index goes from 0 (the first element) up to 2<sup>32</sup> &minus; 2 (4,294,967,294).
+- Arrays have a `length` property.
+
+### The array literal
+
+You can create an array using the `[]` notation.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const emptyArray = [];
+      const elements = ['fire', 'water', 'metal', 'wood', 'earth'];
+      const mixedArray = [1, 2, [2, 'something'], { x: 7 }];
+    `,
+  ])}
+/>
+
+### Using `new Array()`
+
+You can also create an array using the `new Array()` constructor. It has different behaviors depending on the number of arguments you give.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // Without argument: the same as \`[]\`
+      const arr1 = new Array();
+      console.log(arr1);
+    `,
+    `
+      // 1 argument: length of array
+      const arr2 = new Array(5);
+      console.log(arr2);
+      console.log(arr2.length); //=> 5
+    `,
+    `
+      // 2+ arguments: elements of the array
+      const arr3 = new Array(1, 2, 3);
+      console.log(arr3); //=> [1, 2, 3]
+    `,
+  ])}
+/>
+
+## `Function`
+
+Functions are JavaScript codes that you declare once and can be called (invoked) multiple times. Note that the functions won't actually be run until you call them.
+
+- When you declare a function, you can specify their _parameters_, which behave like local variables of the function whose value will be decided when you call the function.
+- When you call a function, you provide the values (_arguments_) for the parameters.
+- You may use the `return` keyword inside a function to return a value (exit the function with the given value).
+
+### Declaring a function with the `function` keyword
+
+You can declare a function with the `function` keyword. A function declared with the `function` keyword has their own `this` variable.
+
+- You may provide the name of the function after the `function` keyword, before the open paranthesis
+- You may provide the parameters between the `(` and `)`, separated by `,`
+
+```js
+// Function definition with name and parameters
+function multiply(a, b) {
+  return a * b;
+}
+
+// Barebone function definition
+// (We assign it to a variable so you can call it later)
+const printHello = function () {
+  console.log('Hello world!');
+};
+```
+
+### Declaring a function with the arrow function notation
+
+You can create a "lambda" (anonymous) function with the arrow function notation (`=>`). Functions declared with the arrow function notation does NOT have its own `this` variable.
+
+```js
+// With parameters
+const multiply = (a, b) => {
+  return a * b;
+};
+
+// Without parameters
+const printHello = () => {
+  console.log('Hello world!');
+};
+```
+
+If the arrow function only returns a single expression, you can simply write the return expression after the `=>`, without the curly braces.
+
+```js
+// Equivalent to the `multiply` function above
+const multiply = (a, b) => a * b;
+```
+
+### Calling a function
+
+There are multiple ways to call a function in JavaScript.
+
+The most common way is to specify the function's name (or an expression that evaluates to the function's reference) and append it with `()`, potentially specifying the arguments between the `(` and `)`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // Example with named function
+      function multiply(a, b) {
+        return a * b;
+      }
+      const result = multiply(5, 6);
+      console.log(result); //=> 30
+    `,
+    `
+      // Example with unnamed function
+      const printHello = () => {
+        console.log('Hello world!');
+      }
+      printHello(); //=> Hello world!
+    `,
+  ])}
+/>
 
 ## References
 
@@ -100,6 +228,14 @@ An array is an ordered list of values.
     {
       text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
       description: 'Chapter 6. Objects',
+    },
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 7. Arrays',
+    },
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 8. Functions',
     },
   ]}
 ></References>
