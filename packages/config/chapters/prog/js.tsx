@@ -48,6 +48,11 @@ const chapters: TopicChapters = [
         path: '/prog/js/in-depth/arrays',
         badge: 'TODO'
       },
+      {
+        title: 'Functions',
+        path: '/prog/js/in-depth/functions',
+        badge: 'TODO'
+      },
     ],
   }
 ]
