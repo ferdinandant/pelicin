@@ -209,7 +209,7 @@ Caveats/surprises (blame JavaScript magic):
 
 #### The `=` operator
 
-This simply assigns the right-hand side expression to a variable or an object property (e.g. an array element). The return value of an assignment expression is the right-hand side value.
+This simply assigns the right-hand side expression to a variable, an object property, or an array element. The return value of an assignment expression is the right-hand side value.
 
 <CodeRunner
   language="js"
@@ -268,9 +268,65 @@ These are essentially shorthands for an assignment operation.
 
 - **`a ?? b` (nullish coalescing operator)** &mdash; if `a` is not nullish (not `null` and not `undefined`), then return `a`, otherwise return `b`
 
+<NoteBox title="Checking if a variable is defined" type="info">
+  <p>
+    Use <Code str="typeof myVar !== 'undefined'" /> to check if a variable <Code str="myVar" /> has
+    been defined.
+  </p>
+  <p>
+    If you use <Code str="myVar !== undefined" /> instead (note the subtleties), JavaScript will
+    throw <Code str="ReferenceError" /> if <Code str="myVar" /> has not been defined.
+  </p>
+</NoteBox>
+
+### The `in` operator
+
+Checks if a property (a string, a number, or a `Symbol`) exists in an object.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2, c: 3 };
+      console.log('a' in obj); //=> true
+      console.log('z' in obj); //=> false
+    `,
+    `
+      const arr = [0, 1, 2];
+      console.log(0 in arr); //=> true
+      console.log(4 in obj); //=> false
+    `,
+  ])}
+/>
+
+### The `delete` operator
+
+Deletes an object property or an array element. It returns `true` if the property/<wbr/>element existed, or `false` otherwise.
+
+Note that it is not the same as assigning an `undefined` value to the object property or the array element. The original "key" is removed entirely (using the `in` operator will return `false`).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2, c: 3 };
+    `,
+    `
+      // These are not the same operation
+      obj.b = undefined;
+      delete obj.c;
+    `,
+    `
+      console.log(obj); //=> { a: 1, b: undefined }
+      console.log(obj.b, 'b' in obj); //=> undefined true
+      console.log(obj.c, 'c' in obj); //=> undefined false
+    `,
+  ])}
+/>
+
 ### The `typeof` operator
 
-The `typeof` operator returns the "type" of its operand, which is one of: `number`, `boolean`, `string`, `symbol`, `object`, `function`, or `bigint`. Note that `typeof null` &rArr; `'object'` ("null is a special object").
+Returns the "type" of its operand, which is one of: `number`, `boolean`, `string`, `symbol`, `object`, `function`, or `bigint`. Note that `typeof null` &rArr; `'object'` ("null is a special kind of object").
 
 <CodeRunner
   language="js"
@@ -284,16 +340,51 @@ The `typeof` operator returns the "type" of its operand, which is one of: `numbe
   ])}
 />
 
-<NoteBox title="Checking if a variable is defined" type="info">
-  <p>
-    Use <Code str="typeof myVar !== 'undefined'" /> to check if a variable <Code str="myVar" /> has
-    been defined.
-  </p>
-  <p>
-    If you use <Code str="myVar !== undefined" /> instead (note the subtleties), JavaScript will
-    throw <Code str="ReferenceError" /> if <Code str="myVar" /> has not been defined.
-  </p>
-</NoteBox>
+### The `instanceof` operator
+
+Checks if an object is an instance of another object, that is, `a instanceof b` returns `true` if `a.prototype` inherits from `b.prototype`. (It will become clear once we talk about [classes](#TODO).)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+     let date = new Date();
+     // Remember that Date inherits from Object
+     console.log(date instanceof Date); //=> true
+     console.log(date instanceof Object); //=> true
+     console.log(date instanceof Number); //=> false
+    `,
+  ])}
+/>
+
+### The `void` operator
+
+Discards the result of an expression, returning `undefined`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      console.log(void (1 + 3)); //=> undefined
+    `,
+  ])}
+/>
+
+### The `,` operator
+
+`a, b` evaluates `a`, then evaluates `b`, then returns `b`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // Look at the \`i++, j--\` part
+      for(let i=0, j=5; i < j; i++, j--) {
+        console.log(i, j);
+      }
+    `,
+  ])}
+/>
 
 ## References
 
