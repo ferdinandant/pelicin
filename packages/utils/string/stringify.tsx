@@ -21,7 +21,9 @@ export default function stringify(obj: any) {
     }
     return stringifyAnything(obj);
   } catch (err) {
-    return err.message;
+    // eslint-disable-next-line
+    console.error(err);
+    return 'Stringification error: ' + err.message;
   }
 }
 
@@ -187,16 +189,11 @@ function checkShouldStringifyObjectInOneLine(obj: any, propertyNames: string[]) 
       return false;
     }
     const currValue = obj[currKey];
-    // Test for `isCureValueStringifiableInOneLine`
-    const type = getTypeOfObj(currValue);
-    let isCureValueStringifiableInOneLine = false;
-    if (checkIsLiteral(currValue)) {
-      isCureValueStringifiableInOneLine = true;
-    } else if (type !== 'Object' && type !== 'Array') {
-      isCureValueStringifiableInOneLine = true;
-    }
+    // Test for `isCurrValueStringifiableInOneLine`
+    const isCurrValueLiteral = checkIsLiteral(currValue);
+    const isCurrValueStringifiableInOneLine = isCurrValueLiteral;
     // Return for next loop
-    return prev && isCureValueStringifiableInOneLine;
+    return prev && isCurrValueStringifiableInOneLine;
   }, true);
   return isAllValueStringifiableInOneLine;
 }
