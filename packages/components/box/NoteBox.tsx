@@ -31,15 +31,6 @@ export default function NoteBox(props: Props) {
         }
 
         /* Box content */
-        .container :global(code) {
-          background-color: transparent;
-          padding: 0;
-        }
-        .container :global(code)::before,
-        .container :global(code)::after {
-          content: '\`';
-          opacity: 0.5;
-        }
         .container :global(p),
         .container :global(ul),
         .container :global(ol) {
@@ -82,6 +73,9 @@ export default function NoteBox(props: Props) {
           border-left: var(--spacing-s) solid var(--color-green-2);
           color: var(--color-green-4);
         }
+        .container .title {
+          border-bottom: 1px dashed var(--color-gray-2);
+        }
         .container.info .title {
           border-bottom: 1px dashed var(--color-blue-2);
         }
@@ -93,6 +87,27 @@ export default function NoteBox(props: Props) {
         }
         .container.success .title {
           border-bottom: 1px dashed var(--color-green-2);
+        }
+        .container :global(code) {
+          background-color: var(--color-gray-2);
+          color: var(--color-gray-7);
+          opacity: 0.6;
+        }
+        .container.info :global(code) {
+          background-color: var(--color-blue-2);
+          color: var(--color-blue-7);
+        }
+        .container.warning :global(code) {
+          background-color: var(--color-yellow-2);
+          color: var(--color-yellow-7);
+        }
+        .container.danger :global(code) {
+          background-color: var(--color-red-2);
+          color: var(--color-red-7);
+        }
+        .container.success :global(code) {
+          background-color: var(--color-green-2);
+          color: var(--color-green-7);
         }
       `}</style>
     </>

@@ -160,7 +160,18 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
           onClick={() => onClickSidebarItem(hash)}
           className={classNames({ active: isOnScreen })}
         >
-          {headerLevel === 1 ? <b>{titleNode}</b> : titleNode}
+          {Array(headerLevel - 1)
+            .fill(true)
+            .map((_, index, array) => {
+              const isLastItem = index === array.length - 1;
+              const content = isLastItem && (headerLevel === 2 ? '=' : '\u2212');
+              return (
+                <span key={index} className="spacer">
+                  {content}
+                </span>
+              );
+            })}
+          <span className={classNames({ bold: headerLevel === 1 })}>{titleNode}</span>
         </a>
         {/* Children TOC node */}
         {children.length > 0 && (
@@ -184,7 +195,7 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
 
       <style jsx>{`
         a {
-          display: block;
+          display: flex;
           position: relative;
           margin: var(--spacing-s) 0;
           color: var(--color-gray-9);
@@ -206,7 +217,7 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
           margin: var(--spacing-s) 0;
         }
         li a {
-          padding-left: ${4 + headerLevel * 12}px;
+          padding-left: var(--spacing-m);
         }
         a.active {
           color: ${accentColor};
@@ -219,6 +230,17 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
           position: absolute;
           border-right: 6px solid ${accentColor};
           border-radius: var(--border-radius-normal);
+        }
+        .bold {
+          font-weight: bold;
+        }
+        .spacer {
+          display: inline-block;
+          width: var(--spacing-m);
+          opacity: 0.5;
+          flex-grow: 0;
+          flex-shrink: 0;
+          user-select: none;
         }
       `}</style>
     </>

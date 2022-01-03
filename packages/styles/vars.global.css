@@ -1,7 +1,7 @@
 :root {
   --header-height: 48px;
   --sidebar-width: 300px;
-  --toc-width: 240px;
+  --toc-width: 300px;
 
   /* Font sizes */
   --font-size-normal: 16px;
