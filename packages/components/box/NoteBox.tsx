@@ -90,23 +90,24 @@ export default function NoteBox(props: Props) {
         }
         .container :global(code) {
           background-color: var(--color-gray-2);
-          color: var(--color-gray-4);
+          color: var(--color-gray-7);
+          opacity: 0.6;
         }
         .container.info :global(code) {
           background-color: var(--color-blue-2);
-          color: var(--color-blue-5);
+          color: var(--color-blue-7);
         }
         .container.warning :global(code) {
           background-color: var(--color-yellow-2);
-          color: var(--color-yellow-5);
+          color: var(--color-yellow-7);
         }
         .container.danger :global(code) {
           background-color: var(--color-red-2);
-          color: var(--color-red-5);
+          color: var(--color-red-7);
         }
         .container.success :global(code) {
           background-color: var(--color-green-2);
-          color: var(--color-green-5);
+          color: var(--color-green-7);
         }
       `}</style>
     </>
