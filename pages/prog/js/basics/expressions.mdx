@@ -1,0 +1,316 @@
+import { References, CodeRunner, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Expressions
+
+Expressions are something that can be evaluated to produce a value.
+
+## Primary expressions
+
+These are the simplest kind of expressions: either a literal value, or a single variable references.
+
+<!-- prettier-ignore -->
+```js
+3.14      // A number literal
+false     // A boolean literal
+'Hello'   // A string literal
+null      // A null value
+undefined // An undefined value
+/regex/   // A RegExp literal
+this      // reference to a single variable
+```
+
+## Property access expressions
+
+If you have a reference to an object type, you can access its properties using the `.` or `[]` operator. With the `[]` operator, you can access the property name using an expression.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const user = { firstName: 'John', lastName: 'Doe' };
+      const foods = ['noodle', 'sushi'];
+    `,
+    `
+      // Using the . notation
+      console.log(user.firstName); //=> John
+    `,
+    `
+      // Using the [] notation
+      console.log(user['last' + 'Name']); //=> Doe
+      console.log(foods[0]); //=> noodle
+    `,
+  ])}
+/>
+
+### Accessing property of `null` or `undefined`
+
+If `a` is either `null` or `undefined`, you will get a `TypeError` when you try to do `a.b` or `a['b']`.
+
+To prevent this, you could first check that the value of `a` is not falsy (which covers the case if it is `null` or `undefined`), or use optional chaining (see below).
+
+```js
+// This will not throw if `user` is falsy
+const firstName = user && user.firstName;
+
+// This strategy could be cumbersome
+// if you want to access `obj.a.b.c`
+const value = obj && obj.a && obj.a.b && obj.a.b.c;
+```
+
+### Optional chaining
+
+You can use `?.` or `?[]` to only access a property if the lefthand side is not `null` or `undefined` (ES2020).
+
+If the lefthand side is `null` or `undefined`, the whole expression will be evaluated as `undefined`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = {
+        a: { b: 123 }s
+      };
+    `,
+    `
+      // Won't throw error
+      console.log(obj?.a?.b); //=> 123
+      console.log(obj?.a?.b?.c?.d); //=> undefined
+    `,
+  ])}
+/>
+
+<NoteBox>
+  <p>
+    You can also use <Code str="?.()" /> to optionally call a function at the end of a property
+    access expression.
+  </p>
+  <p>
+    Note that it only checks that the lefthand side is not <Code str="null" /> or{' '}
+    <Code str="undefined" />. It does NOT check if the lefthand side is actually a function.
+  </p>
+</NoteBox>
+
+## Call expression
+
+A call expression invokes a function. The result of this expression is the return value of the called function, or `undefined` if it does not return a value.
+
+Just put the name of the function (or an expression that evaluates to a function), and append it with `()`, optionally passing the arguments between the `(` and `)`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function sortArray(arr) {
+        return arr.sort();
+      }
+    `,
+    `
+      const arr = [1, 5, 2, 4, 3];
+      console.log(sortArray(arr));
+    `,
+  ])}
+/>
+
+## Operators
+
+Operators perform arithmetic expressions, comparison expressions, logical expressions, assignment expressions, and more.
+
+There is a list of [operator precendence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#operator_precedence), but for simplicity, remember PEMDAS in math. Use `()` to dictate which operation should go first.
+
+### Arithmetic operators
+
+#### Increment/decrement operators
+
+- **`a++`** &mdash; return the current value of `a`, then increment the value of `a` by 1
+- **`a--`** &mdash; return the current value of `a`, then decrement the value of `a` by 1
+- **`++a`** &mdash; increment the value of `a` by 1, then return the new value of `a`
+- **`--a`** &mdash; decrement the value of `a` by 1, then return the new value of `a`
+
+#### Common math operators
+
+- **`a + b` (addition)** &mdash; adds `a` and `b`
+- **`a - b` (subtraction)** &mdash; subtracts `a` with `b`
+- **`a * b` (multiplication)** &mdash; multiply `a` and `b`
+- **`a / b` (division)** &mdash; divide `a` with `b`
+- **`a % b` (modulo)** &mdash; computes the reminder of `a` divided by `b`
+- <b>
+    <Code str="a ** b" /> (exponentation)
+  </b> &mdash; compute <Code str="a" /> to the power of <Code str="b" />
+- **`-a`** &mdash; negate the value of `a` (plus to minus, vice versa)
+
+#### Bitwise operators
+
+- **`a & b` (bitwise AND)** &mdash; performs boolean AND operation on each bit of `a` and `b`, e.g. `0b0011 & 0b0101` &rArr; `0b0001`
+- **`a | b` (bitwise OR)** &mdash; performs boolean OR operation on each bit of `a` and `b`, e.g. `0b0011 | 0b0101` &rArr; `0b0111`
+- **`a ^ b` (bitwise XOR)** &mdash; performs boolean XOR operation on each bit of `a` and `b`, e.g. `0b0011 ^ 0b0101` &rArr; `0b0110`
+- **`~a` (bitwise NOT)** &mdash; inverts all bits of `a`
+
+#### Shift operators
+
+- **`a << b` (shift left)** &mdash; shifts in `b` zero bits to the right of `a` (the left-most `b` bits are discarded), e.g. `0b10101100_00000000_00000000_00001111 << 2` &rArr; `0b10110000_00000000_00000000_00111100`
+- **`a >> b` (shift right with zero)** &mdash; shifts in `b` zero bits to the left of `a` (the right-most `b` bits are discarded), e.g. `0b10110000_00000000_00000000_11110101 >> 2` &rArr; `0b00101100_00000000_00000000_00111101`
+- **`a >>> b` (shift right with sign)** &mdash; shifts in `b` sign bits (the first bit of `a`) to the left of `a` (the right-most `b` bits are discarded), e.g. `0b10110000_00000000_00000000_11110101 >> 4` &rArr; `0b11111011_00000000_00000000_00001111`
+
+### Logical operators
+
+These may sound like they perform boolean operators, but they don't.
+
+These operators can operate on non-boolean values. They just consider the truthiness/<wbr/>falsiness of their operands, and return the corresponding value.
+
+<NoteBox title="Falsy values">
+  <p>
+    These are the falsy values in JavaScript: <Code str="false" />, <Code str="undefined" />,{' '}
+    <Code str="null" />, <Code str="0" />, <Code str="NaN" />, <Code str="''" /> (the empty string).
+  </p>
+  <p>Anything that is not falsy is truthy.</p>
+</NoteBox>
+
+- **`a && b` (logical AND)** &mdash; if `a` is falsy, return `a` (the falsy value), otherwise return `b`
+- **`a || b` (logical OR)** &mdash; if `a` is truthy, return `a` (the truthy value), otherwise return `b`
+- **`!a` (logical NOT)** &mdash; if `a` is truthy, return `false`, otherwise return `true`
+
+### Relational operators
+
+#### Comparison operators
+
+Comparison operators work on numbers and strings (any other types are converted first). For string comparison, remember that JavaScript strings are just sequences of 16-bit values (it compares which string has the first smaller/larger value from left to right).
+
+If any of the operand is `NaN`, these comparisons always return `false`.
+
+- **`a < b`** &mdash; if `a` < `b`, return `true`, otherwise return `false`
+- **`a > b`** &mdash; if `a` > `b`, return `true`, otherwise return `false`
+- **`a <= b`** &mdash; if `a` &le; `b`, return `true`, otherwise return `false`
+- **`a >= b`** &mdash; if `a` &ge; `b`, return `true`, otherwise return `false`
+
+#### Equality operators
+
+There are loose (`==`) and strict (`===`) equality operators in JavaScript. The Loose equality operator performs [type coercion](http://es5.github.io/#x11.9.3) before comparing the values, while strict equality operator _never_ performs type coercion (if they are not the same type, then the result will be `false`).
+
+Whenever possible, consider using `===` and `!==` over `==` and `!=`.
+
+- **`a == b` (loose equality)** &mdash; return `true` if `a` is "equal" to `b` (after type conversion), otherwise return `false`; e.g. `'1' == 1` &rArr; `true`
+- **`a === b` (strict equality)** &mdash; return `true` if `a` is equal to `b` and they are of the same type, otherwise return `false`; e.g. `'1' === 1` &rArr; `false`, but `1 === 1` &rArr; `true`
+- **`a != b` (loose inequality)** &mdash; inverse of `a == b`
+- **`a !== b` (strict inequality)** &mdash; inverse of `a === b`
+
+Caveats/surprises (blame JavaScript magic):
+
+- `NaN === NaN` &rArr; `false`
+- `null == false` &rArr; `false`
+
+<NoteBox title="Checking for nullish value" type="info">
+  You can use <Code str="a == null" /> to check if <Code str="a" /> is nullish (<Code str="null" />{' '}
+  or <Code str="undefined" />
+  ).
+</NoteBox>
+
+### Assignment operators
+
+#### The `=` operator
+
+This simply assigns the right-hand side expression to a variable or an object property (e.g. an array element). The return value of an assignment expression is the right-hand side value.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      let a = 0;
+      a = (2 * 4) + 3;
+      console.log(a); //=> 11
+      console.log((a = 3) < 5); //=> true
+      console.log(a); //=> 3
+    `,
+    `
+      const obj = { x: 1 };
+      obj.x = 2;
+      console.log(obj.x); //=> 2
+    `,
+    `
+      const arr = [1, 2, 3];
+      arr[0] = 5;
+      console.log(arr); //=> [ 5, 2, 3 ]
+    `,
+  ])}
+/>
+
+#### Assignment with operation
+
+These are essentially shorthands for an assignment operation.
+
+- **`a += b`** &mdash; equivalent to `a = a + b`
+- **`a -= b`** &mdash; equivalent to `a = a - b`
+- **`a *= b`** &mdash; equivalent to `a = a * b`
+- **`a /= b`** &mdash; equivalent to `a = a / b`
+- **`a %= b`** &mdash; equivalent to `a = a % b`
+- <b>
+    <Code str="a **= b" />
+  </b> &mdash; equivalent to
+  <Code str="a = a ** b" />
+- **`a <<= b`** &mdash; equivalent to `a = a << b`
+- **`a >>= b`** &mdash; equivalent to `a = a >> b`
+- **`a >>>= b`** &mdash; equivalent to `a = a >>> b`
+- **`a &= b`** &mdash; equivalent to `a = a & b`
+- **`a |= b`** &mdash; equivalent to `a = a | b`
+- **`a ^= b`** &mdash; equivalent to `a = a ^ b`
+
+## Miscellaneous
+
+### Ternary operator
+
+- **`a ? b : c`** &mdash; if `a` is truthy, then return `b`, otherwise return `c`
+
+### Concatenation operator
+
+- **`a + b`** &mdash; if `a` or `b` is string, concatenates `a` and `b`, e.g. `'Hello' + 'World'` &rArr; `HelloWorld`
+
+### The `??` operator
+
+- **`a ?? b` (nullish coalescing operator)** &mdash; if `a` is not nullish (not `null` and not `undefined`), then return `a`, otherwise return `b`
+
+### The `typeof` operator
+
+The `typeof` operator returns the "type" of its operand, which is one of: `number`, `boolean`, `string`, `symbol`, `object`, `function`, or `bigint`. Note that `typeof null` &rArr; `'object'` ("null is a special object").
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      console.log(typeof 2); //=> number
+      console.log(typeof 'aloha'); //=> string
+      console.log(typeof someUndefinedVariable); //=> undefined
+      console.log(typeof null); //=> object
+    `,
+  ])}
+/>
+
+<NoteBox title="Checking if a variable is defined" type="info">
+  <p>
+    Use <Code str="typeof myVar !== 'undefined'" /> to check if a variable <Code str="myVar" /> has
+    been defined.
+  </p>
+  <p>
+    If you use <Code str="myVar !== undefined" /> instead (note the subtleties), JavaScript will
+    throw <Code str="ReferenceError" /> if <Code str="myVar" /> has not been defined.
+  </p>
+</NoteBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 4. Expressions and Operators',
+    },
+    {
+      text: 'Annotated ECMAScript 5.1 (es5.github.io)',
+      description: '11.9.3 The Abstract Equality Comparison Algorithm',
+      link: 'http://es5.github.io/#x11.9.3',
+    },
+    {
+      text: 'Why (null == false) and (null == true) both return false? (Stack Overflow)',
+      link: 'https://stackoverflow.com/a/27632549/5181368',
+    },
+  ]}
+></References>
