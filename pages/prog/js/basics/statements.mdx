@@ -1,0 +1,356 @@
+import { References, CodeRunner } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Statements
+
+Staments are something that we execute to "make something happen" (Flanagan).
+
+Statements could be expressions that have side effects (e.g. assigning to a variable, calling a function), or _control statements_ that govern the flow of our program.
+
+We will cover control statements here.
+
+## Conditionals
+
+These make a section of your code executed only when a condition is true.
+
+### if, else
+
+You can just include the `if` clause:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const name = 'Ferdinand';
+    `,
+    `
+      if (name !== '') {
+        // Executed if \`name\` is not empty
+        console.log(\`Hello, \${name}\`);
+      }
+    `,
+  ])}
+/>
+
+or the `if` and `else` clauses:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const val = 120;
+    `,
+    `
+      if (val % 2 === 1) {
+        // Executed if \`val\` divided by 2, the reminder is 1
+        console.log(\`\${val}\` is odd);
+      } else {
+        // Executed otherwise
+        console.log(\`\${val}\` is even);
+      }
+    `,
+  ])}
+/>
+
+or even stack multiple of them together:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const a = true;
+      const b = false;
+    `,
+    `
+      if (a === true && b === true) {
+        console.log('a and b are both true');
+      } else if (a === true && b === false) {
+        console.log('a is true, and b is false');
+      } else if (a === false && b === true) {
+        console.log('a is false, and b is true');
+      } else {
+        console.log('a and and b are both false');
+      }
+    `,
+  ])}
+/>
+
+### switch, case
+
+- Put the expression to test inside `switch (<expression>)`.
+
+- Specify the conditions to match using the `case <expression>:` labels, followed by statements that your program should run if the label is matched, optionally followed by the `break` keyword
+
+- You may put one `default:` label that will be matched if other `case` labels fail to match.
+
+`switch` will find a matching `case` label (using strict equality), and run all code below it until it finds a `break` statement.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const score = 'A';
+    `,
+    `
+      switch (score) {
+        case 'A':
+          console.log('You did terrific!');
+          break;
+        case 'B':
+          console.log('You did average');
+          break;
+        case 'C':
+        case 'D':
+          console.log('You did rather poorly');
+          break;
+        case 'F':
+          console.log("Let's find a new family");
+          break;
+        default: 
+          console.log('Invalid score');
+      }
+    `,
+  ])}
+/>
+
+## Loops
+
+These make a section of your code executed repeatedly while a condition is true.
+
+### while
+
+It checks if the loop condition inside `while (...)` is truthy before executing your loop statements.
+
+- If it does, it executes your loop statement (and then goes back into checking the loop condition again)
+- If it doesn't, it skips over the entire `while` block
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      let x = 5;
+    `,
+    `
+      while (x > 0) {
+        console.log(x);
+        x = x - 1;
+      }
+    `,
+  ])}
+/>
+
+### do-while
+
+Similar to `while`, but it runs your loop statements first before checking the loop condition inside `while (...)`. (Your loop statements are guaranteed to run at least once.)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // Try changing me to 0
+      let x = 5;
+    `,
+    `
+      do {
+        console.log(x);
+        x = x - 1;
+      } while (x > 0);
+    `,
+  ])}
+/>
+
+### for
+
+Simplifies loops that follow a common pattern (you can put the initialization, condition, and updates in one line).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // for (<initialization>; <condition>; <updates>) { ... }
+      // - In <initialization>, you initialize the variable(s) for the loop
+      // - In <condition>, you put the loop condition
+      // - In <updates>, you update the loop variable(s)
+      for (let i = 1; i <= 5; i++) {
+        let line = '';
+        for (let j = 1; j <= i; j++) {
+          line += '*';
+        }
+        console.log(line);
+      }
+    `,
+  ])}
+/>
+
+### for-of
+
+Iterates the content of something (the something must be _iterable_, e.g. an array).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const foods = ['sushi', 'doughnuts', 'steak'];
+    `,
+    `
+      for (const food of foods) {
+        console.log('I want to eat', food);
+      }
+    `,
+  ])}
+/>
+
+### for-in
+
+Iterates the keys/properties of something.
+
+Note that it iterates all inherited properties, EXCEPT (1) properties that are symbols and (2) properties that are not enumerable.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = ['sushi', 'doughnuts', 'steak'];
+      const obj = { a: 1, b: 2, c: 3 };
+    `,
+    `
+      // The keys of an array are its indices
+      for (const i in arr) {
+        console.log(i, arr[i]);
+      }
+    `,
+    `
+      // The keys of an object are its properties
+      for (const key in obj) {
+        console.log(key, obj[key]);
+      }
+    `,
+  ])}
+/>
+
+## Jumps
+
+### return
+
+Exits from a function (`return`), optionally with a value (e.g. `return 5`).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // This is called IIFE (Immediately Invoked Function Expression)
+      // i.e. a function that is immediately called after it is declared
+      (() => {
+        console.log("I'm printed");
+        return;
+        console.log("I'm not :/");
+      })();
+    `,
+  ])}
+/>
+
+### break
+
+Exits from the nearest loop block (while, do-while, or for).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      for (let i = 1; i <= 5; i++) {
+        // 3 onwards will not be printed
+        if (i === 3) {
+          break;
+        }
+        console.log(i);
+      }
+    `,
+  ])}
+/>
+
+### continue
+
+Restarts the nearest loop block at the next iteration.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      for (let i = 1; i <= 5; i++) {
+        // 3 will be skipped
+        if (i === 3) {
+          continue;
+        }
+        console.log(i);
+      }
+    `,
+  ])}
+/>
+
+### throw
+
+The `throw` statement throws an _exception_ (signals an error). You can throw anything (e.g. `throw 123`), but normally, you do `throw new Error('<errorMessage>')`.
+
+When you throw an exception, JavaScript will exit the current block until it find something that "catches" the exception (see the next section). If nothing catches it, then the exception will be treated as an error, and your program execution will stop there.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function divide(a, b) {
+        if (b === 0) {
+          throw new Error('Cannot divide by 0');
+        }
+        return a / b;
+      }
+    `,
+    `
+      console.log("Let's do some division!");
+      const result = divide(5, 0);
+      console.log("The result is", result);
+    `,
+  ])}
+/>
+
+### try, catch, finally
+
+You use try-catch to handle exceptions that occur in your program (rather then having JavaScript terminate with an error).
+
+- The `try` block marks the section whose exceptions we want to handle
+- The `catch` block is executed when an exception is throws inside the `try` block
+- The `finally` block (optional) is always executed after your program exits the `try` or `catch` block
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function divide(a, b) {
+        if (b === 0) {
+          throw new Error('Cannot divide by 0');
+        }
+        return a / b;
+      }
+    `,
+    `
+      try {
+        console.log("Let's do some division!");
+        const result = divide(5, 0);
+        console.log("The result is", result);
+      } catch (err) {
+        console.log('Whoops, we found an error!');
+        console.log('The error was:', err);
+      }
+    `,
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 5. Statements',
+    },
+  ]}
+></References>
