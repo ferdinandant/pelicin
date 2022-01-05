@@ -33,6 +33,10 @@ const chapters: TopicChapters = [
         title: 'Expressions',
         path: '/prog/js/basics/expressions'
       },
+      {
+        title: 'Statements',
+        path: '/prog/js/basics/statements'
+      },
     ],
   },
   {
@@ -53,8 +57,28 @@ const chapters: TopicChapters = [
         path: '/prog/js/in-depth/functions',
         badge: 'TODO'
       },
+      {
+        title: 'Classes',
+        path: '/prog/js/in-depth/classes',
+        badge: 'TODO'
+      },
+      {
+        title: 'Modules',
+        path: '/prog/js/in-depth/modules',
+        badge: 'TODO'
+      },
     ],
-  }
+  },
+  {
+    chapter: 'Others',
+    children: [
+      {
+        title: 'Strict Mode',
+        path: '/prog/js/others/strict-mode',
+        badge: 'TODO'
+      },
+    ]
+  },
 ]
 
 export default chapters;
