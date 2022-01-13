@@ -45,7 +45,6 @@ const chapters: TopicChapters = [
       {
         title: 'Objects',
         path: '/prog/js/in-depth/objects',
-        badge: 'TODO'
       },
       {
         title: 'Arrays',

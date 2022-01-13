@@ -1,0 +1,143 @@
+import { References, CodeRunner, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Objects
+
+An object is an unordered collection of _properties_, each with a name and a value.
+
+- The property name could be a string or a `Symbol`
+- The property value could be any JavaScript value (including another object), or a getter and/or setter function.
+
+## Creating an object
+
+### Using the object literal
+
+Objects created this way will inherit from `Object.prototype`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const emptyObject = {};
+    `,
+    `
+      const courseData = {
+        name: 'Programming with JavaScript',
+        description: 'Learn to code with',
+        instructor: {
+          firstName: 'John',
+          lastName: 'Book',
+          id: 12,
+        },
+      };
+    `,
+    `
+      console.log(emptyObject); //=> {}
+      console.log(courseData); //=> { name: ..., ... }
+    `,
+  ])}
+/>
+
+### Using the `new` keyword
+
+Objects created using `new Something()` will inherit from `Something.prototype`.
+
+```js
+const obj = new Object();
+const arr = new Array();
+```
+
+### Using the `Object.create()` function
+
+Using `Object.create()` to create an object, you can control which prototype the object will inherit.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // The object will have no prototype
+      const obj1 = Object.create(null);
+      // Same as \`{}\` or \`new Object()\`
+      const obj2 = Object.create(Object.prototype);
+      // The object will have this object as prototype
+      const obj3 = Object.create({ a: 1, b: 2 });
+    `,
+    `
+      // "Inherited properties" (from the prototype) are not
+      // "own properties", so these will all print '{}'
+      console.log(obj1); //=> {}
+      console.log(obj2); //=> {}
+      console.log(obj3); //=> {}
+    `,
+    `
+      // But the "inherited properties" are actually there
+      console.log(obj3.a, obj3.b); //=> 1 2
+    `,
+  ])}
+/>
+
+## Specifying object properties
+
+There are two kinds of object properties:
+
+- **own properties** &mdash; specified directly on the object
+- **inherited properties** &mdash; inherited from its `prototype`
+
+### Specifying own properties
+
+You can specify an object's own properties using an object literal, or by simply assigning to them:
+
+```js
+const obj = { a: 1, b: 2 };
+obj.c = 3;
+```
+
+### Speciying property attributes
+
+Each property has _property attributes_ which you can set via the `descriptor` parameter of `Object.defineProperty(obj, prop, descriptor)`:
+
+- **`configurable`** &mdash; defaults to `false`; if set to `true`, the property may be changed or deleted. (Throws in strict mode otherwise.)
+- **`writable`** &mdash; defaults to `false`; if set to `true`, the property may be changed. (Throws in strict mode otherwise.)
+- **`enumerable`** &mdash; defaults to `false`; if set to `true`, the property will be enumerated by a for&ndash;in loop.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1 };
+    `,
+    `
+      // Specify the property's value via \`value\`
+      Object.defineProperty(obj, 'b', {
+        configurable: false,
+        value: 5,
+      });
+    `,
+    `
+      console.log(obj.b); //=> 5
+      delete obj.b; //=> throws because \`obj.b\` is not configurable
+      console.log(obj.b);
+    `,
+  ])}
+/>
+
+<NoteBox>
+  You can specify a <Code str="get" /> or <Code str="set" /> function inside{' '}
+  <Code str="descriptor" /> to specify a custom getter/setter function.
+</NoteBox>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 6. Objects',
+    },
+    {
+      text: 'Object.defineProperty()',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty',
+    },
+  ]}
+></References>
