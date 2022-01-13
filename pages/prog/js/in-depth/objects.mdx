@@ -88,8 +88,18 @@ There are two kinds of object properties:
 You can specify an object's own properties using an object literal, or by simply assigning to them:
 
 ```js
-const obj = { a: 1, b: 2 };
-obj.c = 3;
+const customKey = 'myCustomKey';
+
+// Use object literal
+const obj = {
+  myKey: 1,
+  'another-key': 2,
+  [customKey]: 100,
+};
+
+// Or assignments
+obj.additionalKey = 3;
+obj[customKey] = 200;
 ```
 
 ### Speciying property attributes
@@ -126,6 +136,144 @@ Each property has _property attributes_ which you can set via the `descriptor` p
   <Code str="descriptor" /> to specify a custom getter/setter function.
 </NoteBox>
 
+## Serializing objects
+
+- You can use `JSON.stringify(obj)` to turn an object to a JSON string
+- You can use `JSON.parse(str)` to parse a JSON string to an object
+
+## Extended object literal syntax
+
+### Shorthand properties
+
+```js
+const a = 1;
+const b = 2;
+
+// Since ES6, instead of doing
+const obj = { a: a, b: b, c: 10 };
+// you can do
+const obj = { a, b, c: 10 };
+```
+
+### Shorthand methods
+
+<!-- prettier-ignore -->
+```js
+// Instead of doing
+const obj = {
+  someKey: 123,
+  fn: function () { return 456; },
+};
+
+// You can do
+const obj = {
+  someKey: 123,
+  fn() { return 456; },
+};
+```
+
+### Spread operator
+
+Use the spread operator (`...`) to copy own properties of another object.
+
+Note that the order matters (properties spread later can override properties specified earlier), and it only does _shallow copy_.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const objA = { a: 1, b: 2 };
+      const objB = { a: 500, x: 5, y: 6 };
+      const objC = { ...objA, ...objB, c: 3 };
+      console.log(objC); //=> { a: 500, b: 2, x: 5, y: 6, c: 3 }
+    `,
+  ])}
+/>
+
+### Property setters and getters
+
+You can create getter and/or setter functions that is called when a property is queried or changed, respectively.
+
+- If a property has both a setter and a getter functions, it becomes a read/write property
+- If a property only has a getter function, it becomes a read-only property
+- If a property only has a setter function, it becomes a write-only property (reading from it will result in `undefined`)
+
+Inside the getter/setter function, the `this` variable will be bound to the current object.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = {
+        value: 1,
+        get next() {
+          return this.value++;
+        },
+        set next(newValue) {
+          this.value = newValue;
+        },
+      }
+    `,
+    `
+      console.log(obj.next); //=> 1
+      console.log(obj.next); //=> 2
+      obj.next = 10;
+      console.log(obj.next); //=> 10
+      console.log(obj.next); //=> 11
+    `,
+  ])}
+/>
+
+## Object prototype
+
+An object's `prototype` is another object from which it inherits properties.
+
+The object's `prototype` may also have its own `prototype`, from which it inherits its own properties, ... and so on, creating a _prototype chain_.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // This is a constructor function
+      function MySomething() {
+        this.x = 5;
+        this.y = 6;
+      }
+      console.log(MySomething); //=> is a function
+      console.log(MySomething.prototype); //=> is an object
+    `,
+    `
+      // \`obj\` will have \`x\` and \`y\` properties
+      const mySomething = new MySomething();
+      mySomething.a = 100;
+    `,
+    `
+      // List all properties of \`obj\`
+      console.log(Object.keys(mySomething)); //=> ['x', 'y', 'a']
+      console.log(mySomething.x, mySomething.y, mySomething.a); //=> 5 6 100
+    `,
+  ])}
+/>
+
+### Obtaining reference to `prototype`
+
+- If you have the reference to the constructor function, you can do `MySomething.prototype`
+- If you have the reference to the object instance, you can do `Object.getPrototypeOf(mySomething)` (ES2015) or `mySomething.__proto__` (old JavaScript)
+
+<NoteBox>
+  Note that for the examples above,
+  <ul>
+    <li>
+      <Code str="MySomething.prototype === Object.getPrototypeOf(mySomething)" />
+    </li>
+    <li>
+      <Code str="MySomething.prototype === mySomething.__proto__" />
+    </li>
+  </ul>
+</NoteBox>
+
+## The `Object` class methods
+
 ## References
 
 <References
@@ -138,6 +286,10 @@ Each property has _property attributes_ which you can set via the `descriptor` p
       text: 'Object.defineProperty()',
       link:
         'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty',
+    },
+    {
+      text: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes',
+      link: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes',
     },
   ]}
 ></References>
