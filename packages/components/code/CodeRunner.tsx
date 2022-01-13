@@ -28,32 +28,34 @@ export default function CodeRunner({ language, code: initialCode }: Props) {
   const [consoleMessages, setConsoleMessages] = useState<ConsoleMessage[]>([]);
 
   const runCode = useCallback(() => {
-    setShowConsole(true);
-    setConsoleMessages([]);
-    const appendConsoleMessage = (
-      lineBlocks: ConsoleMessage['lineBlocks'],
-      color: ConsoleMessage['color']
-    ) => {
-      setConsoleMessages((consoleMessages) => {
-        return [...consoleMessages, { lineBlocks, color }];
-      });
-    };
-    const globalSubstitutions = [
-      { key: 'window', value: undefined },
-      { key: 'console', value: getConsoleSubstitute(appendConsoleMessage) },
-    ];
-    const argNames = globalSubstitutions.map((sub) => sub.key);
-    const argValues = globalSubstitutions.map((sub) => sub.value);
-    try {
-      // Using `eval` inside function for "cleaner" stack trace
-      const escapedCode = code.replace(/`/g, '\\`').replace(/[$]/g, '\\$');
-      const fn = new Function(...argNames, `eval(\`${escapedCode}\`);`);
-      const startTs = Date.now();
-      fn(...argValues);
-      const endTs = Date.now();
-      appendConsoleMessage([`Run successfully in ${endTs - startTs} ms.`], 'gray');
-    } catch (err) {
-      appendConsoleMessage([err], 'red');
+    if (language === 'js') {
+      setShowConsole(true);
+      setConsoleMessages([]);
+      const appendConsoleMessage = (
+        lineBlocks: ConsoleMessage['lineBlocks'],
+        color: ConsoleMessage['color']
+      ) => {
+        setConsoleMessages((consoleMessages) => {
+          return [...consoleMessages, { lineBlocks, color }];
+        });
+      };
+      const globalSubstitutions = [
+        { key: 'window', value: undefined },
+        { key: 'console', value: getConsoleSubstitute(appendConsoleMessage) },
+      ];
+      const argNames = globalSubstitutions.map((sub) => sub.key);
+      const argValues = globalSubstitutions.map((sub) => sub.value);
+      try {
+        // Using `eval` inside function for "cleaner" stack trace
+        const escapedCode = code.replace(/`/g, '\\`').replace(/[$]/g, '\\$');
+        const fn = new Function(...argNames, `'use strict'\neval(\`${escapedCode}\`);`);
+        const startTs = Date.now();
+        fn(...argValues);
+        const endTs = Date.now();
+        appendConsoleMessage([`Run successfully in ${endTs - startTs} ms.`], 'gray');
+      } catch (err) {
+        appendConsoleMessage([err], 'red');
+      }
     }
   }, [consoleMessages, code]);
 
