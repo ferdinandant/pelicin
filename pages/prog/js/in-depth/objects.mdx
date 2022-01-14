@@ -297,7 +297,84 @@ The `Object` class implements the following methods.
 
 ## The `object` instance
 
-When you have an `object` instance, it inherits the following methods.
+When you have an object instance (let's call it `object`), it inherits the following methods.
+
+### `object.toString()`
+
+Called whenever JavaScript wants to convert the object to a string (e.g. when you try to concatenate it with a string).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2 };
+    `,
+    `
+      // This uses the default \`obj.toString\` method
+      const str = 'Value of obj is ' + obj;
+      console.log(str); //=> Value of obj is [object Object]
+    `,
+  ])}
+/>
+
+### `object.toLocaleString()`
+
+By default, it just calls the `object.toString()` method.
+
+Some classes (e.g. `Date`, `Array`, `Number`) overrides this method to provide Internationalization.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const date = new Date();
+      const ukDate = date.toLocaleString('en-uk');
+      const idDate = date.toLocaleString('id-id');
+      console.log(ukDate); //=> e.g. 14/1/2022, 15:16:04
+      console.log(idDate); //=> e.g. 14/1/2022 15.16.04
+    `,
+  ])}
+/>
+
+### `object.valueOf()`
+
+Called whenever JavaScript wants to convert the object to a non-string primitive value (usually a number).
+
+For example, `Date.prototype` overrides this method to so you can compare two date instances (using `<` or `>`).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // Months are 0-base indexed (0=Jan, 1=Feb)
+      const date1 = new Date(2000, 1, 1); // 1 Feb 2000
+      const date2 = new Date(2021, 1, 1); // 1 Feb 2021
+      console.log(date1 < date2); //=> true
+      console.log(date1 > date2); //=> false
+    `,
+  ])}
+/>
+
+### `object.toJSON()`
+
+Not exactly implemented in the prototype of `object` (`Object.prototype`), but `JSON.stringify` will look for this method to stringify the object.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const point = {
+        x: 1,
+        y: 2,
+        toJSON() { return \`(\${this.x},\${this.y})\`; }
+      }
+    `,
+    `
+      const json = JSON.stringify(point);
+      console.log(json); //=> "(1,2)"
+    `,
+  ])}
+/>
 
 ## References
 
@@ -313,8 +390,13 @@ When you have an `object` instance, it inherits the following methods.
         'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty',
     },
     {
-      text: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes',
+      text: 'Object prototypes',
       link: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes',
+    },
+    {
+      text: 'Object',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object',
     },
   ]}
 ></References>
