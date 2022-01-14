@@ -1,0 +1,572 @@
+import { References, CodeRunner, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Objects
+
+An object is an unordered collection of _properties_, each with a name and a value.
+
+- The property name could be a string or a `Symbol`
+- The property value could be any JavaScript value (including another object), or a getter and/or setter function.
+
+## Creating an object
+
+### Using the object literal
+
+Objects created this way will inherit from `Object.prototype`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const emptyObject = {};
+    `,
+    `
+      const courseData = {
+        name: 'Programming with JavaScript',
+        description: 'Learn to code with',
+        instructor: {
+          firstName: 'John',
+          lastName: 'Book',
+          id: 12,
+        },
+      };
+    `,
+    `
+      console.log(emptyObject); //=> {}
+      console.log(courseData); //=> { name: ..., ... }
+    `,
+  ])}
+/>
+
+### Using the `new` keyword
+
+Objects created using `new Something()` will inherit from `Something.prototype`.
+
+```js
+const obj = new Object();
+const arr = new Array();
+```
+
+### Using the `Object.create()` function
+
+Using `Object.create()` to create an object, you can control which prototype the object will inherit.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // The object will have no prototype
+      const obj1 = Object.create(null);
+      // Same as \`{}\` or \`new Object()\`
+      const obj2 = Object.create(Object.prototype);
+      // The object will have this object as prototype
+      const obj3 = Object.create({ a: 1, b: 2 });
+    `,
+    `
+      // "Inherited properties" (from the prototype) are not
+      // "own properties", so these will all print '{}'
+      console.log(obj1); //=> {}
+      console.log(obj2); //=> {}
+      console.log(obj3); //=> {}
+    `,
+    `
+      // But the "inherited properties" are actually there
+      console.log(obj3.a, obj3.b); //=> 1 2
+    `,
+  ])}
+/>
+
+## Specifying object properties
+
+There are two kinds of object properties:
+
+- **own properties** &mdash; specified directly on the object
+- **inherited properties** &mdash; inherited from its `prototype`
+
+### Specifying own properties
+
+You can specify an object's own properties using an object literal, or by simply assigning to them:
+
+```js
+const customKey = 'myCustomKey';
+
+// Use object literal
+const obj = {
+  myKey: 1,
+  'another-key': 2,
+  [customKey]: 100,
+};
+
+// Or assignments
+obj.additionalKey = 3;
+obj[customKey] = 200;
+```
+
+### Speciying property attributes
+
+Each property has _property attributes_ which you can set via the `descriptor` parameter of `Object.defineProperty(obj, prop, descriptor)`:
+
+- **`configurable` (defaults to `false`)** &mdash; If set to `true`, the property may be changed or deleted. (Throws in strict mode otherwise.)
+- **`writable` (defaults to `false`)** &mdash; If set to `true`, the property's _value_ may be changed. (Throws in strict mode otherwise.)
+- **`enumerable` (defaults to `false`)** &mdash; If set to `true`, the property will be enumerable (appears in `for-in` or `Object.keys`).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1 };
+    `,
+    `
+      // Specify the property's value via \`value\`
+      Object.defineProperty(obj, 'b', {
+        configurable: false,
+        writable: false,
+        value: 5,
+      });
+    `,
+    `
+      console.log(obj.b); //=> 5
+      delete obj.b; //=> throws because \`obj.b\` is not configurable
+      console.log(obj.b);
+    `,
+  ])}
+/>
+
+<NoteBox>
+  You can specify a <Code str="get" /> or <Code str="set" /> function inside{' '}
+  <Code str="descriptor" /> to specify a custom getter/setter function.
+</NoteBox>
+
+## Serializing objects
+
+- You can use `JSON.stringify(obj)` to turn an object to a JSON string
+- You can use `JSON.parse(str)` to parse a JSON string to an object
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 'hello', b: { c: 2, d: 3 } };
+    `,
+    `
+      const str = JSON.stringify(obj);
+      console.log(typeof str); //=> string
+      console.log(str); //=> {"a":"hello","b":{"c":2,"d":3}}
+    `,
+    `
+      const objCopy = JSON.parse(str);
+      console.log(typeof objCopy); //=> object
+      console.log(objCopy); //=> {...}
+    `,
+  ])}
+/>
+
+## Extended object literal syntax
+
+### Shorthand properties
+
+```js
+const a = 1;
+const b = 2;
+
+// Since ES6, instead of doing
+const obj = { a: a, b: b, c: 10 };
+// you can do
+const obj = { a, b, c: 10 };
+```
+
+### Shorthand methods
+
+<!-- prettier-ignore -->
+```js
+// Instead of doing
+const obj = {
+  someKey: 123,
+  fn: function () { return 456; },
+};
+
+// You can do
+const obj = {
+  someKey: 123,
+  fn() { return 456; },
+};
+```
+
+### Spread operator
+
+Use the spread operator (`...`) to copy own properties of another object.
+
+Note that the order matters (properties spread later can override properties specified earlier), and it only does _shallow copy_.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const objA = { a: 1, b: 2 };
+      const objB = { a: 500, x: 5, y: 6 };
+      const objC = { ...objA, ...objB, c: 3 };
+      console.log(objC); //=> { a: 500, b: 2, x: 5, y: 6, c: 3 }
+    `,
+  ])}
+/>
+
+### Property setters and getters
+
+You can create getter and/or setter functions that is called when a property is queried or changed, respectively.
+
+- If a property has both a setter and a getter functions, it becomes a read/write property
+- If a property only has a getter function, it becomes a read-only property
+- If a property only has a setter function, it becomes a write-only property (reading from it will result in `undefined`)
+
+Inside the getter/setter function, the `this` variable will be bound to the current object.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = {
+        value: 1,
+        get next() {
+          return this.value++;
+        },
+        set next(newValue) {
+          this.value = newValue;
+        },
+      }
+    `,
+    `
+      console.log(obj.next); //=> 1
+      console.log(obj.next); //=> 2
+      obj.next = 10;
+      console.log(obj.next); //=> 10
+      console.log(obj.next); //=> 11
+    `,
+  ])}
+/>
+
+## Object prototype
+
+An object's `prototype` is another object from which it inherits properties.
+
+The object's `prototype` may also have its own `prototype`, from which it inherits its own properties, ... and so on, creating a _prototype chain_.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // This is a constructor function
+      function MySomething() {
+        this.x = 5;
+        this.y = 6;
+      }
+      console.log(MySomething); //=> is a function
+      console.log(MySomething.prototype); //=> is an object
+    `,
+    `
+      // \`obj\` will have \`x\` and \`y\` properties
+      const mySomething = new MySomething();
+      mySomething.a = 100;
+    `,
+    `
+      // List all properties of \`obj\`
+      console.log(Object.keys(mySomething)); //=> ['x', 'y', 'a']
+      console.log(mySomething.x, mySomething.y, mySomething.a); //=> 5 6 100
+    `,
+  ])}
+/>
+
+### Obtaining reference to `prototype`
+
+- If you have the reference to the constructor function, you can do `MySomething.prototype`
+- If you have the reference to the object instance, you can do `Object.getPrototypeOf(mySomething)` (ES2015) or `mySomething.__proto__` (old JavaScript)
+
+<NoteBox>
+  Note that for the examples above,
+  <ul>
+    <li>
+      <Code str="MySomething.prototype === Object.getPrototypeOf(mySomething)" />
+    </li>
+    <li>
+      <Code str="MySomething.prototype === mySomething.__proto__" />
+    </li>
+  </ul>
+</NoteBox>
+
+## The `Object` class
+
+The `Object` class implements the following methods.
+
+### Creating an object
+
+#### `Object.create(proto)`
+
+Creates an object from the given prototype.
+
+#### `Object.fromEntries(iterable)`
+
+Given an iterable (e.g. `Array` or `Map`) containing `[key, value]` pairs, creates the object represented by the iterable.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const entries = [['a', 1], ['b', 2]];
+      console.log(Object.fromEntries(entries)); //=> { a: 1, b: 2 }
+    `,
+  ])}
+/>
+
+### Querying properties
+
+#### `Object.keys(obj)`
+
+Returns an array of enumerable property names of `obj`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2 };
+      console.log(Object.keys(obj)); //=> ['a', 'b']
+    `,
+  ])}
+/>
+
+#### `Object.values(obj)`
+
+Returns an array of enumerable property values of `obj`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2 };
+      console.log(Object.keys(obj)); //=> [1, 2]
+    `,
+  ])}
+/>
+
+#### `Object.entries(obj)`
+
+Returns an array of enumerable property `[key, value]` pairs of `obj`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2 };
+      console.log(Object.entries(obj)); //=> [['a', 1], ['b', 2]]
+    `,
+  ])}
+/>
+
+#### `Object.getOwnPropertyNames(obj)`
+
+Get all own, non-`Symbol` property names of `obj`.
+
+#### `Object.getOwnPropertySymbols(obj)`
+
+Get all own, `Symbol` property names of `obj`.
+
+#### `Object.getOwnPropertyDescriptor(obj, propName)`
+
+Given an object and a property name, returns the property's attributes (something like `{ value: 42, writable: true, enumerable: true, configurable: true }`)
+
+#### `Object.getOwnPropertyDescriptors(obj)`
+
+Like `Object.getOwnPropertyDescriptor`, but returns an object whose keys are the property names of `obj`, and values are the attributes of those properties.
+
+### Defining properties
+
+#### `Object.defineProperties(obj, propName, propDescriptor)`
+
+On object `obj`, define a property named `propName` with its value and its attributes.
+
+`propDescriptor` describes the property as either (1) _data property_, or (2) _accessor property_ (only having setter and/or getter functions). It cannot be both.
+
+- **`configurable` (optional, defaults to `false`)** &mdash; if set to `true`, the property may be changed or deleted (otherwise it throws in strict mode).
+- **`enumerable` (optional, defaults to `false`)** &mdash; if set to `true`, the property becomes enumerable (appears in `for-in` or `Object.keys`).
+- **`value` (only for data property; optional)** &mdash; describes the value of the property.
+- **`writable` (only for data property; optional, defaults to `false`)** &mdash; if set to `true`, the value of the property may be changed (otherwise it throws in strict mode).
+- **`get()` (only for accessor property; optional)** &mdash; getter for the property
+- **`set(value)` (only for accessor property; optional)** setter for the property
+
+#### `Object.defineProperties(obj, propDescriptors)`
+
+On object `obj`, define properties as described in `propDescriptors`.
+
+`propDescriptors` is an object whose keys are the property names, and values are like the `propDescriptor` parameter of `Object.defineProperty`.
+
+### Extending properties
+
+You _extend_ An object when you add properties to it.
+
+#### `Object.assign(target, ...sources)`
+
+Adds to `target`, shallow copy of properties of `sources`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2 };
+      Object.assign(obj, { b: 3, c: 4 });
+      console.log(obj); //=> { a: 1, b: 3, c: 4 }
+    `,
+  ])}
+/>
+
+#### `Object.preventExtensions(obj)`
+
+Prevents new properties to be added to `obj`.
+
+#### `Object.isExtensible(obj)`
+
+Returns true if the object is extensible; false otherwise.
+
+### Others
+
+#### `Object.is(obj1, obj2)`
+
+Like doing `obj1 === obj2`, but `Object.is(NaN NaN)` evaluates to true.
+
+#### `Object.getPrototypeOf(obj)`
+
+Gets the prototype of `obj`.
+
+#### `Object.setPrototypeOf(obj, prototype)`
+
+Changes the prototype of `obj`.
+
+#### `Object.seal(obj)`
+
+Seals `obj`.
+
+- New properties cannot be added.
+- Existing properties are marked non-configurable, but their values can be changed.
+
+#### `Object.freeze(obj)`
+
+Freezes `obj`.
+
+- New properties cannot be added.
+- Existing properties are marked non-configurable and non-writable (for data properties, their values can no longer be changed).
+
+#### `Object.isSealed(obj)`
+
+Returns true if `obj` is sealed; false otherwise.
+
+#### `Object.isFrozen(obj)`
+
+Returns true if `obj` is frozen; false otherwise.
+
+## The `object` instance
+
+When you have an object instance (let's call it `object`), it inherits the following methods.
+
+### `object.toString()`
+
+Called whenever JavaScript wants to convert the object to a string (e.g. when you try to concatenate it with a string).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2 };
+    `,
+    `
+      // This uses the default \`obj.toString\` method
+      const str = 'Value of obj is ' + obj;
+      console.log(str); //=> Value of obj is [object Object]
+    `,
+  ])}
+/>
+
+### `object.toLocaleString()`
+
+By default, it just calls the `object.toString()` method.
+
+Some classes (e.g. `Date`, `Array`, `Number`) overrides this method to provide Internationalization.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const date = new Date();
+      const ukDate = date.toLocaleString('en-uk');
+      const idDate = date.toLocaleString('id-id');
+      console.log(ukDate); //=> e.g. 14/1/2022, 15:16:04
+      console.log(idDate); //=> e.g. 14/1/2022 15.16.04
+    `,
+  ])}
+/>
+
+### `object.valueOf()`
+
+Called whenever JavaScript wants to convert the object to a non-string primitive value (usually a number).
+
+For example, `Date.prototype` overrides this method to so you can compare two date instances (using `<` or `>`).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // Months are 0-base indexed (0=Jan, 1=Feb)
+      const date1 = new Date(2000, 1, 1); // 1 Feb 2000
+      const date2 = new Date(2021, 1, 1); // 1 Feb 2021
+      console.log(date1 < date2); //=> true
+      console.log(date1 > date2); //=> false
+    `,
+  ])}
+/>
+
+### `object.toJSON()`
+
+Not exactly implemented in the prototype of `object` (`Object.prototype`), but `JSON.stringify` will look for this method to stringify the object.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const point = {
+        x: 1,
+        y: 2,
+        toJSON() { return \`(\${this.x},\${this.y})\`; }
+      }
+    `,
+    `
+      const json = JSON.stringify(point);
+      console.log(json); //=> "(1,2)"
+    `,
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 6. Objects',
+    },
+    {
+      text: 'Object.defineProperty()',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty',
+    },
+    {
+      text: 'Object prototypes',
+      link: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes',
+    },
+    {
+      text: 'Object',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object',
+    },
+    {
+      text: 'Difference between Configurable and Writable attributes of an Object',
+      link:
+        'https://stackify.dev/207602-difference-between-configurable-and-writable-attributes-of-an-object',
+    },
+  ]}
+></References>
