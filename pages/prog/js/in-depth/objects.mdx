@@ -106,9 +106,9 @@ obj[customKey] = 200;
 
 Each property has _property attributes_ which you can set via the `descriptor` parameter of `Object.defineProperty(obj, prop, descriptor)`:
 
-- **`configurable`** &mdash; defaults to `false`; if set to `true`, the property may be changed or deleted. (Throws in strict mode otherwise.)
-- **`writable`** &mdash; defaults to `false`; if set to `true`, the property may be changed. (Throws in strict mode otherwise.)
-- **`enumerable`** &mdash; defaults to `false`; if set to `true`, the property will be enumerated by a for&ndash;in loop.
+- **`configurable` (defaults to `false`)** &mdash; If set to `true`, the property may be changed or deleted. (Throws in strict mode otherwise.)
+- **`writable` (defaults to `false`)** &mdash; If set to `true`, the property's _value_ may be changed. (Throws in strict mode otherwise.)
+- **`enumerable` (defaults to `false`)** &mdash; If set to `true`, the property will be enumerable (appears in `for-in` or `Object.keys`).
 
 <CodeRunner
   language="js"
@@ -120,6 +120,7 @@ Each property has _property attributes_ which you can set via the `descriptor` p
       // Specify the property's value via \`value\`
       Object.defineProperty(obj, 'b', {
         configurable: false,
+        writable: false,
         value: 5,
       });
     `,
@@ -295,6 +296,170 @@ The object's `prototype` may also have its own `prototype`, from which it inheri
 
 The `Object` class implements the following methods.
 
+### Creating an object
+
+#### `Object.create(proto)`
+
+Creates an object from the given prototype.
+
+#### `Object.fromEntries(iterable)`
+
+Given an iterable (e.g. `Array` or `Map`) containing `[key, value]` pairs, creates the object represented by the iterable.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const entries = [['a', 1], ['b', 2]];
+      console.log(Object.fromEntries(entries)); //=> { a: 1, b: 2 }
+    `,
+  ])}
+/>
+
+### Querying properties
+
+#### `Object.keys(obj)`
+
+Returns an array of enumerable property names of `obj`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2 };
+      console.log(Object.keys(obj)); //=> ['a', 'b']
+    `,
+  ])}
+/>
+
+#### `Object.values(obj)`
+
+Returns an array of enumerable property values of `obj`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2 };
+      console.log(Object.keys(obj)); //=> [1, 2]
+    `,
+  ])}
+/>
+
+#### `Object.entries(obj)`
+
+Returns an array of enumerable property `[key, value]` pairs of `obj`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2 };
+      console.log(Object.entries(obj)); //=> [['a', 1], ['b', 2]]
+    `,
+  ])}
+/>
+
+#### `Object.getOwnPropertyNames(obj)`
+
+Get all own, non-`Symbol` property names of `obj`.
+
+#### `Object.getOwnPropertySymbols(obj)`
+
+Get all own, `Symbol` property names of `obj`.
+
+#### `Object.getOwnPropertyDescriptor(obj, propName)`
+
+Given an object and a property name, returns the property's attributes (something like `{ value: 42, writable: true, enumerable: true, configurable: true }`)
+
+#### `Object.getOwnPropertyDescriptors(obj)`
+
+Like `Object.getOwnPropertyDescriptor`, but returns an object whose keys are the property names of `obj`, and values are the attributes of those properties.
+
+### Defining properties
+
+#### `Object.defineProperties(obj, propName, propDescriptor)`
+
+On object `obj`, define a property named `propName` with its value and its attributes.
+
+`propDescriptor` describes the property as either (1) _data property_, or (2) _accessor property_ (only having setter and/or getter functions). It cannot be both.
+
+- **`configurable` (optional, defaults to `false`)** &mdash; if set to `true`, the property may be changed or deleted (otherwise it throws in strict mode).
+- **`enumerable` (optional, defaults to `false`)** &mdash; if set to `true`, the property becomes enumerable (appears in `for-in` or `Object.keys`).
+- **`value` (only for data property; optional)** &mdash; describes the value of the property.
+- **`writable` (only for data property; optional, defaults to `false`)** &mdash; if set to `true`, the value of the property may be changed (otherwise it throws in strict mode).
+- **`get()` (only for accessor property; optional)** &mdash; getter for the property
+- **`set(value)` (only for accessor property; optional)** setter for the property
+
+#### `Object.defineProperties(obj, propDescriptors)`
+
+On object `obj`, define properties as described in `propDescriptors`.
+
+`propDescriptors` is an object whose keys are the property names, and values are like the `propDescriptor` parameter of `Object.defineProperty`.
+
+### Extending properties
+
+You _extend_ An object when you add properties to it.
+
+#### `Object.assign(target, ...sources)`
+
+Adds to `target`, shallow copy of properties of `sources`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 1, b: 2 };
+      Object.assign(obj, { b: 3, c: 4 });
+      console.log(obj); //=> { a: 1, b: 3, c: 4 }
+    `,
+  ])}
+/>
+
+#### `Object.preventExtensions(obj)`
+
+Prevents new properties to be added to `obj`.
+
+#### `Object.isExtensible(obj)`
+
+Returns true if the object is extensible; false otherwise.
+
+### Others
+
+#### `Object.is(obj1, obj2)`
+
+Like doing `obj1 === obj2`, but `Object.is(NaN NaN)` evaluates to true.
+
+#### `Object.getPrototypeOf(obj)`
+
+Gets the prototype of `obj`.
+
+#### `Object.setPrototypeOf(obj, prototype)`
+
+Changes the prototype of `obj`.
+
+#### `Object.seal(obj)`
+
+Seals `obj`.
+
+- New properties cannot be added.
+- Existing properties are marked non-configurable, but their values can be changed.
+
+#### `Object.freeze(obj)`
+
+Freezes `obj`.
+
+- New properties cannot be added.
+- Existing properties are marked non-configurable and non-writable (for data properties, their values can no longer be changed).
+
+#### `Object.isSealed(obj)`
+
+Returns true if `obj` is sealed; false otherwise.
+
+#### `Object.isFrozen(obj)`
+
+Returns true if `obj` is frozen; false otherwise.
+
 ## The `object` instance
 
 When you have an object instance (let's call it `object`), it inherits the following methods.
@@ -397,6 +562,11 @@ Not exactly implemented in the prototype of `object` (`Object.prototype`), but `
       text: 'Object',
       link:
         'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object',
+    },
+    {
+      text: 'Difference between Configurable and Writable attributes of an Object',
+      link:
+        'https://stackify.dev/207602-difference-between-configurable-and-writable-attributes-of-an-object',
     },
   ]}
 ></References>
