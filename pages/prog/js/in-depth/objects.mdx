@@ -141,6 +141,25 @@ Each property has _property attributes_ which you can set via the `descriptor` p
 - You can use `JSON.stringify(obj)` to turn an object to a JSON string
 - You can use `JSON.parse(str)` to parse a JSON string to an object
 
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = { a: 'hello', b: { c: 2, d: 3 } };
+    `,
+    `
+      const str = JSON.stringify(obj);
+      console.log(typeof str); //=> string
+      console.log(str); //=> {"a":"hello","b":{"c":2,"d":3}}
+    `,
+    `
+      const objCopy = JSON.parse(str);
+      console.log(typeof objCopy); //=> object
+      console.log(objCopy); //=> {...}
+    `,
+  ])}
+/>
+
 ## Extended object literal syntax
 
 ### Shorthand properties
@@ -272,7 +291,13 @@ The object's `prototype` may also have its own `prototype`, from which it inheri
   </ul>
 </NoteBox>
 
-## The `Object` class methods
+## The `Object` class
+
+The `Object` class implements the following methods.
+
+## The `object` instance
+
+When you have an `object` instance, it inherits the following methods.
 
 ## References
 
