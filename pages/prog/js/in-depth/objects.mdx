@@ -38,7 +38,7 @@ Objects created this way will inherit from `Object.prototype`.
   ])}
 />
 
-You can use the spread operator (`...`) to copy own properties of another object.
+You can also use the spread operator (`...`) to copy own properties of another object.
 
 Note that the order matters (properties spread later can override properties specified earlier), and it only does _shallow copy_.
 
@@ -190,7 +190,6 @@ obj[customKey] = 200;
 
 ### Speciying property attributes
 
-In
 Each property has _property attributes_ which you can set via the `propDescriptor` parameter of `Object.defineProperty(obj, propName, propDescriptor)`:
 
 - **`configurable` (defaults to `false`)** &mdash; If set to `true`, the property may be changed or deleted. (Throws in strict mode otherwise.)
@@ -224,10 +223,41 @@ Each property has _property attributes_ which you can set via the `propDescripto
   <Code str="descriptor" /> to specify a custom getter/setter function.
 </NoteBox>
 
+## Accessing object properties
+
+Use the `.` or `[]` operator.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const user = { firstName: 'John', lastName: 'Doe' };
+    `,
+    `
+      // Using the . operator
+      console.log(user.firstName); //=> John
+    `,
+    `
+      // Using the [] operator
+      console.log(user['last' + 'Name']); //=> Doe
+    `,
+    `
+      // Changing and deleting property values
+      user.firstName = 'Alice';
+      delete user.lastName;
+      console.log(user); //=> { firstName: 'Alice' }
+    `,
+  ])}
+/>
+
 ## Serializing objects
 
-- You can use `JSON.stringify(obj)` to turn an object to a JSON string
-- You can use `JSON.parse(str)` to parse a JSON string to an object
+To transmit or store an object's state, you will have to _serialize_ it first, converting it into a JSON (JavaScript Object Notation) string. Later, you can reconstruct the object from the JSON string.
+
+- Use `JSON.stringify(obj)` to turn an object to a JSON string
+- Use `JSON.parse(str)` to parse a JSON string to an object
+
+Note that `JSON.stringify` cannot serialize all types of values (e.g. functions, circular references, etc.).
 
 <CodeRunner
   language="js"
