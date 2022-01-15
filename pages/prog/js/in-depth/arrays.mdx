@@ -1,0 +1,144 @@
+import { References, CodeRunner } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Arrays
+
+An array is an ordered list of _values_.
+
+- Each value is called an _element_, and its position in the array is called its _index_.
+- Index goes from 0 (the first element) up to 2<sup>32</sup> &minus; 2 (4,294,967,294).
+- Arrays have a `length` property.
+
+Arrays in JavaScript are _dynamic_ (you don't have to specify the initial size, and it can grow or shrink as needed), and they can be _sparse_ (there could be empty indices). It can even hold different types of values in one array (e.g. numbers and booleans).
+
+## Creating an array
+
+### Using the array literal
+
+Just specify the elements separated by commas. You can skip over empty indices.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr1 = [1, 1, 2, 3, 5, 8];
+      const arr2 = [true,,,false];
+      console.log(arr1); //=> [ 1, 1, 2, 3, 5, 8 ]
+      console.log(arr2); //=> [ true, <2 empty item(s)>, false ]
+    `,
+  ])}
+/>
+
+You can also use the spread operator (...) to copy the elements of an iterable (e.g. `Array`, `String`, `Set`, etc.)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr1 = ['a', 'b', 'c'];
+      const arr2 = [1, 2, 3, ...arr1];
+      console.log(arr2); //=> [ 1, 2, 3, 'a', 'b', 'c' ]
+    `,
+  ])}
+/>
+
+### Using `new Array(...)`
+
+The behavior is different depending on how many arguments you specify.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // Without argument: the same as \`[]\`
+      const arr1 = new Array();
+      console.log(arr1); //=> []
+    `,
+    `
+      // 1 argument: length of array
+      const arr2 = new Array(5);
+      console.log(arr2); //=> [ <5 empty item(s)> ]
+      console.log(arr2.length); //=> 5
+    `,
+    `
+      // 2+ arguments: elements of the array
+      const arr3 = new Array(1, 2, 3);
+      console.log(arr3); //=> [ 1, 2, 3 ]
+    `,
+  ])}
+/>
+
+### Using `Array.of(...elements)`
+
+Creates an array using the given elements.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      console.log(Array.of()); //=> []
+      console.log(Array.of(1)); //=> [ 1 ]
+      console.log(Array.of(1, 2, 3)); //=> [ 1, 2, 3 ]
+    `,
+  ])}
+/>
+
+### Using `Array.from(iterable)`
+
+Creates an array from the given iterable (e.g. `Array`, `String`, `Set`, etc.).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const set = new Set();
+      set.add('Hello');
+      set.add('Hi');
+    `,
+    `
+      const arr = Array.from(set);
+      console.log(arr); //=> [ 'Hello', 'Hi' ]
+    `,
+  ])}
+/>
+
+## Accessing array elements
+
+Use the `[]` operator.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = ['a', 'b', 'c', 'd'];
+      console.log(arr[0]); //=> a
+      console.log(arr[1 + 1]); //=> c
+    `,
+  ])}
+/>
+
+## Multidimensional arrays
+
+Not exactly supported in JavsScript, but you can approximate it by making arrays of arrays.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+      console.log(arr[0][0]); //=> 1
+      console.log(arr[2][2]); //=> 9
+    `,
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 7. Arrays',
+    },
+  ]}
+></References>
