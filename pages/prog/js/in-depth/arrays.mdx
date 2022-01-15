@@ -1,0 +1,578 @@
+import { References, CodeRunner } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Arrays
+
+An array is an ordered list of _values_.
+
+- Each value is called an _element_, and its position in the array is called its _index_.
+- Index goes from 0 (the first element) up to 2<sup>32</sup> &minus; 2 (4,294,967,294).
+- Arrays have a `length` property.
+
+Arrays in JavaScript are _dynamic_ (you don't have to specify the initial size, and it can grow or shrink as needed), and they can be _sparse_ (there could be empty indices). It can even hold different types of values in one array (e.g. numbers and booleans).
+
+## Creating an array
+
+### Using the array literal
+
+Just specify the elements separated by commas. You can skip over empty indices.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr1 = [1, 1, 2, 3, 5, 8];
+      const arr2 = [true,,,false];
+      console.log(arr1); //=> [ 1, 1, 2, 3, 5, 8 ]
+      console.log(arr2); //=> [ true, <2 empty item(s)>, false ]
+    `,
+  ])}
+/>
+
+You can also use the spread operator (...) to copy the elements of an iterable (e.g. `Array`, `String`, `Set`, etc.)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr1 = ['a', 'b', 'c'];
+      const arr2 = [1, 2, 3, ...arr1];
+      console.log(arr2); //=> [ 1, 2, 3, 'a', 'b', 'c' ]
+    `,
+  ])}
+/>
+
+### Using `new Array(...)`
+
+The behavior is different depending on how many arguments you specify.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // Without argument: the same as \`[]\`
+      const arr1 = new Array();
+      console.log(arr1); //=> []
+    `,
+    `
+      // 1 argument: length of array
+      const arr2 = new Array(5);
+      console.log(arr2); //=> [ <5 empty item(s)> ]
+      console.log(arr2.length); //=> 5
+    `,
+    `
+      // 2+ arguments: elements of the array
+      const arr3 = new Array(1, 2, 3);
+      console.log(arr3); //=> [ 1, 2, 3 ]
+    `,
+  ])}
+/>
+
+### Using `Array.of(...elements)`
+
+Creates an array using the given elements.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      console.log(Array.of()); //=> []
+      console.log(Array.of(1)); //=> [ 1 ]
+      console.log(Array.of(1, 2, 3)); //=> [ 1, 2, 3 ]
+    `,
+  ])}
+/>
+
+### Using `Array.from(iterable)`
+
+Creates an array from the given iterable (e.g. `Array`, `String`, `Set`, etc.).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const set = new Set();
+      set.add('Hello');
+      set.add('Hi');
+    `,
+    `
+      const arr = Array.from(set);
+      console.log(arr); //=> [ 'Hello', 'Hi' ]
+    `,
+  ])}
+/>
+
+## Accessing array elements
+
+Use the `[]` operator.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = ['a', 'b', 'c', 'd'];
+      console.log(arr[0]); //=> a
+      console.log(arr[1 + 1]); //=> c
+    `,
+  ])}
+/>
+
+## Multidimensional arrays
+
+Not exactly supported in JavsScript, but you can approximate it by making arrays of arrays.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+      console.log(arr[0][0]); //=> 1
+      console.log(arr[2][2]); //=> 9
+    `,
+  ])}
+/>
+
+## The `Array` class
+
+### `Array.isArray(obj)`
+
+Returns true if `obj` is an instance of `Array`; false otherwise.
+
+### `Array.of(...elements)`
+
+Creates an array from the given elements.
+
+### `Array.from(iterable)`
+
+Creates an array from the given iterable (e.g. `String`, `Set`).
+
+## The `array` instance
+
+When you have an array instance (let's call it `array`), it inherits the following properties/methods.
+
+### Array length
+
+#### `array.length`
+
+Gets the current length of the array.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3];
+      console.log(arr); //=> [ 1, 2, 3 ]
+      console.log(arr.length); //=> 3
+      arr.push(4);
+      console.log(arr); //=> [ 1, 2, 3, 4 ]
+      console.log(arr.length); //=> 4
+    `,
+  ])}
+/>
+
+### Looping through the array
+
+#### `array.forEach(callbackFn, thisArg)`
+
+Calls `callbackFn` for each element in `array`.
+
+- **`callbackFn(element, index, array)`** &mdash; the callback function
+- **`thisArg` (optional)** &mdash; `this` value to be used inside `callbackFn`
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3, 5];
+      arr.forEach((element) => {
+        console.log("Value:", element);
+      })
+    `,
+  ])}
+/>
+
+#### `array.keys()`
+
+Gets the iterator that contains the indices of the elements of the array. (This will still iterate through the empty indices.)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = ['a', 'b',, 'd'];
+      const it = arr.keys();
+      console.log(it.next()); //=> { value: 0, done: false }
+      console.log(it.next()); //=> { value: 1, done: false }
+      console.log(it.next()); //=> { value: 2, done: false }
+      console.log(it.next()); //=> { value: 3, done: false }
+      console.log(it.next()); //=> { value: undefined, done: true }
+    `,
+  ])}
+/>
+
+#### `array.values()`
+
+Gets the iterator that contains the value of the elements of the array. (This will still iterate through the empty indices.)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = ['a', 'b'];
+      const it = arr.values();
+      console.log(it.next()); //=> { value: 'a', done: false }
+      console.log(it.next()); //=> { value: 'b', done: false }
+      console.log(it.next()); //=> { value: undefined, done: true }
+    `,
+  ])}
+/>
+
+#### `array.entries()`
+
+Gets the iterator that contains the index-value pairs of the array. (This will still iterate through the empty indices.)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = ['a', 'b'];
+      const it = arr.entries();
+      console.log(it.next()); //=> { value: [0, 'a'], done: false }
+      console.log(it.next()); //=> { value: [1, 'b'], done: false }
+      console.log(it.next()); //=> { value: undefined, done: true }
+    `,
+  ])}
+/>
+
+### Querying the array
+
+#### `array.find(callbackFn, thisArg)`
+
+Finds the first element inside `array` that passes the `callbackFn` test. If no such element exists, returns `undefined`.
+
+- **`callbackFn(element, index, array)`** &mdash; the test function
+- **`thisArg` (optional)** &mdash; `this` value to be used inside `callbackFn`
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 3, 5, 6, 7, 11, 13, 14];
+      const isEven = (element) => element % 2 === 0;
+      console.log(arr.find(isEven)); //=> 6
+    `,
+  ])}
+/>
+
+#### `array.findIndex(callbackFn, thisArg)`
+
+Finds the first _index_ of an element inside `array` that passes the `callbackFn` test. If no such index exists, returns `-1`.
+
+- **`callbackFn(element, index, array)`** &mdash; the test function
+- **`thisArg` (optional)** &mdash; `this` value to be used inside `callbackFn`
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 3, 5, 6, 7, 11, 13, 14];
+      const isEven = (element) => element % 2 === 0;
+      console.log(arr.findIndex(isEven)); //=> 3 (index 3)
+    `,
+  ])}
+/>
+
+#### `array.includes(value, fromIndex)`
+
+Tests if `array` includes the value `value`. `fromIndex` is optional, defaults to 0. Returns true if `value` is found; false otherwise.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = ['dog', 'cat'];
+      console.log(arr.includes('dog')); //=> true
+      console.log(arr.includes('cat')); //=> true
+      console.log(arr.includes('chicken')); //=> false
+    `,
+  ])}
+/>
+
+#### `array.indexOf(value, fromIndex)`
+
+Finds the first index of `value` in `array`. `fromIndex` is optional, defaults to 0. Returns the index if `value` is found; `-1` otherwise.
+
+#### `array.lastIndexOf(value, fromIndex)`
+
+Finds the last index of `value` in `array`. `fromIndex` is optional, defaults to `arr.length - 1` (searches all elements from the end of `array`). Returns the index if `value` is found; `-1` otherwise.
+
+#### `array.some(callbackFn, thisArg)`
+
+Like math's "&exist;": returns true if there exists an element in the array that passes the `callbackFn` test; returns false otherwise.
+
+- **`callbackFn(element, index, array)`** &mdash; the test function
+- **`thisArg` (optional)** &mdash; `this` value to be used inside `callbackFn`
+
+#### `array.every(callbackFn, thisArg)`
+
+Like math's "&forall;": returns true if all elements in the array pass the `callbackFn` test; returns false otherwise.
+
+- **`callbackFn(element, index, array)`** &mdash; the test function
+- **`thisArg` (optional)** &mdash; `this` value to be used inside `callbackFn`
+
+### Modifying the array
+
+#### `array.push(...elements)`
+
+Adds element(s) to the end of `array`. Returns the new array length.
+
+#### `array.pop()`
+
+Removes an element at the end of `array`. Returns the removed element, or `undefined` if the array is empty.
+
+#### `array.unshift(...elements)`
+
+Adds element(s) to the start of `array`. Returns the new array length.
+
+#### `array.unshift()`
+
+Removes an element at the start of `array`. Returns the removed element, or `undefined` if the array is empty.
+
+#### `array.reverse()`
+
+Reverses the elements of `array` in place.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3];
+      arr.reverse();
+      console.log(arr); //=> [ 3, 2, 1 ]
+    `,
+  ])}
+/>
+
+#### `array.splice(start, deleteCount, ...newElements)`
+
+From index `start`, delete `deleteCount` elements, and then add `...newElements`.
+
+- **`start` (optional)** &mdash; start modifying the array from this index. If the number is negative, it will count from the end of the array.
+- **`deleteCount` (optional)** &mdash; number of elements to delete. If omitted, will delete from `start` until the end of the array
+- **`...newElements` (optional)** &mdash; new elements to be inserted from index `start`
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3, 4, 5];
+      // From index 2, delete 1 element, and add 'b', 'c', 'd'
+      arr.splice(2, 1, 'b', 'c', 'd');
+      console.log(arr); //=> [ 1, 2, 'b', 'c', 'd', 4, 5 ]
+    `,
+  ])}
+/>
+
+#### `array.fill(target, start, end)`
+
+Fills in the value `value` (overriding the previous values) to elements from index `start` (inclusive) to index `end` (exclusive) to the given. Returns the modified array.
+
+- **`value`** &mdash; the new value
+- **`start` (defaults to `0`)**
+- **`end` (defaults to `array.length`)**
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = new Array(5);
+      console.log(arr); //=> [ <5 empty item(s)> ]
+      arr.fill(1)
+      console.log(arr); //=> [ 1, 1, 1, 1, 1 ]
+    `,
+  ])}
+/>
+
+#### `array.copyWithin(target, start, end)`
+
+Moves elements from index `start` (inclusive) to index `end` (exclusive), and place them at index `target`. Returns the modified array.
+
+- **`target`** &mdash; if negative, it's counted from the end of the array
+- **`start` (defaults to `0`)**
+- **`end` (defaults to `array.length`)**
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr1 = ['a', 'b', 'c', 'd', 'e'];
+      const arr2 = [7, 8, 9];
+      console.log(arr1.concat(arr2)); //=> [ 1, 2, 3, 7, 8, 9 ]
+    `,
+  ])}
+/>
+
+### Deriving a new array
+
+#### `array.concat(...arrays)`
+
+Forms a new array based on the concatenation of the given arrays.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr1 = [1, 2, 3];
+      const arr2 = [7, 8, 9];
+      console.log(arr1.concat(arr2)); //=> [ 1, 2, 3, 7, 8, 9 ]
+    `,
+  ])}
+/>
+
+#### `array.filter(callbackFn, thisArg)`
+
+Forms a new array that only includes elements from `array` that passes the `callbackFn` test.
+
+- **`callbackFn(element, index, array)`** &mdash; the test function
+- **`thisArg` (optional)** &mdash; `this` value to be used inside `callbackFn`
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [111, 222, 333, 444, 555];
+      const isLargeEnough = (number) => number > 300;
+      console.log(arr1.filter(isLargeEnough)); //=> [ 333, 444, 555 ]
+    `,
+  ])}
+/>
+
+#### `array.slice(start, end)`
+
+Forms a new array using copy of elements from index `start` (inclusive) to index `end` (exclusive). If `start` and `end` are omitted, it will copy the entire array.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3, 4, 5];
+      // Copy elements from index 1..2
+      const newArr = arr.slice(1, 3);
+      console.log(newArr); //=> [2, 3]
+    `,
+  ])}
+/>
+
+#### `array.map(callbackFn, thisArg)`
+
+Forms a new array created by mapping all elements of `array` using the mapping function.
+
+- **`callbackFn(element, index, array)`** &mdash; the mapping function
+- **`thisArg` (optional)** &mdash; `this` value to be used inside `callbackFn`
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3];
+      const newArr = arr.map(item => item + 'pt.');
+      console.log(newArr); //=> [ '1pt.', '2pt.', '3pt.' ]
+    `,
+  ])}
+/>
+
+#### `array.flat(depth)`
+
+Forms a new array by flattening arrays inside `array` by `depth` depth level.
+
+- **`depth` (defaults to `1`)**
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [ 0, [1, 1], [[2]], [[[3, 3]]], [[[[4]]]] ];
+      console.log(arr.flat(2)); //=> [ 0, 1, 1, 2, [3, 3], [[4]] ]
+    `,
+  ])}
+/>
+
+#### `array.flatMap(callbackFn, thisArg)`
+
+It's like calling `map()` and then `flat()`, but slightly more efficient.
+
+- **`callbackFn(element, index, array)`** &mdash; the map function
+- **`thisArg` (optional)** &mdash; `this` value to be used inside `callbackFn`
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3];
+      const newArr = arr.flatMap(item => [11 * item, 11 * item]);
+      console.log(newArr); //=> [ 11, 11, 22, 22, 33, 33 ]
+    `,
+  ])}
+/>
+
+### Deriving other values
+
+#### `array.join(separator)`
+
+Creates a string by joining all elements of `array` using `separator`.
+
+- **`separator` (optional, defaults to `,`)** &mdash; a string to join the elements
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3];
+      console.log(arr.join(',')); //=> 1,2,3
+    `,
+  ])}
+/>
+
+#### `array.reduce(callbackFn, initialValue)`
+
+Reduces the element of `array` into a single value.
+
+- **`callbackFn(prev, curr, index, array)`** &mdash; the reducer function. `prev` is the current accumulated value, `curr` is the current element's value, `index` is the current element's index, `array` is the current array being reduced
+- **`initialValue` (optional)** &mdash; if not given, the first element will be used a s the initial value
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [4, 5, 6, 7];
+      // This finds the sum of numbers inside \`arr\`
+      const result = arr.reduce((prev, curr) => {
+        return prev + curr; 
+      }, 0);
+      console.log(result); //=> 22
+    `,
+  ])}
+/>
+
+#### `array.reduceRight(callbackFn, initialValue)`
+
+Like `array.reduce`, but reduces from the end of `array`.
+
+- **`callbackFn(prev, curr, index, array)`** &mdash; the reducer function. `prev` is the current accumulated value, `curr` is the current element's value, `index` is the current element's index, `array` is the current array being reduced
+- **`initialValue` (optional)** &mdash; if not given, the last element will be used a s the initial value
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 7. Arrays',
+    },
+    {
+      text: 'Array.prototype.entries()',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries',
+    },
+  ]}
+></References>

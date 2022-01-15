@@ -38,6 +38,22 @@ Objects created this way will inherit from `Object.prototype`.
   ])}
 />
 
+You can also use the spread operator (`...`) to copy own properties of another object.
+
+Note that the order matters (properties spread later can override properties specified earlier), and it only does _shallow copy_.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const objA = { a: 1, b: 2 };
+      const objB = { a: 500, x: 5, y: 6 };
+      const objC = { ...objA, ...objB, c: 3 };
+      console.log(objC); //=> { a: 500, b: 2, x: 5, y: 6, c: 3 }
+    `,
+  ])}
+/>
+
 ### Using the `new` keyword
 
 Objects created using `new Something()` will inherit from `Something.prototype`.
@@ -76,6 +92,71 @@ Using `Object.create()` to create an object, you can control which prototype the
   ])}
 />
 
+## Extended object literal syntax
+
+### Shorthand properties
+
+```js
+const a = 1;
+const b = 2;
+
+// Since ES6, instead of doing
+const obj = { a: a, b: b, c: 10 };
+// you can do
+const obj = { a, b, c: 10 };
+```
+
+### Shorthand methods
+
+<!-- prettier-ignore -->
+```js
+// Instead of doing
+const obj = {
+  someKey: 123,
+  fn: function () { return 456; },
+};
+
+// You can do
+const obj = {
+  someKey: 123,
+  fn() { return 456; },
+};
+```
+
+### Property setters and getters
+
+You can create getter and/or setter functions that is called when a property is queried or changed, respectively.
+
+- If a property has both a setter and a getter functions, it becomes a read/write property
+- If a property only has a getter function, it becomes a read-only property
+- If a property only has a setter function, it becomes a write-only property (reading from it will result in `undefined`)
+
+Inside the getter/setter function, the `this` variable will be bound to the current object.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const obj = {
+        value: 1,
+        get next() {
+          return this.value++;
+        },
+        set next(newValue) {
+          this.value = newValue;
+        },
+      }
+    `,
+    `
+      console.log(obj.next); //=> 1
+      console.log(obj.next); //=> 2
+      obj.next = 10;
+      console.log(obj.next); //=> 10
+      console.log(obj.next); //=> 11
+    `,
+  ])}
+/>
+
 ## Specifying object properties
 
 There are two kinds of object properties:
@@ -85,7 +166,7 @@ There are two kinds of object properties:
 
 ### Specifying own properties
 
-You can specify an object's own properties using an object literal, or by simply assigning to them:
+You can specify an object's own properties using the object literal, using `Object.defineProperty` (see below), or by simply assigning to them:
 
 ```js
 const customKey = 'myCustomKey';
@@ -97,6 +178,11 @@ const obj = {
   [customKey]: 100,
 };
 
+// Or Object.defineProperty
+Object.defineProperty(obj, 'my-property', {
+  value: 5,
+});
+
 // Or assignments
 obj.additionalKey = 3;
 obj[customKey] = 200;
@@ -104,7 +190,7 @@ obj[customKey] = 200;
 
 ### Speciying property attributes
 
-Each property has _property attributes_ which you can set via the `descriptor` parameter of `Object.defineProperty(obj, prop, descriptor)`:
+Each property has _property attributes_ which you can set via the `propDescriptor` parameter of `Object.defineProperty(obj, propName, propDescriptor)`:
 
 - **`configurable` (defaults to `false`)** &mdash; If set to `true`, the property may be changed or deleted. (Throws in strict mode otherwise.)
 - **`writable` (defaults to `false`)** &mdash; If set to `true`, the property's _value_ may be changed. (Throws in strict mode otherwise.)
@@ -137,10 +223,41 @@ Each property has _property attributes_ which you can set via the `descriptor` p
   <Code str="descriptor" /> to specify a custom getter/setter function.
 </NoteBox>
 
+## Accessing object properties
+
+Use the `.` or `[]` operator.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const user = { firstName: 'John', lastName: 'Doe' };
+    `,
+    `
+      // Using the . operator
+      console.log(user.firstName); //=> John
+    `,
+    `
+      // Using the [] operator
+      console.log(user['last' + 'Name']); //=> Doe
+    `,
+    `
+      // Changing and deleting property values
+      user.firstName = 'Alice';
+      delete user.lastName;
+      console.log(user); //=> { firstName: 'Alice' }
+    `,
+  ])}
+/>
+
 ## Serializing objects
 
-- You can use `JSON.stringify(obj)` to turn an object to a JSON string
-- You can use `JSON.parse(str)` to parse a JSON string to an object
+To transmit or store an object's state, you will have to _serialize_ it first, converting it into a JSON (JavaScript Object Notation) string. Later, you can reconstruct the object from the JSON string.
+
+- Use `JSON.stringify(obj)` to turn an object to a JSON string
+- Use `JSON.parse(str)` to parse a JSON string to an object
+
+Note that `JSON.stringify` cannot serialize all types of values (e.g. functions, circular references, etc.).
 
 <CodeRunner
   language="js"
@@ -157,89 +274,6 @@ Each property has _property attributes_ which you can set via the `descriptor` p
       const objCopy = JSON.parse(str);
       console.log(typeof objCopy); //=> object
       console.log(objCopy); //=> {...}
-    `,
-  ])}
-/>
-
-## Extended object literal syntax
-
-### Shorthand properties
-
-```js
-const a = 1;
-const b = 2;
-
-// Since ES6, instead of doing
-const obj = { a: a, b: b, c: 10 };
-// you can do
-const obj = { a, b, c: 10 };
-```
-
-### Shorthand methods
-
-<!-- prettier-ignore -->
-```js
-// Instead of doing
-const obj = {
-  someKey: 123,
-  fn: function () { return 456; },
-};
-
-// You can do
-const obj = {
-  someKey: 123,
-  fn() { return 456; },
-};
-```
-
-### Spread operator
-
-Use the spread operator (`...`) to copy own properties of another object.
-
-Note that the order matters (properties spread later can override properties specified earlier), and it only does _shallow copy_.
-
-<CodeRunner
-  language="js"
-  code={smartTrim([
-    `
-      const objA = { a: 1, b: 2 };
-      const objB = { a: 500, x: 5, y: 6 };
-      const objC = { ...objA, ...objB, c: 3 };
-      console.log(objC); //=> { a: 500, b: 2, x: 5, y: 6, c: 3 }
-    `,
-  ])}
-/>
-
-### Property setters and getters
-
-You can create getter and/or setter functions that is called when a property is queried or changed, respectively.
-
-- If a property has both a setter and a getter functions, it becomes a read/write property
-- If a property only has a getter function, it becomes a read-only property
-- If a property only has a setter function, it becomes a write-only property (reading from it will result in `undefined`)
-
-Inside the getter/setter function, the `this` variable will be bound to the current object.
-
-<CodeRunner
-  language="js"
-  code={smartTrim([
-    `
-      const obj = {
-        value: 1,
-        get next() {
-          return this.value++;
-        },
-        set next(newValue) {
-          this.value = newValue;
-        },
-      }
-    `,
-    `
-      console.log(obj.next); //=> 1
-      console.log(obj.next); //=> 2
-      obj.next = 10;
-      console.log(obj.next); //=> 10
-      console.log(obj.next); //=> 11
     `,
   ])}
 />
