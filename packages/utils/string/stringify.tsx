@@ -78,7 +78,7 @@ function stringifyAnything(obj: any, depth = 0, references = new Set<any>()): st
   } else if (type === 'Object') {
     return stringifyObject(obj, depth, references);
   }
-  return `<${type}>`;
+  return `<${type}: ${stringifyObject(obj, depth, references)}>`;
 }
 
 function stringifyArray(arr: any[], depth = 0, references = new Set<any>()) {
