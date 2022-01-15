@@ -10,6 +10,7 @@ import {
   useOnScreenAnchorHash,
   getDisplayedTOCAnchorHashes,
 } from '@pelicin/layout';
+import { Icon } from '@pelicin/components';
 import { convertHexToHSL, convertHSLToHex } from '@pelicin/utils';
 
 // ================================================================================
@@ -93,11 +94,26 @@ export default function TOCSidebarContent({ minimalistic }: Props) {
     [lastClickSidebarItemTsRef]
   );
 
+  const handleClickTopButton = useCallback(() => {
+    lastClickSidebarItemTsRef.current = Date.now();
+    setOnScreenAnchorHash('');
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <OnScreenAnchorHashProvider value={onScreenAnchorHash}>
         <nav>
           <ul>
+            <li className="topButton">
+              <a
+                href="#"
+                onClick={handleClickTopButton}
+                className={classNames({ active: onScreenAnchorHash === '' })}
+              >
+                <Icon name="arrow-up" /> Top
+              </a>
+            </li>
             {toc.map((tocItem, index) => {
               const { hash } = tocItem;
               const key = `${index}-${hash}`;
@@ -125,6 +141,38 @@ export default function TOCSidebarContent({ minimalistic }: Props) {
           border-left: ${minimalistic ? 'none' : `1px solid ${accentColor}55`};
           list-style-type: none;
           position: relative;
+        }
+        /* Styling top button */
+        .topButton {
+          font-weight: bold;
+          margin-left: 0;
+          padding-left: 0;
+          margin-bottom: var(--spacing-m);
+        }
+        .topButton a {
+          position: relative;
+          margin: var(--spacing-s) 0;
+          padding-left: var(--spacing-m);
+          color: var(--color-gray-9);
+          text-decoration: none;
+          cursor: pointer;
+          opacity: 0.4;
+        }
+        .topButton a:hover {
+          color: ${accentColor};
+          opacity: 1;
+        }
+        .topButton a.active {
+          color: ${accentColor};
+          opacity: 1;
+        }
+        .topButton a.active::before {
+          content: '';
+          height: 100%;
+          left: -2px;
+          position: absolute;
+          border-right: 6px solid ${accentColor};
+          border-radius: var(--border-radius-normal);
         }
       `}</style>
     </>
@@ -212,7 +260,6 @@ function TOCSidebarItem(props: TOCSidebarItemProps) {
           margin: var(--spacing-s) 0;
         }
         li {
-          margin-left: 0;
           padding-left: 0;
           margin: var(--spacing-s) 0;
         }
