@@ -53,7 +53,6 @@ const chapters: TopicChapters = [
       {
         title: 'Functions',
         path: '/prog/js/in-depth/functions',
-        badge: 'TODO'
       },
       {
         title: 'Classes',
