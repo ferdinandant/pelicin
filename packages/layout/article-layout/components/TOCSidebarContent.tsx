@@ -151,28 +151,20 @@ export default function TOCSidebarContent({ minimalistic }: Props) {
         }
         .topButton a {
           position: relative;
-          margin: var(--spacing-s) 0;
-          padding-left: var(--spacing-m);
-          color: var(--color-gray-9);
+          display: inline-block;
+          margin-left: var(--spacing-m);
+          padding: var(--spacing-xs) var(--spacing-s);
+          background-color: var(--color-gray-9);
+          color: var(--color-gray-0);
           text-decoration: none;
+          border-radius: var(--border-radius-normal);
           cursor: pointer;
           opacity: 0.4;
         }
-        .topButton a:hover {
-          color: ${accentColor};
-          opacity: 1;
-        }
+        .topButton a:hover,
         .topButton a.active {
-          color: ${accentColor};
+          background-color: ${accentColor};
           opacity: 1;
-        }
-        .topButton a.active::before {
-          content: '';
-          height: 100%;
-          left: -2px;
-          position: absolute;
-          border-right: 6px solid ${accentColor};
-          border-radius: var(--border-radius-normal);
         }
       `}</style>
     </>
