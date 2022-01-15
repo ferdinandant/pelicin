@@ -1,0 +1,251 @@
+import { References, CodeRunner, NoteBox } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Functions
+
+Functions are JavaScript codes that you declare once and can be called (invoked) multiple times. A function that is attached to an object or a class is also called the _method_ of that object or class.
+
+- When you declare a function, you can specify their _parameters_, which behave like local variables of the function whose value will be decided when you call the function.
+- When you call a function, you provide the values (_arguments_) for the parameters.
+- You may use the `return` keyword inside a function to return a value (exit the function with the given value).
+
+## Creating a function
+
+You can create a "normal" function (using the `function` keyword) or an "arrow" function (using the `=>` notation).
+
+### Using the `function` keyword
+
+You may provide the name of the function after the `function` keyword, before the open paranthesis. This name of the function becomes a local variable inside the function itself, which you can call again, creating a _recursive function_ ("a function that calls itself").
+
+You can provide the parameters between the `(` and `)`, separated by `,`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function factorial(n) {
+        if (n === 0 || n === 1) {
+          return 1;
+        } 
+        return n * factorial(n - 1);
+      }
+    `,
+    `
+      console.log(factorial(5)); //=> 120 = 5!
+    `,
+  ])}
+/>
+
+### Using the `=>` notation
+
+On the left-hand side of `=>`, you put:
+
+- the list of parameters &mdash; if there is only one parameter, you can omit the `()`.
+
+On the right-hand side of `=>`, you put:
+
+- a block of statements to run (using `{}`), OR
+- a value to return (e.g., `x => x + 1` is a shorthand of `(x) => { return x + 1 }`). Due to ambiguous syntax, if you want to immediately return an object, make sure to wrap it with `()`, e.g. `x => ({ value: x })`
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [1, 2, 3];
+      arr.forEach((el, index) => {
+        console.log(\`arr[\${index}] = \${el}\`);
+      });
+    `,
+  ])}
+/>
+
+## Function parameters
+
+### Parameter's default value
+
+By using `=` after a parameter's name, you can assign the default value for that parameter.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function logMessage(greetings = 'Hello', name = 'user') {
+        console.log(greetings + ', ' + name + '!');
+      }
+    `,
+    `
+      logMessage('Hi'); //=> Hi, user!
+    `,
+  ])}
+/>
+
+### Rest parameters
+
+By using the spread operator (`...`), you can make your function receive any number of arguments.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function testFn(a, b, ...rest) {
+        console.log(a); //=> 1
+        console.log(b); //=> 2
+        console.log(rest); //=> [3, 4, 5]
+      }
+    `,
+    `
+      testFn(1, 2, 3, 4, 5);
+    `,
+  ])}
+/>
+
+## Invoking functions
+
+### As a function
+
+Use the `()` operator to call the function, specifying inside it the list of arguments.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function total(a, b, ...rest) {
+        console.log(a); //=> 1
+        console.log(b); //=> 2
+        console.log(rest); //=> [3, 4, 5]
+      }
+    `,
+    `
+      testFn(1, 2, 3, 4, 5);
+    `,
+  ])}
+/>
+
+You can also use the spread operator (`...`) to "spread" an iterable (e.g. an array or a string) into "comma-separated values" for the arguments.
+
+```js
+const arr = [];
+const numbers = [1, 2, 3];
+
+// This is equivalent to:
+// arr.push(1, 2, 3);
+arr.push(...numbers);
+```
+
+### As a constructor
+
+You can call a function as a constructor using the `new` keyword, specifying inside it the list of arguments. (You can also use the spread operator as mentioned above.)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function Person(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+      }
+    `,
+    `
+      const person = new Person('James', 'Smith');
+      console.log(person);
+    `,
+  ])}
+/>
+
+A constructor function typically does not use the `return` keyword, and it returns the object being created. If you use a `return`, though:
+
+- if you return a primitive value, it is ignored (it still returns the object being created)
+- if you return an object, then it becomes the resolved value of the invocation expression
+
+### Indirectly using `.apply()` or `.call()`
+
+You can use the following to indirectly call a function:
+
+- `functionName.apply(thisArg, argsArray)`, or
+- `functionName.call(thisArg, ...args)`
+
+Using these allows you to override the `this` value received by your function.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function greetUser(menuA, menuB) {
+        console.log('Hello, ' + this.firstName + ' ' + this.lastName + '.');
+        console.log('Do you want ' + menuA + ' or ' + menuB + '?');
+      }
+    `,
+    `
+      const user = { firstName: 'Joe', lastName: 'Lamy' };
+      // \`user\` will become \`this\` inside \`greetUser\`
+      greetUser.apply(user, ['coffee', 'tea']); // "A is for array"
+      greetUser.call(user, 'coffee', 'tea'); // "C is for comma"
+    `,
+  ])}
+/>
+
+<NoteBox title="To help you remember">
+  <ul>
+    <li>
+      <em>A</em>pply expects an <em>a</em>rray ("A is for array")
+    </li>
+    <li>
+      <em>C</em>all expects <em>c</em>omma-separated values ("C is for comma")
+    </li>
+  </ul>
+</NoteBox>
+
+## Special variables
+
+### `this`
+
+Non-arrow functions have `this` variable defined inside it.
+
+- Its default value is the global object (`globalThis`) while not in strict mode, and `undefined` while in strict mode.
+- You can override it by using `bind`, `apply`, or `call` when calling a function.
+
+Arrow functions do not have their own `this` variable, so they inherits `this` variable from their enclosing scope. (Sometimes a useful feature of arrow functions.)
+
+### `arguments`
+
+Non-arrow functions have `arguments` variable defined inside it. It behaves _like_ an array, but it only has the `length` property (apart from its elements).
+
+This was the only way to create functions that accept any number of arguments ("varargs functions") before rest parameters was introduced in ES6. You should just use rest parameters in modern JavaScript.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function sum() {
+        let total = 0;
+        for (let i = 0; i < arguments.length; i++) {
+          total += arguments[i];
+        }
+        return total;
+      }
+    `,
+    `
+      console.log(sum(4, 5, 6)); //=> 15
+      console.log(sum(1, 4, 7, 9)); //=> 21
+    `,
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 8. Functions',
+    },
+    {
+      text: 'The arguments object',
+      link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments',
+    },
+    {
+      text: 'this',
+      link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this',
+    },
+  ]}
+></References>
