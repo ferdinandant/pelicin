@@ -14,7 +14,7 @@ type Props = {
 };
 
 type ConsoleMessage = {
-  lineBlocks: any[];
+  lineBlocks: string[];
   color: 'red' | 'green' | 'white' | 'yellow' | 'blue' | 'purple' | 'gray';
 };
 
@@ -35,8 +35,10 @@ export default function CodeRunner({ language, code: initialCode }: Props) {
         lineBlocks: ConsoleMessage['lineBlocks'],
         color: ConsoleMessage['color']
       ) => {
+        // Stringify immediately because later codes can modify the object
+        const stringifiedLineBlocks = lineBlocks.map(stringify);
         setConsoleMessages((consoleMessages) => {
-          return [...consoleMessages, { lineBlocks, color }];
+          return [...consoleMessages, { lineBlocks: stringifiedLineBlocks, color }];
         });
       };
       const globalSubstitutions = [
@@ -65,12 +67,11 @@ export default function CodeRunner({ language, code: initialCode }: Props) {
         <div className="console">
           {consoleMessages.map((msgLine, lineIdx) => (
             <div key={lineIdx} className={classNames('line', msgLine.color)}>
-              {msgLine.lineBlocks.map((block, blockIdx, arr) => {
-                const string = stringify(block);
+              {msgLine.lineBlocks.map((blockString, blockIdx, arr) => {
                 const hasNextItem = blockIdx < arr.length - 1;
                 return (
                   <Fragment key={blockIdx}>
-                    <span>{string}</span>
+                    <span>{blockString}</span>
                     {hasNextItem && <span> </span>}
                   </Fragment>
                 );
