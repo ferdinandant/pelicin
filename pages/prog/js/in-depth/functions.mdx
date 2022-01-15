@@ -231,6 +231,59 @@ This was the only way to create functions that accept any number of arguments ("
   ])}
 />
 
+## The function instance
+
+When you have a function instance (let's call it `fn`), it has the following properties/methods.
+
+### Properties
+
+#### `fn.name`
+
+The name of the function.
+
+#### `fn.length`
+
+The number of parameters of the function, NOT including rest parameters.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function func1() {}
+      function func2(a, b, c, d, ...z) {}
+      console.log(func1.length); //=> 0
+      console.log(func2.length); //=> 4
+    `,
+  ])}
+/>
+
+### Methods
+
+#### `fn.apply(thisArg, argsArray)`
+
+Calls function `fn` with the given `this` value and array of arguments.
+
+#### `fn.call(thisArg, ...args)`
+
+Calls function `fn` with the given `this` value and comma-separated arguments.
+
+#### `fn.bind(thisArg, ...args)`
+
+Creates a new function that when called has `this` value of `thisArg` (required), and its first parameters are `...args` (optional).
+
+(The latter behavior of `bind` is akin to partial application or _currying_ in functional programming.)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      let add = (x, y) => x + y;
+      let boundAdd = add.bind(null, 1);
+      console.log(boundAdd(2)); //=> 3 (1 + 2 = 3)
+    `,
+  ])}
+/>
+
 ## References
 
 <References
@@ -246,6 +299,16 @@ This was the only way to create functions that accept any number of arguments ("
     {
       text: 'this',
       link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this',
+    },
+    {
+      text: 'Function.name',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name',
+    },
+    {
+      text: 'Function.length',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length',
     },
   ]}
 ></References>
