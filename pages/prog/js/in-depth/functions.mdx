@@ -59,6 +59,20 @@ On the right-hand side of `=>`, you put:
   ])}
 />
 
+### Using `new Function`
+
+You can also create a function from a string of JavaScript code using `new Function(...parameterNames, functionBody)`. The scope for `functionBody` would be the global scope.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const f = new Function('x', 'y', 'return x + y');
+      console.log(f(2, 5)); //=> 7
+    `,
+  ])}
+/>
+
 ## Function parameters
 
 ### Parameter's default value
