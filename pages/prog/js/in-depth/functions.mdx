@@ -213,10 +213,10 @@ Using these allows you to override the `this` value received by your function.
 
 ### `this`
 
-Non-arrow functions have `this` variable defined inside it.
+Non-arrow functions have `this` variable defined inside it. The value depends on how you call a function. You can override it by using `bind`, `apply`, or `call` when calling a function.
 
-- Its default value is the global object (`globalThis`) while not in strict mode, and `undefined` while in strict mode.
-- You can override it by using `bind`, `apply`, or `call` when calling a function.
+- If you call a function as a function &mdash; `this` will be the global object (`globalThis`) while not in strict mode, and `undefined` while in strict mode.
+- If you call a function as a method of an object &mdash; `this` will be the object on which you call the function.
 
 Arrow functions do not have their own `this` variable, so they inherits `this` variable from their enclosing scope. (Sometimes a useful feature of arrow functions.)
 
