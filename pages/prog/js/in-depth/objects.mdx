@@ -332,7 +332,7 @@ The `Object` class implements the following methods.
 
 ### Creating an object
 
-#### `Object.create(proto)`
+#### `Object.create(prototype)`
 
 Creates an object from the given prototype.
 
@@ -354,7 +354,7 @@ Given an iterable (e.g. `Array` or `Map`) containing `[key, value]` pairs, creat
 
 #### `Object.keys(obj)`
 
-Returns an array of enumerable property names of `obj`.
+Returns an array of own enumerable property names of `obj`.
 
 <CodeRunner
   language="js"
@@ -368,7 +368,7 @@ Returns an array of enumerable property names of `obj`.
 
 #### `Object.values(obj)`
 
-Returns an array of enumerable property values of `obj`.
+Returns an array of own enumerable property values of `obj`.
 
 <CodeRunner
   language="js"
@@ -382,7 +382,7 @@ Returns an array of enumerable property values of `obj`.
 
 #### `Object.entries(obj)`
 
-Returns an array of enumerable property `[key, value]` pairs of `obj`.
+Returns an array of own enumerable property `[key, value]` pairs of `obj`.
 
 <CodeRunner
   language="js"
@@ -498,7 +498,9 @@ Returns true if `obj` is frozen; false otherwise.
 
 When you have an object instance (let's call it `object`), it inherits the following methods.
 
-### `object.toString()`
+### Conversion methods
+
+#### `object.toString()`
 
 Called whenever JavaScript wants to convert the object to a string (e.g. when you try to concatenate it with a string).
 
@@ -516,7 +518,7 @@ Called whenever JavaScript wants to convert the object to a string (e.g. when yo
   ])}
 />
 
-### `object.toLocaleString()`
+#### `object.toLocaleString()`
 
 By default, it just calls the `object.toString()` method.
 
@@ -535,7 +537,7 @@ Some classes (e.g. `Date`, `Array`, `Number`) overrides this method to provide I
   ])}
 />
 
-### `object.valueOf()`
+#### `object.valueOf()`
 
 Called whenever JavaScript wants to convert the object to a non-string primitive value (usually a number).
 
@@ -554,7 +556,7 @@ For example, `Date.prototype` overrides this method to so you can compare two da
   ])}
 />
 
-### `object.toJSON()`
+#### `object.toJSON()`
 
 Not exactly implemented in the prototype of `object` (`Object.prototype`), but `JSON.stringify` will look for this method to stringify the object.
 
@@ -571,6 +573,36 @@ Not exactly implemented in the prototype of `object` (`Object.prototype`), but `
     `
       const json = JSON.stringify(point);
       console.log(json); //=> "(1,2)"
+    `,
+  ])}
+/>
+
+### Query methods
+
+#### `object.hasOwnProperty(propName)`
+
+Returns true if `object` has own property `propName`; false otherwise
+
+#### `object.propertyIsEnumerable(propName)`
+
+Returns true if `object` has own property `propName` and it is enumerable; false otherwise
+
+#### `object.isPrototypeOf(obj)`
+
+Checks if the prototype `object` is the prototype of `obj`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function Foo() {}
+      function Bar() {}
+      Bar.prototype = Object.create(Foo.prototype);
+    `,
+    `
+      const bar = new Bar();
+      console.log(Foo.prototype.isPrototypeOf(bar)); //=> true
+      console.log(Bar.prototype.isPrototypeOf(bar)); //=> true
     `,
   ])}
 />
@@ -601,6 +633,11 @@ Not exactly implemented in the prototype of `object` (`Object.prototype`), but `
       text: 'Difference between Configurable and Writable attributes of an Object',
       link:
         'https://stackify.dev/207602-difference-between-configurable-and-writable-attributes-of-an-object',
+    },
+    {
+      text: 'Object.prototype.isPrototypeOf()',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isPrototypeOf',
     },
   ]}
 ></References>
