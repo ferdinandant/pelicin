@@ -174,7 +174,57 @@ JavaScript's prototype-based inheritance is dynamic: if you add a new method to 
 
 Note, however, that this is considered a bad idea because "it will cause confusion and compatibility problems" with future versions of JavaScript (Flanagan).
 
-## Extending classes
+## Extending a class
+
+If class B extends class A:
+
+- It means that class B will inherit properties of class A. (B can override some or all of the inherited properties, though.)
+- We can say that class B is the _subclass_ of class A.
+- We can say that class A is the _superclass_ of class B.
+
+### Extending using constructor functions
+
+In the example below,
+
+- objects created with `new Subclass()` will inherit from `Subclass.prototype`,
+- but `Subclass.prototype` is an object that inherits from `Superclass.prototype` (recall `Object.create`)
+- so, objects created with `new Subclass()` will inherit from both `Subclass.prototype` and `Superclass.prototype`
+
+```js
+function Superclass() {...}
+Superclass.prototype = {...};
+
+// `Subclass` inherits from `Superclass`
+function Subclass() {...}
+Subclass.prototype = Object.create(Superclass.prototype);
+
+// If we want to override the constructor
+Subclass.prototype.constructor = Subclass;
+// If we want to override a method
+Subclass.prototype.methodName = function () {...};
+```
+
+### Extending using the `class` syntax
+
+Use the `extends` keyword.
+
+Inside the subclass constructor, you can use `super()` to call the superclass' constructor.
+
+```js
+class Subclass extends Superclass {
+  constructor(...args) {
+    // ... do something ...
+    super(...args);
+    // ... do something ...
+  }
+
+  // If you want to implement or or override
+  // a method, just write it here.
+  methodName() {
+    ...
+  }
+}
+```
 
 ## Static functions
 
