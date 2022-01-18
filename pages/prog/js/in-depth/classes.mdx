@@ -1,0 +1,248 @@
+import { References, CodeRunner, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Classes
+
+Classes are objects that share the same properties.
+
+A member of a class is called the _instance_ of that class. For example, in the example below, `object` is an instance of the `Object` class.
+
+```jsx
+const object = new Object();
+```
+
+## Defining a class
+
+JavaScript classes are implemented using _prototype-based inheritance_. If two objects are members from the same class, they would inherit from the same `prototype`.
+
+### Using a factory function
+
+Not the idiomatic way to define a class.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const vectorPrototype = {
+        getMagnitude() {
+          return Math.sqrt(this.x ** 2 + this.y ** 2);
+        }
+      }
+    `,
+    `
+      function createVector(x, y) {
+        // Recall that \`Object.create\` creates
+        // an object using the given prototype
+        const vector = new Object(vectorPrototype);
+        // Set states
+        vector.x = x;
+        vector.y = y;
+        // Return the object 
+        return vector;
+      }
+    `,
+    `
+      // Creating an instance of \`Vector\`
+      // \`Vector.prototype\` is inherited by \`vector\`
+      const vector = createVector(3, 4);
+      console.log(vector); //=> { ... }
+      console.log(vector.getMagnitude()); //=> 5
+    `,
+  ])}
+/>
+
+### Using a constructor function
+
+A _constructor_ is a function designed to be invoked with `new`.
+
+This was the way to declare classes before ES6 introduced the `class` syntax.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // Constructor function names are by
+      // convention written using PascalCase
+      function Vector(x, y) {
+        this.x = x;
+        this.y = y;
+      }
+    `,
+    `
+      Vector.prototype = {
+        getMagnitude() {
+          return Math.sqrt(this.x ** 2 + this.y ** 2);
+        }
+      }
+    `,
+    `
+      // Creating an instance of \`Vector\`
+      // Inherited properties are not logged here
+      const vector = new Vector(3, 4);
+      console.log(vector); //=> { ... }
+      console.log(vector.getMagnitude()); //=> 5
+    `,
+  ])}
+/>
+
+### Using the `class` syntax
+
+The `class` syntax is introduced in ES6 as a "syntactic sugar" for defining classes. Unlike function declarations, they are "hoisted" to the top of the scope.
+
+At the end of the day, your `class` definition will still be evaluated as a constructor function just like the above.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      class Vector {
+        // Make a constructor function here
+        // You can omit \`constructor\` if your class
+        // doesn't need to do any initialization
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+        }\n
+        getMagnitude() {
+          return Math.sqrt(this.x ** 2 + this.y ** 2);
+        }
+      }
+    `,
+    `
+      // \`Vector\` is a constructor function
+      console.log(Vector); //=> <Function>
+    `,
+    `
+      // Creating an instance of \`Vector\`
+      // Inherited properties are not logged here
+      const vector\ = new Vector(3, 4);
+      console.log(vector); //=> { ... }
+      console.log(vector.getMagnitude()); //=> 5
+    `,
+  ])}
+/>
+
+## The `prototype` and the `constructor` property
+
+### `prototype`
+
+Although almost all objects have a prototype, only functions (_excluding_ arrow functions, generator functions, and async functions) have the `prototype` property.
+(For example, it makes sense to query `<functionName>.prototype`.)
+
+The `property will<functionName>.prototype` be used as the object's prototype when you call `new <functionName>()`.
+
+### `constructor`
+
+The `prototype` property is an object that contains a single, non-enumerable `constructor` property that links back to the constructor function.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const MyConstructor = function () {};
+    `,
+    `
+      const thePrototype = MyConstructor.prototype;
+      console.log(MyConstructor.prototype); //=> { constructor: ... }
+    `,
+    `
+      const theConstructor = MyConstructor.prototype.constructor;
+      console.log(theConstructor === MyConstructor); //=> true
+    `,
+  ])}
+/>
+
+Since `constructor` is a property of an object's `prototype`, then naturally, all object will also inherit the `constructor` property.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const MyClass = function () {};
+    `,
+    `
+      const myClass = new MyClass();
+      console.log(myClass.constructor); //=> <Function>
+      console.log(myClass.constructor === MyClass); //=> true
+    `,
+  ])}
+/>
+
+## Modifying prototypes
+
+JavaScript's prototype-based inheritance is dynamic: if you add a new method to it, then the classes inheriting from it will also inherit the new method.
+
+Note, however, that this is considered a bad idea because "it will cause confusion and compatibility problems" with future versions of JavaScript (Flanagan).
+
+## Extending classes
+
+## Static functions
+
+Using the `class` syntax, you can declare _static functions_: functions that are called on the class itself, rather than the class instances.
+
+Just put `static` before the function name inside the class definition.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      class Vector {
+        // Make a constructor function here
+        // You can omit \`constructor\` if your class
+        // doesn't need to do any initialization
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+        }\n
+        static add(v1, v2) {
+          const rx = v1.x + v2.x;
+          const ry = v1.y + v2.y;
+          return new Vector(rx, ry);
+        }
+      }
+    `,
+    `
+      const vector1 = new Vector(3, 4);
+      const vector2 = new Vector(-2, -2);
+    `,
+    `
+      // Call static functions using the class name
+      const vectorR = Vector.add(vector1, vector2);
+      console.log(vectorR); //=> { x: 1, y: 2 }
+    `,
+  ])}
+/>
+
+## Instance and static fields
+
+At the time of writing, there is no finalized specification for defining fields, although "standardization is underway" (Flanagan).
+
+The current way:
+
+- To write instance fields &mdash; do so in the constructor, using `this.<fieldName>`
+- To write static fields &mdash; assign it to the class outside the `class` body, after the class have been defined
+
+```js
+class MyClass {
+  constructor() {
+    // Write instance fields inside the constructor
+    this.instanceField1 = 'someValue';
+    this.instanceField2 = 'someValue';
+  }
+}
+
+// Write static fields outside the class
+MyClass.staticField1 = 'anotherValue';
+MyClass.staticField2 = 'anotherValue';
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 9. Classes',
+    },
+  ]}
+></References>
