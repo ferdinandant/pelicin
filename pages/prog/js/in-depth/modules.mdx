@@ -1,4 +1,4 @@
-import { References } from '@pelicin/components';
+import { References, NoteBox, Link, Code } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Modules
@@ -187,7 +187,29 @@ export * from './stats/mean.js';
 export * from './stats/stddev.js';
 ```
 
-## Dynamic `import()`
+### Dynamic `import()`
+
+<NoteBox type="info">
+  This requires the understanding of <Link str="Promises" link="#TODO" />.
+</NoteBox>
+
+As of ES2020, you can import code dynamically using `import()`. It will load the module asynchronously while returning a `Promise` that gets fulfilled when the module has been loaded.
+
+The common use case is in web applications ([code splitting](https://reactjs.org/docs/code-splitting.html)): you want to initially only load the neccesary codes (to minimize transfer size and parsing time), then you can load additional codes needed using `import()`.
+
+```js
+// Instead of doing static import like this:
+import * as stats from './stats.js';
+
+// You can perform dynamic import as follows:
+import('./stats.js').then((stats) => {
+  let average = stats.mean(data);
+});
+// Or as follows
+async function analyzeData(data) {
+  const stats = await import('./stats.js');
+}
+```
 
 ## References
 
@@ -196,6 +218,11 @@ export * from './stats/stddev.js';
     {
       text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
       description: 'Chapter 10. Modules',
+    },
+    {
+      text: 'Code-Splitting',
+      description: 'import()',
+      link: 'https://reactjs.org/docs/code-splitting.html#import',
     },
   ]}
 ></References>
