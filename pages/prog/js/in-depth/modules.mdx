@@ -1,0 +1,228 @@
+import { References, NoteBox, Link, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Modules
+
+Your program may consist of several _modules_ importing one another. When we say "modules" in JavaScript, it typically refers to a single JavaScript file.
+
+This page explains how you can import and export in JavaScript.
+
+## Import path
+
+When you want to import something, you must specify from which module it was imported ("the import path"). It can be:
+
+- A core library &mdash; e.g. [`path`](https://nodejs.org/dist/latest-v16.x/docs/api/path.html), [`http`](https://nodejs.org/dist/latest-v16.x/docs/api/http.html), [`fs`](https://nodejs.org/dist/latest-v16.x/docs/api/fs.html)
+- An NPM library &mdash; e.g. [`react`](https://www.npmjs.com/package/react), [`lodash`](https://www.npmjs.com/package/lodash)
+- Your own files &mdash; relative and absolute paths are supported (extensions are optional), e.g. `./some/path`, `../some/path`, `/some/path`
+
+## Node modules
+
+Before ES6 introduces `import` and `export` syntaxes, you use `require` and `module.exports` in Node to import and export files, respectively.
+
+### `require()`
+
+Imports from the given source path.
+
+```js
+// Importing node's core library
+const path = require('path');
+
+// Importing your own file
+const SomeProcessor = require('./utils/SomeProcessor');
+const { SOME_CONSTANT, SOME_OTHER } = require('../constants');
+
+// The import path can be an expression
+const MyFile = require(path.join(__dirname, 'myFile'));
+```
+
+### `module.exports` and `exports`
+
+Assign to `module.exports` the value that you want to export.
+
+```js
+// In other files, you can do:
+// const processSomething = require('./some/path');
+module.exports = function processSomething() {};
+
+// In other files, you can do:
+// const { SOME_CONSTANT, SOME_OTHER } = require('./some/path');
+module.exports = {
+  SOME_CONSTANT: 'Aloha',
+  SOME_OTHER: { a: 1, b: 2 },
+};
+```
+
+Node also defines an `exports` object which refers to `module.exports`. (You can assign to `exports.<something>`, but you cannot assign to `exports`.)
+
+So, if you want to export multiple properties, you can alternatively do:
+
+```js
+// In other files, you can do:
+// const { SOME_CONSTANT, SOME_OTHER } = require('./some/path');
+exports.SOME_CONSTANT = 'Aloha';
+exports.SOME_OTHER = { a: 1, b: 2 };
+```
+
+### `__filename`
+
+In Node, this special variable refers to the _absolute path_ of the current file, e.g. `/home/ferdinand/my-projects/test.js`.
+
+### `__dirname`
+
+In Node, this special variable refers to the _absolute path_ of the directory that contains `__filename`, e.g. `/home/ferdinand/my-projects`.
+
+## ES6 modules
+
+ES6 introduces the `import` and `export` syntaxes.
+
+### `import`
+
+You can import the default export, the named export(s), or both. The import path must be a constant string (it cannot be an expression).
+
+The variables you bound the imports to are considered constants.
+
+#### Default import
+
+```js
+// Import just the default export
+import React from 'react';
+
+// Alternative syntax (rarely used)
+import { default as Rect } from 'react';
+```
+
+#### Named import
+
+```js
+// Import named exports
+import { parseString, parseBoolean } from './myUtils';
+
+// You can also rename the named exports
+import { parseString as ps, parseBoolean as pb } from './myUtils';
+console.log(ps, pb);
+
+// Or you can import all the named  exports
+import * as MyUtils from './myUtils';
+console.log(MyUtils.parseString);
+```
+
+#### Both default and named imports
+
+```js
+import MyComponent, { defaultProps } from './myComponents';
+
+// Renaming them will look like any of these:
+import MyComponent, { defaultProps as dp } from './myComponents';
+import { default as MyComponent, defaultProps as dp } from './myComponents';
+console.log(dp);
+```
+
+### `export`
+
+#### Default export
+
+Use `export default <something>`. There can only be one default export in a module.
+
+```js
+// Exporting a default value
+export default 'ABCDEEF';
+
+// Exporting a single class
+export default class MyClass { ... }
+
+// Exporting a single function
+export default function myFunction(...args) { ... }
+```
+
+#### Named export
+
+You can have as many named exports as you want. (You can still have at most one default export alongside your named exports.)
+
+```js
+export const PI = Math.PI;
+export const MY_CONST = 123;
+
+export function myNamedFunction() { ... }
+
+export class MyClass { ... }
+```
+
+You can also define your stuffs first, then export them at the bottom of the file (possibly with renames).
+
+```js
+// Define your stuffs first
+const PI = Math.PI;
+function myNamedFunction() { ... }
+class MyClass { ... }
+
+// Then put all exports in one line
+export { PI, myNamedFunction, MyClass };
+
+// And you can rename them, too
+export {
+  PI as MATH_PIE,
+  myNamedFunction as MyFunction,
+  MyClass
+};
+```
+
+### Re-exports
+
+Instead of writing:
+
+```js
+import { mean } from './stats/mean.js';
+import { stddev } from './stats/stddev.js';
+export { mean, stdev };
+```
+
+you can simply write:
+
+```js
+export { mean } from './stats/mean.js';
+export { stddev } from './stats/stddev.js';
+
+// Or possibly export all:
+export * from './stats/mean.js';
+export * from './stats/stddev.js';
+```
+
+### Dynamic `import()`
+
+<NoteBox type="info">
+  This requires the understanding of <Link str="Promises" link="#TODO" />.
+</NoteBox>
+
+As of ES2020, you can import code dynamically using `import()`. It will load the module asynchronously while returning a `Promise` that gets fulfilled when the module has been loaded.
+
+The common use case is in web applications ([code splitting](https://reactjs.org/docs/code-splitting.html)): you want to initially only load the neccesary codes (to minimize transfer size and parsing time), then you can load additional codes needed using `import()`.
+
+```js
+// Instead of doing static import like this:
+import * as stats from './stats.js';
+
+// You can perform dynamic import as follows:
+import('./stats.js').then((stats) => {
+  let average = stats.mean(data);
+});
+// Or as follows
+async function analyzeData(data) {
+  const stats = await import('./stats.js');
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 10. Modules',
+    },
+    {
+      text: 'Code-Splitting',
+      description: 'import()',
+      link: 'https://reactjs.org/docs/code-splitting.html#import',
+    },
+  ]}
+></References>
