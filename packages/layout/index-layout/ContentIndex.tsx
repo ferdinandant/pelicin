@@ -26,8 +26,7 @@ export default function ContentIndex(props: Props) {
         <div>
           {/* Content */}
           {groups.map((groupInfo, index) => {
-            const { groupTitle, groupDescription, sections } = groupInfo;
-            const groupHash = extractHashFromTitle(groupTitle);
+            const { groupTitle, groupHash, groupDescription, sections } = groupInfo;
             return (
               <section key={`${index}-${groupTitle}`}>
                 {/* Render group title */}
