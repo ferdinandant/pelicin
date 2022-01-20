@@ -373,6 +373,15 @@ From index `start`, delete `deleteCount` elements, and then add `...newElements`
   ])}
 />
 
+#### `array.sort(compareFn)`
+
+Sorts the array in place. If you don't specify `compareFn`, elements will be compared by its string value.
+
+- **`compareFn(elementA, elementB)`** &mdash; the compare function.
+  - If it returns < 0, sort `elementA` before `elementB`
+  - If it returns > 0, sort `elementB` before `elementA`
+  - If it returns === 0, keep positions of `elementA` and `elementB`
+
 #### `array.fill(target, start, end)`
 
 Fills in the value `value` (overriding the previous values) to elements from index `start` (inclusive) to index `end` (exclusive) to the given. Returns the modified array.
