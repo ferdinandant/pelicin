@@ -1,0 +1,115 @@
+import { References, CodeRunner } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Iterators
+
+The existence of `[Symbol.iterator]` property in an object makes it _iterable_.
+
+An iterable object:
+
+- can be looped with the `for-of` loop
+- can be spread into an array using the `...` operator, e.g. `[...iterable]`
+
+## The `[Symbol.iterator]` property
+
+The `[Symbol.iterator]` property is a method that when called returns an _iterator_.
+
+(Note that it is a property that uses `Symbol.iterator` as its name. `Symbol.iterator` is a special Symbol defined by JavaScript.)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      console.log(Symbol.iterator); //=> Symbol(Symbol.iterator)
+      console.log(Symbol); //=> <Function: { iterator, ... }>
+    `,
+  ])}
+/>
+
+### Iterator
+
+An _iterator_ is any object that has the `next()` method.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [4, 5, 6, 7];
+      const iterator = arr[Symbol.iterator]();
+      console.log(iterator.next); //=> <Function>
+    `,
+  ])}
+/>
+
+### Iteration result
+
+Calling `next()` in an iterator returns an _iteration result_ object. An iteration result object is an object containing the following properties:
+
+- **`value` (required, any value)** &mdash; the item being iterated (e.g. the element of an array; key-value pair of a Map).
+- **`done` (required, boolean)** &mdash; `true` if all items have been iterated; `false` otherwise.
+
+You can keep calling `next` until you get iteration result object whose `done` value is `true`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const arr = [4, 5];
+      const iterator = arr[Symbol.iterator]();
+      console.log(iterator.next()); //=> { value: 4, done: false }
+      console.log(iterator.next()); //=> { value: 5, done: false }
+      console.log(iterator.next()); //=> { value: undefined, done: true }
+    `,
+  ])}
+/>
+
+## Example: the `Range` object
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      class Range {
+        // \`from\` and \`to\` shall be integers
+        constructor(from, to) {
+          this.from = from;
+          this.to = to;
+        }
+        // The iterator
+        // Note that it returns a \`{ next }\` object
+        [Symbol.iterator]() {
+          let nextValue = this.from;
+          return {
+            next: () => {
+              return nextValue <= this.to
+                ? { value: nextValue++, done: false }
+                : { value: undefined, done: true }
+            },
+          }
+        }
+      }
+    `,
+    `
+      // Loops from 2 to 5 
+      for (let x of new Range(2, 5)) {
+        console.log(x);
+      }
+    `,
+    `
+      // \`arr\` is [ 1, 2, 3, 4 ]
+      const arr = [...new Range(1, 4)];
+      console.log(arr);
+    `,
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 12. Iterators and Generators',
+    },
+  ]}
+></References>
