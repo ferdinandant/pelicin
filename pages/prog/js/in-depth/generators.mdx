@@ -1,0 +1,214 @@
+import { References, CodeRunner, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Generators
+
+Generators are a kind of iterator introduced in ES6.
+
+They are useful when the values that we want to iterate "are not the elements of a data structure, but the results of a computation" (Flanagan).
+
+## Creating a generator function
+
+To create a generator, you have to create a _generator function_. A generator function returns a `Generator` object, which is an iterator.
+
+To create a generator function, use the `function*` syntax. (In object method shorthand, you can simply prefix the name of the function with `*`, e.g. `*myGenerator() {...}`.)
+
+<NoteBox>
+  It is only inside generator functions you can use the <Code str="yield" /> and{' '}
+  <Code str="yield*" /> statements.
+</NoteBox>
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function* myGenerator() {
+        yield 111;
+        yield 222;
+        yield 333;
+      }
+    `,
+    `
+      // A generator function returns an iterator when called
+      const iterator = myGenerator();
+      console.log(iterator.next()); //=> { value: 111, done: false }
+      console.log(iterator.next()); //=> { value: 222, done: false }
+      console.log(iterator.next()); //=> { value: 333, done: false }
+      console.log(iterator.next()); //=> { value: undefined, done: false }
+    `,
+  ])}
+/>
+
+## Calling a generator function
+
+When you call a generator function, it returns a `Generator` object (an iterator), but does not execute the generator function's body.
+
+It is when you call `next()` on the generator object, JavaScript will execute the generator function's body from the top (or wherever it stopped last) until it reaches the `yield`
+
+## `yield` and `yield*`
+
+### `yield`
+
+This pauses the execution of the generator function.
+
+Except for the first call of `.next()`, you can actually pass an argument to `.next()`. The argument that you pass to `.next()` will be evaluated as the value of the `yield <something>` expression.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function* myGenerator() {
+        const a = yield 1;
+        console.log('Got a:', a);
+        const b = yield 2;
+        console.log('Got b:', b);
+        return 3;
+      }
+    `,
+    `
+      const it = myGenerator();
+    `,
+    `
+      // 'AAA' is ignored (code is run from top)
+      console.log(it.next('AAA'));
+      //=> { value: 1, done: false }
+    `,
+    `
+      // 'BBB' is passed to where it yielded
+      console.log(it.next('BBB'));
+      //=> Got a: BBB
+      //=> { value: 2, done: false }
+    `,
+    `
+      // 'CCC' is passed to where it yielded
+      console.log(it.next('CCC'));
+      //=> Got b: CCC
+      //=> { value: 3, done: true }
+    `,
+    `
+      // \`myGenerator\` has returned, so 'DDD' does not matter
+      console.log(it.next('DDD'));
+      // { value: undefined, done: true }
+    `,
+  ])}
+/>
+
+### `yield*`
+
+This tells JavaScript to `yield` on _each iterable value_ of the iterator given beside `yield*`. (Instead of yielding on a single value.)
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function* generatorYield() {
+        yield [111, 222];
+      }
+    `,
+    `
+      function* generatorYieldStar() {
+        yield* [111, 222];
+      }
+    `,
+    `
+      // Using \`yield [111, 222]\`
+      // Prints \`[ 111, 222 ]\`
+      const iteratorA = generatorYield();
+      for (const value of iteratorA) {
+        console.log(value);
+      }
+    `,
+    `
+      // Using \`yield* [111, 222]\`
+      // Prints \`111\`, then \`222\`
+      const iteratorB = generatorYieldStar();
+      for (const value of iteratorB) {
+        console.log(value);
+      }
+    `,
+  ])}
+/>
+
+## `return()` and `throw()`
+
+Instead of calling `.next()` on a generator object, you can also call the following functions to control the program flow in the generator function:
+
+- **`.return(value)`** &mdash; to cause the generator function to return with the given value
+- **`.throw(error)`** &mdash; to cause exception in the generator function
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function* myGenerator() {
+        yield 1;
+        yield 2;
+        yield 3;
+      }
+    `,
+    `
+      const it = myGenerator();
+      console.log(it.next()); //=> { value: 1, done: false }
+      console.log(it.return(555)); //=> { value: 555, done: true }
+      console.log(it.next()); //=> { value: undefined, done: true }
+    `,
+  ])}
+/>
+
+## Example: the `Range` object revisited
+
+This time, instead of writing the `[Symbol.iterator]` method that returns an iterator object manually, we will just convert it into a generator function.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      class Range {
+        // \`from\` and \`to\` shall be integers
+        constructor(from, to) {
+          this.from = from;
+          this.to = to;
+        }
+        // Implementing the generator function
+        *[Symbol.iterator]() {
+          let nextValue = this.from;
+          while (nextValue <= this.to) {
+            yield nextValue++;
+          }
+        }
+      }
+    `,
+    `
+      // Loops from 2 to 5 
+      for (let x of new Range(2, 5)) {
+        console.log(x);
+      }
+    `,
+    `
+      // \`arr\` is [ 1, 2, 3, 4 ]
+      const arr = [...new Range(1, 4)];
+      console.log(arr);
+    `,
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 12. Iterators and Generators',
+    },
+    {
+      text: 'Generator.prototype.return()',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/return',
+    },
+    {
+      text: 'Generator.prototype.throw()',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/throw',
+    },
+  ]}
+></References>

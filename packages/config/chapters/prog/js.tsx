@@ -62,6 +62,34 @@ const chapters: TopicChapters = [
         title: 'Modules',
         path: '/prog/js/in-depth/modules',
       },
+      {
+        title: 'Iterators',
+        path: '/prog/js/in-depth/iterators',
+      },
+      {
+        title: 'Generators',
+        path: '/prog/js/in-depth/generators',
+      },
+    ],
+  },
+  {
+    chapter: 'Asynchronous JavaScript',
+    children: [
+      {
+        title: 'Callbacks',
+        path: '/prog/js/async/callbacks',
+        badge: 'TODO'
+      },
+      {
+        title: 'Promises',
+        path: '/prog/js/async/promises',
+        badge: 'TODO'
+      },
+      {
+        title: 'Async and Await',
+        path: '/prog/js/async/async-await',
+        badge: 'TODO'
+      },
     ],
   },
   {
