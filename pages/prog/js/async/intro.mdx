@@ -7,11 +7,71 @@ JavaScript is traditionally single-threaded (MDN).
 
 If you block this single thread by performing something that doesn't give JavaScript chance to do something else, your program will appear unresponsive (e.g. the browser will become unresponsive to user interaction).
 
+## Making your program asynchronous
+
 To make your program able to do something while you wait for other things to finish (e.g. reading a file from the disk, waiting for an API call response), you can use these asynchronous JavaScript features:
 
 - Callbacks
 - `Promise`
 - `async` and `await`
+
+## Asynchronous JS in browsers and servers
+
+### In browsers
+
+Client-side JavaScript are almost universally event-driven. The browser will generate an _event_ whenever the user clicks on something, moves the mouse, presses a keyboard key, etc.
+
+You can add an _event handler_ to a DOM handler whenever a specific type of event occurs:
+
+```js
+const okayButton = document.querySelector('#confirmUpdateDialog button.okay');
+
+// Do something whenever the `okayButton` is clicked
+okayButton.addEventListener('click', () => {
+  ...
+});
+```
+
+Alternatively, before `fetch()` was introduced, this is how you would request for an API call in the browser (you would attach event handlers on the network events):
+
+```js
+const request = new XMLHttpRequest();
+request.open("GET", "http://www.example.com/api/version");
+request.send();
+request.onload = function() { ... };
+request.onerror = function() { ... };
+request.ontimeout = function() { ... };
+```
+
+### In servers (Node.js)
+
+The Node.js server-side JavaScript defines many APIs that use callbacks and events (Flanagan).
+
+For example, when you read a file in Node.js, it expects you to give a _callback_ that gets called when the file has been read or an error occurs.
+
+```js
+const fs = require('fs');
+
+// `(err, data) => { ... }` is a callback that gets
+// called when the file has been read or an error occured
+fs.readFile('package.json', 'utf-8', (err, data) => {
+  if (err) {
+    console.error('Error happened:', err);
+    return;
+  }
+  console.log('File content:', data);
+});
+```
+
+Alternatively, Node also defines a number of event-based APIs:
+
+```js
+const https = require("https");
+
+request = https.get(url);
+request.on("response", response => { ... });
+request.on("error", error => { ... });
+```
 
 ## References
 
