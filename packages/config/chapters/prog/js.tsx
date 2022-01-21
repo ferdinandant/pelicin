@@ -69,7 +69,6 @@ const chapters: TopicChapters = [
       {
         title: 'Generators',
         path: '/prog/js/in-depth/generators',
-        badge: 'TODO'
       },
     ],
   },
