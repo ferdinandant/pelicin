@@ -1,0 +1,29 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Introduction to Asynchronous JavaScript
+
+JavaScript is traditionally single-threaded (MDN).
+
+If you block this single thread by performing something that doesn't give JavaScript chance to do something else, your program will appear unresponsive (e.g. the browser will become unresponsive to user interaction).
+
+To make your program able to do something while you wait for other things to finish (e.g. reading a file from the disk, waiting for an API call response), you can use these asynchronous JavaScript features:
+
+- Callbacks
+- `Promise`
+- `async` and `await`
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Introducing asynchronous JavaScript',
+      description: 'Chapter 13. Asynchronous JavaScript',
+    },
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      link: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing',
+    },
+  ]}
+></References>

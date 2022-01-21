@@ -73,8 +73,12 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'Asynchronous JavaScript',
+    chapter: 'Asynchronous JS',
     children: [
+      {
+        title: 'Introduction',
+        path: '/prog/js/async/intro',
+      },
       {
         title: 'Callbacks',
         path: '/prog/js/async/callbacks',
