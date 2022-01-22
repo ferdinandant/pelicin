@@ -1,0 +1,60 @@
+import { References, CodeRunner } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Asynchronous Iteration
+
+Recall that an _iterable_ object is an object that can be can be looped with the `for-of` loop.
+
+## Asynchronous iterator
+
+An asynchronously iterable object is similar to a synchronously iterable object, except:
+
+- It has the `[Symbol.asyncIterator]` method instead of `[Symbol.iterator]`
+- Calling `next()` on the iterator returns a Promise instead of a value
+
+## Asynchronous generator
+
+An asynchronous iterator can often be implemented using an `async` generator.
+
+An `async` generator function (declared with `async function*`) allows you to use `await` and `yield` inside it. Any values that you `yield` inside an async generator are automatically wrapped in Promises.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(() => {
+          resolve();
+        }, ms));
+      }
+    `,
+    `
+      async function* tick(intervalMs, max = Infinity) {
+        for (let count = 1; count <= max; count++) {
+          await sleep(intervalMs);
+          yield count;
+        }
+      }
+    `,
+    `
+      (async () => {
+        // Tick every 300ms for 10 times
+        const iterator = tick(300, 10);
+        for await (let count of iterator) {
+          console.log('Current count:', count);
+        }
+      })();
+    `,
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 13. Asynchronous JavaScript',
+    },
+  ]}
+></References>
