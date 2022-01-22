@@ -15,6 +15,8 @@ We will demonstrate callbacks in use using the Timer APIs.
 
 Calls `fn` after `delayMs` has elapsed, with arguments `...args`.
 
+Note that the call-time can be delayed because of how JavaScript event loop handles tasks (there could be other blocking tasks), as well as operating system scheduling.
+
 <CodeRunner
   language="js"
   code={smartTrim([
@@ -29,7 +31,9 @@ Calls `fn` after `delayMs` has elapsed, with arguments `...args`.
 
 ### `setInterval(fn, delayMs, ...args)`
 
-Calls `fn` repeatedly every `delayMs`, with arguments `...args`.
+Calls `fn` repeatedly every `delayMs`, with arguments `...args`. (The time will not be exact.)
+
+Note that the call-times can be delayed because of how JavaScript event loop handles tasks (there could be other blocking tasks), as well as operating system scheduling.
 
 <CodeRunner
   language="js"
