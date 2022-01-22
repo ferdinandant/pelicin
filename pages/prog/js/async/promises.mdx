@@ -1,0 +1,140 @@
+import { References, CodeRunner } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Promises
+
+Promises are introduced in ES6 to simplify asynchronous programming. Otherwise, you may end up in _callback hell_: callback inside callback inside callback.
+
+A _promise_ is an object that represents the result of an asynchronous computation (Flanagan). It can be in one of these states (MDN):
+
+- pending &mdash; the initial state ("loading")
+- fulfilled &mdash; the operation was completed successfully
+- rejected &mdash; the operation failed
+
+There is no way to synchronously get the value of a promise; you can only ask them to call a callback when it is fulfilled or rejected.
+
+## Creating a promise
+
+Use the `new Promise()` constructor. It accepts a single `callback(resolve, reject)` function argument.
+
+- Call `resolve(value)` to fulfill your promise (with the data)
+- Call `reject(error)` to reject your promise (with the reason/error)
+
+For example, to "convert" Node's callback-based `fs.readFile` into a promise:
+
+```js
+const fs = require('fs');
+
+function promisedReadFile(filePath) {
+  return new Promise((resolve, reject) => {
+    fs.readFile('/Users/joe/test.txt', 'utf8', (err, data) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(data);
+    });
+  });
+}
+
+// We'll come back to `.then()` and `.catch()` later
+promisedReadFile('./path/to/file.txt')
+  .then((data) => {
+    console.log('Read file content', data);
+  })
+  .data((err) => {
+    console.error('An error happened', err);
+  });
+```
+
+## The promise chain
+
+When you have a promise object, you can call onto them:
+
+- **`promise.then((data) => {...})`** &mdash; to do something when the promise has fulfilled. Inside the callback, you can return a value or another promise on which you can call `.then(...)`, creating a _promise chain_.
+- **`promise.catch((err) => {...})`** &mdash; to do something when the promise has rejected
+- **`promise.finally(fn)`** &mdash; to do something after the promise has fulfilled or rejected
+
+A sample of a promise chain will look like this:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      fetch('https://catfact.ninja/fact')
+        .then(res => {
+          // Read the response stream as json
+          // \`res.json()\` returns a promise
+          return res.json();
+        })
+        .then(jsonData => {
+          console.log("Here's a cat fact:");
+          console.log(jsonData.fact);
+        })
+        .catch(err => {
+          console.error('Something wrong had happened:', err);
+        });
+    `,
+  ])}
+/>
+
+## The `Promise` class
+
+### Promise utilities
+
+#### `Promise.all(...promises)`
+
+Creates a `Promise` object that fulfills when all `promises` have fulfilled (the resolved value is an array). It rejects as soon as one of the `promises` rejects.
+
+```js
+// Use this to run promises concurrently
+Promise
+  .all([fetch(urlA), fetch(urlB)])
+  .then([resA, resB] => {...});
+```
+
+#### `Promise.allSettled(...promises)`
+
+Creates a `Promise` object that fulfills when all `promises` have fulilled or rejected.
+
+#### `Promise.any(...promises)`
+
+Creates a `Promise` object that fulfills as soon as one of the `promises` fulfills. It rejects if all of the `promises` rejects.
+
+#### `Promise.race(...promises)`
+
+Creates a `Promise` object that fulfills as soon as one of the `promises` fulfills or rejects.
+
+### Creating a `Promise` object
+
+#### `Promise.resolve(value)`
+
+Creates a new `Promise` object that resolves with the given value.
+
+```js
+Promise.resolve(1234);
+```
+
+#### `Promise.reject(reason)`
+
+Creates a new `Promise` object that rejects with the given reason.
+
+```js
+Promise.reject(new Error('Whoops'));
+```
+
+### References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 13. Asynchronous JavaScript',
+    },
+    {
+      text: 'Promise',
+      link:
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise',
+    },
+  ]}
+></References>
