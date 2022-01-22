@@ -80,9 +80,8 @@ const chapters: TopicChapters = [
         path: '/prog/js/async/intro',
       },
       {
-        title: 'Callbacks',
-        path: '/prog/js/async/callbacks',
-        badge: 'TODO'
+        title: 'Callbacks and Timers',
+        path: '/prog/js/async/callbacks-timers',
       },
       {
         title: 'Promises',
