@@ -103,7 +103,6 @@ const chapters: TopicChapters = [
       {
         title: 'Event Loop',
         path: '/prog/js/async/event-loop',
-        badge: 'TODO'
       },
       {
         title: 'Strict Mode',
