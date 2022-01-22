@@ -1,0 +1,91 @@
+import { References, Image, CodeRunner } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Event Loop
+
+JavaScript codes run on a single thread (only one thing can happen at a time).
+
+How it manages to handle concurrent tasks is through its _event loop_, which is responsible to collect and process queued tasks.
+
+## JavaScript runtime concepts
+
+The theoretical representation of the JavaScript runtime memory is as follows. (Modern JavaScript engines may optimize what is described here.)
+
+Note that it consists of the following elements:
+
+- **Call stack** &mdash; Keeps track of function call order ("what calls what"). When a function is called, it gets added to the top of the Stack; when it returns, it gets popped from the stack.
+- **Heap** &mdash; A large (mostly unstructured) region of the memory. Objects are placed here.
+- **Message queue** &mdash; Messages (e.g. `setTimeout` handlers, events with event listeners) are placed here. Each message has a function reference that gets called when the message is handled. At some point during the event loop, JavaScript will start handling messages from the queue.
+- **ES6 job queue** &mdash; Promises are placed here. This works like the message queue, but processed with a higher priority.
+
+<Image
+  path="/res/prog/js/runtime-environment.png"
+  caption="Visual representation of the JavaScript's runtime memory"
+  sourceString="MDN"
+  sourceLink="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop"
+/>
+
+## How the event loop works
+
+1. Waits synchronously for a message to arrive (if the queue is empty)
+
+2. Process the next message in the queue
+
+   - Pop the message
+   - Call the associated handler function
+   - The handler function gets added to the call stack
+
+3. Process the call stack
+
+   - If a function calls another function, add it to the call stack, and process the newly called function
+   - If a function does something that needs to be added to the queue (creating a promise), add it to the queue, and continue the rest of the current function
+   - When a function returns, pop it from the stack
+   - If a Promise resolves before the current function ends, it will be executed right after the current function
+
+4. Loop
+
+## Example
+
+Check your understanding by guessing in what order `1`, `2`, and `3` gets logged:
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      async function func() {
+        // Timeout with 0ms delay
+        setTimeout(() => {
+          console.log(1);
+        }, 0);\n
+        // Promise that fulfills instantly
+        Promise.resolve().then(() => {
+          console.log(2);
+        });\n
+        // A synchronous console.log
+        console.log(3);
+      }
+    `,
+    `
+      func();
+    `,
+  ])}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Concurrency model and the event loop',
+      link: `https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop`,
+    },
+    {
+      text: 'The Node.js Event Loop',
+      link: `https://nodejs.dev/learn/the-nodejs-event-loop`,
+    },
+    {
+      text: 'Understanding the Event Loop, Callbacks, Promises, and Async/Await in JavaScript',
+      link: `https://www.digitalocean.com/community/tutorials/understanding-the-event-loop-callbacks-promises-and-async-await-in-javascript`,
+    },
+  ]}
+></References>
