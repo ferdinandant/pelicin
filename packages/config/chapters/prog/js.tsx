@@ -73,21 +73,28 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'Asynchronous JavaScript',
+    chapter: 'Asynchronous JS',
     children: [
       {
-        title: 'Callbacks',
-        path: '/prog/js/async/callbacks',
-        badge: 'TODO'
+        title: 'Introduction',
+        path: '/prog/js/async/intro',
+      },
+      {
+        title: 'Callbacks and Timers',
+        path: '/prog/js/async/callbacks-timers',
       },
       {
         title: 'Promises',
         path: '/prog/js/async/promises',
-        badge: 'TODO'
       },
       {
         title: 'Async and Await',
         path: '/prog/js/async/async-await',
+        badge: 'TODO'
+      },
+      {
+        title: 'Event Loop',
+        path: '/prog/js/async/event-loop',
         badge: 'TODO'
       },
     ],

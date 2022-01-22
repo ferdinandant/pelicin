@@ -1,0 +1,144 @@
+import { References, CodeRunner } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Callbacks and Timers
+
+"At the most fundamental level, asynchronous programming in JavaScript is done with callbacks" (Flanagan).
+
+Callbacks are functions that you pass to a function, and is called ("called back") by the function when a condition has been met.
+
+We will demonstrate callbacks in use using the Timer APIs.
+
+## Timer APIs
+
+### `setTimeout(fn, delayMs, ...args)`
+
+Calls `fn` after `delayMs` has elapsed, with arguments `...args`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      console.log('Hello!');
+      setTimeout(() => {
+        console.log('Hello after 1 second!');
+      }, 1000);
+    `,
+  ])}
+/>
+
+### `setInterval(fn, delayMs, ...args)`
+
+Calls `fn` repeatedly every `delayMs`, with arguments `...args`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      // NOTE: To stop the loop, just refresh the page
+      console.log('Hello!');
+      setInterval(() => {
+        console.log('Hello every 1 second!');
+      }, 1000);
+    `,
+  ])}
+/>
+
+### `clearTimeout(timeoutID)`
+
+Cancels a timeout set by `setTimeout`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      const timeoutID = setTimeout(() => {
+        // Won't be called
+        console.log('Hello after 1 second!');
+      }, 1000);
+      clearTimeout(timeoutID);
+    `,
+  ])}
+/>
+
+### `clearInterval(intervalID)`
+
+Cancels an interval set by `setInterval`.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      let timesCalled = 0;
+    `,
+    `
+      const intervalID = setInterval(() => {
+        // Only called five times
+        timesCalled++;
+        console.log(\`Called \${timesCalled} time(s)\`);
+        if (timesCalled >= 5) {
+          clearInterval(intervalID);
+        }
+      }, 1000);
+    `,
+  ])}
+/>
+
+## Other Timer APIs
+
+### `window.requestAnimationFrame(fn)`
+
+In browsers, tells the browser to call `fn` before the next repaint. (It tells the browser that you want to perform an animation, usually.)
+
+When `fn` is called, it is passed a single `DOMHighResTimeStamp` argument, similar to the one you can get using `performance.now()`.
+
+```js
+function updateAnimation(timestamp) {
+  /// ... do some animation logic here ...
+  if (!isAnimationDone) {
+    window.requestAnimationFrame(updateAnimation);
+  }
+}
+
+// If you want to cancel it,
+// window.cancelAnimationFrame(requestID);
+const requestID = window.requestAnimationFrame(updateAnimation);
+```
+
+### `setImmediate(fn, ...args)`
+
+In Node.js, calls `fn` at the end of the current [event loop](https://nodejs.dev/learn/the-nodejs-event-loop) cycle.
+
+```js
+// https://nodejs.org/en/docs/guides/timers-in-node/
+setImmediate((arg) => {
+  console.log(`executing immediate: ${arg}`);
+}, 'so immediate');
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 13. Asynchronous JavaScript',
+    },
+    {
+      text: 'setTimeout()',
+      link: `https://developer.mozilla.org/en-US/docs/Web/API/setTimeout`,
+    },
+    {
+      text: 'setInterval()',
+      link: `https://developer.mozilla.org/en-US/docs/Web/API/setInterval`,
+    },
+    {
+      text: 'Window.requestAnimationFrame()',
+      link: `https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame`,
+    },
+    {
+      text: 'Timers in Node.js and beyond',
+      link: `https://nodejs.org/en/docs/guides/timers-in-node/`,
+    },
+  ]}
+></References>

@@ -128,10 +128,10 @@ Use `export default <something>`. There can only be one default export in a modu
 export default 'ABCDEEF';
 
 // Exporting a single class
-export default class MyClass { ... }
+export default class MyClass {...}
 
 // Exporting a single function
-export default function myFunction(...args) { ... }
+export default function myFunction(...args) {...}
 ```
 
 #### Named export
@@ -142,9 +142,9 @@ You can have as many named exports as you want. (You can still have at most one 
 export const PI = Math.PI;
 export const MY_CONST = 123;
 
-export function myNamedFunction() { ... }
+export function myNamedFunction() {...}
 
-export class MyClass { ... }
+export class MyClass {...}
 ```
 
 You can also define your stuffs first, then export them at the bottom of the file (possibly with renames).
@@ -152,8 +152,8 @@ You can also define your stuffs first, then export them at the bottom of the fil
 ```js
 // Define your stuffs first
 const PI = Math.PI;
-function myNamedFunction() { ... }
-class MyClass { ... }
+function myNamedFunction() {...}
+class MyClass {...}
 
 // Then put all exports in one line
 export { PI, myNamedFunction, MyClass };

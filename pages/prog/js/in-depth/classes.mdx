@@ -45,7 +45,7 @@ Not the idiomatic way to define a class.
       // Creating an instance of \`Vector\`
       // \`Vector.prototype\` is inherited by \`vector\`
       const vector = createVector(3, 4);
-      console.log(vector); //=> { ... }
+      console.log(vector); //=> {...}
       console.log(vector.getMagnitude()); //=> 5
     `,
   ])}
@@ -79,7 +79,7 @@ This was the way to declare classes before ES6 introduced the `class` syntax.
       // Creating an instance of \`Vector\`
       // Inherited properties are not logged here
       const vector = new Vector(3, 4);
-      console.log(vector); //=> { ... }
+      console.log(vector); //=> {...}
       console.log(vector.getMagnitude()); //=> 5
     `,
   ])}
@@ -116,7 +116,7 @@ At the end of the day, your `class` definition will still be evaluated as a cons
       // Creating an instance of \`Vector\`
       // Inherited properties are not logged here
       const vector\ = new Vector(3, 4);
-      console.log(vector); //=> { ... }
+      console.log(vector); //=> {...}
       console.log(vector.getMagnitude()); //=> 5
     `,
   ])}
@@ -221,7 +221,7 @@ class Subclass extends Superclass {
   // If you want to implement or or override
   // a method, just write it here.
   methodName() {
-    ...
+    // ... do something ...
   }
 }
 ```
