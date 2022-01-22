@@ -38,9 +38,9 @@ Alternatively, before `fetch()` was introduced, this is how you would request fo
 const request = new XMLHttpRequest();
 request.open("GET", "http://www.example.com/api/version");
 request.send();
-request.onload = function() { ... };
-request.onerror = function() { ... };
-request.ontimeout = function() { ... };
+request.onload = function() {...};
+request.onerror = function() {...};
+request.ontimeout = function() {...};
 ```
 
 ### In servers (Node.js)
@@ -52,7 +52,7 @@ For example, when you read a file in Node.js, it expects you to give a _callback
 ```js
 const fs = require('fs');
 
-// `(err, data) => { ... }` is a callback that gets
+// `(err, data) => {...}` is a callback that gets
 // called when the file has been read or an error occured
 fs.readFile('package.json', 'utf-8', (err, data) => {
   if (err) {
@@ -69,8 +69,8 @@ Alternatively, Node also defines a number of event-based APIs:
 const https = require("https");
 
 request = https.get(url);
-request.on("response", response => { ... });
-request.on("error", error => { ... });
+request.on("response", response => {...});
+request.on("error", error => {...});
 ```
 
 ## References
@@ -78,11 +78,11 @@ request.on("error", error => { ... });
 <References
   references={[
     {
-      text: 'Introducing asynchronous JavaScript',
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
       description: 'Chapter 13. Asynchronous JavaScript',
     },
     {
-      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      text: 'Introducing asynchronous JavaScript',
       link: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing',
     },
   ]}
