@@ -90,10 +90,13 @@ const chapters: TopicChapters = [
       {
         title: 'Async and Await',
         path: '/prog/js/async/async-await',
-        badge: 'TODO'
       },
       {
-        title: 'Event Loop',
+        title: 'Asynchronous Iteration',
+        path: '/prog/js/async/async-iteration',
+      },
+      {
+        title: 'The Event Loop',
         path: '/prog/js/async/event-loop',
         badge: 'TODO'
       },

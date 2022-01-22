@@ -1,0 +1,106 @@
+import { References, CodeRunner } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Async and Await
+
+`async` and `await` were introduced in ES2017 to make an asynchronous code looks like a synchronous code (hiding the Promise underneath).
+
+## `async`
+
+Put `async` before a function syntax to make it an async function, e.g.:
+
+- `async function functionName() {...}`
+- `async () => {...}`
+
+An `async` function always returns a Promise. If an `async` function throws, then the Promise rejects. Inside an `async` function, you can use the `await` expression (explained below).
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      async function myFunction() {
+        return 1;
+      }
+    `,
+    `
+      const returnValue = myFunction();
+      console.log(returnValue); //=> <Promise>
+    `,
+    `
+      // myFunction() returns a Promise
+      myFunction().then(value => {
+        console.log(value); //=> 1
+      });
+    `,
+  ])}
+/>
+
+## `await`
+
+You can use the `await` expression ONLY inside an `async` function.
+
+The `await` expression accepts a single Promise (or any value), and halts the execution of the code underneath until that Promise fulfills or rejects.
+
+<CodeRunner
+  language="js"
+  code={smartTrim([
+    `
+      async function getJSON(url) {
+        const response = await fetch(url);
+        const body = await response.json();
+        return body;
+      }
+    `,
+    `
+      (async () => {
+        const json = await getJSON('https://catfact.ninja/fact');
+        console.log("Here's a cat fact:");
+        console.log(json.fact);
+      })();`,
+  ])}
+/>
+
+### for&ndash;await loop
+
+When you are iterating through an array of promises, you can use the `for await` syntax. (This can only be done in an `async` function.)
+
+```js
+// Instead of writing:
+for (const promise of promises) {
+  const data = await promise;
+  handle(data);
+}
+
+// You can use the for-await shorthand:
+for await (const data of promises) {
+  handle(data);
+}
+```
+
+### Try&ndash;catch with `await`
+
+Note that unlike regular Promises, you can do try&ndash;catch with `await` as if they were a synchronous code.
+
+```js
+async function getJSON(url) {
+  try {
+    const response = await fetch(url);
+    const body = await response.json();
+    return body;
+  } catch (err) {
+    console.error('Something wrong happened', err);
+    return undefined;
+  }
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'JavaScript: The Definitive Guide, 7th Edition (David Flanagan)',
+      description: 'Chapter 13. Asynchronous JavaScript',
+    },
+  ]}
+></References>
