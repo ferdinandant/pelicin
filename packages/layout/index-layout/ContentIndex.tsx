@@ -2,6 +2,7 @@ import React from 'react';
 import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
 import { TopicGroups } from '@pelicin/config';
+import { Icon } from '@pelicin/components';
 import { INDEX_DOM_ID, extractHashFromTitle } from '@pelicin/layout';
 
 // ================================================================================
@@ -51,10 +52,18 @@ export default function ContentIndex(props: Props) {
                           const topicDescriptionNode = topicDescription && (
                             <span className="topicDescription"> &mdash; {topicDescription}</span>
                           );
+                          const externalLinkMarker = !topicPath.startsWith('/') && (
+                            <span className="externalLinkMarker">
+                              <Icon name="external-link-alt" />
+                            </span>
+                          );
                           return (
                             <li key={index}>
                               <a className="hash" id={topicHash} />
-                              <a href={topicPath}>{topicTitle}</a>
+                              <a href={topicPath}>
+                                {topicTitle}
+                                {externalLinkMarker}
+                              </a>
                               {topicDescriptionNode}
                             </li>
                           );
@@ -122,6 +131,9 @@ export default function ContentIndex(props: Props) {
         a.hash {
           position: relative;
           top: -2rem;
+        }
+        .externalLinkMarker {
+          padding-left: var(--spacing-xs);
         }
       `}</style>
     </>
