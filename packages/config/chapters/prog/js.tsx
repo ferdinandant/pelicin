@@ -95,16 +95,16 @@ const chapters: TopicChapters = [
         title: 'Asynchronous Iteration',
         path: '/prog/js/async/async-iteration',
       },
-      {
-        title: 'The Event Loop',
-        path: '/prog/js/async/event-loop',
-        badge: 'TODO'
-      },
     ],
   },
   {
     chapter: 'Others',
     children: [
+      {
+        title: 'Event Loop',
+        path: '/prog/js/async/event-loop',
+        badge: 'TODO'
+      },
       {
         title: 'Strict Mode',
         path: '/prog/js/others/strict-mode',
