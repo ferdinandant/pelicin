@@ -15,7 +15,6 @@ const chapters: TopicChapters = [
       {
         title: 'Setup',
         path: '/prog/cpp/setup',
-        badge: 'TODO'
       },
     ],
   },
