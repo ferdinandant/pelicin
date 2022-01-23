@@ -48,6 +48,12 @@ const map: Record<string, CoreTopicConfig> = {
     mainColor: '#f1e05a',
     accentColor: '#96cc69',
   },
+  '/prog/cpp': {
+    topicKey: 'prog/cpp',
+    topicTitle: 'C++',
+    mainColor: '#f34b7d',
+    accentColor: '#c75097',
+  },
 
   // --------------------------------------------------------------------------------
   // Sample & default

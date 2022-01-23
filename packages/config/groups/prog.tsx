@@ -10,7 +10,12 @@ const group: TopicGroup = {
         {
           title: 'JavaScript',
           path: '/prog/js',
-          description: <>JavaScript: The Definitive Guide, 7th Edition (O’Reilly)</>,
+          description: <>JavaScript: The Definitive Guide, 7th Edition (David Flanagan)</>,
+        },
+        {
+          title: 'C++',
+          path: '/prog/cpp',
+          description: <>C++ Crash Course (Josh Lospinoso)</>,
         },
       ],
     },

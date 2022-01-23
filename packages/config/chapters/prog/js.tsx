@@ -9,6 +9,10 @@ const chapters: TopicChapters = [
         path: '/prog/js',
       },
       {
+        title: 'References',
+        path: '/prog/js/references',
+      },
+      {
         title: 'Setup',
         path: '/prog/js/setup',
       },
