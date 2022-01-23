@@ -9,8 +9,8 @@ const chapters: TopicChapters = [
         path: '/prog/cpp',
       },
       {
-        title: 'Attribution',
-        path: '/prog/cpp/attribution',
+        title: 'References',
+        path: '/prog/cpp/references',
       },
       {
         title: 'Setup',
