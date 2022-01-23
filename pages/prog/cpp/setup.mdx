@@ -1,0 +1,71 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Setup
+
+You can code C++ using an IDE (e.g. Visual Studio on Windows, Xcode on Mac), or install just the compiler (e.g. GCC).
+
+In this tutorial, we will install GCC (tailored for Linux/Mac users).
+
+## Installing GCC
+
+Install `gcc`:
+
+```bash
+# On linux
+# build-essential includes gcc, g++ and make
+sudo apt install build-essential
+
+# On mac
+brew install gcc
+```
+
+Verify your `gcc` installation:
+
+```bash
+gcc --version
+```
+
+## Compiling your code
+
+Save the following code, for example as `hello.cpp`.
+
+```cpp
+#include <cstdio>
+
+int main() {
+  printf("Hello, world!\n");
+  return 0;
+}
+```
+
+Compile your code using `gcc`.
+
+You can specify the name of your output file using `-o <filename>`; otherwise `gcc` will use `a.out` as the default output filename.
+
+```bash
+# it will output an executable file named `hello`
+gcc helo.cpp -o hello
+```
+
+Run the code. For the example above, it should print `Hello, world!`.
+
+```bash
+./hello
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'How to Install GCC Compiler on Ubuntu 18.04',
+      link: `https://linuxize.com/post/how-to-install-gcc-compiler-on-ubuntu-18-04/`,
+    },
+    {
+      text: 'Homebrew Formulae: gcc',
+      link: `https://formulae.brew.sh/formula/gcc`,
+    },
+  ]}
+></References>
+```
