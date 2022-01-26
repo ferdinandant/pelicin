@@ -1,0 +1,194 @@
+import { References, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# The Basics
+
+<NoteBox type="info">
+  <p>
+    <b>The code snippets displayed here are not the full program.</b>
+  </p>
+  <p>
+    Normally, you would put them inside the <Code str="main()" /> function of your program. (Don't
+    forget to <Code str="#include <cstdio>" /> if you use <Code str="printf" />
+    .)
+  </p>
+</NoteBox>
+
+This page shows you some of the basic syntaxes to get you started.
+
+## Comments
+
+Comments are annotations that you write for humans. They are ignored by the compiler.
+
+Use `//` to insert a single-line comment:
+
+```cpp
+// Single-line comment
+```
+
+Use `/*` and `*/` to insert a multi-line comment:
+
+```cpp
+/*
+ * Multi-line comment
+ * (The extra '*' characters at the start of each
+ * line are optional --- they just look cool)
+ */
+```
+
+## Variables
+
+- Variables are something that store a value.
+- You can change the value stored by a variable.
+- You refer to a variable by their name.
+
+C++ is a _strongly typed language_, so every variable has a predefined type.
+
+When you declare a variable, you specify their type (e.g. `int` or `bool`) and their name (e.g. `myResult`). Optionally, you can also give them an initial value.
+
+```cpp
+// Declaring variables without initial value
+int myNumber;
+bool isEven;
+
+// Declaring variables with initial value
+int myNumber = 0;
+bool isEven = true;
+```
+
+## Expressions
+
+Expressions are something that can be evaluated to a value.
+
+You can make an expression by specifying a variable name (the simplest kind of expression), or by using operators (e.g. plus, minus, greater than, etc.).
+
+There are other kinds of expressions not explored here; we will defer them to [Expressions](/prog/cpp/core/expressions).
+
+### Boolean expressions
+
+These expressions evaluate to a boolean (`true` or `false`) value.
+
+- **`a == b`** &mdash; evaluates to `true` if `a` is equals to `b`; `false` otherwise.
+- **`a != b`** &mdash; evaluates to `true` if `a` is not equals to `b`; `false` otherwise.
+- **`a < b`** &mdash; evaluates to `true` if `a` < `b`; `false` otherwise.
+- **`a > b`** &mdash; evaluates to `true` if `a` > `b`; `false` otherwise.
+- **`a <= b`** &mdash; evaluates to `true` if `a` &le; `b`; `false` otherwise.
+- **`a >= b`** &mdash; evaluates to `true` if `a` &ge; `b`; `false` otherwise.
+
+You can use them as a condition in an `if` statement:
+
+```cpp
+// Note that whitespaces (spaces and newlines) are generally ignored.
+// I broke and indented the code to make it easier for you to read.
+if (myNumber < 5)
+    printf("myNumber is less than 5\n");
+else
+    printf("myNumber is equals to or greater than 5\n");
+```
+
+### Assignment expressions
+
+You can change the value stored by a variable by using the assignment (`=`) operator.
+
+```cpp
+int a = 1;
+printf("Value of a is %d\n", a);
+//=> Value of a is 1
+
+a = 2;
+printf("Value of a is %d\n", a);
+//=> Value of a is 2
+```
+
+## Statements
+
+Statements are something that "makes something happens" (Flanagan). In C++, all statements end with a `;`.
+
+### Simple statements
+
+An expression is the simplest kind of statement. For example, an assignment expression is a statement.
+
+```cpp
+myValue = 1 + 2;
+```
+
+### Control statements
+
+Some other statements control the _flow_ of your program. For example, the `if` statement we discussed earlier:
+
+```cpp
+// The `else` clause is optional
+if (<condition>) <statement_if_true>;
+else <statement_if_false>;
+```
+
+### Compound statements
+
+A group of statements can be made using `{...}`.
+
+So, if you need more than one statements in your `if` statement, you can do:
+
+```cpp
+if (<condition>) {
+    <statement_if_true_1>;
+    <statement_if_true_2>;
+    <statement_if_true_3>;
+} else {
+    <statement_if_false_1>;
+    <statement_if_false_2>;
+    <statement_if_false_3>;
+}
+```
+
+## Functions
+
+Functions are a block of code that you define once and can be run multiple times.
+
+A function can return a value, or it can return nothing (use return type `void`).
+
+### Declaring a function
+
+Specify the function's return type (e.g. `int`, `bool`, `void`), the function's name (e.g. `addNumbers`), and optionally the parameters' types and names.
+
+Use the `return` expression to "return" from the function (exit the function, and optionally return a value.)
+
+```cpp
+int addNumbers(int numberA, int numberB) {
+    return numberA + numberB;
+}
+```
+
+### Calling a function
+
+Specify the function's name and its parameters.
+
+```cpp
+int result = addNumbers(2, 3);
+printf("Value of a is %d\n", result);
+//=> Value of a is 5;
+```
+
+## Basic output
+
+We will use `printf` ("print format") to write some output.
+
+- The first argument to `printf` is the _format string_. It's a template string which may contain _format specifiers_ like `%d`. (`%d` is the format specifier for the `int` type; different types have their own format specifier.)
+
+- For each format specifier (`%...`) in the format string, you then pass the values to substitute in as the second (and third, and so on) arguments.
+
+```cpp
+int guessNumber = 12;
+printf("You guessed %d, and the winning number is %d\n", guessNumber, 18);
+//=> You guessed 12, and the winning number is 18
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '1. Up and Running',
+    },
+  ]}
+></References>

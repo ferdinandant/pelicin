@@ -22,6 +22,10 @@ const chapters: TopicChapters = [
     chapter: 'The Core Language',
     children: [
       {
+        title: 'The Basics',
+        path: '/prog/cpp/core/basics',
+      },
+      {
         title: 'Types',
         path: '/prog/cpp/core/types',
         badge: 'TODO'
