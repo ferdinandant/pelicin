@@ -26,8 +26,12 @@ const chapters: TopicChapters = [
         path: '/prog/cpp/core/basics',
       },
       {
-        title: 'Types',
-        path: '/prog/cpp/core/types',
+        title: 'Primitive Types',
+        path: '/prog/cpp/core/types-primitive',
+      },
+      {
+        title: 'User-Defined Types',
+        path: '/prog/cpp/core/types-user-defined',
         badge: 'TODO'
       },
       {

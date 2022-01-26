@@ -1,0 +1,107 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Primitive Types
+
+These are the types that are "part of the core language" and "almost always available to you" (Losponoso).
+
+These types will work on any platform, but their features (e.g. size and memory layout) may differ depending on the infrastructure.
+
+## Integer types
+
+These store integers (whole numbers).
+
+- There are four sizes: `short` (2 bytes), `int` (4 bytes), `long` (4 or 8 bytes), and `long long` (8 bytes).
+
+  - Thanks to [the specification](https://stackoverflow.com/a/13398763/5181368), `long` can be 4 bytes or 8 bytes. (It's 8 bytes on 64-bit Linux or Mac; 4 bytes elsewhere.)
+
+- Each can be signed (e.g. `int`) or unsigned (e.g. `unsigned int`)
+  - If signed, it can store negative, zero, and positive values
+  - If unsiged, it can store zero and positive values only
+
+### Types of integer types
+
+(F.S. stands for `printf` format specifier.)
+
+| Type                 |     Size     |                  Min value                   |              Max value              |  F.S.  |
+| -------------------- | :----------: | :------------------------------------------: | :---------------------------------: | :----: |
+| `short`              |   2 bytes    |                &minus;32,768                 |               32,767                | `%hd`  |
+| `unsigned short`     |   2 bytes    |                      0                       |               65,535                | `%hu`  |
+| `int`                |   4 bytes    | &approx; (&minus;2.14)&times;10<sup>9</sup>  | &approx; 2.14&times;10<sup>9</sup>  |  `%d`  |
+| `unsigned int`       |   4 bytes    |                      0                       | &approx; 4.29&times;10<sup>9</sup>  |  `%u`  |
+| `long`               | 4 or 8 bytes |                                              |                                     | `%ld`  |
+| `unsigned long`      | 4 or 8 bytes |                                              |                                     | `%lu`  |
+| `long long`          |   8 bytes    | &approx; (&minus;9.22)&times;10<sup>18</sup> | &approx; 9.22&times;10<sup>18</sup> | `%lld` |
+| `unsigned long long` |   8 bytes    |                      0                       | &approx; 18.44&times;10<sup>9</sup> | `%llu` |
+
+### Writing integer literals
+
+When we say _literal_, it means hardcoded values in your program.
+
+- To write in decimal &mdash; just write the number normally, e.g. `1234` or `-1234`
+- To write in ocatal (base 8) &mdash; prefix the number with `0`, e.g. `067` or `-067`
+- To write in binary (base 2) &mdash; prefix the number with `0b`, e.g. `0b0011` or `-0b0011`
+- To write in hexadecimal (base 16) &mdash; prefix the number with `0x`, e.g. `0x9ab` or `-0x9ab`
+
+### Integer type suffixes
+
+When you write an integer literal, the compiler will assume its type as either `int`, `long`, or `long long` (it will pick the smallest one that fits).
+
+If you want more control, you can narrow down its type by suffixing it with any of these (they are case insensitive).
+
+- `l` or `L` &mdash; to make it a SIGNED `long` (or `long long`)
+- `ll` or `LL` &mdash; to make it a SIGNED `long long`
+- `u` or `U` &mdash; to make it an `unsigned int` (or `unsigned long` or `unsigned long long`)
+- `ul` or `UL` &mdash; to make it an `unsigned long` (or `unsigned long long`)
+- `ull` or `ULL` &mdash; to make it an `unsigned long long`
+
+### Formatting integers
+
+- Use `%o` to format-print an integer type in its octal representation
+- Use `%x` to format-print an integer type in its hexademical representation
+
+```cpp
+int number = 123;
+printf("%d in HEX is %x!\n", number, number);
+//=> 123 in HEX is 7b!
+```
+
+## Floating-point types
+
+These store _approximations_ of real numbers. (Because the space to store the numbers are limited, there could be _precision errors_ when representing the numbers.)
+
+### Types of floating-point types
+
+(F.S. stands for `printf` format specifier.)
+
+`long double` is usually the same as `double` (just use `double`).
+
+| Type          |  Size   |                   Min value                   |              Max value               | F.S.  |
+| ------------- | :-----: | :-------------------------------------------: | :----------------------------------: | :---: |
+| `float`       | 4 bytes | &approx; (&minus;3.40)&times;10<sup>38</sup>  | &approx; 3.40&times;10<sup>38</sup>  | `%f`  |
+| `double`      | 8 bytes | &approx; (&minus;1.79)&times;10<sup>308</sup> | &approx; 1.79&times;10<sup>308</sup> | `%lf` |
+| `long double` | 8 bytes | &approx; (&minus;1.79)&times;10<sup>308</sup> | &approx; 1.79&times;10<sup>308</sup> | `%Lf` |
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '2. Types',
+    },
+    {
+      text: 'Why are C++ int and long types both 4 bytes?',
+      link:
+        'https://stackoverflow.com/questions/13398630/why-are-c-int-and-long-types-both-4-bytes',
+    },
+    {
+      text: 'C and C++ Integer Limits',
+      link: 'https://docs.microsoft.com/en-us/cpp/c-language/cpp-integer-limits?view=msvc-170',
+    },
+    {
+      text: 'Type float',
+      link: 'https://docs.microsoft.com/en-us/cpp/c-language/type-float?view=msvc-170',
+    },
+  ]}
+></References>
