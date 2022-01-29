@@ -3,25 +3,34 @@ import { smartTrim } from '@pelicin/utils';
 
 # Primitive Types
 
-These are the types that are "part of the core language" and "almost always available to you" (Losponoso).
+Primitive types (or fundamental types) are built-in types that are part of the core language, and almost always available to you.
 
 These types will work on any platform, but their features (e.g. size and memory layout) may differ depending on the infrastructure.
+
+<NoteBox type="info" title='"F.S."'>
+  <p>
+    Each type has their own <Code str="printf()" /> <dfn>format specifier</dfn>, which I will
+    abbreviate "F.S."
+  </p>
+  <p>
+    You will normally use this format specifier to print a variable/expression of that type using{' '}
+    <Code str="printf()" />.
+  </p>
+</NoteBox>
 
 ## Integer types
 
 These store integers (whole numbers).
 
+### Types of integer types
+
 - There are four sizes: `short` (2 bytes), `int` (4 bytes), `long` (4 or 8 bytes), and `long long` (8 bytes).
 
   - Thanks to [the specification](https://stackoverflow.com/a/13398763/5181368), `long` can be 4 bytes or 8 bytes. (It's 8 bytes on 64-bit Linux or Mac; 4 bytes elsewhere.)
 
-- Each can be signed (e.g. `int`) or unsigned (e.g. `unsigned int`)
+- Each integer type can be signed (e.g. `int`) or unsigned (e.g. `unsigned int`)
   - If signed, it can store negative, zero, and positive values
   - If unsiged, it can store zero and positive values only
-
-### Types of integer types
-
-(F.S. stands for `printf` format specifier.)
 
 | Type                 |     Size     |                  Min value                   |              Max value              |  F.S.  |
 | -------------------- | :----------: | :------------------------------------------: | :---------------------------------: | :----: |
@@ -34,7 +43,7 @@ These store integers (whole numbers).
 | `long long`          |   8 bytes    | &approx; (&minus;9.22)&times;10<sup>18</sup> | &approx; 9.22&times;10<sup>18</sup> | `%lld` |
 | `unsigned long long` |   8 bytes    |                      0                       | &approx; 18.44&times;10<sup>9</sup> | `%llu` |
 
-### Writing integer literals
+### Integer literals
 
 When we say _literal_, it means hardcoded values in your program.
 
@@ -70,15 +79,13 @@ These store _approximations_ of real numbers. (Because the space to store the nu
 
 `long double` is usually the same as `double` (just use `double`).
 
-(F.S. stands for `printf` format specifier.)
-
 | Type          |  Size   |                   Min value                   |              Max value               | F.S.  |
 | ------------- | :-----: | :-------------------------------------------: | :----------------------------------: | :---: |
 | `float`       | 4 bytes | &approx; (&minus;3.40)&times;10<sup>38</sup>  | &approx; 3.40&times;10<sup>38</sup>  | `%f`  |
 | `double`      | 8 bytes | &approx; (&minus;1.79)&times;10<sup>308</sup> | &approx; 1.79&times;10<sup>308</sup> | `%lf` |
 | `long double` | 8 bytes | &approx; (&minus;1.79)&times;10<sup>308</sup> | &approx; 1.79&times;10<sup>308</sup> | `%Lf` |
 
-### Writing floating-point literals
+### Floating-point literals
 
 There are two ways to write a floating-point literal:
 
@@ -109,14 +116,16 @@ You can further format your number with additional flags/arguments in your `prin
 
 ## Character types
 
-These store a single human language character.
+These store a single human language character, e.g. "A".
 
 ### Types of character types
 
-- **`char`** &mdash; May be signed or unsigned (depending on the compiler). It can store an ASCII character or a 1-byte integer.
-- **`char16_t`** &mdash; It can store a 2-byte character set, e.g. an UTF-16 character.
-- **`char32_t`** &mdash; It can store a 4-byte character set, e.g. an UTF-32 character.
-- **`wchar_t`** &mdash; May be 2 bytes or 4 bytes (depending on the compiler). It can store, for example, Unicode characters (2 bytes).
+- "Narrow characters":
+  - **`char`** &mdash; May be signed or unsigned (depending on the compiler). It can store an ASCII character or a 1-byte integer.
+- "Wide characters" (because they can store more than 1 byte):
+  - **`char16_t`** &mdash; It can store a 2-byte character set, e.g. an UTF-16 character.
+  - **`char32_t`** &mdash; It can store a 4-byte character set, e.g. an UTF-32 character.
+  - **`wchar_t`** &mdash; May be 2 bytes or 4 bytes (depending on the compiler). It can store, for example, Unicode characters (2 bytes).
 
 | Type            |     Size     | Min value |             Max value              |        F.S.         |
 | --------------- | :----------: | :-------: | :--------------------------------: | :-----------------: |
@@ -135,7 +144,7 @@ These store a single human language character.
   prefix).
 </Asterisk>
 
-### Writing character literals
+### Character literals
 
 Quote them using single quotes (`'`), e.g. `'x'`.
 
@@ -165,7 +174,7 @@ To enter Unicode characters:
 
 ## Boolean types
 
-These store `true` or `false` values.
+These store `true` or `false`.
 
 ### Types of boolean types
 
@@ -182,7 +191,7 @@ There is only a single boolean type: `bool`.
   <Code str="%d" /> to print it as <Code str="0" /> oir <Code str="1" />.
 </Asterisk>
 
-### Writing boolean literals
+### Boolean literals
 
 Just write `true` or `false`.
 
@@ -218,8 +227,8 @@ Defined in `<cstddef>` (`#include <cstddef>`), this type represents the size of 
 When you use the `typeof` operator, e.g. `sizeof(double)`, the return type would be `size_t`. Its format specifier is `%zu`.
 
 ```cpp
-size_t sizeDouble = sizeof(double);
-printf("%zu\n", sizeDouble);
+size_t size_double = sizeof(double);
+printf("%zu\n", size_double);
 //=> 8 (because double type requires 8 bytes)
 ```
 

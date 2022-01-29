@@ -19,26 +19,41 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'The Core Language',
+    chapter: 'Getting Started',
     children: [
       {
         title: 'The Basics',
-        path: '/prog/cpp/core/basics',
+        path: '/prog/cpp/getting-started/basics',
       },
+    ],
+  },
+  {
+    chapter: 'Types',
+    children: [
       {
         title: 'Primitive Types',
-        path: '/prog/cpp/core/types-primitive',
+        path: '/prog/cpp/types/primitive',
+      },
+      {
+        title: 'Arrays',
+        path: '/prog/cpp/types/arrays',
       },
       {
         title: 'User-Defined Types',
-        path: '/prog/cpp/core/types-user-defined',
+        path: '/prog/cpp/types/user-defined',
         badge: 'TODO'
       },
       {
         title: 'Reference Types',
-        path: '/prog/cpp/core/types-reference',
+        path: '/prog/cpp/types/reference',
         badge: 'TODO'
       },
+    ],
+  },
+  {
+    chapter: 'The Core Language',
+    children: [
+      
       {
         title: 'Object Life Cycle',
         path: '/prog/cpp/core/object-life-cycle',

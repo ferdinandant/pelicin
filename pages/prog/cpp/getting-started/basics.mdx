@@ -48,12 +48,12 @@ When you declare a variable, you specify their type (e.g. `int` or `bool`) and t
 
 ```cpp
 // Declaring variables without initial value
-int myNumber;
-bool isEven;
+int my_number;
+bool is_even;
 
 // Declaring variables with initial value
-int myNumber = 0;
-bool isEven = true;
+int my_number = 0;
+bool is_even = true;
 ```
 
 ## Expressions
@@ -80,10 +80,10 @@ You can use them as a condition in an `if` statement:
 ```cpp
 // Note that whitespaces (spaces and newlines) are generally ignored.
 // I broke and indented the code to make it easier for you to read.
-if (myNumber < 5)
-    printf("myNumber is less than 5\n");
+if (my_number < 5)
+  printf("my_number is less than 5\n");
 else
-    printf("myNumber is equals to or greater than 5\n");
+  printf("my_number is equals to or greater than 5\n");
 ```
 
 ### Assignment expressions
@@ -109,7 +109,7 @@ Statements are something that "makes something happens" (Flanagan). In C++, all 
 An expression is the simplest kind of statement. For example, an assignment expression is a statement.
 
 ```cpp
-myValue = 1 + 2;
+my_value = 1 + 2;
 ```
 
 ### Control statements
@@ -130,13 +130,13 @@ So, if you need more than one statements in your `if` statement, you can do:
 
 ```cpp
 if (<condition>) {
-    <statement_if_true_1>;
-    <statement_if_true_2>;
-    <statement_if_true_3>;
+  <statement_if_true_1>;
+  <statement_if_true_2>;
+  <statement_if_true_3>;
 } else {
-    <statement_if_false_1>;
-    <statement_if_false_2>;
-    <statement_if_false_3>;
+  <statement_if_false_1>;
+  <statement_if_false_2>;
+  <statement_if_false_3>;
 }
 ```
 
@@ -153,8 +153,8 @@ Specify the function's return type (e.g. `int`, `bool`, `void`), the function's 
 Use the `return` expression to "return" from the function (exit the function, and optionally return a value.)
 
 ```cpp
-int addNumbers(int numberA, int numberB) {
-    return numberA + numberB;
+int addNumbers(int number_a, int number_b) {
+  return number_a + number_b;
 }
 ```
 
