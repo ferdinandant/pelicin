@@ -240,6 +240,7 @@ blockquote {
   font-style: italic;
   border-left: var(--spacing-s) solid var(--color-gray-1);
   padding-left: var(--spacing-m);
+  color: var(--color-gray-4);
 }
 
 kbd {
