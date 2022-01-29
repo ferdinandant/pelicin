@@ -169,11 +169,13 @@ These store `true` or `false` values.
 
 ### Types of boolean types
 
-There is only a single boolean type: `bool`
+There is only a single boolean type: `bool`.
 
-| Type   | Size  | Min value | Max value |         F.S.         |
-| ------ | :---: | :-------: | :-------: | :------------------: |
-| `bool` | 1 bit |     0     |     1     | <Asterisk str="**"/> |
+(Note that even though technically it only requires a single bit to store a true/false value, `bool` requires 1 byte.)
+
+| Type   |  Size  | Min value | Max value |         F.S.         |
+| ------ | :----: | :-------: | :-------: | :------------------: |
+| `bool` | 1 byte |     0     |     1     | <Asterisk str="**"/> |
 
 <Asterisk str="**">
   There are no format specifier for the <Code str="bool" /> type. Instead, you can use{' '}
@@ -201,6 +203,24 @@ In fact, you cannot define a variable with a `void` type. You use `void` in "spe
 void greet() {
   printf("Hello!\n");
 }
+```
+
+## Other notable types
+
+### `std::byte`
+
+Defined in `<cstddef>` (`#include <cstddef>`), this type is usually used to handle _raw memory_ (collection of bits without a type).
+
+### `size_t`
+
+Defined in `<cstddef>` (`#include <cstddef>`), this type represents the size of an object in bytes. (But you can think of it as an unsigned integer.)
+
+When you use the `typeof` operator, e.g. `sizeof(double)`, the return type would be `size_t`. Its format specifier is `%zu`.
+
+```cpp
+size_t sizeDouble = sizeof(double);
+printf("%zu\n", sizeDouble);
+//=> 8 (because double type requires 8 bytes)
 ```
 
 ## References
