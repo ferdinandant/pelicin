@@ -222,7 +222,7 @@ Defined in `<cstddef>` (`#include <cstddef>`), this type is usually used to hand
 
 ### `size_t`
 
-Defined in `<cstddef>` (`#include <cstddef>`), this type represents the size of an object in bytes. (But you can think of it as an unsigned integer.)
+Defined in `<cstddef>` (`#include <cstddef>`), this type represents the size of an object in bytes. (Its actual type depends on the compiler, but you can think of it as an unsigned integer, usually `unsigned long long`.)
 
 When you use the `typeof` operator, e.g. `sizeof(double)`, the return type would be `size_t`. Its format specifier is `%zu`.
 
@@ -264,6 +264,10 @@ printf("%zu\n", size_double);
     {
       text: 'char32_t',
       link: 'https://en.cppreference.com/w/c/string/multibyte/char32_t',
+    },
+    {
+      text: 'size_t',
+      link: 'https://en.cppreference.com/w/c/types/size_t',
     },
   ]}
 ></References>
