@@ -19,31 +19,20 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'The Core Language',
+    chapter: 'Getting Started',
     children: [
       {
-        title: 'Types',
-        path: '/prog/cpp/core/types',
+        title: 'Code Structure',
+        path: '/prog/cpp/getting-started/code-structure',
         badge: 'TODO'
       },
       {
-        title: 'Reference Types',
-        path: '/prog/cpp/core/types-reference',
-        badge: 'TODO'
+        title: 'Comments',
+        path: '/prog/cpp/getting-started/comments',
       },
       {
-        title: 'Object Life Cycle',
-        path: '/prog/cpp/core/object-life-cycle',
-        badge: 'TODO'
-      },
-      {
-        title: 'Runtime Polymorphism',
-        path: '/prog/cpp/core/polymorphism-runtime',
-        badge: 'TODO'
-      },
-      {
-        title: 'Compile-Time Polymorphism',
-        path: '/prog/cpp/core/polymorphism-compile-time',
+        title: 'Variables and Constants',
+        path: '/prog/cpp/getting-started/variables-constant',
         badge: 'TODO'
       },
       {
@@ -59,6 +48,54 @@ const chapters: TopicChapters = [
       {
         title: 'Functions',
         path: '/prog/cpp/core/statements',
+        badge: 'TODO'
+      },
+    ],
+  },
+  {
+    chapter: 'Types',
+    children: [
+      {
+        title: 'Primitive Types',
+        path: '/prog/cpp/types/primitive',
+      },
+      {
+        title: 'Arrays',
+        path: '/prog/cpp/types/arrays',
+      },
+      {
+        title: 'C-Style Strings',
+        path: '/prog/cpp/types/c-style-strings',
+      },
+      {
+        title: 'User-Defined Types',
+        path: '/prog/cpp/types/user-defined',
+        badge: 'TODO'
+      },
+      {
+        title: 'Reference Types',
+        path: '/prog/cpp/types/reference',
+        badge: 'TODO'
+      },
+    ],
+  },
+  {
+    chapter: 'The Core Language',
+    children: [
+      
+      {
+        title: 'Object Life Cycle',
+        path: '/prog/cpp/core/object-life-cycle',
+        badge: 'TODO'
+      },
+      {
+        title: 'Runtime Polymorphism',
+        path: '/prog/cpp/core/polymorphism-runtime',
+        badge: 'TODO'
+      },
+      {
+        title: 'Compile-Time Polymorphism',
+        path: '/prog/cpp/core/polymorphism-compile-time',
         badge: 'TODO'
       },
     ],

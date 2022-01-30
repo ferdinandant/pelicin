@@ -1,0 +1,119 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Arrays
+
+Arrays are sequences of items of the same type. An array has:
+
+- a type &mdash; the type of items in it
+- a size &mdash; the number of items in it
+
+## Declaring an array
+
+### One-dimensional array
+
+Specify the array type and the array size (the number of items in the array):
+
+```cpp
+int my_array[5];
+```
+
+You can also initialize the content of the array directly. (If you do this, specifying the size becomes optional because the compiler can infer it.)
+
+```cpp
+// You can also write the size explicitly,
+// e.g. `int myArray[5]`
+int my_array[] = { 1, 2, 3, 4, 5 };
+```
+
+### Multi-dimensional array
+
+An array could also be an array of array ("multi-dimensional array").
+
+To define one, specify the array type and the size of each "dimension".
+
+```cpp
+// Two-dimensional array
+int array_2d[10][20];
+
+// Three-dimensional array
+int array_3d[10][20][50];
+```
+
+You can initialize multi-dimensional array in two ways:
+
+```cpp
+// The "nested" way
+int arr_a[2][4] = {
+  { 1, 2, 3, 4 },
+  { 5, 6, 7, 8 },
+};
+
+// The "flat" way
+int arr_b[2][4] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+```
+
+## Accessing array elements
+
+Specify the array name, and the index that you want to access in `[]`.
+
+Array indexing are zero-based. So, the first element is at index 0, the tenth element is at index 9, and so on.
+
+```cpp
+int arr[] = { 1, 2, 3 };
+printf("%d\n", arr[2]); //=> 3
+```
+
+Accessing the element of a multi-dimensional array works similarly:
+
+```cpp
+int arr[2][4] = {
+  { 1, 2, 3, 4 },
+  { 5, 6, 7, 8 },
+};
+printf("%d\n", arr[1][2]); //=> 7
+```
+
+## Getting the size of an array
+
+### Using the `sizeof` operator
+
+You can use the `sizeof` operator (which returns the _total size_ of the array in bytes), then divide it by the size of one element in bytes.
+
+(Note that `sizeof` returns a `size_t` type, which behaves like an unsigned integer.)
+
+```cpp
+short arr[] = { 4, 5, 6, 7, 8, 9 };
+size_t arr_length = sizeof(arr) / sizeof(short);
+printf("%zu\n", arr_length); //=> 6
+```
+
+### Using `std::size()`
+
+You can `#include <iterator>` and use the `std::size()` function.
+
+```cpp
+#include <cstdio>
+#include <iterator>
+
+int main() {
+  short arr[] = { 4, 5, 6, 7, 8, 9 };
+  size_t arr_length = std::size(arr);
+  printf("%zu\n", arr_length); //=> 6
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '2. Types',
+    },
+    {
+      text: 'C++ Multidimensional Arrays',
+      link: 'https://www.programiz.com/cpp-programming/multidimensional-arrays',
+    },
+  ]}
+></References>

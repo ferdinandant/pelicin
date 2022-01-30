@@ -1,0 +1,41 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Comments
+
+Comments are annotations that you write for humans (explaining what your code does or why you coded it that way). They are ignored by the compiler.
+
+## Single-line comment
+
+Use `//` to insert a single-line comment:
+
+```cpp
+// Single-line comment
+int a = 5; // You can also put it beside here
+```
+
+## Multi-line comment
+
+Use `/*` and `*/` to insert a multi-line comment:
+
+```cpp
+/*
+ * Multi-line comment
+ * (The extra '*' characters at the start of each
+ * line are optional --- they just look cool)
+ */
+int main() {
+  return 0;
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '1. Up and Running',
+    },
+  ]}
+></References>

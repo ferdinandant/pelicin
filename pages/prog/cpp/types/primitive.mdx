@@ -1,0 +1,269 @@
+import { References, NoteBox, Code, Asterisk } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Primitive Types
+
+Primitive types (or fundamental types) are built-in types that are part of the core language, and almost always available to you.
+
+These types will work on any platform, but their features (e.g. size and memory layout) may differ depending on the infrastructure.
+
+<NoteBox type="info" title='"F.S."'>
+  <p>
+    Each type has their own <Code str="printf()" /> <dfn>format specifier</dfn>, which I will
+    abbreviate "F.S."
+  </p>
+  <p>
+    You will normally use this format specifier to print a variable/expression of that type using{' '}
+    <Code str="printf()" />.
+  </p>
+</NoteBox>
+
+## Integer types
+
+These store integers (whole numbers).
+
+### Types of integer types
+
+- There are four sizes: `short` (2 bytes), `int` (4 bytes), `long` (4 or 8 bytes), and `long long` (8 bytes).
+
+  - Thanks to [the specification](https://stackoverflow.com/a/13398763/5181368), `long` can be 4 bytes or 8 bytes. (It's 8 bytes on 64-bit Linux or Mac; 4 bytes elsewhere.)
+
+- Each integer type can be signed (e.g. `int`) or unsigned (e.g. `unsigned int`)
+  - If signed, it can store negative, zero, and positive values
+  - If unsiged, it can store zero and positive values only
+
+| Type                 |     Size     |                  Min value                   |              Max value               |  F.S.  |
+| -------------------- | :----------: | :------------------------------------------: | :----------------------------------: | :----: |
+| `short`              |   2 bytes    |                &minus;32,768                 |                32,767                | `%hd`  |
+| `unsigned short`     |   2 bytes    |                      0                       |                65,535                | `%hu`  |
+| `int`                |   4 bytes    | &approx; (&minus;2.14)&times;10<sup>9</sup>  |  &approx; 2.14&times;10<sup>9</sup>  |  `%d`  |
+| `unsigned int`       |   4 bytes    |                      0                       |  &approx; 4.29&times;10<sup>9</sup>  |  `%u`  |
+| `long`               | 4 or 8 bytes |                   &mdash;                    |               &mdash;                | `%ld`  |
+| `unsigned long`      | 4 or 8 bytes |                   &mdash;                    |               &mdash;                | `%lu`  |
+| `long long`          |   8 bytes    | &approx; (&minus;9.22)&times;10<sup>18</sup> | &approx; 9.22&times;10<sup>18</sup>  | `%lld` |
+| `unsigned long long` |   8 bytes    |                      0                       | &approx; 18.44&times;10<sup>18</sup> | `%llu` |
+
+### Integer literals
+
+When we say _literal_, it means hardcoded values in your program.
+
+- **To write in decimal** &mdash; just write the number normally, e.g. `1234` or `-1234`
+- **To write in ocatal (base 8)** &mdash; prefix the number with `0`, e.g. `067` or `-067`
+- **To write in binary (base 2)** &mdash; prefix the number with `0b`, e.g. `0b0011` or `-0b0011`
+- **To write in hexadecimal (base 16)** &mdash; prefix the number with `0x`, e.g. `0x9ab` or `-0x9ab`
+
+When you write an integer literal, the compiler will assume its type as either `int`, `long`, or `long long` (it will pick the smallest one that fits). If you want more control, you can narrow down its type by suffixing it with any of these (they are case insensitive).
+
+- **`l` or `L`** &mdash; to make it a SIGNED `long` (or `long long`)
+- **`ll` or `LL`** &mdash; to make it a SIGNED `long long`
+- **`u` or `U`** &mdash; to make it an `unsigned int` (or `unsigned long` or `unsigned long long`)
+- **`ul` or `UL`** &mdash; to make it an `unsigned long` (or `unsigned long long`)
+- **`ull` or `ULL`** &mdash; to make it an `unsigned long long`
+
+### Formatting integers
+
+- **`%o`** &mdash; format-print an integer type in its octal representation
+- **`%x`** &mdash; format-print an integer type in its hexademical representation
+
+```cpp
+int number = 123;
+printf("%d in HEX is %x!\n", number, number);
+//=> 123 in HEX is 7b!
+```
+
+## Floating-point types
+
+These store _approximations_ of real numbers. (Because the space to store the numbers are limited, there could be _precision errors_ when representing real numbers.)
+
+### Types of floating-point types
+
+`long double` is usually the same as `double` (just use `double`).
+
+| Type          |  Size   |                   Min value                   |              Max value               | F.S.  |
+| ------------- | :-----: | :-------------------------------------------: | :----------------------------------: | :---: |
+| `float`       | 4 bytes | &approx; (&minus;3.40)&times;10<sup>38</sup>  | &approx; 3.40&times;10<sup>38</sup>  | `%f`  |
+| `double`      | 8 bytes | &approx; (&minus;1.79)&times;10<sup>308</sup> | &approx; 1.79&times;10<sup>308</sup> | `%lf` |
+| `long double` | 8 bytes | &approx; (&minus;1.79)&times;10<sup>308</sup> | &approx; 1.79&times;10<sup>308</sup> | `%Lf` |
+
+### Floating-point literals
+
+There are two ways to write a floating-point literal:
+
+- **Write it normally** &mdash; e.g. `123.45`, `-123.45`, `456` (integer literals are valid, too)
+- **Write it in scientific notation** &mdash; e.g. `1.9e2` (1.9&times;10<sup>2</sup>) or `-2.1e-2` (&minus;2.1&times;10<sup>-2</sup>)
+
+When you write a floating-point literal, the compiler will assume its type as `double` by default. If you want more control, you can specify its type by suffixing it with any of these (they are case insensitive).
+
+- **`f` or `F`** &mdash; to make it a `float`, e.g. `2.7f`
+- **`l` or `L`** &mdash; to make it a `long double`, e.g. `4.8L`
+
+### Formatting floating-point numbers
+
+<NoteBox>
+  Lospinoso suggests using <Code str="%g" /> to print floating-point numbers.
+</NoteBox>
+
+- **`%f`, `%lf`, or `%Lf`** &mdash; print normally (with trailing zeroes), e.g. `54321.000000` or `9.750000`
+- **`%e`** &mdash; format-print the number in scientific notation, e.g. `6.02214e+23` or `9.750000e+00`
+- **`%g`** &mdash; choose the shortest representation between `%f` (or `%lf`) and `%e`, removing the trailing zeroes, e.g. `6.02214e+23` or `9.75`
+
+You can further format your number with additional flags/arguments in your `printf` format specifier. For example, printing `1.2555` with `%+08.2lf` will give you `+0001.26`:
+
+- the `+` prefix flag &mdash; means always print the sign, i.e. `+` or `-`
+- the `0` prefix flag &mdash; means left-pad the number with zeroes
+- the `8` width argument &mdash; means the formatted number will take at least 8 characters
+- the `.2` precision argument &mdash; means always display 2 digits after the decimal point (the default is 6)
+
+## Character types
+
+These store a single human language character, e.g. "A".
+
+### Types of character types
+
+- "Narrow characters":
+  - **`char`** &mdash; May be signed or unsigned (depending on the compiler). It can store an ASCII character or a 1-byte integer.
+- "Wide characters" (because they can store more than 1 byte):
+  - **`char16_t`** &mdash; It can store a 2-byte character set, e.g. an UTF-16 character.
+  - **`char32_t`** &mdash; It can store a 4-byte character set, e.g. an UTF-32 character.
+  - **`wchar_t`** &mdash; May be 2 bytes or 4 bytes (depending on the compiler). It can store, for example, Unicode characters (2 bytes).
+
+| Type            |     Size     | Min value |             Max value              |        F.S.         |
+| --------------- | :----------: | :-------: | :--------------------------------: | :-----------------: |
+| `char`          |    1 byte    |  &mdash;  |              &mdash;               |        `%c`         |
+| `signed char`   |    1 byte    |   -128    |                127                 |        `%c`         |
+| `unsigned char` |    1 byte    |     0     |                255                 |        `%c`         |
+| `char16_t`      |   2 bytes    |     0     |               65,535               | <Asterisk str="*"/> |
+| `char32_t`      |   4 bytes    |     0     | &approx; 4.29&times;10<sup>9</sup> | <Asterisk str="*"/> |
+| `wchar_t`       | 2 or 4 bytes |  &mdash;  |              &mdash;               |        `%lc`        |
+
+<Asterisk str="*">
+  <Code str="char16_t" /> and <Code str="char32_t" /> don't exactly have a format specifier (you
+  will need to convert them first if you want to print them). Alternatively, you can use{' '}
+  <Code str="%#x" /> to print the character using their hexadecimal representation, e.g.{' '}
+  <Code str="0x6c34" /> for <Code str="水" /> (The <Code str="#" /> flag adds the <Code str="0x" />{' '}
+  prefix).
+</Asterisk>
+
+### Character literals
+
+Quote them using single quotes (`'`), e.g. `'x'`.
+
+If the type is not `char`, you must also give the following prefix:
+
+- **`u`** &mdash; to make it `char16_t`, e.g. `u'x'`
+- **`U`** &mdash; to make it `char32_t`, e.g. `U'x'`
+- **`L`** &mdash; to make it `wchar_t`, e.g. `L'x'`
+
+### Character escapes
+
+To enter special characters:
+
+- `\r` &mdash; to enter the carriage return character
+- `\n` &mdash; to enter the newline character
+- `\t` &mdash; to enter the tab character
+- `\0` &mdash; to enter the null character
+- `\'` &mdash; to enter the `'` character
+- `\"` &mdash; to enter the `"` character
+- `\\` &mdash; to enter the `\` character
+- `\0` &mdash; to enter the null character
+
+To enter Unicode characters:
+
+- `\uXXXX` (4-digit Unicode code point) &mdash; e.g. `\u0041` to enter `A`
+- `\UXXXXXXXX` (8-digit Unicode code point) &mdash; e.g. `\U0001F37A` to enter `🍺`
+
+## Boolean types
+
+These store `true` or `false`.
+
+### Types of boolean types
+
+There is only a single boolean type: `bool`.
+
+(Note that even though technically it only requires a single bit to store a true/false value, `bool` requires 1 byte.)
+
+| Type   |  Size  | Min value | Max value |         F.S.         |
+| ------ | :----: | :-------: | :-------: | :------------------: |
+| `bool` | 1 byte |     0     |     1     | <Asterisk str="**"/> |
+
+<Asterisk str="**">
+  There are no format specifier for the <Code str="bool" /> type. Instead, you can use{' '}
+  <Code str="%d" /> to print it as <Code str="0" /> oir <Code str="1" />.
+</Asterisk>
+
+### Boolean literals
+
+Just write `true` or `false`.
+
+Additionaly, the following shows the equivalence between boolean and integer types:
+
+- `true` is equivalent to `1`
+- `false` is equivalent to `0`
+- Any non-zero integer value is equivalent to `true`
+- Zero is equivalent to `false`
+
+## Void types
+
+The `void` type stores no value.
+
+In fact, you cannot define a variable with a `void` type. You use `void` in "special situations," for example, to denote the return type of a function that doesn't return anything.
+
+```cpp
+void greet() {
+  printf("Hello!\n");
+}
+```
+
+## Other notable types
+
+### `std::byte`
+
+Defined in `<cstddef>` (`#include <cstddef>`), this type is usually used to handle _raw memory_ (collection of bits without a type).
+
+### `size_t`
+
+Defined in `<cstddef>` (`#include <cstddef>`), this type represents the size of an object in bytes. (But you can think of it as an unsigned integer.)
+
+When you use the `typeof` operator, e.g. `sizeof(double)`, the return type would be `size_t`. Its format specifier is `%zu`.
+
+```cpp
+size_t size_double = sizeof(double);
+printf("%zu\n", size_double);
+//=> 8 (because double type requires 8 bytes)
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '2. Types',
+    },
+    {
+      text: 'Why are C++ int and long types both 4 bytes?',
+      link:
+        'https://stackoverflow.com/questions/13398630/why-are-c-int-and-long-types-both-4-bytes',
+    },
+    {
+      text: 'C and C++ Integer Limits',
+      link: 'https://docs.microsoft.com/en-us/cpp/c-language/cpp-integer-limits?view=msvc-170',
+    },
+    {
+      text: 'Type float',
+      link: 'https://docs.microsoft.com/en-us/cpp/c-language/type-float?view=msvc-170',
+    },
+    {
+      text: 'printf',
+      link: 'https://www.cplusplus.com/reference/cstdio/printf/',
+    },
+    {
+      text: 'char16_t',
+      link: 'https://en.cppreference.com/w/c/string/multibyte/char16_t',
+    },
+    {
+      text: 'char32_t',
+      link: 'https://en.cppreference.com/w/c/string/multibyte/char32_t',
+    },
+  ]}
+></References>

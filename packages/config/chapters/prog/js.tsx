@@ -23,23 +23,23 @@ const chapters: TopicChapters = [
     children: [
       {
         title: 'Lexical Structure',
-        path: '/prog/js/basics/lexical-structure'
+        path: '/prog/js/basics/lexical-structure',
       },
       {
         title: 'Variables',
-        path: '/prog/js/basics/variables'
+        path: '/prog/js/basics/variables',
       },
       {
         title: 'Types and Values',
-        path: '/prog/js/basics/types-values'
+        path: '/prog/js/basics/types-values',
       },
       {
         title: 'Expressions',
-        path: '/prog/js/basics/expressions'
+        path: '/prog/js/basics/expressions',
       },
       {
         title: 'Statements',
-        path: '/prog/js/basics/statements'
+        path: '/prog/js/basics/statements',
       },
     ],
   },
@@ -111,10 +111,10 @@ const chapters: TopicChapters = [
       {
         title: 'Strict Mode',
         path: '/prog/js/others/strict-mode',
-        badge: 'TODO'
+        badge: 'TODO',
       },
-    ]
+    ],
   },
-]
+];
 
 export default chapters;

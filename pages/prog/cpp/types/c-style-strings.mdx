@@ -1,0 +1,101 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# C-Style Strings
+
+Strings are collections of characters, e.g. `"Hello, world!"`, traditionally represented by an array of `char`.
+
+_C-style strings_ (aka. _null-terminated strings_) are arrays of `char` terminated by the null character (i.e. `\0` or ASCII code 0) at the end of the string.
+
+For example, the way C-style string stores the string `"Hello"` is as follows. (Also note that because of the `\0`, the size of the `str[]` array would be 6 instead of 5.)
+
+```cpp
+char str[] = { 'H', 'e', 'l', 'l', 'o', '\0' };
+```
+
+## String literals
+
+Quote them using double quotes (`"`), e.g. `"Hello"`.
+
+If the type is not array of `char`, don't forget to append them with the correct prefix:
+
+- **`u`** &mdash; to make it an array of `char16_t`, e.g. `u"Hello"`
+- **`U`** &mdash; to make it an array of `char32_t`, e.g. `U"Hello"`
+- **`L`** &mdash; to make it an array of `wchar_t`, e.g. `L"Hello"`
+
+For example, the following demonstrates how you would store a string.
+
+```cpp
+// Stores "A book holds a house of gold."
+char str_en[] = "A book holds a house of gold.";
+
+// Stores "书中自有黄金屋"
+char16_t str_zh[] = u"\u4e66\u4e2d\u81ea\u6709\u9ec4\u91d1\u5c4b";
+```
+
+## Concatenating string literals
+
+You can concatenate a string literal directly after a string literal. (Whitespaces between string literals are ignored.)
+
+```cpp
+#include <cstdio>
+
+char str[] =
+  "Hello, "
+  "You seem tired.";
+
+int main() {
+  printf("%s\n", str);
+  //=> Hello, You seem tired.
+}
+```
+
+## Formatting strings
+
+### Narrow strings
+
+The format specifier for arrays of `char` ("narrow strings") is `%s`.
+
+```cpp
+char name[] = "Ferdinand";
+printf("Hello, %s!\n", name);
+```
+
+### Wide strings
+
+> "Printing Unicode to the console is surprisingly complicated."
+> &mdash; Lospinoso
+
+When dealing with Unicode characters (arrays of `char16_t`, `char32_t`, or `wchar_t`), you will have to ensure that the console supports it, and you have to set the correct [code page](https://en.wikipedia.org/wiki/Code_page).
+
+I tried making the snippet code (using wide strings), and sadly it didn't work.
+
+## Read more
+
+<References
+  references={[
+    {
+      text: 'Unicode Output to the Windows Console',
+      link: 'https://www.codeproject.com/Articles/34068/Unicode-Output-to-the-Windows-Console',
+    },
+  ]}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '2. Types',
+    },
+    {
+      text: '10.6 — C-style strings',
+      link: 'https://www.learncpp.com/cpp-tutorial/c-style-strings/',
+    },
+    {
+      text: 'How to print Unicode character in C++?',
+      link: 'https://stackoverflow.com/questions/12015571/how-to-print-unicode-character-in-c',
+    },
+  ]}
+/>
