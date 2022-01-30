@@ -1,5 +1,8 @@
 .DS_Store
 
+# Testing
+.test
+
 # Build folder
 node_modules
 .next

@@ -64,6 +64,10 @@ const chapters: TopicChapters = [
         path: '/prog/cpp/types/arrays',
       },
       {
+        title: 'C-Style Strings',
+        path: '/prog/cpp/types/c-style-strings',
+      },
+      {
         title: 'User-Defined Types',
         path: '/prog/cpp/types/user-defined',
         badge: 'TODO'
