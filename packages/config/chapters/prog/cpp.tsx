@@ -22,8 +22,33 @@ const chapters: TopicChapters = [
     chapter: 'Getting Started',
     children: [
       {
-        title: 'The Basics',
-        path: '/prog/cpp/getting-started/basics',
+        title: 'Code Structure',
+        path: '/prog/cpp/getting-started/code-structure',
+        badge: 'TODO'
+      },
+      {
+        title: 'Comments',
+        path: '/prog/cpp/getting-started/comments',
+      },
+      {
+        title: 'Variables and Constants',
+        path: '/prog/cpp/getting-started/variables-constant',
+        badge: 'TODO'
+      },
+      {
+        title: 'Expressions',
+        path: '/prog/cpp/core/expressions',
+        badge: 'TODO'
+      },
+      {
+        title: 'Statements',
+        path: '/prog/cpp/core/statements',
+        badge: 'TODO'
+      },
+      {
+        title: 'Functions',
+        path: '/prog/cpp/core/statements',
+        badge: 'TODO'
       },
     ],
   },
@@ -67,21 +92,6 @@ const chapters: TopicChapters = [
       {
         title: 'Compile-Time Polymorphism',
         path: '/prog/cpp/core/polymorphism-compile-time',
-        badge: 'TODO'
-      },
-      {
-        title: 'Expressions',
-        path: '/prog/cpp/core/expressions',
-        badge: 'TODO'
-      },
-      {
-        title: 'Statements',
-        path: '/prog/cpp/core/statements',
-        badge: 'TODO'
-      },
-      {
-        title: 'Functions',
-        path: '/prog/cpp/core/statements',
         badge: 'TODO'
       },
     ],
