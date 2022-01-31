@@ -70,7 +70,6 @@ const chapters: TopicChapters = [
       {
         title: 'User-Defined Types',
         path: '/prog/cpp/types/user-defined',
-        badge: 'TODO'
       },
       {
         title: 'Reference Types',
