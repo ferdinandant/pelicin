@@ -1,0 +1,102 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Classes and Structs
+
+Classes are user-defined types that aggregate data and functions. When we _instantiate_ a class, we are creating a _member_ of that class.
+
+- Example of a class: `Date`
+- Example of a class member: `today`, `bookingDate`
+
+The "data" of a class are called _data members_ or _instance variables_. These usually represent the "properties" of the class. For example, a `Book` probably has a `title`, an `author`, etc. Each class members have their own data member values.
+
+The "functions" of a class are called _member functions_ or _methods_. These are usually functions to obtain or manipulate the "data" of the class.
+
+## Defining classes
+
+### Use `struct` for plain-old data (POD) classes
+
+Plain-old-data (POD) classes are classes that only contains "data" (no "functions").
+
+POD classes are usually defined using `struct`. (You can also define functions inside `struct`, but you kind of break the convention.)
+
+```cpp
+struct Date {
+  int day;
+  int month;
+  int year;
+};
+
+int main() {
+  // Instantiate date
+  Date today;
+  // Set date data
+  today.date = 1;
+  today.month = 1;
+  today.year = 2020;
+}
+```
+
+### Use `class` for fully featured classes
+
+When you need a class that has "data" and "functions," you can use `class`:
+
+```cpp
+class Counter {
+  int count;
+  int getCount() {
+    return count;
+  }
+  void setCount(int newCount) {
+    count = newCount;
+  }
+  void increment() {
+    count++;
+  }
+};
+
+int main() {
+  // Instantiate counter
+  Counter counter;
+  // Modify counter data
+  counter.setCount(0);
+  counter.increment();
+  counter.increment();
+  printf("%d\n", counter.getCount()); //=> 2
+}
+```
+
+## Access specifiers
+
+Access specifiers specify who can access a class' data or functions. (This prevents external code from directly modifying internal data of a class.)
+
+### Kinds of access specifier
+
+- **`public`** &mdash; the class' data or functions can be accessed everywhere
+- **`private`** &mdash; the class' data or functions can only be accessed (1) inside the class or (2) inside its friend classes
+- **`protected`** &mdash; the class' data or functions can only be accessed (1) inside the class, (2) inside its friend classes, (3) inside its subclasses, or (4) inside its friend classes' subclasses
+
+(We will defer the discussion about friend classes and subclasses further down below.)
+
+### Default access specifier
+
+- In a `class`, the
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '2. Types',
+    },
+    {
+      text: 'When should you use a class vs a struct in C++?',
+      description: 'https://stackoverflow.com/a/1191880/5181368',
+    },
+    {
+      text: 'Access specifiers',
+      description: 'https://en.cppreference.com/w/cpp/language/access',
+    },
+  ]}
+></References>

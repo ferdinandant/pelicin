@@ -47,7 +47,7 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Functions',
-        path: '/prog/cpp/core/statements',
+        path: '/prog/cpp/core/functions',
         badge: 'TODO'
       },
     ],
@@ -68,8 +68,16 @@ const chapters: TopicChapters = [
         path: '/prog/cpp/types/c-style-strings',
       },
       {
-        title: 'User-Defined Types',
-        path: '/prog/cpp/types/user-defined',
+        title: 'Enumerations',
+        path: '/prog/cpp/types/enumerations',
+      },
+      {
+        title: 'Unions',
+        path: '/prog/cpp/types/unions',
+      },
+      {
+        title: 'Classes and Structs',
+        path: '/prog/cpp/types/classes-structs',
       },
       {
         title: 'Reference Types',
