@@ -1,12 +1,12 @@
-import { References } from '@pelicin/components';
+import { References, NoteBox, Code } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Classes and Structs
 
-Classes are user-defined types that aggregate data and functions. When we _instantiate_ a class, we are creating a _member_ of that class.
+Classes are user-defined types that aggregate data and functions. When we _instantiate_ a class, we are creating an instance (or _member_) of that class.
 
 - Example of a class: `Date`
-- Example of a class member: `today`, `bookingDate`
+- Example of a class instance: `today`, `bookingDate`
 
 The "data" of a class are called _data members_ or _instance variables_. These usually represent the "properties" of the class. For example, a `Book` probably has a `title`, an `author`, etc. Each class members have their own data member values.
 
@@ -43,7 +43,9 @@ When you need a class that has "data" and "functions," you can use `class`:
 
 ```cpp
 class Counter {
+ private:
   int count;
+ public:
   int getCount() {
     return count;
   }
@@ -78,9 +80,170 @@ Access specifiers specify who can access a class' data or functions. (This preve
 
 (We will defer the discussion about friend classes and subclasses further down below.)
 
+### Access specifier example
+
+In the `Counter` class below,
+
+- `count` is private
+- `getCount()`, `setCount()`, and `increment()` are public
+
+```cpp
+class Counter {
+ private:
+  int count;
+ public:
+  int getCount() {
+    return count;
+  }
+  void setCount(int newCount) {
+    count = newCount;
+  }
+  void increment() {
+    count++;
+  }
+};
+```
+
+Trying to do the following will cause compilation error:
+
+```cpp
+Counter counter;
+// ERROR: 'count' is a private member of 'Counter'
+counter.count = 0;
+```
+
 ### Default access specifier
 
-- In a `class`, the
+<NoteBox>
+  Beside this, there is no difference between <Code str="struct" /> and <Code str="class" />.
+</NoteBox>
+
+- In a `struct`, the default access specifier is `private`
+- In a `class`, the default access specifier is `public`
+
+## Constructors
+
+Constructors are functions that are called whenever an object is created (instantiated). You can use constructors to initialize data members of a class.
+
+- You define a constructor using the name of the class, e.g. `MyClass()`.
+
+- Constructors can take any number of arguments.
+
+- You can have multiple constructors as long as their argument count and/or type differ.
+
+- If you do not define any constructor, the compiler will implicitly define a public _default constructor_ for you (that does nothing)
+
+```cpp
+class Counter {
+ private:
+  int count;
+ public:
+  // Constructor 1
+  Counter() {
+    count = 0;
+  }
+  // Constructor 2
+  Counter(int initCount) {
+    count = initCount;
+  }
+  int getCount() {
+    return count;
+  }
+  void increment() {
+    count++;
+  }
+};
+
+// This will call the argument that accepts nothing
+Counter counter_a = {};
+printf("%d\n", counter_a.getCount()); //=> 0
+
+// This will call the argument that accepts one int
+Counter counter_b = {5};
+printf("%d\n", counter_b.getCount()); //=> 5
+```
+
+## Destructors
+
+Destructors are functions that are called whenever an object is about to be destroyed. You can use destructors to do some cleanup logic.
+
+You never manually call a destructor; they are called implicitly by the compiler (for example when you exit a function, and a reference to that class' intance is no longer required).
+
+- You define a destructor using `~` plus the name of the class, e.g. `~MyClass()`.
+
+- Destructor take no arguments.
+
+- If you do not define any destructor, the compiler will implicitly define a _default destructor_ for you (that does nothing)
+
+```cpp
+struct MyClass {
+  ~MyClass() {
+    printf("Kaboom\n");
+  }
+}
+```
+
+## Initialization
+
+<NoteBox type="info">
+  Whenever possible, initialize with braces (<Code str="{}" />
+  ).
+</NoteBox>
+
+> "Part of the reason C++ initialization syntax is such a mess is that the language grew out of C, where object life cycles are primitive, into a language with a robust and featureful object life cycle."
+> &mdash; Lospinoso
+
+### If you didn't define a constructor
+
+These call the default constructor (the constructor that does nothing):
+
+```cpp
+// These lines below mean the same
+MyClass my_class;
+MyClass my_class = {};
+MyClass my_class {};
+```
+
+If all of the data members in your class is public (excluding member functions), these initialize them in order from top to bottom:
+
+```cpp
+struct MyClass {
+ public:
+  int a;
+  bool b;
+ private:
+  void hello() {}
+};
+
+// These lines below mean the same
+MyClass my_class = { 1, true };
+MyClass my_class { 1, true };
+```
+
+### If you defined a constructor
+
+These call the constructor that accepts no arguments:
+
+```cpp
+// These lines below mean the same
+MyClass my_class;
+MyClass my_class = {};
+MyClass my_class {};
+```
+
+These call the corresponding constructor, given the type and order of the arguments:
+
+```cpp
+// These lines below mean the same
+MyClass my_class = { 1, true };
+MyClass my_class { 1, true };
+```
+
+Only if you pass more than one argument, you can also use parentheses (although it is not recommended). (If you pass no arguments, `MyClass()` is considered a function call to a yet-to-be-defined function, so it produces nothing.)
+
+```cpp
+MyClass my_class(1, true);
+```
 
 ## References
 
@@ -92,11 +255,11 @@ Access specifiers specify who can access a class' data or functions. (This preve
     },
     {
       text: 'When should you use a class vs a struct in C++?',
-      description: 'https://stackoverflow.com/a/1191880/5181368',
+      link: 'https://stackoverflow.com/a/1191880/5181368',
     },
     {
       text: 'Access specifiers',
-      description: 'https://en.cppreference.com/w/cpp/language/access',
+      link: 'https://en.cppreference.com/w/cpp/language/access',
     },
   ]}
 ></References>
