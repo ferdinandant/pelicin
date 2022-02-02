@@ -15,13 +15,13 @@ char str[] = { 'H', 'e', 'l', 'l', 'o', '\0' };
 
 ## String literals
 
-Quote them using double quotes (`"`), e.g. `"Hello"`.
+Quote them using double quotes (`"`), e.g. `"Hello"`. Note that you don't have to manually add the `\0` character (it's added automatically at the end.)
 
 If the type is not array of `char`, don't forget to append them with the correct prefix:
 
-- **`u`** &mdash; to make it an array of `char16_t`, e.g. `u"Hello"`
-- **`U`** &mdash; to make it an array of `char32_t`, e.g. `U"Hello"`
-- **`L`** &mdash; to make it an array of `wchar_t`, e.g. `L"Hello"`
+- **`u`** &mdash; to make it an array of `char16_t` (UTF-16), e.g. `u"Hello"`
+- **`U`** &mdash; to make it an array of `char32_t` (UTF-32), e.g. `U"Hello"`
+- **`L`** &mdash; to make it an array of `wchar_t` (Unicode), e.g. `L"Hello"`
 
 For example, the following demonstrates how you would store a string.
 

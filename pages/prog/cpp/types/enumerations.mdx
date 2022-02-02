@@ -1,0 +1,65 @@
+import { References, NoteBox } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Enumerations
+
+Enumerations are types that only permit certain values. Under the hood, these "values" are just integers.
+
+## Unscoped enumeration
+
+To define an unscoped enumeration, use the `enum` keyword:
+
+```cpp
+enum Element {
+  Fire,
+  Water,
+  Nature,
+  Dark,
+  Light,
+};
+
+Element monsterElement = Dark;
+Element playerElement = Light;
+```
+
+<NoteBox type="warning">
+  <p>
+    Unscoped enumeration are "less safe" to use than scoped enumeration. They are supported in C++
+    for historical reasons and interoperability with C.
+  </p>
+  <p>
+    <strong>Use scoped enumeration whenever possible.</strong>
+  </p>
+</NoteBox>
+
+## Scoped enumeration
+
+Scoped enumeration works like unscoped enumerations, except:
+
+- you use `enum class` to define them, and
+- you have to "scope" the values when you mention them
+
+```cpp
+enum class Element {
+  Fire,
+  Water,
+  Nature,
+  Dark,
+  Light,
+};
+
+// You scope them using "Element::"
+Element monsterElement = Element::Dark;
+Element playerElement = Element::Light;
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '2. Types',
+    },
+  ]}
+></References>
