@@ -3,7 +3,7 @@ import { smartTrim } from '@pelicin/utils';
 
 # References
 
-References are "safer, more convenient" versions of pointers (Lospinoso).
+References are "safer, more convenient" versions of pointers (Lospinoso). A reference is an alias for an existing object (learncpp.com).
 
 You cannot reassign a reference. (Trying to assign to a reference will change the referenced object's value instead.)
 
@@ -18,7 +18,11 @@ int& my_ref = my_number;
 
 ## Dealing with references
 
-When dealing with references, assign to or use them **as if you are dealing with the referenced object's value** (instead of using member-of-pointer and dereference operators).
+### As lvalue
+
+When they appear on the left side of an assignment expression (except during initialization), you are changing the referenced object's value.
+
+Syntactically, assign to the them the referenced object's value.
 
 ```cpp
 int my_number = 123;
@@ -49,6 +53,23 @@ int& my_ref = *my_ptr;
 // - int& my_ref = &my_ptr; (trying to assign int** to an int reference)
 ```
 
+### As rvalue
+
+When they appear on the right side of an assignment expression (except during initialization), you are copying the referenced object's value (NOT the address).
+
+```cpp
+int a = 123;
+int& a_ref = a;
+
+// `b` is assigned with the referenced VALUE of `a_ref`
+// (changing `b` will not change `a`)
+int b = a_ref;
+b = 456;
+
+printf("%d\n", a); //=> 123
+printf("%d\n", b); //=> 456
+```
+
 ## References
 
 <References
@@ -56,6 +77,10 @@ int& my_ref = *my_ptr;
     {
       text: 'C++ Crash Course (Josh Lospinoso)',
       description: '2. Types',
+    },
+    {
+      text: 'Lvalue references',
+      link: 'https://www.learncpp.com/cpp-tutorial/lvalue-references/',
     },
   ]}
 ></References>
