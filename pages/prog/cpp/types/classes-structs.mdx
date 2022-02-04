@@ -177,6 +177,39 @@ struct MyClass {
 }
 ```
 
+## Constant members
+
+Use the `const` keyword to prevent unintentional changes to your class' "data".
+
+### Const data member
+
+Marking a class "data" `const` means it cannot be changed past initialization.
+
+```cpp
+struct Scoring {
+  const int passing_grade = 85;
+};
+```
+
+### Const member function
+
+Marking a class "function" `const` means it cannot modify the class' "data".
+
+```cpp
+class Counter {
+  int count = 0;
+ public:
+  int getCount() const {
+    // If you try to assign to `count` here,
+    // you will get a compile error.
+    return count;
+  }
+  void increment() {
+    count++;
+  }
+};
+```
+
 ## Initialization
 
 <NoteBox type="info">
@@ -239,6 +272,42 @@ Only if you pass more than one argument, you can also use parentheses (although 
 MyClass my_class(1, true);
 ```
 
+### With const data members
+
+**If you specify no constructor:** use braced initialization, assuming and all data members in your class are public.
+
+```cpp
+struct ScoringScheme {
+  const int passing_grade = 85;
+};
+
+ScoringScheme scheme_a = { 90 };
+printf("%d\n", scheme_a.passing_grade);
+//=> 90
+```
+
+**If you specify a constructor:** use _member initializer lists_ on the constructor.
+
+```cpp
+class Pair {
+  const int a;
+  const int b;
+ public:
+  // You can also use parenthesis, e.g.:
+  // Pair(int init_a, int init_b) : a(init_a), b(init_b)
+  Pair(int init_a, int init_b) : a{init_a}, b{init_b} {
+    return;
+  }
+  void printValues() const {
+    printf("(%d, %d)\n");
+  }
+};
+
+Pair pair = { 1, 2 };
+pair.printValues();
+//=> (1, 2)
+```
+
 ## References
 
 <References
@@ -246,6 +315,10 @@ MyClass my_class(1, true);
     {
       text: 'C++ Crash Course (Josh Lospinoso)',
       description: '2. Types',
+    },
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '3. Reference Types',
     },
     {
       text: 'When should you use a class vs a struct in C++?',
