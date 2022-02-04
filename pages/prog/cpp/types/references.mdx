@@ -1,0 +1,61 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# References
+
+References are "safer, more convenient" versions of pointers (Lospinoso).
+
+You cannot reassign a reference. (Trying to assign to a reference will change the referenced object's value instead.)
+
+## Defining a reference
+
+Append `&` after the type, e.g. `int&`. You always have to initialize a reference.
+
+```cpp
+int my_number = 123;
+int& my_ref = my_number;
+```
+
+## Dealing with references
+
+When dealing with references, assign to or use them **as if you are dealing with the referenced object's value** (instead of using member-of-pointer and dereference operators).
+
+```cpp
+int my_number = 123;
+int& my_ref = my_number;
+
+printf("%d\n", my_number); //=> 123
+printf("%d\n", my_ref); //=> 123
+
+// Assigning to a reference means
+// assigning the referenced object's value
+my_ref = 456;
+printf("%d\n", my_number); //=> 456
+printf("%d\n", my_ref); //=> 456
+```
+
+Again, assign to them the referenced object's value.
+
+```cpp
+int my_number = 123;
+int* my_ptr = &my_number;
+
+// Syntactically, assign to `my_ref` a "value"
+// (they still store the address of `my_number`, though)
+int& my_ref = *my_ptr;
+
+// Trying to do any of these yield a compile error:
+// - int& my_ref = &my_number; (trying to assign int* to an int reference)
+// - int& my_ref = &my_ptr; (trying to assign int** to an int reference)
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Title',
+      link: `https`,
+    },
+  ]}
+></References>
