@@ -1,0 +1,86 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# References
+
+References are "safer, more convenient" versions of pointers (Lospinoso). A reference is an alias for an existing object (learncpp.com).
+
+You cannot reassign a reference. (Trying to assign to a reference will change the referenced object's value instead.)
+
+## Defining a reference
+
+Append `&` after the type, e.g. `int&`. You always have to initialize a reference.
+
+```cpp
+int my_number = 123;
+int& my_ref = my_number;
+```
+
+## Dealing with references
+
+### As lvalue
+
+When they appear on the left side of an assignment expression (except during initialization), you are changing the referenced object's value.
+
+Syntactically, assign to the them the referenced object's value.
+
+```cpp
+int my_number = 123;
+int& my_ref = my_number;
+
+printf("%d\n", my_number); //=> 123
+printf("%d\n", my_ref); //=> 123
+
+// Assigning to a reference means
+// assigning the referenced object's value
+my_ref = 456;
+printf("%d\n", my_number); //=> 456
+printf("%d\n", my_ref); //=> 456
+```
+
+Again, assign to them the referenced object's value.
+
+```cpp
+int my_number = 123;
+int* my_ptr = &my_number;
+
+// Syntactically, assign to `my_ref` a "value"
+// (they still store the address of `my_num«ber`, though)
+int& my_ref = *my_ptr;
+
+// Trying to do any of these yield a compile error:
+// - int& my_ref = &my_number; (trying to assign int* to an int reference)
+// - int& my_ref = &my_ptr; (trying to assign int** to an int reference)
+```
+
+### As rvalue
+
+When they appear on the right side of an assignment expression (except during initialization), you are copying the referenced object's value (NOT the address).
+
+```cpp
+int a = 123;
+int& a_ref = a;
+
+// `b` is assigned with the referenced VALUE of `a_ref`
+// (changing `b` will not change `a`)
+int b = a_ref;
+b = 456;
+
+printf("%d\n", a); //=> 123
+printf("%d\n", b); //=> 456
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '2. Types',
+    },
+    {
+      text: 'Lvalue references',
+      link: 'https://www.learncpp.com/cpp-tutorial/lvalue-references/',
+    },
+  ]}
+></References>

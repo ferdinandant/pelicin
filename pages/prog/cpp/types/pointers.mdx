@@ -144,7 +144,7 @@ printf("%d %d\n", numbers_ptr[2], *(numbers_ptr + 2));
 
 ### Circumventing pointer decay
 
-The common trick is to pass the length of the array as the second argument
+The common trick is to pass the length of the array as another argument.
 
 ```cpp
 void print_names(User* users, size_t n_users) {
@@ -204,14 +204,35 @@ Implicitly, `nullptr` is equivalent to `false`; any value other than `nullptr` i
 
 The common use case is to return `nullptr` (e.g. in a function that allocates memory) to indicate failure.
 
-## `void*` and `std::byte*` pointers
+## `this`
+
+In class method definitions, you implicitly have a `this` pointer that references the current class.
+
+```cpp
+struct Counter {
+  int count = 0;
+  void setCount(int count) {
+    this->count = count;
+  }
+  void increment() {
+    // or simply: `count++`
+    this->count++;
+  }
+};
+```
+
+## Special pointer types
+
+### `void*`
 
 You can use `void*` pointers if you don't care with the referenced type. However,
 
 - You cannot use dereferencing operator (\*) with `void*` pointers
 - You cannot use pointer arithmetic with `void*` pointers
 
-Similarly, you can use `std::byte*` pointers to handle raw bytes. (E.g. for copying raw data, enryption, compression.)
+### `std::byte*`
+
+You can use `std::byte*` pointers to handle raw bytes. (E.g. for copying raw data, enryption, compression.)
 
 ## References
 

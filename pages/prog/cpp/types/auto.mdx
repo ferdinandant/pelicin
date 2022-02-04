@@ -1,0 +1,60 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# The `auto` Type
+
+You can use the `auto` type to let the compiler infer a variable's type based on its initializer.
+
+## Basic example
+
+You have to initialize variables with type `auto`.
+
+```cpp
+// `5.0` is a double literal,
+// so `my_double` will be type double
+auto my_double = 5.0;
+
+// `1 + 2` evaluates to an int,
+// so `my_int` will be type int
+auto my_int = 1 + 2;
+
+// `my_int` is an int,
+// so `my_number` will be type int too
+auto my_number = my_int;
+```
+
+## Example with pointers and references
+
+You can use `auto` with pointers and references too.
+
+```cpp
+// auto = int
+auto year = 2009;
+
+// auto* = int*
+auto* year_ptr = &year;
+
+// auto& = int&
+auto& year_ref = year;
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '2. Types',
+    },
+    {
+      text: '8.7 — Type deduction for objects using the auto keyword',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/type-deduction-for-objects-using-the-auto-keyword/',
+    },
+    {
+      text: '9.12 — Type deduction with pointers, references, and const',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/type-deduction-with-pointers-references-and-const/',
+    },
+  ]}
+></References>

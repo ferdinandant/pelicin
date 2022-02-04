@@ -39,16 +39,14 @@ int main() {
 
 ### Use `class` for fully featured classes
 
-When you need a class that has "data" and "functions," you can use `class`:
+When you need a class that has "data" and "functions," you can use `class`.
 
 ```cpp
 class Counter {
  private:
-  int count;
+  // You can initialize directly
+  int count = 0;
  public:
-  int getCount() {
-    return count;
-  }
   void setCount(int newCount) {
     count = newCount;
   }
@@ -61,7 +59,6 @@ int main() {
   // Instantiate counter
   Counter counter;
   // Modify counter data
-  counter.setCount(0);
   counter.increment();
   counter.increment();
   printf("%d\n", counter.getCount()); //=> 2
@@ -90,13 +87,10 @@ In the `Counter` class below,
 ```cpp
 class Counter {
  private:
-  int count;
+  int count = 0;
  public:
   int getCount() {
     return count;
-  }
-  void setCount(int newCount) {
-    count = newCount;
   }
   void increment() {
     count++;

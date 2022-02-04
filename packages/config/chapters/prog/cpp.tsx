@@ -86,7 +86,10 @@ const chapters: TopicChapters = [
       {
         title: 'References',
         path: '/prog/cpp/types/references',
-        badge: 'TODO'
+      },
+      {
+        title: 'The Auto Type',
+        path: '/prog/cpp/types/auto',
       },
     ],
   },
