@@ -80,8 +80,12 @@ const chapters: TopicChapters = [
         path: '/prog/cpp/types/classes-structs',
       },
       {
-        title: 'Reference Types',
-        path: '/prog/cpp/types/reference',
+        title: 'Pointers',
+        path: '/prog/cpp/types/pointers',
+      },
+      {
+        title: 'References',
+        path: '/prog/cpp/types/references',
         badge: 'TODO'
       },
     ],

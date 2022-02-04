@@ -1,0 +1,225 @@
+import { References, NoteBox } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Pointers
+
+Pointers store the address of another object.
+
+## Declaring a pointer
+
+Append `*` after the type, e.g. `int*`:
+
+```cpp
+// my_ptr can store the address of an "int"
+int* my_ptr;
+```
+
+## Formatting pointers
+
+The format specifier for a pointer is `%p`.
+
+```cpp
+int* my_ptr;
+printf("%p\n", my_ptr);
+//=> 0x100015025 (could differ)
+```
+
+<NoteBox title="Address Space Layout Randomization (ASLR)">
+  <p>
+    To prevent hackers from targetting or implying certain address locations, addresses of
+    executable codes and your variables are randomized.
+  </p>
+  <p>
+    When something is accessed illegally (e.g. trying to execute data as executable codes), the
+    program will crash, thus stopping the attack.
+  </p>
+</NoteBox>
+
+## Pointer operators
+
+### The address-of operator (&)
+
+Prepend `&` before the variable's name to get its address.
+
+```cpp
+int* my_ptr;
+int my_number = 5;
+
+// Assign to my_ptr the address of my_number
+my_ptr = &my_number;
+```
+
+### The dereference operator (\*)
+
+Prepend `*` in front of the pointer's name to get the referenced object's value:
+
+```cpp
+int my_number = 5;
+int* my_ptr = &my_number;
+
+// Use *my_ptr to get the pointer's referenced value
+printf("%p\n", my_ptr); //=> 0x7ffeefbff45c
+printf("%d %d\n", my_number, *my_ptr); //=> 5 5
+
+// You can also assign a new value directly
+*my_ptr = 6;
+printf("%p\n", my_ptr); //=> 0x7ffeefbff45c
+printf("%d %d\n", my_number, *my_ptr); //=> 6 6
+```
+
+### The member-of operator (->)
+
+Given a pointer, use the `->` operator to refer to the referenced object's member (a class' data or function):
+
+```cpp
+Date date;
+Date* date_ptr = &date;
+
+// This is the same as:
+// (*date_ptr).print_date();
+date_ptr->print_date();
+```
+
+## Pointers and arrays
+
+### Pointer decay
+
+When you try to assign an array into something else (including passing them as an argument to a function), the array will "decay" into a pointer.
+
+What this means is that you **will only get the base address of the array** (which points to the first element of the array). You lose the information about the size of the array.
+
+```cpp
+struct User {
+  char name[256];
+};
+
+void print_name(User* user_ptr) {
+  // Note that pointer decay happens here, too.
+  // You are passing `user_ptr->name` (which is a `char[]`)
+  // into `printf`, so it decays into `char*`.
+  printf("Hello, %s.\n", user_ptr->name);
+}
+
+int main() {
+  User users[] = { "Alice", "Bob", "Eve" };
+  print_name(users);
+  //=> Hello, Alice.
+}
+```
+
+### Using address-of operator (&) with arrays
+
+Use `&array_name[i]` to get the address of the _i_-th element in `array_name`.
+
+(Notice that it's the same as `&(array_name[i])`.)
+
+```cpp
+int arr[] = { 111, 222, 333 };
+
+// This will yield the same result for first_element:
+// int* first_element = arr (pointing to the base address)
+int* first_element = &arr[0];
+int* second_element = &arr[1];
+printf("%d\n", *first_element); //=> 111
+printf("%d\n", *second_element); //=> 222
+```
+
+### Using bracket operator ([]) with pointers to array
+
+Use `array_ptr[i]` to get the _value_ of the _i_-th element in the referenced array.
+
+```cpp
+int numbers[] = { 444, 555, 666 };
+int* numbers_ptr = numbers;
+
+// The code below introduces the notion of pointer arithmetic,
+// e.g. `*(numbers_ptr + 1)`. We will discuss them below.
+printf("%d %d\n", numbers_ptr[0], *(numbers_ptr));
+//=> 444 444
+printf("%d %d\n", numbers_ptr[1], *(numbers_ptr + 1));
+//=> 555 555
+printf("%d %d\n", numbers_ptr[2], *(numbers_ptr + 2));
+//=> 666 666
+```
+
+### Circumventing pointer decay
+
+The common trick is to pass the length of the array as the second argument
+
+```cpp
+void print_names(User* users, size_t n_users) {
+  for (size_t i = 0; i < n_users; i++) {
+    printf("Hello, %s.\n", users[i].name);
+  }
+}
+
+int main() {
+  User users[] = { "Alice", "Bob", "Eve" };
+  size_t n_users = sizeof(users) / sizeof(User);
+  print_names(users, n_users);
+  //=> Hello, Alice.
+  //=> Hello, Bob.
+  //=> Hello, Eve.
+}
+```
+
+## Pointer arithmetic
+
+You can use `+` or `-` operators on a pointer to access the next/previous element's address.
+
+Under the hood, the compiler will figure out the correct byte offset depending on the pointer's referenced type. (For example, with `int* my_ptr`, doing `my_ptr + 1` will give you the address of `my_ptr` plus 4, because the size of `int` is 4 bytes.)
+
+```cpp
+int numbers[] = { 444, 555, 666 };
+
+// Remember "pointer decay"
+// (`numbers` will give you the base address of `numbers[]`)
+int* numbers_ptr = numbers;
+
+// `numbers_ptr` is the same as &(numbers_ptr[0])
+int* first_number_ptr = numbers_ptr;
+// `numbers_ptr + 1` is the same as &(numbers_ptr[1])
+int* second_number_ptr = numbers_ptr + 1;
+// `numbers_ptr + 2` is the same as &(numbers_ptr[2])
+int* third_number_ptr = numbers_ptr + 2;
+
+printf("%d %p\n", *first_number_ptr, first_number_ptr);
+//=> 444 0x7ffeefbff44c
+printf("%d %p\n", *second_number_ptr, second_number_ptr);
+//=> 555 0x7ffeefbff450
+printf("%d %p\n", *third_number_ptr, third_number_ptr);
+//=> 666 0x7ffeefbff454
+```
+
+## `nullptr`
+
+`nullptr` is a special literal value that means the pointer is not pointing to anything.
+
+```cpp
+int* my_ptr = nullptr;
+printf("%p\n", numbers_ptr); //=> 0x0
+```
+
+Implicitly, `nullptr` is equivalent to `false`; any value other than `nullptr` is equivalent to `true`.
+
+The common use case is to return `nullptr` (e.g. in a function that allocates memory) to indicate failure.
+
+## `void*` and `std::byte*` pointers
+
+You can use `void*` pointers if you don't care with the referenced type. However,
+
+- You cannot use dereferencing operator (\*) with `void*` pointers
+- You cannot use pointer arithmetic with `void*` pointers
+
+Similarly, you can use `std::byte*` pointers to handle raw bytes. (E.g. for copying raw data, enryption, compression.)
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '3. Reference Types',
+    },
+  ]}
+></References>
