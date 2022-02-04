@@ -21,8 +21,19 @@ The format specifier for a pointer is `%p`.
 ```cpp
 int* my_ptr;
 printf("%p\n", my_ptr);
-//=> 0x100015025
+//=> 0x100015025 (could differ)
 ```
+
+<NoteBox title="Address Space Layout Randomization (ASLR)">
+  <p>
+    To prevent hackers from targetting or implying certain address locations, addresses of
+    executable codes and your variables are randomized.
+  </p>
+  <p>
+    When something is accessed illegally (e.g. trying to execute data as executable codes), the
+    program will crash, thus stopping the attack.
+  </p>
+</NoteBox>
 
 ## Pointer operators
 
@@ -37,17 +48,6 @@ int my_number = 5;
 // Assign to my_ptr the address of my_number
 my_ptr = &my_number;
 ```
-
-<NoteBox title="Address Space Layout Randomization (ASLR)">
-  <p>
-    To prevent hackers from targetting or implying certain address locations, addresses of
-    executable codes and your variables are randomized.
-  </p>
-  <p>
-    When something is accessed illegally (e.g. trying to execute data as executable codes), the
-    program will crash, thus stopping the attack.
-  </p>
-</NoteBox>
 
 ### The dereference operator (\*)
 
