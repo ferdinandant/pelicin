@@ -32,8 +32,7 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Variables and Constants',
-        path: '/prog/cpp/getting-started/variables-constant',
-        badge: 'TODO'
+        path: '/prog/cpp/getting-started/variables-constants',
       },
       {
         title: 'Expressions',
