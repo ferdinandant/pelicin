@@ -1,0 +1,152 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Variables and Constants
+
+A variable or a constant stores a value. You can refer to them using their names.
+
+- You CAN change the value stored by a variable.
+- You CANNOT change the value stored by a constant.
+
+## Defining a variable
+
+Specify the [data types](/prog/cpp/types/primitive), the name of the variable, and optionally its initial value.
+
+```cpp
+// Defining a variable named `a`
+// that can store integers (int)
+int a = 1234;
+
+// Defining another variable named `b`.
+// You can also not give them an initial value.
+int b;
+```
+
+You can also declare multiple variables in one line:
+
+```cpp
+int a, b, c;
+int d = 10, e = 20;
+```
+
+## Defining a constant
+
+Similar to variable declaration, but add `const` before the type:
+
+```cpp
+// You must always initialize constants
+const int kLucky = 85;
+```
+
+## Initialization syntaxes
+
+There are 4 syntaxes to initialize a variable (or constant) in C++. For consistency, you should only consider using copy initialization and braced initialization.
+
+### Default initialization
+
+This means you do not initialize the variable and they may store an indeterminate value (whatever value that was previously stored in that address).
+
+```cpp
+int my_number;
+```
+
+### Copy initialization
+
+Basically, you are copying the value/object on the right-hand side to the variable on the left-hand side.
+
+- For built-in type (e.g. `int`), this is the same as direct initialization (see next section).
+- For more complicated types, this can be less efficient than direct initialization in certain cases (learncpp.com). E.g., when you do `T t = x` it "constructs an implicit conversion sequence" to convert `x` to type `T` (stackoverflow.com).
+
+```cpp
+int my_number = 2;
+Pair pair = Pair(2, 3);
+```
+
+### Direct initialization
+
+Directly initializes the object. (Under the hood, this calls the corresponding constructor.)
+
+```cpp
+int my_number(2);
+Pair pair(2, 3);
+```
+
+### Braced initialization
+
+The uniform and preferred way to initialize a variable. (Under the hood, this performs direct initialization or copy initialization.)
+
+It also prevents "narrowing" conversions (for example, trying to assign `long long` to `int` or `float` to `int` will cause compile error).
+
+```cpp
+// Initialize to 2
+// (both are equivalent)
+int my_number{2};
+int my_number = {2}
+
+// Initialize to 0
+// (all of them is equivalent)
+int my_number{};
+int my_number{0};
+int my_number = {0}
+```
+
+## Operations with variables and constants
+
+### Using a variable's or constant's value
+
+Just specify their name to get their stored value.
+
+```cpp
+int a = 1;
+int b = 2;
+
+// `c` will be 1 + 2 = 3
+int c = a + b;
+printf("%d\n", c); //=> 3
+```
+
+### Changing a variable's values
+
+Use the assignment operator. (Remember that you cannot re-assign a constant.)
+
+```cpp
+int my_number = 1;
+printf("%d\n", my_number); //=> 1
+
+// Change the value stored by
+// `my_number` into 2
+my_number = 2;
+printf("%d\n", my_number); //=> 2
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '1. Up and Running',
+    },
+    {
+      text: '1.3 — Introduction to objects and variables',
+      link: 'https://www.learncpp.com/cpp-tutorial/introduction-to-objects-and-variables/',
+    },
+    {
+      text: '1.4 — Variable assignment and initialization',
+      link: 'https://www.learncpp.com/cpp-tutorial/variable-assignment-and-initialization/',
+    },
+    {
+      text: '1.6 — Variable assignment and initialization',
+      link: 'https://www.learncpp.com/cpp-tutorial/uninitialized-variables-and-undefined-behavior/',
+    },
+    {
+      text: '13.12 — The copy constructor',
+      link: 'https://www.learncpp.com/cpp-tutorial/the-copy-constructor/',
+    },
+    {
+      text: 'Is there a difference between copy initialization and direct initialization?',
+      link:
+        'https://stackoverflow.com/questions/1051379/is-there-a-difference-between-copy-initialization-and-direct-initialization',
+    },
+  ]}
+></References>
