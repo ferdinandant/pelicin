@@ -1,0 +1,252 @@
+import { References, Asterisk, Code, NoteBox } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Class Inheritance
+
+From any class, you can make _subclasses_ from that class.
+
+- The original class is also known as the _base class_ or the _superclass_
+- The subclass(es) is also known as the _derived class(es)_
+
+Subclasses _inherit_ non-`private` members of their superclasses.<Asterisk str="*"/> This means that the subclasses can access the superclasses' `public` or `protected` "data" or "functions" as if they were their own.
+
+Subclasses can also define new members, and/or _override_ inherited members. (The members defined in the subclass will be chosen over inherited members.)
+
+<Asterisk str="*">
+  And non-
+  <Code str="private" /> members of their superclasses' superclasses, if the inheritance type (public,
+  protected, or private) allows it.
+</Asterisk>
+
+## Defining subclasses
+
+<NoteBox>
+  We use <Code str="struct" /> here to just simplify the code (making the access specifiers{' '}
+  <Code str="public" />
+  by default). You may use <Code str="class" /> in real-world scenario.
+</NoteBox>
+
+### Single inheritance
+
+The most common type of inheritance is single inheritance, where a subclass only inherit from one superclass.
+
+Below, we define `StudentUser` and `TeacherUser` as subclasses of `User`.
+
+```cpp
+struct User {
+  char name[255];
+};
+
+struct StudentUser : User {
+  int score = -1;
+  void printReport() {
+    printf("Student %s's score is %d\n", name, score);
+  }
+};
+
+struct TeacherUser : User {
+  char subject_taught[255];
+  void printReport() {
+    printf("Teacher %s teaches %s\n", name, subject_taught);
+  }
+};
+```
+
+### Multiple inheritance
+
+You can have one subclass inherits from multiple superclasses, however this pattern is not recommended (hard to maintain).
+
+```cpp
+struct USBDevice {
+  int id = 0;
+  int getID() {
+    return id;
+  }
+};
+
+struct NetworkDevice {
+  int id = 0;
+  int getID() {
+    return id;
+  }
+};
+
+// Inheriting from two superclasses
+struct WirelessAdapter : USBDevice, NetworkDevice {
+  WirelessAdapter(int usbDeviceID, int networkDeviceID)
+    : USBDevice{usbDeviceID},
+      NetworkDevice{networkDeviceID}
+  {}
+};
+```
+
+### Specifying public, protected, or private inheritance
+
+You can specify the type of inheritance (`public`, `protected`, or `private`) before the superclass' name. By default, if you do not specify the type of inheritance:
+
+- If the subclass is defined using `struct`, it will use public inheritance
+- If the subclass is defined using `class`, it will use private inheritance
+
+```cpp
+struct StudentUser : public User {};
+
+struct WirelessAdapter : public USBDevice, public NetworkDevice {};
+```
+
+#### Public inheritance
+
+From the subclass' perspective, when you try to access the inherited members through the subclass (recall that `private` members are not inherited):
+
+- The superclass' `public` members stay `public`
+- The superclass' `protected` members stay `protected`
+
+#### Protected inheritance
+
+From the subclass' perspective, when you try to access the inherited members through the subclass (recall that `private` members are not inherited):
+
+- The superclass' `public` members become `protected`
+- The superclass' `protected` members stay `protected`
+
+#### Private inheritance
+
+From the subclass' perspective, when you try to access the inherited members through the subclass (recall that `private` members are not inherited):
+
+- The superclass' `public` members become `private`
+- The superclass' `protected` members become `private`
+
+## Initializing superclass
+
+When you instantiate a subclass, **the superclass' constructor is called first**, then the subclass' constructor ("constructors are called from top to bottom").
+
+You CANNOT initialize inherited members from the subclass' member initializer lists. Instead, you just initialize the supcerclass directly from the subclass' member initializer lists.
+
+```cpp
+struct BaseClass {
+  int base_id_a;
+  int base_id_b;
+  BaseClass(int base_id_a, int base_id_b)
+    : base_id_a{base_id_a},
+      base_id_b{base_id_b}
+  {}
+};
+
+// We choose the following constructor of `BaseClass`
+// BaseClass(int base_id_a, int base_id_b)
+struct DerivedClass : BaseClass {
+  int derived_id;
+  DerivedClass(int derived_id, int base_id_a, int base_id_b)
+    : BaseClass{base_id_a, base_id_b},
+      derived_id{derived_id}
+  {}
+};
+
+DerivedClass dc = { 1, 2, 3 };
+printf("%d %d %d\n", dc.derived_id, dc.base_id_a, dc.base_id_b);
+//=> 1 2 3
+```
+
+## Overriding superclass
+
+On top of defining their own "data" and "function" members, within subclass definitions, you can also do the following.
+
+### Changing inherited member access's specifier
+
+> TODO
+
+### Deleting inherited member in subclass
+
+> TODO
+
+### Overriding inherited functions
+
+> TODO
+
+## Working with subclasses
+
+### Instantiating subclasses
+
+Instantiate them just like any other classes.
+
+```cpp
+// Using the default constructor
+// (initializing all public members of the class)
+StudentUser student = { "Alice", 99 };
+TeacherUser teacher = { "Bob", "math" };
+
+student.printReport();
+//=> Student Alice's score is 99
+teacher.printReport();
+//=> Teacher Bob teaches math
+```
+
+### Using subclass-type as superclass-type
+
+Subclasses are considered members of their superclasses.
+
+A type that expects a superclass-type will accept that superclass' subclasses-type ("a parent type will accept its children type"). The inverse is not true.
+
+```cpp
+struct User {
+  char name[255];
+};
+
+struct StudentUser : User {
+  int score = -1;
+};
+
+void printUserName(User user) {
+  printf("%s\n", user.name);
+}
+
+// This works fine because `StudentUser` is `User`
+User user = { "Eve" };
+StudentUser student = { "Alice", 99 };
+printUserName(user); //=> Eve
+printUserName(student); //=> Alice
+```
+
+### Resolving ambigous member access in multiple inheritance
+
+> "I told you not to use multiple inheritance."
+
+Trying to access an ambiguous member name in multiple inheritance causes compile error, so you will have to scope them (specifying which class member to use):
+
+```cpp
+// Using multiple inheritance example above
+// - USBDevice's `id` = 1
+// - NetworkDevice's `id` = 2
+WirelessAdapter wa = { 1, 2 };
+
+// Without specifying the scope, you will get compile error
+// (Member 'getID' found in multiple base classes of different types):
+// printf("%d\n", wa.getID()) //=> COMPILE ERROR!
+printf("%d\n", wa.NetworkDevice::getID()); //=> 2
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '5. Runtime Polymorphism',
+    },
+    {
+      text: '17.9 — Multiple inheritance',
+      link: 'https://www.learncpp.com/cpp-tutorial/multiple-inheritance/',
+    },
+    {
+      text: '17.5 — Inheritance and access specifiers',
+      link: 'https://www.learncpp.com/cpp-tutorial/inheritance-and-access-specifiers/',
+    },
+    {
+      text: '17.3 — Order of construction of derived classes',
+      link: 'https://www.learncpp.com/cpp-tutorial/order-of-construction-of-derived-classes/',
+    },
+    {
+      text: '17.4 — Constructors and initialization of derived classes',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/constructors-and-initialization-of-derived-classes/',
+    },
+  ]}
+></References>

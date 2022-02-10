@@ -94,21 +94,25 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'Polymorphism',
+    chapter: 'Object-Oriented Programming',
     children: [
       {
-        title: 'Inheritance',
-        path: '/prog/cpp/polymorphism/inheritance',
-        badge: 'TODO'
+        title: 'Subclasses and Inheritance',
+        path: '/prog/cpp/oop/subclasses-inheritance',
       },
       {
         title: 'Virtual Functions',
-        path: '/prog/cpp/polymorphism/virtual-functions',
+        path: '/prog/cpp/oop/virtual-functions',
+        badge: 'TODO'
+      },
+      {
+        title: 'Friend Functions and Classes',
+        path: '/prog/cpp/oop/friend',
         badge: 'TODO'
       },
       {
         title: 'Templates',
-        path: '/prog/cpp/polymorphism/templates',
+        path: '/prog/cpp/oop/templates',
         badge: 'TODO'
       },
     ],
