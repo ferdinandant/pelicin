@@ -106,11 +106,16 @@ const chapters: TopicChapters = [
     children: [
       {
         title: 'Event Loop',
-        path: '/prog/js/async/event-loop',
+        path: '/prog/js/others/event-loop',
       },
       {
         title: 'Strict Mode',
         path: '/prog/js/others/strict-mode',
+        badge: 'TODO',
+      },
+      {
+        title: 'Garbage Collection',
+        path: '/prog/js/others/garbage-collection',
         badge: 'TODO',
       },
     ],
