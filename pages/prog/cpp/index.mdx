@@ -1,4 +1,4 @@
-import { References } from '@pelicin/components';
+import { References, Image } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Introduction
@@ -32,7 +32,21 @@ To convert your source code into an executable program, the C++ _compiler tool c
 
 - **The preprocessor** &mdash; performs basic source code manipulation (e.g. include information about the libraries that you used). For each file processed, it outputs a single _translation unit_.
 - **The compiler** &mdash; reads a _translation unit_ and generates an _object file_ (it contains data and instructions in an intermediate format most people won't understand).
+
+<Image
+  path="/res/prog/cpp/compiler.webp"
+  caption="The compiler's job"
+  sourceString="learncpp.com"
+  sourceLink="https://www.learncpp.com/cpp-tutorial/introduction-to-the-compiler-linker-and-libraries/"
+/>
+
 - **The linker** &mdash; reads _object files_, links them together (along with library codes), and generates a program.
+  <Image
+    path="/res/prog/cpp/linker.webp"
+    caption="The linker's job"
+    sourceString="learncpp.com"
+    sourceLink="https://www.learncpp.com/cpp-tutorial/introduction-to-the-compiler-linker-and-libraries/"
+  />
 
 ## References
 
@@ -57,6 +71,11 @@ To convert your source code into an executable program, the C++ _compiler tool c
     {
       text: '1.5. C++ Compiler Operation',
       link: 'https://icarus.cs.weber.edu/~dab/cs1410/textbook/1.Basics/compiler_op.html',
+    },
+    {
+      text: '0.5 — Introduction to the compiler, linker, and libraries',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/introduction-to-the-compiler-linker-and-libraries/',
     },
   ]}
 ></References>

@@ -18,6 +18,7 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  { '@separator': 'The Core Language' },
   {
     chapter: 'Getting Started',
     children: [
@@ -93,26 +94,46 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'The Core Language',
+    chapter: 'Polymorphism',
     children: [
-      
       {
-        title: 'Object Life Cycle',
-        path: '/prog/cpp/core/object-life-cycle',
+        title: 'Inheritance',
+        path: '/prog/cpp/polymorphism/inheritance',
         badge: 'TODO'
       },
       {
-        title: 'Runtime Polymorphism',
-        path: '/prog/cpp/core/polymorphism-runtime',
+        title: 'Virtual Functions',
+        path: '/prog/cpp/polymorphism/virtual-functions',
         badge: 'TODO'
       },
       {
-        title: 'Compile-Time Polymorphism',
-        path: '/prog/cpp/core/polymorphism-compile-time',
+        title: 'Templates',
+        path: '/prog/cpp/polymorphism/templates',
         badge: 'TODO'
       },
     ],
   },
+  {
+    chapter: 'Others',
+    children: [
+      {
+        title: 'Object Life Cycle',
+        path: '/prog/cpp/others/object-life-cycle',
+        badge: 'TODO'
+      },
+      {
+        title: 'Static and Extern Variables',
+        path: '/prog/cpp/others/static-extern-variables',
+        badge: 'TODO'
+      },
+      {
+        title: 'Exception Classes',
+        path: '/prog/cpp/others/exceptions',
+        badge: 'TODO'
+      },
+    ],
+  },
+  { '@separator': 'Libraries' },
   {
     chapter: 'Libraries and Frameworks',
     children: [
