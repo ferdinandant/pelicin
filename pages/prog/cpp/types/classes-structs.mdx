@@ -75,8 +75,6 @@ Access specifiers specify who can access a class' data or functions. (This preve
 - **`private`** &mdash; the class' data or functions can only be accessed (1) inside the class or (2) inside its friend classes
 - **`protected`** &mdash; the class' data or functions can only be accessed (1) inside the class, (2) inside its friend classes, (3) inside its subclasses, or (4) inside its friend classes' subclasses
 
-(We will defer the discussion about friend classes and subclasses further down below.)
-
 ### Access specifier example
 
 In the `Counter` class below,
@@ -107,10 +105,6 @@ counter.count = 0;
 ```
 
 ### Default access specifier
-
-<NoteBox>
-  Beside this, there is no difference between <Code str="struct" /> and <Code str="class" />.
-</NoteBox>
 
 - In a `struct`, the default access specifier is `private`
 - In a `class`, the default access specifier is `public`
