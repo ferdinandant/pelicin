@@ -1,16 +1,39 @@
-import { References } from '@pelicin/components';
+import { References, NoteBox, Link } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # C-Style Strings
 
 Strings are collections of characters, e.g. `"Hello, world!"`, traditionally represented by an array of `char`.
 
+## Type of C-style strings
+
+### As `char[]`
+
 _C-style strings_ (aka. _null-terminated strings_) are arrays of `char` terminated by the null character (i.e. `\0` or ASCII code 0) at the end of the string.
 
 For example, the way C-style string stores the string `"Hello"` is as follows. (Also note that because of the `\0`, the size of the `str[]` array would be 6 instead of 5.)
 
 ```cpp
-char str[] = { 'H', 'e', 'l', 'l', 'o', '\0' };
+// The statement below is the same as:
+// char str[] = { 'H', 'e', 'l', 'l', 'o', '\0' };
+char str[] = "Hello";
+```
+
+### As `char*`
+
+<NoteBox>
+  This section requires the understanding of <Link str="pointers" link="/prog/cpp/types/pointers" />.
+</NoteBox>
+
+Since C-style strings are just arrays of `char[]`, you can just store the pointer to the first element of that array.
+
+Note that [pointer decay](/prog/cpp/types/pointers#pointer-decay) happens here. It is up to you or the utility functions to figure out the actual length of string (e.g. by iterating the next addresses until you find the null character).
+
+```cpp
+// The `str` pointer points to the first element
+// of the array (the address of character 'H').
+// It does not know the actual length of the array.
+char* str = "Hello";
 ```
 
 ## String literals
