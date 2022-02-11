@@ -142,7 +142,7 @@ const chapters: TopicChapters = [
     chapter: 'Libraries and Frameworks',
     children: [
       {
-        title: 'Smart Pointes',
+        title: 'Smart Pointers',
         path: '/prog/cpp/lib/smart-pointers',
         badge: 'TODO'
       },
