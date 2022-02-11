@@ -97,8 +97,8 @@ const chapters: TopicChapters = [
     chapter: 'Object-Oriented Programming',
     children: [
       {
-        title: 'Subclasses and Inheritance',
-        path: '/prog/cpp/oop/subclasses-inheritance',
+        title: 'Inheritance',
+        path: '/prog/cpp/oop/inheritance',
       },
       {
         title: 'Virtual Functions',
