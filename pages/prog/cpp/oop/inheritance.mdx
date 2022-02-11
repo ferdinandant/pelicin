@@ -295,9 +295,9 @@ teacher.printReport();
 
 ### Using subclass-type as superclass-type
 
-Subclasses are considered members of their superclasses.
+A type that expects a superclass-type will also accept that superclass' subclasses ("a parent-type will accept its children-types"), but the inverse is not true. This works with pointers and references, too.
 
-A type that expects a superclass-type will accept that superclass' subclasses-type ("a parent type will accept its children type"). The inverse is not true.
+When you are using the superclass' type this way, you can only access the superclass' members through the variable, and not the subclasses'.
 
 ```cpp
 struct User {
@@ -312,7 +312,7 @@ void printUserName(User user) {
   printf("%s\n", user.name);
 }
 
-// This works fine because `StudentUser` is `User`
+// This works fine because `StudentUser` is a `User`
 User user = { "Eve" };
 StudentUser student = { "Alice", 99 };
 printUserName(user); //=> Eve
