@@ -1,7 +1,7 @@
 import { References, Asterisk, Code, NoteBox } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
-# Class Inheritance
+# Inheritance
 
 From any class, you can make _subclasses_ from that class.
 
@@ -116,7 +116,11 @@ From the subclass' perspective, when you try to access the inherited members thr
 
 ## Initializing superclass
 
+### Constructor call order
+
 When you instantiate a subclass, **the superclass' constructor is called first**, then the subclass' constructor ("constructors are called from top to bottom").
+
+### Initializing superclass via member initializer lists
 
 You CANNOT initialize inherited members from the subclass' member initializer lists. Instead, you just initialize the supcerclass directly from the subclass' member initializer lists.
 
@@ -149,17 +153,127 @@ printf("%d %d %d\n", dc.derived_id, dc.base_id_a, dc.base_id_b);
 
 On top of defining their own "data" and "function" members, within subclass definitions, you can also do the following.
 
-### Changing inherited member access's specifier
+### Changing inherited members' access specifier
 
-> TODO
+Use the `using` keyword, mentioning the inherited member's name below the appropriate access specifier.
 
-### Deleting inherited member in subclass
+```cpp
+class Base {
+ protected:
+  int secret_id;
+  int getSecretID() {
+    return secret_id;
+  }
+ public:
+  Base(int secret_id) : secret_id{secret_id} {}
+};
 
-> TODO
+class Derived : Base {
+ public:
+  Derived(int secret_id) : Base{secret_id} {}
+  // Make `secret_id` and `getSecretID` public
+  // (because we place this under "public:")
+  using Base::secret_id;
+  using Base::getSecretID;
+};
 
-### Overriding inherited functions
+Derived derived = { 123 };
+// Normally, you can't do this because these members are protected
+// (but we changed them to public using the `using` declaration
+printf("%d\n", derived.secret_id); //=> 123
+printf("%d\n", derived.getSecretID()); //=> 123
+```
 
-> TODO
+### Deleting an inherited function
+
+Assign `= delete` to the function. Only function members can be deleted.
+
+Once you delete an inherited function, you can no longer call that function inside the subclass or publicly through the subclass.<Asterisk str="**"/>
+
+```cpp
+class Base {
+ private:
+  int secret_id;
+ public:
+  int getSecretID() {
+    return secret_id;
+  }
+  Base(int secret_id) : secret_id{secret_id} {}
+};
+
+// We use public inheritance here to show
+// how you can call the deleted function through
+// the base class (using `static_cast<Base&>`)
+class Derived : public Base {
+ public:
+  Derived(int secret_id) : Base{secret_id} {}
+  int getSecretID() = delete;
+};
+
+Derived derived = { 123 };
+// The following line causes compile error
+// (Attempt to use a deleted function):
+// printf("%d\n", derived.getSecretID()); //=> COMPILE ERROR!
+```
+
+<Asterisk str="**">
+  This does not prevent somebody from accessing the fuction through the superclass, e.g. by casting
+  the subclass as the superclass: <Code str="(static_cast<Base&>(derived)).getSecretID()" />
+  <Asterisk str="***" />
+</Asterisk>
+
+<Asterisk str="***">
+  This requires <Code str="Derived" /> to use public inheritance from <Code str="Base" />, otherwise
+  you will get "Cannot cast 'Derived' to its private base class 'Base'" compilation error
+</Asterisk>
+
+### Overriding an inherited function
+
+Just reimplement the function in the subclass.
+
+Note that this will completely "replace" the inherited function from the subclass' perspective.
+
+```cpp
+struct Base {
+  void printMessage() {
+    printf("I'm base!\n");
+  }
+};
+
+struct Derived : Base {
+  void printMessage() {
+    printf("I'm derived!\n");
+  }
+};
+
+Derived d = {};
+d.printMessage();
+//=> I'm derived!
+```
+
+### Calling an inherited function
+
+You can call a superclass' function by scoping them with the superclass' name (even after you have overridden them):
+
+```cpp
+struct Base {
+  void printMessage() {
+    printf("I'm base!\n");
+  }
+};
+
+struct Derived : Base {
+  void printMessage() {
+    Base::printMessage();
+    printf("I'm derived!\n");
+  }
+};
+
+Derived d = {};
+d.printMessage();
+//=> I'm base!
+//=> I'm derived!
+```
 
 ## Working with subclasses
 
@@ -181,9 +295,9 @@ teacher.printReport();
 
 ### Using subclass-type as superclass-type
 
-Subclasses are considered members of their superclasses.
+A type that expects a superclass-type will also accept that superclass' subclasses ("a parent-type will accept its children-types"), but the inverse is not true. This works with pointers and references, too.
 
-A type that expects a superclass-type will accept that superclass' subclasses-type ("a parent type will accept its children type"). The inverse is not true.
+When you are using the superclass' type this way, you can only access the superclass' members through the variable, and not the subclasses'.
 
 ```cpp
 struct User {
@@ -198,7 +312,7 @@ void printUserName(User user) {
   printf("%s\n", user.name);
 }
 
-// This works fine because `StudentUser` is `User`
+// This works fine because `StudentUser` is a `User`
 User user = { "Eve" };
 StudentUser student = { "Alice", 99 };
 printUserName(user); //=> Eve
@@ -236,10 +350,6 @@ printf("%d\n", wa.NetworkDevice::getID()); //=> 2
       link: 'https://www.learncpp.com/cpp-tutorial/multiple-inheritance/',
     },
     {
-      text: '17.5 — Inheritance and access specifiers',
-      link: 'https://www.learncpp.com/cpp-tutorial/inheritance-and-access-specifiers/',
-    },
-    {
       text: '17.3 — Order of construction of derived classes',
       link: 'https://www.learncpp.com/cpp-tutorial/order-of-construction-of-derived-classes/',
     },
@@ -247,6 +357,14 @@ printf("%d\n", wa.NetworkDevice::getID()); //=> 2
       text: '17.4 — Constructors and initialization of derived classes',
       link:
         'https://www.learncpp.com/cpp-tutorial/constructors-and-initialization-of-derived-classes/',
+    },
+    {
+      text: '17.5 — Inheritance and access specifiers',
+      link: 'https://www.learncpp.com/cpp-tutorial/inheritance-and-access-specifiers/',
+    },
+    {
+      text: '17.8 — Hiding inherited functionality',
+      link: 'https://www.learncpp.com/cpp-tutorial/hiding-inherited-functionality/',
     },
   ]}
 ></References>

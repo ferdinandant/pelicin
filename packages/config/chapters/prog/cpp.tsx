@@ -97,8 +97,8 @@ const chapters: TopicChapters = [
     chapter: 'Object-Oriented Programming',
     children: [
       {
-        title: 'Subclasses and Inheritance',
-        path: '/prog/cpp/oop/subclasses-inheritance',
+        title: 'Inheritance',
+        path: '/prog/cpp/oop/inheritance',
       },
       {
         title: 'Virtual Functions',
@@ -142,7 +142,7 @@ const chapters: TopicChapters = [
     chapter: 'Libraries and Frameworks',
     children: [
       {
-        title: 'Smart Pointes',
+        title: 'Smart Pointers',
         path: '/prog/cpp/lib/smart-pointers',
         badge: 'TODO'
       },
