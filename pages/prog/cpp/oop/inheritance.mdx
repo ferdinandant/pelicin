@@ -144,9 +144,11 @@ struct DerivedClass : BaseClass {
   {}
 };
 
-DerivedClass dc = { 1, 2, 3 };
-printf("%d %d %d\n", dc.derived_id, dc.base_id_a, dc.base_id_b);
-//=> 1 2 3
+int main() {
+  DerivedClass dc = { 1, 2, 3 };
+  printf("%d %d %d\n", dc.derived_id, dc.base_id_a, dc.base_id_b);
+  //=> 1 2 3
+}
 ```
 
 ## Overriding superclass
@@ -177,11 +179,13 @@ class Derived : Base {
   using Base::getSecretID;
 };
 
-Derived derived = { 123 };
-// Normally, you can't do this because these members are protected
-// (but we changed them to public using the `using` declaration
-printf("%d\n", derived.secret_id); //=> 123
-printf("%d\n", derived.getSecretID()); //=> 123
+int main() {
+  Derived derived = { 123 };
+  // Normally, you can't do this because these members are protected
+  // (but we changed them to public using the `using` declaration
+  printf("%d\n", derived.secret_id); //=> 123
+  printf("%d\n", derived.getSecretID()); //=> 123
+}
 ```
 
 ### Deleting an inherited function
@@ -273,7 +277,7 @@ struct Derived : Base {
   }
 };
 
-inbt main() {
+int main() {
   Derived d = {};
   d.printMessage();
   //=> I'm base!
