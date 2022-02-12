@@ -303,13 +303,11 @@ teacher.printReport();
 //=> Teacher Bob teaches math
 ```
 
-### Object slicing
+### Copying a subclass-type object into a superclass-type object (object slicing)
 
-Object slicing occurs when you assign a subclass type to its superclass type. (Semantically, you try to copy an object of a subclass type to a superclass type.)
+You can assign a subclass-type object into its superclass-type object. Semantically, you are copying the superclass-part of the object while "slicing off" the subclass-part of the object (this is known as _object slicing_).
 
-The superclass part of the object will be copied over, but subclass members information of the subclass will be lost ("sliced off").
-
-**Object slicing does not happen with pointers and references** (as they do not make a copy). This will become apparent when we talk about [virtual functions](/prog/cpp/oop/virtual-functions).
+Object slicing does not happen with pointers and references, because you are not copying the object into its superclass-type.
 
 ```cpp
 struct User {
@@ -350,6 +348,36 @@ int main() {
   // one of its primitive member data
   printf("%d\n", student_user.id); //=> 2
   printf("%d\n", user_copy.id); //=> 555
+}
+```
+
+### Using pointers and references to superclass-type
+
+You can use pointers and references to refer to the superclass "part" of a subclass object. However, you can only access the superclass' (and its superclass') members from the reference or pointer.
+
+```cpp
+struct User {
+  char name[255];
+};
+
+struct StudentUser : User {
+  int score = -1;
+};
+
+int main() {
+  StudentUser student_user = { "Elena", 85 };
+  StudentUser* student_user_ptr = &student_user;
+  // These are okay:
+  User* user_ptr = student_user_ptr;
+  User& user_ref = student_user;
+
+  // They point to the same address,
+  printf("%p\n", student_user_ptr); //=> 0x7ffeefbff350
+  printf("%p\n", user_ptr); //=> 0x7ffeefbff350
+  // ... but from the superclass pointer,
+  // you can only access superclass members
+  printf("%d\n", student_user_ptr->score); //=> 85
+  // printf("%d\n", user_ptr->score); //=> COMPILE ERROR!
 }
 ```
 
@@ -403,6 +431,11 @@ printf("%d\n", wa.NetworkDevice::getID()); //=> 2
     {
       text: '18.9 — Object Slicing',
       link: 'https://www.learncpp.com/cpp-tutorial/object-slicing/',
+    },
+    {
+      text: '18.1 — Pointers and references to the base class of derived objects',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/pointers-and-references-to-the-base-class-of-derived-objects/',
     },
   ]}
 ></References>
