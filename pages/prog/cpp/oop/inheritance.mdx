@@ -210,10 +210,12 @@ class Derived : public Base {
   int getSecretID() = delete;
 };
 
-Derived derived = { 123 };
-// The following line causes compile error
-// (Attempt to use a deleted function):
-// printf("%d\n", derived.getSecretID()); //=> COMPILE ERROR!
+int main() {
+  Derived derived = { 123 };
+  // The following line causes compile error
+  // (Attempt to use a deleted function):
+  // printf("%d\n", derived.getSecretID()); //=> COMPILE ERROR!
+}
 ```
 
 <Asterisk str="**">
@@ -246,9 +248,11 @@ struct Derived : Base {
   }
 };
 
-Derived d = {};
-d.printMessage();
-//=> I'm derived!
+int main() {
+  Derived d = {};
+  d.printMessage();
+  //=> I'm derived!
+}
 ```
 
 ### Calling an inherited function
@@ -269,10 +273,12 @@ struct Derived : Base {
   }
 };
 
-Derived d = {};
-d.printMessage();
-//=> I'm base!
-//=> I'm derived!
+inbt main() {
+  Derived d = {};
+  d.printMessage();
+  //=> I'm base!
+  //=> I'm derived!
+}
 ```
 
 ## Working with subclasses
@@ -293,30 +299,54 @@ teacher.printReport();
 //=> Teacher Bob teaches math
 ```
 
-### Using subclass-type as superclass-type
+### Object slicing
 
-A type that expects a superclass-type will also accept that superclass' subclasses ("a parent-type will accept its children-types"), but the inverse is not true. This works with pointers and references, too.
+Object slicing occurs when you assign a subclass type to its superclass type. (Semantically, you try to copy an object of a subclass type to a superclass type.)
 
-When you are using the superclass' type this way, you can only access the superclass' members through the variable, and not the subclasses'.
+The superclass part of the object will be copied over, but subclass members information of the subclass will be lost ("sliced off").
+
+**Object slicing does not happen with pointers and references** (as they do not make a copy). This will become apparent when we talk about [virtual functions](/prog/cpp/oop/virtual-functions).
 
 ```cpp
 struct User {
+  int id;
   char name[255];
+  char* getType() {
+    static char type[] = "User";
+    return type;
+  }
 };
 
 struct StudentUser : User {
   int score = -1;
+  char* getType() {
+    static char type[] = "StudentUser";
+    return type;
+  }
 };
 
-void printUserName(User user) {
-  printf("%s\n", user.name);
+// Object slicing may happen here
+// (When you assign type of `StudentUser` to `User`,
+// it creates a copy, but only for the superclass part)
+void printUserInformation(User user) {
+  printf("%s: %s\n", user.getType(), user.name);
 }
 
-// This works fine because `StudentUser` is a `User`
-User user = { "Eve" };
-StudentUser student = { "Alice", 99 };
-printUserName(user); //=> Eve
-printUserName(student); //=> Alice
+int main() {
+  User user = { 1, "Eve" };
+  StudentUser student_user = { 2, "Alice", 99 };
+  printUserInformation(user); //=> User: Eve
+  printUserInformation(student_user); //=> User: Alice
+
+  // The expression below creates a COPY
+  // of `User` from `StudentUser`
+  User user_copy = student_user;
+  user_copy.id = 555;
+  // We can proof that it's a copy by modifying
+  // one of its primitive member data
+  printf("%d\n", student_user.id); //=> 2
+  printf("%d\n", user_copy.id); //=> 555
+}
 ```
 
 ### Resolving ambigous member access in multiple inheritance
@@ -365,6 +395,10 @@ printf("%d\n", wa.NetworkDevice::getID()); //=> 2
     {
       text: '17.8 — Hiding inherited functionality',
       link: 'https://www.learncpp.com/cpp-tutorial/hiding-inherited-functionality/',
+    },
+    {
+      text: '18.9 — Object Slicing',
+      link: 'https://www.learncpp.com/cpp-tutorial/object-slicing/',
     },
   ]}
 ></References>
