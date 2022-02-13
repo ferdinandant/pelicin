@@ -1,0 +1,120 @@
+import { References, NoteBox } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Friend Functions and Classes
+
+A _friend function_ is a function that can access the private members of another class.
+
+Similarely, a _friend class_ is a class that can access the private members of another class.
+
+## Defining a friend function
+
+E.g. `friend void printValue(MyClass& my_class_ref);`
+
+```cpp
+class MyClass {
+ private:
+  int my_number;
+ public:
+  MyClass(int number) : my_number{number} {}
+  friend void printValue(MyClass& my_class_ref);
+};
+
+void printValue(MyClass& my_class_ref) {
+  // Accessing an otherwise private member
+  printf("%d\n", my_class_ref.my_number);
+}
+
+int main() {
+  MyClass my_class = { 123 };
+  printValue(my_class); //=> 123
+}
+```
+
+## Defining a friend class
+
+E.g. `friend class MyUtils`
+
+```cpp
+class MyClass {
+ private:
+  int my_number;
+ public:
+  MyClass(int number) : my_number{number} {}
+  friend class MyUtils;
+};
+
+class MyUtils {
+ public:
+  static void printMyNumber(MyClass& my_class_ref) {
+    // Accessing an otherwise private member
+    printf("%d\n", my_class_ref.my_number);
+  }
+};
+
+int main() {
+  MyClass my_class = { 456 };
+  MyUtils::printMyNumber(my_class); //=> 456
+}
+```
+
+## Defining a friend member function
+
+Use this to make only some members of a class friend.
+
+<NoteBox>
+  <p>
+    We use a technique called "forward declaration" below. Basically, we are telling the compiler
+    ahead of time that certain class or function exists (with the given signature).
+  </p>
+  <p>
+    Otherwise, we will get compile error because the compiler compiles the source code sequentially
+    from top to bottom, and will complain if it sees a name not yet defined.
+  </p>
+</NoteBox>
+
+```cpp
+// Forward declaration:
+// (the compiler needs to know that `MyClass` exists)
+class MyClass;
+
+class MyUtils {
+ public:
+  // Forward declaration again:
+  // (the compiler needs to know that the function
+  // `void printMyNumber(MyClass& my_class_ref)` exists)
+  static void printMyNumber(MyClass& my_class_ref);
+};
+
+class MyClass {
+ private:
+  int my_number;
+ public:
+  MyClass(int number) : my_number{number} {}
+  friend void MyUtils::printMyNumber(MyClass& my_class_ref);
+};
+
+void MyUtils::printMyNumber(MyClass& my_class_ref) {
+  printf("%d\n", my_class_ref.my_number);
+}
+
+int main() {
+  MyClass my_class = { 789 };
+  MyUtils::printMyNumber(my_class); //=> 789
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: '12.15 — Friend functions and classes',
+      link: `https://www.learncpp.com/cpp-tutorial/friend-functions-and-classes/`,
+    },
+    {
+      text: '2.6 — Forward declarations and definitions',
+      link: `https://www.learncpp.com/cpp-tutorial/forward-declarations/`,
+    },
+  ]}
+></References>
