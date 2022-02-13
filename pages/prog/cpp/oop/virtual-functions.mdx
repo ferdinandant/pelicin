@@ -128,6 +128,43 @@ A function is considered an override to a virtual function only if:
 - their argument types and lengths are the same,
 - they are both `const` or both NOT `const`.
 
+Example of virtual functions returning covariant return types is as follows (note how the returned pointer type is upcasted, because the override function returns `Derived*`, while the base function returns `Base*`):
+
+```cpp
+struct Base {
+  virtual Base* getThis() {
+    printf("getThis from Base\n");
+    return this;
+  }
+  void printHello() {
+    printf("printHello from Base\n");
+  }
+};
+
+struct Derived : Base {
+  // The following does not make a compile error!
+  virtual Derived* getThis() override {
+    printf("getThis from Derived\n");
+    return this;
+  }
+  void printHello() {
+    printf("printHello from Derived\n");
+  }
+};
+
+
+int main() {
+  Derived d = {};
+  Base* b = &d;
+  // `b->getThis()` would call `Derived::getThis()`, but
+  // since the base function returns `Base*`, the `Derived*`
+  // return type is upcast to `Base*`.
+  b->getThis()->printHello();
+  //=> getThis from Derived
+  //=> printHello from Base
+}
+```
+
 ### Only works with pointers and references
 
 When you make a copy of the subclass-type and assign it to the superclass-type, [object slicing](</prog/cpp/oop/inheritance#copying-a-subclass-type-object-into-a-superclass-type-object-(object-slicing)>) occurs and overridden virtual functions are not considered (because that information is lost).
@@ -155,20 +192,20 @@ struct Derived : Base {
 
 int main() {
   Derived derived = {};
-  Base base_casted = derived;
+  Base base_upcast = derived;
   // The resolving behavior does not happen with normal class type
   // because only the superclass part of the object gets copied;
   // subclass member information are lost (object slicing):
   base_casted.normalFunction(); //=> Base: normal
   base_casted.virtualFunction(); //=> Base: virtual (not resolved to subclass)
 
-  Base* base_casted_ptr = &derived;
-  Base& base_casted_ref = derived;
+  Base* base_upcast_ptr = &derived;
+  Base& base_upcast_ref = derived;
   // The resolving behavior works with pointers and references:
-  base_casted_ptr->normalFunction(); //=> Base: normal
-  base_casted_ptr->virtualFunction(); //=> Derived: virtual (surprise!)
-  base_casted_ref.normalFunction(); //=> Base: normal
-  base_casted_ref.virtualFunction(); //=> Derived: virtual (surprise!)
+  base_upcast_ptr->normalFunction(); //=> Base: normal
+  base_upcast_ptr->virtualFunction(); //=> Derived: virtual (surprise!)
+  base_upcast_ref.normalFunction(); //=> Base: normal
+  base_upcast_ref.virtualFunction(); //=> Derived: virtual (surprise!)
 }
 ```
 
