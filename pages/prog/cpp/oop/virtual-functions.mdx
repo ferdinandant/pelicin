@@ -1,4 +1,4 @@
-import { References, NoteBox, Code } from '@pelicin/components';
+import { References, NoteBox, Code, Link } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Virtual Functions
@@ -20,6 +20,11 @@ struct MyClass {
   }
 };
 ```
+
+<NoteBox>
+  You only need to declare <Code str="virtual" /> on the base function. Marking virtual function
+  overrides with <Code str="virtual" /> is not required (but you can, to make your intent clearer).
+</NoteBox>
 
 ### Pure virtual functions
 
@@ -287,6 +292,53 @@ int main() {
 }
 ```
 
+## Importance of specifying a virtual destructor
+
+<NoteBox type="success">
+  It is considered best practice to specify a virtual destructor when dealing with inheritance.
+</NoteBox>
+
+Without a virtual destructor, **the subclass' destructor may not be called in certain situations**. (For example, when you try to `delete` a superclass pointer, the compiler assumes it is enough to just call the superclass' destructor.)
+
+Note that with a virtual superclass destructor, the superclass' virtual destructor will still be called _in reverse order_. (And once you mark a superclass destructor virtual, all of its subclass' destructors will also be implicitly virtual, so you don't have to create empty virtual destructors in the subclasses.)
+
+```cpp
+struct Base {
+  ~Base() {
+    printf("Base class destroyed\n");
+  }
+};
+
+struct Derived : Base {
+  int* arr;
+  Derived() {
+    arr = new int[5];
+    printf("Derived class constructed\n");
+  }
+  ~Derived() {
+    delete[] arr;
+    printf("Derived class destroyed\n");
+  }
+};
+
+int main() {
+  // This works as expected:
+  Derived* derived_1 = new Derived{};
+  delete derived_1;
+  //=> Derived class constructed
+  //=> Derived class destroyed
+  //=> Base class destroyed
+
+  // This doesn't!
+  // (Derived class is NOT destroyed):
+  Derived* derived_2 = new Derived{};
+  Base* base = derived_2;
+  delete base;
+  //=> Derived class constructed
+  //=> Base class destroyed
+}
+```
+
 ## References
 
 <References
@@ -308,6 +360,11 @@ int main() {
       text: '18.3 — The override and final specifiers, and covariant return types',
       link:
         'https://www.learncpp.com/cpp-tutorial/the-override-and-final-specifiers-and-covariant-return-types/',
+    },
+    {
+      text: '18.4 — Virtual destructors, virtual assignment, and overriding virtualization',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/virtual-destructors-virtual-assignment-and-overriding-virtualization/',
     },
     {
       text: '18.7 — Pure virtual functions, abstract base classes, and interface classes',

@@ -105,6 +105,10 @@ const chapters: TopicChapters = [
         path: '/prog/cpp/oop/virtual-functions',
       },
       {
+        title: 'Virtual Base Classes',
+        path: '/prog/cpp/oop/virtual-base-classes',
+      },
+      {
         title: 'Friend Functions and Classes',
         path: '/prog/cpp/oop/friend',
         badge: 'TODO'
