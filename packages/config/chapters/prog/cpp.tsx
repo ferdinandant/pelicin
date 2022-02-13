@@ -103,7 +103,6 @@ const chapters: TopicChapters = [
       {
         title: 'Virtual Functions',
         path: '/prog/cpp/oop/virtual-functions',
-        badge: 'TODO'
       },
       {
         title: 'Friend Functions and Classes',
