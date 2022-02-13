@@ -1,0 +1,132 @@
+import { References, Image, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Virtual Base Classes
+
+In multiple inheritance, _virtual base classes_ ensure there is only one object of that base class in the inheritance tree.
+
+(Normally, each "branch" of superclass would create their own superclasses independently, see example below.)
+
+## Declaring virtual base classes
+
+When you specify a class' superclass(es), prefix them the `virtual` keyword.
+
+```cpp
+class Derived : virtual public Base {
+  Derived() {};
+};
+```
+
+## The problem with multiple inheritance
+
+### The diamond problem
+
+With multiple inheritance, when a class has multiple superclasses, the superclass of its superclasses is constructed once for each superclass.
+
+Consider the following example:
+
+```cpp
+struct ClassA {
+  ClassA() {
+    printf("ClassA initialized\n");
+  }
+};
+
+struct ClassB : ClassA {
+  ClassB() {
+    printf("ClassB initialized\n");
+  }
+};
+
+struct ClassC : ClassA {
+  ClassC() {
+    printf("ClassC initialized\n");
+  }
+};
+
+struct ClassD : ClassB, ClassC {
+  ClassD() {
+    printf("ClassD initialized\n");
+  }
+};
+
+int main() {
+  ClassD d = {};
+  //=> ClassA initialized
+  //=> ClassB initialized
+  //=> ClassA initialized
+  //=> ClassC initialized
+  //=> ClassD initialized
+}
+```
+
+Even though conceptually the inheritance works like the picture on the left, it actually works like the picture on the right (`ClassC` and `ClassD` have their own copy of `ClassA`):
+
+<Image
+  path="/res/prog/cpp/multiple-inheritance-diagram.png"
+  caption={
+    <>
+      Logical vs actual class diagram: <Code str="ClassC" /> and <Code str="ClassD" /> have their
+      own copy of <Code str="ClassA" />
+    </>
+  }
+/>
+
+### Solving the diamond problem
+
+If you only want one copy of `ClassA`, you should mark `ClassA` as a virtual base class.
+
+In the example below, by marking `ClassA` as a virtual base class in `ClassB` and `ClassC`,
+
+- the class that is responsible for creating `ClassA` would be `ClassD` (as the most derived class) &mdash; you can directly initialize `ClassA` in `ClassD`'s member initialization list
+- initilization of `ClassA` in `ClassB`'s and `ClassC`'s member initialization list will be ignored (unless you are instantiating a member of `ClassB` or `ClassC`)
+
+```cpp
+struct ClassA {
+  ClassA() {
+    printf("ClassA initialized\n");
+  }
+};
+
+struct ClassB : virtual ClassA {
+  ClassB() {
+    printf("ClassB initialized\n");
+  }
+};
+
+struct ClassC : virtual ClassA {
+  ClassC() {
+    printf("ClassC initialized\n");
+  }
+};
+
+struct ClassD : ClassB, ClassC {
+  ClassD() {
+    printf("ClassD initialized\n");
+  }
+};
+
+int main() {
+  ClassD d = {};
+  //=> ClassA initialized
+  //=> ClassB initialized
+  //=> ClassC initialized
+  //=> ClassD initialized
+}
+```
+
+## Behaviors of virtual base classes
+
+- Virtual base classes will be created before non-virtual base classes.
+- The class that is reponsible for creating the virtual base class is the most derived class.
+
+## References
+
+<References
+  references={[
+    {
+      text: '18.8 — Virtual base classes',
+      link: `https://www.learncpp.com/cpp-tutorial/virtual-base-classes/`,
+    },
+  ]}
+></References>
