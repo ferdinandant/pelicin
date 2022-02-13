@@ -1,0 +1,385 @@
+import { References, NoteBox, Code, Link } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Virtual Functions
+
+Virtual functions are functions that resolve to the most-overridden version of themselves (depending on the original class of the object).
+
+This resolving behavior _may_ incur performance overhead when virtual functions are called, but the compiler may do some optimization to reduce or remove this overhead.
+
+## Definitions
+
+### Virtual functions
+
+Use the `virtual` keyword before their definition:
+
+```cpp
+struct MyClass {
+  virtual void myFunction() {
+    printf("I'm a virtual function\n");
+  }
+};
+```
+
+<NoteBox>
+  You only need to declare <Code str="virtual" /> on the base function. Marking virtual function
+  overrides with <Code str="virtual" /> is not required (but you can, to make your intent clearer).
+</NoteBox>
+
+### Pure virtual functions
+
+_Pure virtual functions_, also known as _abstract functions_, are virtual functions that do not have a body (you just suffix them with `= 0`).
+
+This is a way to "force" the subclasses to override the function, because you cannot instantiate classes that have a pure virtual function(s).
+
+```cpp
+struct MyClass {
+  virtual void myFunction() = 0;
+};
+```
+
+### Abstract classes
+
+Classes that have pure virtual function(s) are called _abstract classes_. They cannot be instantiated.
+
+Subclasses of an abstract class should provide the body/implementation for the pure virtual functions, otherwise they become abstract classes as well.
+
+```cpp
+struct MyClass {
+  virtual void myFunction() = 0;
+};
+
+// Variable type 'MyClass' is an abstract class:
+// MyClass my_class = {}; //=> COMPILE ERROR!
+```
+
+### Interface classes
+
+_Interface classes_, or _pure-virtual classes_, are classes that:
+
+- do not have member variables, and
+- all of their functions are pure virtual functions.
+
+They are essentialy "contracts" that specify what functions should their subclasses implement. (They only contain definitions and no implementation.)
+
+<NoteBox type="warning">
+  You should specify a virtual destructor for interface classes, otherwise memory leak can occur
+  (because the derived destructor may not be called).
+</NoteBox>
+
+```cpp
+struct IErrorLog {
+  virtual bool openLog(const char *filename) = 0;
+  virtual bool closeLog() = 0;
+  virtual bool writeError(const char *errorMessage) = 0;
+  virtual ~IErrorLog() {}
+};
+```
+
+## Override and final specifiers
+
+### `override`
+
+Adding the `override` specifier to a function definition ensures that the function overrides a virtual function. Only virtual member functions can be marked `override`.
+
+If the function marked `override` does not override the base virtual function (e.g. you used a non-matching type), you will get a compile error.
+
+<NoteBox type="success">
+  It is considered best practice to add <Code str="override" /> to virtual function overrides.
+  (There is no overhead and you get the type-checking benefit.)
+</NoteBox>
+
+```cpp
+struct ClassA {
+  virtual void printHello() {
+    printf("Hello from ClassA\n");
+  }
+};
+
+struct ClassB : ClassA {
+  void printHello() override {
+    printf("Hello from ClassB\n");
+  }
+};
+```
+
+### `final`
+
+Adding a `final` specifier to a function definition ensures that the function is not overridden by any subclasses. Only virtual member functions can be marked `final`.
+
+Trying to override a function marked `final` will cause a compile error.
+
+```cpp
+struct ClassA {
+  virtual void printHello() {
+    printf("Hello from ClassA\n");
+  }
+};
+
+struct ClassB : ClassA {
+  void printHello() final {
+    printf("Hello from ClassB\n");
+  }
+};
+```
+
+## Behaviors of virtual functions
+
+### Virtual function resolution
+
+A function is considered an override to a virtual function only if:
+
+- their return types are the same (or they use _covariant return types_: i.e., if the base function returns a pointer or reference to a class, the override function can return a pointer or reference to that class' subclass),
+- their argument types and lengths are the same,
+- they are both `const` or both NOT `const`.
+
+Example of virtual functions returning covariant return types is as follows (note how the returned pointer type is upcasted, because the override function returns `Derived*`, while the base function returns `Base*`):
+
+```cpp
+struct Base {
+  virtual Base* getThis() {
+    printf("getThis from Base\n");
+    return this;
+  }
+  void printHello() {
+    printf("printHello from Base\n");
+  }
+};
+
+struct Derived : Base {
+  // The following does not make a compile error!
+  virtual Derived* getThis() override {
+    printf("getThis from Derived\n");
+    return this;
+  }
+  void printHello() {
+    printf("printHello from Derived\n");
+  }
+};
+
+
+int main() {
+  Derived d = {};
+  Base* b = &d;
+  // `b->getThis()` would call `Derived::getThis()`, but
+  // since the base function returns `Base*`, the `Derived*`
+  // return type is upcast to `Base*`.
+  b->getThis()->printHello();
+  //=> getThis from Derived
+  //=> printHello from Base
+}
+```
+
+### Only works with pointers and references
+
+When you make a copy of the subclass-type and assign it to the superclass-type, [object slicing](</prog/cpp/oop/inheritance#copying-a-subclass-type-object-into-a-superclass-type-object-(object-slicing)>) occurs and overridden virtual functions are not considered (because that information is lost).
+
+With pointers and references, however, information about the subclass is not lost. Virtual functions resolved through pointers and references will point to their most-derived version.
+
+```cpp
+struct Base {
+  void normalFunction() {
+    printf("Base: normal\n");
+  }
+  virtual void virtualFunction() {
+    printf("Base: virtual\n");
+  }
+};
+
+struct Derived : Base {
+  void normalFunction() {
+    printf("Derived: normal\n");
+  }
+  virtual void virtualFunction() {
+    printf("Derived: virtual\n");
+  }
+};
+
+int main() {
+  Derived derived = {};
+  Base base_upcast = derived;
+  // The resolving behavior does not happen with normal class type
+  // because only the superclass part of the object gets copied;
+  // subclass member information are lost (object slicing):
+  base_casted.normalFunction(); //=> Base: normal
+  base_casted.virtualFunction(); //=> Base: virtual (not resolved to subclass)
+
+  Base* base_upcast_ptr = &derived;
+  Base& base_upcast_ref = derived;
+  // The resolving behavior works with pointers and references:
+  base_upcast_ptr->normalFunction(); //=> Base: normal
+  base_upcast_ptr->virtualFunction(); //=> Derived: virtual (surprise!)
+  base_upcast_ref.normalFunction(); //=> Base: normal
+  base_upcast_ref.virtualFunction(); //=> Derived: virtual (surprise!)
+}
+```
+
+### Only resolves until the original class of the object
+
+Resolving virtual functions will not go past the original class of the object.
+
+```cpp
+struct ClassA {
+  virtual void print() {
+    printf("ClassA\n");
+  }
+};
+
+struct ClassB : ClassA {
+  virtual void print() {
+    printf("ClassB\n");
+  }
+};
+
+struct ClassC : ClassB {
+  virtual void print() {
+    printf("ClassC\n");
+  }
+};
+
+int main() {
+  ClassB class_b = {};
+  ClassA* class_a_ptr = &class_b;
+  ClassA& class_a_ref = class_b;
+  // These does not print "ClassC"
+  // because the original type is `ClassB`
+  class_a_ptr->print(); //=> ClassB
+  class_a_ref.print(); //=> ClassB
+}
+```
+
+### Gotchas: `this` and virtual table
+
+(Currently I cannot explain why the following code works like they do.)
+
+```cpp
+struct Base {
+  void callNormalFn() {
+    normalFn();
+  }
+  void callVirtualFn() {
+    virtualFn();
+  }
+  void normalFn() {
+    printf("Base::normalFn\n");
+  }
+  virtual void virtualFn() {
+    printf("Base::virtualFn\n");
+  }
+};
+
+struct Derived : Base {
+  void callNormalFn() {
+    Base::callNormalFn();
+  }
+  void callVirtualFn() {
+    Base::callVirtualFn();
+  }
+  void normalFn() {
+    printf("Derived::normalFn\n");
+  }
+  virtual void virtualFn() {
+    printf("Derived::virtualFn\n");
+  }
+};
+
+int main() {
+  Derived d = {};
+  d.callVirtualFn();
+  //=> Derived::virtualFn (surprise!)
+  d.callNormalFn();
+  //=> Base::normalFn (surprise!)
+}
+```
+
+## Importance of specifying a virtual destructor
+
+<NoteBox type="success">
+  It is considered best practice to specify a virtual destructor when dealing with inheritance.
+</NoteBox>
+
+Without a virtual destructor, **the subclass' destructor may not be called in certain situations**. (For example, when you try to `delete` a superclass pointer, the compiler assumes it is enough to just call the superclass' destructor.)
+
+Note that with a virtual superclass destructor, the superclass' virtual destructor will still be called _in reverse order_. (And once you mark a superclass destructor virtual, all of its subclass' destructors will also be implicitly virtual, so you don't have to create empty virtual destructors in the subclasses.)
+
+```cpp
+struct Base {
+  ~Base() {
+    printf("Base class destroyed\n");
+  }
+};
+
+struct Derived : Base {
+  int* arr;
+  Derived() {
+    arr = new int[5];
+    printf("Derived class constructed\n");
+  }
+  ~Derived() {
+    delete[] arr;
+    printf("Derived class destroyed\n");
+  }
+};
+
+int main() {
+  // This works as expected:
+  Derived* derived_1 = new Derived{};
+  delete derived_1;
+  //=> Derived class constructed
+  //=> Derived class destroyed
+  //=> Base class destroyed
+
+  // This doesn't!
+  // (Derived class is NOT destroyed):
+  Derived* derived_2 = new Derived{};
+  Base* base = derived_2;
+  delete base;
+  //=> Derived class constructed
+  //=> Base class destroyed
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '5. Runtime Polymorphism',
+    },
+    {
+      text: '18.1 — Pointers and references to the base class of derived objects',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/pointers-and-references-to-the-base-class-of-derived-objects/',
+    },
+    {
+      text: '18.2 — Virtual functions',
+      link: 'https://www.learncpp.com/cpp-tutorial/virtual-functions/',
+    },
+    {
+      text: '18.3 — The override and final specifiers, and covariant return types',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/the-override-and-final-specifiers-and-covariant-return-types/',
+    },
+    {
+      text: '18.4 — Virtual destructors, virtual assignment, and overriding virtualization',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/virtual-destructors-virtual-assignment-and-overriding-virtualization/',
+    },
+    {
+      text: '18.7 — Pure virtual functions, abstract base classes, and interface classes',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/pure-virtual-functions-abstract-base-classes-and-interface-classes/',
+    },
+    {
+      text: 'c++ virtual function call without pointer or reference',
+      link:
+        'https://stackoverflow.com/questions/25276635/c-virtual-function-call-without-pointer-or-reference',
+    },
+    {
+      text: 'Do I need to specify virtual on the sub-classes methods as well?',
+      link:
+        'https://stackoverflow.com/questions/3167045/do-i-need-to-specify-virtual-on-the-sub-classes-methods-as-well',
+    },
+  ]}
+></References>

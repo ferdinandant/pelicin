@@ -144,9 +144,11 @@ struct DerivedClass : BaseClass {
   {}
 };
 
-DerivedClass dc = { 1, 2, 3 };
-printf("%d %d %d\n", dc.derived_id, dc.base_id_a, dc.base_id_b);
-//=> 1 2 3
+int main() {
+  DerivedClass dc = { 1, 2, 3 };
+  printf("%d %d %d\n", dc.derived_id, dc.base_id_a, dc.base_id_b);
+  //=> 1 2 3
+}
 ```
 
 ## Overriding superclass
@@ -177,11 +179,13 @@ class Derived : Base {
   using Base::getSecretID;
 };
 
-Derived derived = { 123 };
-// Normally, you can't do this because these members are protected
-// (but we changed them to public using the `using` declaration
-printf("%d\n", derived.secret_id); //=> 123
-printf("%d\n", derived.getSecretID()); //=> 123
+int main() {
+  Derived derived = { 123 };
+  // Normally, you can't do this because these members are protected
+  // (but we changed them to public using the `using` declaration
+  printf("%d\n", derived.secret_id); //=> 123
+  printf("%d\n", derived.getSecretID()); //=> 123
+}
 ```
 
 ### Deleting an inherited function
@@ -210,10 +214,12 @@ class Derived : public Base {
   int getSecretID() = delete;
 };
 
-Derived derived = { 123 };
-// The following line causes compile error
-// (Attempt to use a deleted function):
-// printf("%d\n", derived.getSecretID()); //=> COMPILE ERROR!
+int main() {
+  Derived derived = { 123 };
+  // The following line causes compile error
+  // (Attempt to use a deleted function):
+  // printf("%d\n", derived.getSecretID()); //=> COMPILE ERROR!
+}
 ```
 
 <Asterisk str="**">
@@ -246,9 +252,11 @@ struct Derived : Base {
   }
 };
 
-Derived d = {};
-d.printMessage();
-//=> I'm derived!
+int main() {
+  Derived d = {};
+  d.printMessage();
+  //=> I'm derived!
+}
 ```
 
 ### Calling an inherited function
@@ -269,10 +277,12 @@ struct Derived : Base {
   }
 };
 
-Derived d = {};
-d.printMessage();
-//=> I'm base!
-//=> I'm derived!
+int main() {
+  Derived d = {};
+  d.printMessage();
+  //=> I'm base!
+  //=> I'm derived!
+}
 ```
 
 ## Working with subclasses
@@ -293,11 +303,57 @@ teacher.printReport();
 //=> Teacher Bob teaches math
 ```
 
-### Using subclass-type as superclass-type
+### Copying a subclass-type object into a superclass-type object (object slicing)
 
-A type that expects a superclass-type will also accept that superclass' subclasses ("a parent-type will accept its children-types"), but the inverse is not true. This works with pointers and references, too.
+You can assign a subclass-type object into its superclass-type object. Semantically, you are copying the superclass-part of the object while "slicing off" the subclass-part of the object (this is known as _object slicing_).
 
-When you are using the superclass' type this way, you can only access the superclass' members through the variable, and not the subclasses'.
+Object slicing does not happen with pointers and references, because you are not copying the object into its superclass-type.
+
+```cpp
+struct User {
+  int id;
+  char name[255];
+  char* getType() {
+    static char type[] = "User";
+    return type;
+  }
+};
+
+struct StudentUser : User {
+  int score = -1;
+  char* getType() {
+    static char type[] = "StudentUser";
+    return type;
+  }
+};
+
+// Object slicing may happen here
+// (When you assign type of `StudentUser` to `User`,
+// it creates a copy, but only for the superclass part)
+void printUserInformation(User user) {
+  printf("%s: %s\n", user.getType(), user.name);
+}
+
+int main() {
+  User user = { 1, "Eve" };
+  StudentUser student_user = { 2, "Alice", 99 };
+  printUserInformation(user); //=> User: Eve
+  printUserInformation(student_user); //=> User: Alice
+
+  // The expression below creates a COPY
+  // of `User` from `StudentUser`
+  User user_copy = student_user;
+  user_copy.id = 555;
+  // We can proof that it's a copy by modifying
+  // one of its primitive member data
+  printf("%d\n", student_user.id); //=> 2
+  printf("%d\n", user_copy.id); //=> 555
+}
+```
+
+### Using pointers and references to superclass-type
+
+You can use pointers and references to refer to the superclass "part" of a subclass object. However, you can only access the superclass' (and its superclass') members from the reference or pointer.
 
 ```cpp
 struct User {
@@ -308,15 +364,21 @@ struct StudentUser : User {
   int score = -1;
 };
 
-void printUserName(User user) {
-  printf("%s\n", user.name);
-}
+int main() {
+  StudentUser student_user = { "Elena", 85 };
+  StudentUser* student_user_ptr = &student_user;
+  // These are okay:
+  User* user_ptr = student_user_ptr;
+  User& user_ref = student_user;
 
-// This works fine because `StudentUser` is a `User`
-User user = { "Eve" };
-StudentUser student = { "Alice", 99 };
-printUserName(user); //=> Eve
-printUserName(student); //=> Alice
+  // They point to the same address,
+  printf("%p\n", student_user_ptr); //=> 0x7ffeefbff350
+  printf("%p\n", user_ptr); //=> 0x7ffeefbff350
+  // ... but from the superclass pointer,
+  // you can only access superclass members
+  printf("%d\n", student_user_ptr->score); //=> 85
+  // printf("%d\n", user_ptr->score); //=> COMPILE ERROR!
+}
 ```
 
 ### Resolving ambigous member access in multiple inheritance
@@ -365,6 +427,15 @@ printf("%d\n", wa.NetworkDevice::getID()); //=> 2
     {
       text: '17.8 — Hiding inherited functionality',
       link: 'https://www.learncpp.com/cpp-tutorial/hiding-inherited-functionality/',
+    },
+    {
+      text: '18.9 — Object Slicing',
+      link: 'https://www.learncpp.com/cpp-tutorial/object-slicing/',
+    },
+    {
+      text: '18.1 — Pointers and references to the base class of derived objects',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/pointers-and-references-to-the-base-class-of-derived-objects/',
     },
   ]}
 ></References>
