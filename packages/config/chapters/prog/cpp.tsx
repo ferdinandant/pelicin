@@ -110,8 +110,7 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Friend Functions and Classes',
-        path: '/prog/cpp/oop/friend',
-        badge: 'TODO'
+        path: '/prog/cpp/oop/friend-functions-classes',
       },
       {
         title: 'Templates',
