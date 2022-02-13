@@ -243,32 +243,47 @@ int main() {
 }
 ```
 
-### Gotchas
+### Gotchas: `this` and virtual table
 
-Remember that within member function, references to other member function or variables are resolved via the implicit `this` pointer, which always points to the current class.
+(Currently I cannot explain why the following code works like they do.)
 
 ```cpp
-struct ClassA {
-  void runA() {
-    call();
+struct Base {
+  void callNormalFn() {
+    normalFn();
   }
-  virtual void call() {
-    printf("ClassA\n");
+  void callVirtualFn() {
+    virtualFn();
+  }
+  void normalFn() {
+    printf("Base::normalFn\n");
+  }
+  virtual void virtualFn() {
+    printf("Base::virtualFn\n");
   }
 };
 
-struct ClassB : ClassA {
-  void runB() {
-    runA();
+struct Derived : Base {
+  void callNormalFn() {
+    Base::callNormalFn();
   }
-  virtual void call() {
-    printf("ClassB\n");
+  void callVirtualFn() {
+    Base::callVirtualFn();
+  }
+  void normalFn() {
+    printf("Derived::normalFn\n");
+  }
+  virtual void virtualFn() {
+    printf("Derived::virtualFn\n");
   }
 };
 
 int main() {
-  ClassB class_b = {};
-  class_b.runB(); //=> ClassB
+  Derived d = {};
+  d.callVirtualFn();
+  //=> Derived::virtualFn (surprise!)
+  d.callNormalFn();
+  //=> Base::normalFn (surprise!)
 }
 ```
 
