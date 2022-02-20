@@ -1,0 +1,90 @@
+import { References, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Templates
+
+_Templates_ are basically placeholder types.
+
+Using templates, you can use the same definition of a function or a class with different types. (The _template parameters_ will be substituted with the actual types when you use them.)
+
+## Defining templates
+
+Basically, use `template <typename X, typename Y, template Z>` before the function or class definition (specifying as many `typename`'s as necessary inside the `<...>`).
+
+<NoteBox
+  title={
+    <>
+      <Code str="class" /> vs <Code str="typename" />
+    </>
+  }
+>
+  You can use the keyword <Code str="class" /> instead of <Code str="typename" /> inside{' '}
+  <Code str="template <...>" /> (there are no differences), but we prefer to use the latter because
+  the template parameters can be substituted with primitive types, not just class types.
+</NoteBox>
+
+### Defining template classes
+
+- `template <...> struct ClassName {...}`
+- `template <...> class ClassName {...}`
+
+```cpp
+template <typename T, typename U>
+struct Tuple {
+  T a;
+  U b;
+  Tuple(T a, U b): a{a}, b{b} {}
+};
+```
+
+### Defining template functions
+
+`template <...> <returnType> functionName(...) {...}`
+
+```cpp
+template <typename T>
+T sum(T a, T b) {
+  return a + b;
+}
+```
+
+## Instantiating templates
+
+### Instantiating template classes
+
+Use `ClassName<...>` as the type.
+
+```cpp
+Tuple<int, double> my_tuple = { 1, 2.5 };
+printf("%d %lf\n", my_tuple.a, my_tuple.b);
+//=> 1 2.500000
+```
+
+### Instantiating template functions
+
+Use `functionName<...>(...)` when calling the function.
+
+```cpp
+double sum = add<double>(1.75, 4.1);
+printf("%lf\n", sum);
+//=> 5.850000
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '6. Compile-Time Polymorphism',
+    },
+    {
+      text: '19.1 — Template classes',
+      link: `https://www.learncpp.com/cpp-tutorial/template-classes/`,
+    },
+    {
+      text: '8.13 — Function templates',
+      link: `https://www.learncpp.com/cpp-tutorial/function-templates/`,
+    },
+  ]}
+></References>
