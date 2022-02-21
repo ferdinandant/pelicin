@@ -11,7 +11,7 @@ Using templates, you can use the same definition of a function or a class with d
 
 Basically, use `template <typename T, typename U, template V>` before the function or class definition (specifying as many `typename`'s as necessary inside the `<...>`).
 
-We normally use single capital letters for the template parameters, e.g. `X`, `Y`, `Z`.
+We normally use single capital letters for the template parameters, e.g. `T`, `U`, `V`.
 
 <NoteBox
   title={
@@ -21,8 +21,8 @@ We normally use single capital letters for the template parameters, e.g. `X`, `Y
   }
 >
   <p>
-    You can use <Code str="template <class X, class Y>" /> instead of{' '}
-    <Code str="template <typename X, typename Y>" />. (Just another historical stuffs.)
+    You can use <Code str="template <class T, class U>" /> instead of{' '}
+    <Code str="template <typename T, typename U>" />. (Just another historical stuff.)
   </p>
   <p>
     There are no differences, but we prefer to use the latter because the template parameters can be
