@@ -1,0 +1,157 @@
+import { References, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Templates
+
+_Templates_ are basically placeholder types.
+
+Using templates, you can use the same definition of a function or a class with different types. (The _template parameters_ will be substituted with the actual types when you use them.)
+
+## Defining templates
+
+Basically, use `template <typename T, typename U, template V>` before the function or class definition (specifying as many `typename`'s as necessary inside the `<...>`).
+
+We normally use single capital letters for the template parameters, e.g. `X`, `Y`, `Z`.
+
+<NoteBox
+  title={
+    <>
+      <Code str="class" /> vs <Code str="typename" />
+    </>
+  }
+>
+  <p>
+    You can use <Code str="template <class X, class Y>" /> instead of{' '}
+    <Code str="template <typename X, typename Y>" />. (Just another historical stuffs.)
+  </p>
+  <p>
+    There are no differences, but we prefer to use the latter because the template parameters can be
+    substituted with primitive types, not just class types.
+  </p>
+</NoteBox>
+
+### Defining template classes
+
+- `template <...> struct ClassName {...}`
+- `template <...> class ClassName {...}`
+
+```cpp
+template <typename T, typename U>
+struct Tuple {
+  T a;
+  U b;
+  Tuple(T a, U b): a{a}, b{b} {}
+};
+```
+
+### Defining template functions
+
+`template <...> <returnType> functionName(...) {...}`
+
+```cpp
+template <typename T>
+T max(T a, T b) {
+  return a > b ? a : b;
+}
+```
+
+## Instantiating templates
+
+### Instantiating template classes
+
+Use `ClassName<...>` as the type.
+
+```cpp
+Tuple<int, double> tuple = { 1, 2.5 };
+printf("%ld %lf\n", tuple.a, tuple.b);
+//=> 1 2.500000
+```
+
+### Instantiating template functions
+
+Use `functionName<...>(...)` when calling the function.
+
+```cpp
+double max_value = max<double>(1.75, 4.1);
+printf("%lf\n", max_value);
+//=> 4.100000
+```
+
+## Template type deduction
+
+<NoteBox type="warning">
+  <p>
+    <b>Be careful with "type narrowing" when you rely on this feature.</b>
+  </p>
+  <p>
+    For example, a template function that receives actual types of <Code str="int" /> and{' '}
+    <Code str="double" /> may return an <Code str="int" /> when you expect it to return{' '}
+    <Code str="double" />.
+  </p>
+</NoteBox>
+
+Instead of instantiating the templates yourself, you can have the compiler automatically deduce the parameter types based on usage.
+
+```cpp
+// Automatically deduce template class
+// (One version: don't put the `<>`)
+Tuple tuple = { 1, 2.5 };
+printf("%d %lf\n", tuple.a, tuple.b);
+
+// Automatically deduce template function
+// (Two versions: put or don't put the `<>`)
+double a = max(1.75, 4.1);
+double b = max<>(1.75, 4.1);
+```
+
+The difference between the two template function calls:
+
+- **`max(...)`** &mdash; the compiler will consider `max<T>` template function overloads and `max` normal function overloads
+- **`max<>(...)`** &mdash; the compiler will only consider `max<T>` template function overloads
+
+## Abbreviated function template
+
+In C++20, when you use `auto` as _parameter type(s)_ of a normal function, under the hood, the compiler will convert the function into a template function.
+
+For example, the following code
+
+```cpp
+// Note `(auto x, auto y)`
+auto max(auto x, auto y) {
+  return (x > y) ? x : y;
+}
+```
+
+is a shorthand for
+
+```cpp
+// Each `auto`-typed parameter becomes
+// an independent template type
+template <typename T, typename U>
+auto max(T x, U y) {
+  return (x > y) ? x : y;
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '6. Compile-Time Polymorphism',
+    },
+    {
+      text: '19.1 — Template classes',
+      link: `https://www.learncpp.com/cpp-tutorial/template-classes/`,
+    },
+    {
+      text: '8.13 — Function templates',
+      link: `https://www.learncpp.com/cpp-tutorial/function-templates/`,
+    },
+    {
+      text: '8.15 — Function templates with multiple template types',
+      link: `https://www.learncpp.com/cpp-tutorial/function-templates-with-multiple-template-types/`,
+    },
+  ]}
+></References>
