@@ -3,13 +3,13 @@ import { smartTrim } from '@pelicin/utils';
 
 # Templates
 
-_Templates_ are basically placeholder types.
+_Templates_ are basically placeholder types. In other programming languages, templates are also known as _generic types_.
 
-Using templates, you can use the same definition of a function or a class with different types. (The _template parameters_ will be substituted with the actual types when you use them.)
+Using templates, you can use the same definition of a function or a class with different types. For example, you can say that this _template parameter_ `T` over here may be substituted by a `double` or an `int` type when used.
 
 ## Defining templates
 
-Basically, use `template <typename T, typename U, template V>` before the function or class definition (specifying as many `typename`'s as necessary inside the `<...>`).
+Use `template <typename T, typename U, template V>` before the function or class definition (specifying as many `typename`'s as necessary inside the `<...>`).
 
 We normally use single capital letters for the template parameters, e.g. `T`, `U`, `V`.
 
@@ -32,8 +32,8 @@ We normally use single capital letters for the template parameters, e.g. `T`, `U
 
 ### Defining template classes
 
-- `template <...> struct ClassName {...}`
-- `template <...> class ClassName {...}`
+- `template <[...parameters]> struct ClassName {...}`
+- `template <[...parameters]> class ClassName {...}`
 
 ```cpp
 template <typename T, typename U>
@@ -46,7 +46,7 @@ struct Tuple {
 
 ### Defining template functions
 
-`template <...> <returnType> functionName(...) {...}`
+`template <[...parameters]> [returnType] functionName(...) {...}`
 
 ```cpp
 template <typename T>
@@ -55,11 +55,39 @@ T max(T a, T b) {
 }
 ```
 
+### Using `auto` parameter type as a shorthand for a template function
+
+In C++20, when you use `auto` as _parameter type(s)_ of a normal function, under the hood, the compiler will convert the function into a template function.
+
+For example, the following code
+
+```cpp
+// Note `(auto x, auto y)`
+auto max(auto x, auto y) {
+  return (x > y) ? x : y;
+}
+```
+
+is a shorthand for
+
+```cpp
+// Each `auto`-typed parameter becomes
+// an independent template type
+template <typename T, typename U>
+auto max(T x, U y) {
+  return (x > y) ? x : y;
+}
+```
+
 ## Instantiating templates
+
+Instantiating means creating actual classes or functions from templates.
+
+When instantiating templates, you specify what actual type each template parameter stands for (e.g. `T` stands for `int`, `U` stands for `double`).
 
 ### Instantiating template classes
 
-Use `ClassName<...>` as the type.
+Use `ClassName<[...actualTypes]>` as the type.
 
 ```cpp
 Tuple<int, double> tuple = { 1, 2.5 };
@@ -69,7 +97,7 @@ printf("%ld %lf\n", tuple.a, tuple.b);
 
 ### Instantiating template functions
 
-Use `functionName<...>(...)` when calling the function.
+Use `functionName<[...actualTypes]>` when calling the function.
 
 ```cpp
 double max_value = max<double>(1.75, 4.1);
@@ -109,27 +137,110 @@ The difference between the two template function calls:
 - **`max(...)`** &mdash; the compiler will consider `max<T>` template function overloads and `max` normal function overloads
 - **`max<>(...)`** &mdash; the compiler will only consider `max<T>` template function overloads
 
-## Abbreviated function template
+## Template specialization
 
-In C++20, when you use `auto` as _parameter type(s)_ of a normal function, under the hood, the compiler will convert the function into a template function.
+You can create "special cases" when a template class or function is instantiated with a certain type(s).
 
-For example, the following code
+### Template class specialization
 
 ```cpp
-// Note `(auto x, auto y)`
-auto max(auto x, auto y) {
-  return (x > y) ? x : y;
+template <typename T>
+struct MyNumber {
+  T number = 0;
+  void printType() {
+    printf("Generic number\n");
+  }
+};
+
+// Specialization of MyNumber<double>:
+// (No more template parameter remaining;
+// so we can just put `template <>`)
+template <>
+struct MyNumber<double> {
+  double number = 0;
+  void printType() {
+    printf("Double\n");
+  }
+};
+
+int main() {
+  MyNumber<int> a = {};
+  a.printType();
+  //=> Generic number
+  MyNumber<double> b = {};
+  b.printType();
+  //=> Double
 }
 ```
 
-is a shorthand for
+### Template function specialization
+
+If you are specializing a member function, you should do it outside the class definition:
 
 ```cpp
-// Each `auto`-typed parameter becomes
-// an independent template type
-template <typename T, typename U>
-auto max(T x, U y) {
-  return (x > y) ? x : y;
+template <typename T>
+struct MyNumber {
+  T number = 0;
+  void printType() {
+    printf("Generic number\n");
+  }
+};
+
+// Specializing a member function
+// Do it outside the class definition
+template <>
+void MyNumber<double>::printType() {
+  printf("Double\n");
+}
+```
+
+Otherwise, follow a similar pattern like when you specialize a template class:
+
+```cpp
+template <typename T>
+void printNumber(T a) {
+  printf("Integer: %d\n", a);
+}
+
+// Specialization of printNumber<double>:
+// (No more template parameter remaining;
+// so we can just put `template <>`)
+template <>
+void printNumber<double>(double a) {
+  printf("Double: %e\n", a);
+}
+
+int main() {
+  // Note: this also works with template type deduction
+  // (if you don't specify `<int>` or `<double>`)
+  printNumber<int>(1);
+  //=> Integer: 1
+  printNumber<double>(3.14);
+  //=> Double: 3.140000e+00
+}
+```
+
+### Partial specialization with pointer types
+
+This kind of code also works:
+
+```cpp
+template <typename T>
+class Storage {
+  ...
+}
+
+// Specialization of Storage<T*>
+// (works if T is a pointer type):
+template <typename T>
+class Storage<T*> {
+  ...
+}
+
+int main() {
+  int number = 123;
+  Storage<int> storage_a = { number };
+  Storage<int*> storage_b = { &number };
 }
 ```
 
@@ -152,6 +263,14 @@ auto max(T x, U y) {
     {
       text: '8.15 — Function templates with multiple template types',
       link: `https://www.learncpp.com/cpp-tutorial/function-templates-with-multiple-template-types/`,
+    },
+    {
+      text: '19.3 — Function template specialization',
+      link: `https://www.learncpp.com/cpp-tutorial/function-template-specialization/`,
+    },
+    {
+      text: '19.4 — Class template specialization',
+      link: `https://www.learncpp.com/cpp-tutorial/class-template-specialization/`,
     },
   ]}
 ></References>
