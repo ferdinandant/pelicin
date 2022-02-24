@@ -1,5 +1,6 @@
 import React from 'react';
 import { TopicGroup } from '@pelicin/config';
+import { Link } from '@pelicin/components';
 
 const group: TopicGroup = {
   groupTitle: 'Programming',
@@ -15,7 +16,12 @@ const group: TopicGroup = {
         {
           title: 'C++',
           path: '/prog/cpp',
-          description: <>C++ Crash Course (Josh Lospinoso)</>,
+          description: (
+            <>
+              C++ Crash Course (Josh Lospinoso) and{' '}
+              <Link str="learncpp.com" link="https://www.learncpp.com" />
+            </>
+          ),
         },
       ],
     },
