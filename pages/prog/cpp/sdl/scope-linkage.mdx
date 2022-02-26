@@ -1,0 +1,127 @@
+import { References, NoteBox, Link } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Scope and Linkage
+
+An identifier's _scope_ determines where that identifier can be accessed: within the enclosing block, or within the file. (We say "identifier" because it can refer to a variable, class, or function name.)
+
+An identifier's _linkage_ determines if the identifier is known only to the current file (internal linkage), or to all files (external linkage).
+
+## Scope
+
+A variable can only be accessed within its scope. In addition, only one identifier with the same name can exist in the same scope (ODR, aka. [One Definition Rule](https://en.cppreference.com/w/cpp/language/definition)).
+
+### Local scope
+
+- A [local variable](/prog/cpp/getting-started/variables-constants#local-variables) (that is defined inside a function, inside a compound statement block, or is a function parameter) has _local scope_.
+- They can only be accessed from their definition until the end of the closest enclosing block (`{...}`).
+
+### File Scope
+
+- A [global variable](/prog/cpp/getting-started/variables-constants#global-variables) (that is defined outside a function) has _file scope_.
+- They can be accessed from their definition until the end of the current file.
+
+## Linkage
+
+The concept of linkage only applies to global variables and functions.
+
+Local variables have no linkage because [the linker](/prog/cpp#the-compiler-tool-chain) won't see it (their scope is limited and they only exist when the function is being called).
+
+### Internal linkage
+
+Identifiers with internal linkage can only be accessed inside the current translation unit (inside the current file).
+
+- Global variables or functions with the `static` keyword have internal linkage
+- Global constants have internal linkage by default
+
+```cpp
+// Internal linkage (because of `static`)
+static int damage = 0;
+
+// Internal linkage (because it's a global constant)
+const int MAX_HP = 100;
+```
+
+### External linkage
+
+Identifiers with internal linkage can be accessed by other translation units (by other files).
+
+- Global variables or functions with the `extern` keyword have external linkage
+- Global variables have external linkage by default
+- Functions have external linkage by default
+
+```cpp
+// External linkage (because it's a global variable)
+int number_a = 20;
+
+// External linkage (because of `extern`)
+extern int number_b = 20;
+
+// External linkage (because it's a function)
+void sayHi() {
+  printf("Hello!\n");
+}
+```
+
+## Using global variables from other files
+
+To actually use global variables with external linkage from other files, you have to use [forward declarations](#TODO).
+
+```cpp
+// fileA.cpp
+// Declaration and definition
+extern int my_var = 42;
+extern const int MY_CONST = 10;
+```
+
+```cpp
+// fileB.cpp
+// Forward declaration only
+extern int my_var;
+extern const int MY_CONST;
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '4. Object Life Cycle',
+    },
+    {
+      text: 'Translation units and linkage',
+      link: 'https://docs.microsoft.com/en-us/cpp/cpp/program-and-linkage-cpp?view=msvc-170',
+    },
+    {
+      text: 'Linkage and local variables',
+      link: 'https://stackoverflow.com/questions/62608555/linkage-and-local-variables',
+    },
+    {
+      text:
+        'Are global variables extern by default or is it equivalent to declaring variable with extern in global?',
+      link:
+        'https://stackoverflow.com/questions/28610783/are-global-variables-extern-by-default-or-is-it-equivalent-to-declaring-variable',
+    },
+    {
+      text: '6.3 — Local variables',
+      link: 'https://www.learncpp.com/cpp-tutorial/local-variables/',
+    },
+    {
+      text: '6.4 — Introduction to global variables',
+      link: 'https://www.learncpp.com/cpp-tutorial/introduction-to-global-variables/',
+    },
+    {
+      text: '6.6 — Internal linkage',
+      link: 'https://www.learncpp.com/cpp-tutorial/internal-linkage/',
+    },
+    {
+      text: '6.7 — External linkage',
+      link: 'https://www.learncpp.com/cpp-tutorial/external-linkage/',
+    },
+    {
+      text: 'extern (C++)',
+      link: 'https://docs.microsoft.com/en-us/cpp/cpp/extern-cpp?view=msvc-170',
+    },
+  ]}
+/>
