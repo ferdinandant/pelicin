@@ -122,18 +122,12 @@ const chapters: TopicChapters = [
     chapter: 'Scope, Duration, and Linkage',
     children: [
       {
-        title: 'Scope and Namespaces',
-        path: '/prog/cpp/sdl/scope-namespaces',
-        badge: 'TODO'
-      },
-      {
         title: 'Object Life Cycle',
         path: '/prog/cpp/sdl/object-life-cycle',
       },
       {
-        title: 'Static and Extern Variables',
-        path: '/prog/cpp/sdl/static-extern-variables',
-        badge: 'TODO'
+        title: 'Scope and Linkage',
+        path: '/prog/cpp/sdl/scope-linkage',
       },
     ],
   },

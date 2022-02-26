@@ -12,6 +12,8 @@ A variable or a constant stores a value. You can refer to them using their names
 
 Specify the [data types](/prog/cpp/types/primitive), the name of the variable, and optionally its initial value.
 
+The name of the variable should ONLY consist of letters (A&ndash;Z, a&ndash;z), numbers (0&ndash;9), and/or underscores (`_`), AND it must begin with a letter or an underscore.
+
 ```cpp
 // Defining a variable named `a`
 // that can store integers (int)
@@ -90,6 +92,38 @@ int my_number{0};
 int my_number = {0}
 ```
 
+## Local and global variables
+
+### Local variables
+
+Variables defined inside a function or inside a compound statement block (`{...}`) are _local variables_. You can access local variables in their scope only (inside their function or their nearest enclosing block).
+
+```cpp
+int main() {
+  // `my_number` is a local variable.
+  // You can only access `my_number` inside `main()`
+  int my_number = 5;
+
+  // Using the local variable `my_number`
+  printf("%d\n", my_number); //=> 5
+}
+```
+
+### Global variables
+
+Variables defined outside a function are _global variables_. You can access global variables anywhere inside the current file.
+
+```cpp
+// `MY_NUMBER` is a constant
+// You can access `MY_NUMBER` anywhere
+int MY_NUMBER = 10;
+
+int main() {
+  // Using the global variable `MY_NUMBER`
+  printf("%d\n", my_number); //=> 10
+}
+```
+
 ## Operations with variables and constants
 
 ### Using a variable's or constant's value
@@ -100,9 +134,11 @@ Just specify their name to get their stored value.
 int a = 1;
 int b = 2;
 
-// `c` will be 1 + 2 = 3
-int c = a + b;
-printf("%d\n", c); //=> 3
+int main() {
+  // `c` will be 1 + 2 = 3
+  int c = a + b;
+  printf("%d\n", c); //=> 3
+}
 ```
 
 ### Changing a variable's values
@@ -110,13 +146,15 @@ printf("%d\n", c); //=> 3
 Use the assignment operator. (Remember that you cannot re-assign a constant.)
 
 ```cpp
-int my_number = 1;
-printf("%d\n", my_number); //=> 1
+int main() {
+  int my_number = 1;
+  printf("%d\n", my_number); //=> 1
 
-// Change the value stored by
-// `my_number` into 2
-my_number = 2;
-printf("%d\n", my_number); //=> 2
+  // Change the value stored by
+  // `my_number` into 2
+  my_number = 2;
+  printf("%d\n", my_number); //=> 2
+}
 ```
 
 ## References
