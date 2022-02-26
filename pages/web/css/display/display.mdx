@@ -13,19 +13,23 @@ The `display` element sets whether an element is "block" or "inline".
     {
       name: 'block',
       description: (
-        <>
-          Generates a block element (generates line breaks before and after the element in the
-          normal flow
-        </>
+        <>Generates a block element (generates line breaks before and after the element).</>
       ),
     },
     {
       name: 'inline',
-      description: <>Generates an inline element (flows on the same line)</>,
+      description: <>Generates an inline element (flows on the same line).</>,
     },
     {
       name: 'inline-block',
-      description: <>Generates a block element that flows on the same line</>,
+      description: (
+        <>
+          Generates a block element that flows on the same line. (Unlike <Code str="inline" />, you
+          can set the element's width, height, vertical padding, and vertical margin with{' '}
+          <Code str="inline-block" />
+          .)
+        </>
+      ),
     },
   ]}
 />
@@ -108,6 +112,10 @@ The `display` element sets whether an element is "block" or "inline".
     {
       text: 'display (MDN)',
       link: `https://developer.mozilla.org/en-US/docs/Web/CSS/display`,
+    },
+    {
+      text: 'Inline vs Inline-Block Display in CSS (DigitalOcean)',
+      link: `https://www.digitalocean.com/community/tutorials/css-display-inline-vs-inline-block`,
     },
   ]}
 ></References>
