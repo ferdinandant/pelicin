@@ -119,18 +119,27 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'Others',
+    chapter: 'Scope, Duration, and Linkage',
     children: [
       {
-        title: 'Object Life Cycle',
-        path: '/prog/cpp/others/object-life-cycle',
+        title: 'Scope and Namespaces',
+        path: '/prog/cpp/sdl/scope-namespaces',
         badge: 'TODO'
+      },
+      {
+        title: 'Object Life Cycle',
+        path: '/prog/cpp/sdl/object-life-cycle',
       },
       {
         title: 'Static and Extern Variables',
-        path: '/prog/cpp/others/static-extern-variables',
+        path: '/prog/cpp/sdl/static-extern-variables',
         badge: 'TODO'
       },
+    ],
+  },
+  {
+    chapter: 'Others',
+    children: [
       {
         title: 'Exception Classes',
         path: '/prog/cpp/others/exceptions',

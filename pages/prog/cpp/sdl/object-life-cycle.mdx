@@ -1,0 +1,219 @@
+import { References, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Object Life Cycle
+
+"An _object_ is a region of storage that has a type and a value" (Lospinoso). Whenever you declare a variable, you create an object.
+
+## Storage duration and lifetime
+
+An object's _storage duration_ begins when storage is allocated for that object, and ends when storage is deallocated for that object. (Memory is reserved for the object during this period.)
+
+An object's _lifetime_ begins when the object's constructor returns, and ends just before the object's destructor is called. (You can use the object during this period.)
+
+Generally:
+
+1. Object's storage duration begins &mdash; storage is allocated
+2. Object's lifetime begins &mdash; object's constructor returns
+3. _(... you can use the object in your program ...)_
+4. Object's lifetime ends &mdash; object's destructor is called
+5. Object's storage duration ends &mdash; storage is deallocated
+
+## Types of storage duration
+
+Instead of relying on the _garbage collector_ (aka. automatic memory manager) to automatically deallocates the memory of objects you no longer use, you should know these types of memory management in C++.
+
+### Automatic storage duration
+
+All local variables and function parameters have this storage duration.
+
+- Storage is allocated at the start of the enclosing code block (`{`)
+- Storage is deallocated at the end of the enclosing code block (`}`)
+
+```cpp
+// `a` and `b` have automatic storage duration
+void addOne(int a) {
+  int b = 1;
+  return a + b;
+}
+```
+
+### Static storage duration
+
+Variables declared at global scope (or namespace scope), including those declared with the `static` or `extern` keyword, have this storage duration.
+
+- Storage is allocated when the program begins
+- Storage is deallocated when the program ends
+
+```cpp
+// `a` and `b` have static storage duration
+static int a = 100;
+extern int b = 200;
+
+// `c` has static storage duration
+struct MyClass {
+  static int c = 300;
+}
+
+// `d` has static storage duration
+int main() {
+  static int d = 10;
+}
+```
+
+<NoteBox title="Local static variables">
+  Local <Code str="static" /> variables (cppreference.com):
+  <ul>
+    <li>the storage is allocated when the program begins</li>
+    <li>
+      the value is initialized the first time control passes through their declaration (except for
+      zero or constant initialization, which can be done before the block is first entered).
+    </li>
+  </ul>
+</NoteBox>
+
+<NoteBox title="Normal class member vs static class member">
+  <ul>
+    <li>Local class members follow the class' storage duration</li>
+    <li>Static class members have static storage duration</li>
+  </ul>
+</NoteBox>
+
+### Thread-local storage duration
+
+Variables declared with `thread_local` have thread-local storage duration.
+
+- Storage is allocated when the thread begins
+- Storage is deallocated when the thread ends
+
+```cpp
+// `tl_a` has thread-local storage duration
+thread_local int tl_a = 1;
+
+// `tl_b` has thread-local storage duration
+void myFunction() {
+  static thread_local int tl_b = 5;
+}
+```
+
+<NoteBox
+  title={
+    <>
+      <Code str="thread_local" /> implies <Code str="static" />
+    </>
+  }
+>
+  <p>
+    <Code str="thread_local" /> can be combined with the <Code str="static" /> or{' '}
+    <Code str="extern" /> keyword. If none is specified, <Code str="static" /> is implied.
+  </p>
+  <p>
+    For the initialization of local <Code str="thread_local" /> variables, see "local static
+    variable" side note above.
+  </p>
+</NoteBox>
+
+### Dynamic storage duration
+
+Objects with dynamic storage duration are allocated and deallocated upon your request. These objects are also called _dynamic objects_.
+
+- To allocate storage, use the `new` expression
+- To deallocate storage, use the `delete` expression
+
+```cpp
+int main() {
+  int* my_int_ptr = new int{ 42 };
+  printf("%d\n", *my_int_ptr); //=> 42
+  delete my_int_ptr;
+}
+```
+
+<NoteBox type="warning">
+  <p>
+    You have to make sure that you <Code str="delete" /> dynamic objects once you no longer use them
+    (e.g. at the end of the scope or inside the class' destructor).
+  </p>
+  <p>
+    <strong>
+      Not doing this will cause <em>memory leak</em>
+    </strong>
+    , the condition where your program's memory usage keeps increasing because it does not release the
+    memory it no longer uses.
+  </p>
+</NoteBox>
+
+## Storage duration example
+
+The following code:
+
+```cpp
+struct Tracer {
+  const char* const name;
+  Tracer(const char* name) : name{name} {
+    printf("Constructed: %s\n", name);
+  }
+  ~Tracer() {
+    printf("Destructed: %s\n", name);
+  }
+};
+
+static Tracer t1{ "Global static variable" };
+thread_local Tracer t2{ "Thread-local variable" };
+
+int main() {
+  // Start of program:
+  //=> Constructed: Global static variable
+
+  const Tracer* t2_ptr = &t2;
+  //=> Constructed: Thread-local variable
+
+  Tracer t3 = { "Automatic variable" };
+  //=> Constructed: Automatic variable
+
+  const auto* t4 = new Tracer{ "Dynamic variable" };
+  //=> Constructed: Dynamic variable
+
+  // End of function:
+  // Note that 'Dynamic variable' is not destructed!
+  //=> Destructed: Automatic variable
+  //=> Destructed: Thread-local variable
+
+  // End of program:
+  //=> Destructed: Global static variable
+}
+```
+
+will produce the following output:
+
+```
+Constructed: Global static variable
+Constructed: Thread-local variable
+Constructed: Automatic variable
+Constructed: Dynamic variable
+Destructed: Automatic variable
+Destructed: Thread-local variable
+Destructed: Global static variable
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '4. Object Life Cycle',
+    },
+    {
+      text: 'storage duration vs lifetime',
+      link: 'https://stackoverflow.com/questions/21392160/storage-duration-vs-lifetime',
+    },
+    {
+      text: '6.11 — Scope, duration, and linkage summary',
+      link: 'https://www.learncpp.com/cpp-tutorial/scope-duration-and-linkage-summary/',
+    },
+    {
+      text: 'Storage class specifiers',
+      link: 'https://en.cppreference.com/w/cpp/language/storage_duration',
+    },
+  ]}
+></References>
