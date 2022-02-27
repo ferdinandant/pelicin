@@ -129,6 +129,10 @@ const chapters: TopicChapters = [
         title: 'Scope and Linkage',
         path: '/prog/cpp/sdl/scope-linkage',
       },
+      {
+        title: 'Namespaces',
+        path: '/prog/cpp/sdl/namespaces',
+      },
     ],
   },
   {

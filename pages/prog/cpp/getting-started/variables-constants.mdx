@@ -157,6 +157,22 @@ int main() {
 }
 ```
 
+### Variable shadowing
+
+You cannot declare the same variable name more than once in the same nesting level.
+
+However, if the same name occurs in different nesting level, then you will use the variable closer to the current scope. (This behavior is known as _variable shadowing_, because the nested variable declaration "hides" the outer variable declaration.)
+
+```cpp
+int my_number = 10;
+
+int main() {
+  int my_number = 20;
+  // Uses the variable closer to the current scope
+  printf("%d\n", my_number); //=> 20
+}
+```
+
 ## References
 
 <References

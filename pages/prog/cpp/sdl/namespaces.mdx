@@ -1,0 +1,206 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Namespaces
+
+Namespaces help disambiguate naming collisions.
+
+## User-defined and global namespaces
+
+### User-defined namespaces
+
+Use the `namespace` keyword to define user-defined namespaces.
+
+To access identifiers defined in a namespace, use the scope resolution operator (`::`): e.g. `myNamespace::doSomething()`.
+
+```cpp
+namespace foo {
+  int number = 1;
+  void printHello() {
+    printf("Hi\n");
+  }
+}
+
+namespace goo {
+  int number = 2;
+  void printHello() {
+    printf("Hello\n");
+  }
+}
+
+int main() {
+  // Use the scope resolution operator (::)
+  // to access identifiers inside a namespace
+  printf("%d\n", foo::number); //=> 1
+  printf("%d\n", goo::number); //=> 2
+  foo::printHello(); //=> Hi
+  goo::printHello(); //=> Hello
+}
+```
+
+### The global namespace
+
+Functions and global variables not defined inside any namespace exist in the global namespace.
+
+To access identifiers in the global namespace, you can:
+
+- mention their name directly (e.g. `doSomething()`), or
+- use the scope resolution operator (`::`) without the namespace name (e.g. `::doSomething()`).
+
+```cpp
+// I'm in the global namespace!
+int number = 123;
+
+// I'm in the global namespace!
+void printWhoami() {
+  printf("I'm global!\n");
+}
+
+// Explaining the difference between
+// `printWhoami` and `::printWhoami`
+namespace foo {
+  void printWhoami() {
+    printf("I'm inside foo!\n");
+  }
+  void doSomething() {
+    printWhoami(); // Calls `printWhoami` in `foo` bamespace
+    ::printWhoami(); // Calls `printWhoami` in global namespace
+  }
+}
+
+int main() {
+  printf("%d\n", number);
+  //=> 123
+  printWhoami();
+  //=> I'm global!
+
+  foo::doSomething();
+  //=> I'm inside foo!
+  //=> I'm global!
+}
+```
+
+## Multiple namespace block definition
+
+You can define the same namespace name multiple times (e.g. in different files). They will be combined into a single namespace.
+
+```cpp
+// circle.h
+namespace basicMath {
+  const double pi = 3.14;
+}
+```
+
+```cpp
+// growth.h
+namespace basicMath {
+  const double e = 2.7;
+}
+```
+
+```cpp
+// main.cpp
+#include <cstdio>
+#include "circle.h"
+#include "growth.h"
+
+int main() {
+  printf("%lf\n", basicMath::pi); //=> 3.140000
+  printf("%lf\n", basicMath::e); //=> 2.700000
+}
+```
+
+## Nested namespaces
+
+You can nest a namespace definition inside a namespace definition.
+
+For example, to create a namespace `foo::goo`:
+
+```cpp
+// Method 1
+namespace foo {
+  namespace goo {
+    int number = 123;
+  }
+}
+
+// Method 2 (since C++17)
+namespace foo::goo {
+  int number = 123;
+}
+```
+
+You can then access the identifier as follows:
+
+```cpp
+int main() {
+  printf("%d\n", foo::goo::number); //=> 123
+}
+```
+
+## Aliasing namespaces
+
+To alias a namespace in the current scope, use `namespace <alias> = <namespace>`:
+
+```cpp
+int main() {
+  // The `fg` namespace refers to `foo::goo`
+  namespace fg = foo::goo;
+  // This is the same as accessing `foo::goo::number`
+  printf("%d\n", fg::number);
+}
+```
+
+## The `using` keyword
+
+### `using namespace <something>`
+
+Also known as _using directive_, this imports all identifiers from a namespace into the current scope. (It can have block or file scope, depending on where you declare it.)
+
+```cpp
+// Defines `std::cout` and `std::endl`
+#include <iostream>
+// Now we don't have to specify `std::` again
+// (this one have file scope)
+using namespace std;
+
+int main() {
+  // This actually refers to `std::cout` and `std::endl`
+  cout << "Hello world!" << endl;
+}
+```
+
+### `using <something>`
+
+Also known as _using declaration_, this allows us to use specified qualified name (name with scope, e.g. `std::cout`) without the scope name (e.g. as `cout`). (It can have block or file scope, depending on where you declare it.)
+
+If naming collision occurs (e.g. between `cout` and `std::cout`), then the qualified name (`std::cout`) will be preferred.
+
+```cpp
+// Defines `std::cout` and `std::endl`
+#include <iostream>
+
+int main() {
+  // Now we can use `std::cout` and `std::endl` without
+  // the `std::` scope (this one have block scope)
+  using std::cout;
+  using std::endl;
+  // This actually refers to `std::cout` and `std::endl`
+  cout << "Hello world!" << endl;
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: '6.2 — User-defined namespaces and the scope resolution operator',
+      link: `https://www.learncpp.com/cpp-tutorial/user-defined-namespaces-and-the-scope-resolution-operator/`,
+    },
+    {
+      text: '6.12 — Using declarations and using directives',
+      link: `https://www.learncpp.com/cpp-tutorial/using-declarations-and-using-directives/`,
+    },
+  ]}
+></References>
