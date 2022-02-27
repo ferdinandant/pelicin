@@ -5,7 +5,7 @@ import { smartTrim } from '@pelicin/utils';
 
 Namespaces help disambiguate naming collisions.
 
-## User-defined and global namespaces
+## Types of namespaces
 
 ### User-defined namespaces
 
@@ -138,6 +138,55 @@ int main() {
 }
 ```
 
+### Unnamed namespace
+
+When you declare an _unnamed namespace_, they are considered part of the parent namespace.
+
+However, they also **imply internal linkage** (they can only be seen in the current file). It is as if you have declared global variables or functions with the `static` keyword.
+
+```cpp
+// Part of the global namespace
+// (because it's declared outside any namespace)
+// This imply *internal linkage*
+namespace {
+  int number = 456;
+  void printHello() {
+    printf("Hi\n");
+  }
+}
+
+// Declaring these would have the same effect:
+// - static int number = 456;
+// - static void printHello() {...}
+```
+
+### Inline namespaces
+
+Inline namespaces are usually used for versioning. Like unnamed namespaces, they are also considered part of the parent namespace, but hey DO NOT imply internal linkage.
+
+```cpp
+// Also part of the global namespace
+// (because it's declared outside any namespace)
+inline namespace v1 {
+  void printHello() {
+    printf("Hi, v1!\n");
+  }
+}
+
+namespace v2 {
+  void printHello() {
+    printf("Hi, v2!\n");
+  }
+}
+
+int main() {
+  v1::printHello(); //=> Hi, v1!
+  v2::printHello(); //=> Hi, v2!
+  // Calls the inline version in the global namespace
+  printHello(); //=> Hi, v1!
+}
+```
+
 ## Aliasing namespaces
 
 To alias a namespace in the current scope, use `namespace <alias> = <namespace>`:
@@ -201,6 +250,10 @@ int main() {
     {
       text: '6.12 — Using declarations and using directives',
       link: `https://www.learncpp.com/cpp-tutorial/using-declarations-and-using-directives/`,
+    },
+    {
+      text: '6.13 — Unnamed and inline namespaces',
+      link: `https://www.learncpp.com/cpp-tutorial/unnamed-and-inline-namespaces/`,
     },
   ]}
 ></References>
