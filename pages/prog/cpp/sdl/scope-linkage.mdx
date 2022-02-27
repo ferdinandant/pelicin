@@ -9,7 +9,9 @@ An identifier's _linkage_ determines if the identifier is known only to the curr
 
 ## Scope
 
-A variable can only be accessed within its scope. In addition, only one identifier with the same name can exist in the same scope (ODR, aka. [One Definition Rule](https://en.cppreference.com/w/cpp/language/definition)).
+A variable can only be accessed within its scope.
+
+In addition, only one identifier with the same name can exist in the same scope. However, it is okay if the same identifier names occur in different nesting level.
 
 ### Local scope
 
