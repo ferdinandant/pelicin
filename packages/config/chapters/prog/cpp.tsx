@@ -122,17 +122,21 @@ const chapters: TopicChapters = [
     chapter: 'Type Definitons and Conversions',
     children: [
       {
-        title: 'Type Casting',
-        path: '/prog/cpp/td/type-casting',
-      },
-      {
-        title: 'Type Aliases',
-        path: '/prog/cpp/td/type-aliases',
+        title: 'Implicit Conversion',
+        path: '/prog/cpp/td/implicit-conversion',
         badge: 'TODO',
       },
       {
-        title: 'Typedefs',
-        path: '/prog/cpp/td/typedefs',
+        title: 'Explicit Conversion (Casting)',
+        path: '/prog/cpp/td/explicit-conversion-casting',
+      },
+      {
+        title: 'Type Aliases and Typedefs',
+        path: '/prog/cpp/td/type-aliases-typedef',
+      },
+      {
+        title: 'Operator Overloading',
+        path: '/prog/cpp/td/operator-overloading',
         badge: 'TODO',
       },
     ],
