@@ -29,7 +29,7 @@ Under the hood, C-style casts can do `static_cast`, `const_cast`, or `reinterpre
 
 ### `static_cast`
 
-`static_cast<type>(expression)` converts the value of the given `expression` to the given `type`.
+`static_cast<type>(expression)` converts the value in the given `expression` as the given `type`.
 
 ```cpp
 int main() {
@@ -145,7 +145,17 @@ int main() {
 
 ### `reinterpret_cast`
 
-### `narrow_cast`
+`reinterpret_cast<type>(expression)` interprets the value stored at address `expression` as the pointer-type `type`.
+
+Commonly used in low-level programming (e.g. in embedded systems).
+
+```cpp
+int main() {
+  // E.g. if you store an `unsigned long*` value in memory address 0x1000
+  unsigned long* timer_value = reinterpret_cast<unsigned long*>(0x1000);
+  printf("Timer is %lu\n", *timer_value);
+}
+```
 
 ## References
 
