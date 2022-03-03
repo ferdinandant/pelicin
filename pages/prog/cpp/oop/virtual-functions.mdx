@@ -248,9 +248,9 @@ int main() {
 }
 ```
 
-### Gotchas: `this` and virtual table
+### Gotchas: `this` and the virtual table
 
-(Currently I cannot explain why the following code works like they do.)
+`this` points to the current class being worked on, but calls to virtual functions are looked up in the [vtable](https://www.learncpp.com/cpp-tutorial/the-virtual-table/) (still resolves to the most-overridden version).
 
 ```cpp
 struct Base {
@@ -375,6 +375,11 @@ int main() {
       text: 'c++ virtual function call without pointer or reference',
       link:
         'https://stackoverflow.com/questions/25276635/c-virtual-function-call-without-pointer-or-reference',
+    },
+    {
+      text: 'this pointer reference to normal vs virtual functions in superclass',
+      link:
+        'https://stackoverflow.com/questions/71100141/this-pointer-reference-to-normal-vs-virtual-functions-in-superclass?noredirect=1#comment125707441_71100141',
     },
     {
       text: 'Do I need to specify virtual on the sub-classes methods as well?',

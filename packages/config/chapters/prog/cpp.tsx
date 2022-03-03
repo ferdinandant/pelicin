@@ -119,6 +119,25 @@ const chapters: TopicChapters = [
     ],
   },
   {
+    chapter: 'Type Definitons and Conversions',
+    children: [
+      {
+        title: 'Type Casting',
+        path: '/prog/cpp/td/type-casting',
+      },
+      {
+        title: 'Type Aliases',
+        path: '/prog/cpp/td/type-aliases',
+        badge: 'TODO',
+      },
+      {
+        title: 'Typedefs',
+        path: '/prog/cpp/td/typedefs',
+        badge: 'TODO',
+      },
+    ],
+  },
+  {
     chapter: 'Scope, Duration, and Linkage',
     children: [
       {
