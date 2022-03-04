@@ -14,6 +14,55 @@ Append `*` after the type, e.g. `int*`:
 int* my_ptr;
 ```
 
+### Pointer to pointer
+
+You can have a pointer to pointer (pointer that stores the address of another pointer). Just append an extra `*`:
+
+```cpp
+int value = 100;
+// `&x` means get the address of `x`
+int* value_ptr = &value;
+int** value_pptr = &value_ptr;
+```
+
+### Pointer to function
+
+You can have a pointer to function as well.
+
+Because of how C++ grammar works, you should use `(*pointer_name)(...)` (enclosing the pointer name with parenthesis):
+
+```cpp
+void hello() {
+  printf("Hello\n");
+}
+
+int add(int a, int b) {
+  return a + b;
+}
+
+int sub(int a, int b) {
+  return a - b;
+}
+
+int main() {
+  // Defining pointer-to-function:
+  // Defines `hello_ptr` that points to `hello()`
+  void (*hello_ptr)() = &hello;
+  // Defines `add_ptr` that points to `add()`
+  int (*add_ptr)(int, int) = &add;
+
+  // Defining array of pointer-to-function:
+  // Defining an array `op_fun_list`
+  int(*ptr_list[])(int, int) = { add, sub };
+
+  // Call the functions through through the pointers
+  hello_ptr(); //=> Hello
+  printf("%d\n", add_ptr(4, 5)); //=> 9
+  printf("%d\n", ptr_list[0](1, 2)); //=> 3
+  printf("%d\n", ptr_list[1](3, 4)); //=> -1
+}
+```
+
 ## Formatting pointers
 
 The format specifier for a pointer is `%p`.
@@ -45,7 +94,7 @@ Prepend `&` before the variable's name to get its address.
 int* my_ptr;
 int my_number = 5;
 
-// Assign to my_ptr the address of my_number
+// Assign to `my_ptr` the address of `my_number`
 my_ptr = &my_number;
 ```
 
@@ -241,6 +290,14 @@ You can use `std::byte*` pointers to handle raw bytes. (E.g. for copying raw dat
     {
       text: 'C++ Crash Course (Josh Lospinoso)',
       description: '3. Reference Types',
+    },
+    {
+      text: 'C - Pointer to Pointer',
+      link: 'https://www.tutorialspoint.com/cprogramming/c_pointer_to_pointer.htm',
+    },
+    {
+      text: 'Function Pointer in C',
+      link: 'https://www.geeksforgeeks.org/function-pointer-in-c/',
     },
   ]}
 ></References>
