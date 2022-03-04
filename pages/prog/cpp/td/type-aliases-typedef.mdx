@@ -1,0 +1,176 @@
+import { References, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Type Aliases and Typedefs
+
+Type aliases give a new name to an existing type.
+
+**Type aliases DO NOT declare a new type.** For example, if you alias `int` as `power` and `score`, C++ will not complain if you assign `score` to `power` or `power` to `score`. (The compiler simply sees both "types" as `int`.)
+
+## Defining type aliases
+
+<NoteBox
+  type="info"
+  title={
+    <>
+      <Code str="using" /> vs <Code str="typedef" />
+    </>
+  }
+>
+  <p>
+    It's advised to use <Code str="using" /> as opposed to <Code str="typedef" />:
+  </p>
+  <ul>
+    <li>
+      The syntax with <Code str="using" /> is easier to read when dealing with pointer-to-function
+    </li>
+    <li>
+      You can't use templates with <Code str="typedef" />
+    </li>
+  </ul>
+</NoteBox>
+
+There are two ways to define type aliases:
+
+- **using (type alias)** &mdash; `using <alias> = <type>`, e.g. `using number = int;`
+- **typedef** &mdash; `typedef <type> <alias>`, e.g. `typedef int number`
+
+### Using `using`
+
+#### Simple example
+
+```cpp
+int main() {
+  // "I'm using this alias as this type"
+  using km_type = double;
+  using kmph_type = double;
+  // Defining variables with the aliased types
+  km_type distance = 20;
+  kmph_type speed = 40.0;
+}
+```
+
+#### With pointer to function
+
+```cpp
+int add(int a, int b) {
+  return a + b;
+}
+
+int main() {
+  // Aliasing pointer to function
+  using int_op_ptr_type = int(*)(int, int);
+  // The following line has the same meaning as:
+  // int (*add_ptr)(int, int) = &add;
+  int_op_ptr_type add_ptr = &add;
+}
+```
+
+#### With template
+
+```cpp
+template <typename T, typename U>
+struct Pair {
+  T first;
+  U second;
+};
+
+// Using the `template` keyword only works
+// in the global scope (outside functions)
+template <typename T>
+using pair_type = Pair<T, T>;
+
+int main() {
+  pair_type<int> pair = { 1, 2 };
+  printf("%d\n", pair.first); //=> 1
+  printf("%d\n", pair.second); //=> 2
+}
+```
+
+### Using `typedef`
+
+#### Simple example
+
+```cpp
+int main() {
+  // "I'm defining a new alias for this `type`: `alias`"
+  typedef double km_type;
+  typedef double kmph_type;
+  // Defining variables with the aliased types
+  km_type distance = 20;
+  kmph_type speed = 40.0;
+}
+```
+
+#### With pointer to function
+
+```cpp
+int add(int a, int b) {
+  return a + b;
+}
+
+int main() {
+  // Aliasing pointer to function
+  // The name of the alias is `int_op_ptr_type`
+  // (Yeah, the syntax kinda sucks.)
+  typedef int (*int_op_ptr_type)(int, int) ;
+  // The following line has the same meaning as:
+  // int (*add_ptr)(int, int) = &add;
+  int_op_ptr_type add_ptr = &add;
+}
+```
+
+## Scope of type aliases
+
+They can have block scope or file scope, depending on where they are declared:
+
+- if they are declared inside a block/function, they will have block scope;
+- if they are declared outside any function, they will have file scope.
+
+## Real world usages
+
+### Simplifying complex types
+
+Type aliases can simplify writing a complex type in your code. For example, you can refer to `std::vector<std::pair<int, int>>` simply as `array_pair_int_type`.
+
+### Adding meaning to "generic" types
+
+For example, you can differentiate `int` to be `student_id_type` or `time_seconds_type`.
+
+(Note that it's only for code legibility and from the compiler's perspective, they are all just `int`'s.)
+
+### Platform-independent coding
+
+For example, it can happen that on some platforms, `int` is 2 bytes, while on others, it is 4 bytes. (C++ spec does not specify the exact size for `char`, `short`, `int`, and `long`.)
+
+So, using `int` can behave differently on different platforms. Instead, you can introduce types that includes their sizes and use them instead (a common practice in cross-platform programming, learncpp.com):
+
+```cpp
+// Assuming `INT_2_BYTES` is `#defined`
+// on machines where `int` is 2 bytes
+// (it will use the top set of rules)
+#ifdef INT_2_BYTES
+  using int8_t = char;
+  using int16_t = int;
+  using int32_t = long;
+#else
+  using int8_t = char;
+  using int16_t = short;
+  using int32_t = int;
+#endif
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: '8.6 — Typedefs and type aliases',
+      link: `https://www.learncpp.com/cpp-tutorial/typedefs-and-type-aliases/`,
+    },
+    {
+      text: 'Alias Templates and Template Parameters',
+      link: `https://www.modernescpp.com/index.php/alias-templates-and-template-parameters`,
+    },
+  ]}
+></References>
