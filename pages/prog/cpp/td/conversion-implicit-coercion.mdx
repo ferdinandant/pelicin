@@ -1,0 +1,98 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Implicit Conversion (Coercion)
+
+Implicit conversion (aka. type coercion) happens when C++ expects a value of one type, and you give a value of different type:
+
+- If the value can be converted &mdash; _implicit conversion_ occurs.
+- If the value cannot be converted &mdash; compile error occurs.
+
+Note that type conversion produces a new value of the desired type and DOES NOT change the value or type of the object being converted (learncpp.com).
+
+## Numeric promotions
+
+Numeric promotion converts a smaller data type to a larger data type (e.g. `float` to `double`), **but the rule is only applied to certain data types**. (For other data types that are not covered by numeric promotion, see numeric conversion below.)
+
+Numeric promotions are guaranteed to preserve the value before and after promotion.
+
+### Integral promotions
+
+- `signed char` and `signed short` &mdash; can be converted to `int`
+- `unsigned char` and `unsigned short` &mdash; can be converted to `int` OR `unsigned int` (depending on whether the architecture's `int` can hold the entire range of the original type)
+- `bool` &mdash; can be converted to `int` (false becomes 0, true becomes 1)
+
+### Floating-point promotions
+
+- `float` &mdash; can be converted to `double`
+
+## Numeric conversions
+
+Numeric conversion works like numeric promotion, but applies to a wider range of data types. (The distinction between numeric _promotion_ and _conversion_ is "mostly academic," but matters in [function overload resolution](#TODO), learncpp.com.)
+
+- an integer type &mdash; can be converted to any other integer types (e.g. `int` to `short`, or `int` to `long`)
+- a floating-point type &mdash; can be converted to any other floating-point types (e.g. `double` to `float`, or `double` to `long double`)
+- an integer type &mdash; can be converted to any floating-point types (e.g. `int` to `double`)
+- a floating-point type &mdash; can be converted to any integer types (e.g. `double` to `int`)
+- an integer type or a floating-point type &mdash; can be converted to `bool` (non-zero value becomes true, zero value becomes false)
+
+### Narrowing conversions
+
+Note that conversions from "larger" or "more precise" data types to "smaller" or "less precise" data types are called _narrowing conversions_.
+
+You may lose data/precision in this case. For example, when you store a `double` value `3.123` to an `int`, you will get `3`.
+
+## Arithmetic conversions
+
+Operations with most binary operators (e.g. `+`, `-`, `<`, `>`, `&&`) normally require that the operands' types to be the same.
+
+If the types are not the same, then the operand with the "lower priority" is converted to match the type of the operand with the "higher priority" (e.g. operating an `int` with a `double` will produce a `double` value):
+
+- `long double` (highest)
+- `double`
+- `float`
+- `unsigned long long`
+- `long long`
+- `unsigned long`
+- `long`
+- `unsigned int`
+- `int` (lowest)
+
+## Pointer conversions
+
+- pointer to a subclass &mdash; can be converted as pointer to its superclass ("upcasting")
+- pointer to any type &mdash; can be converted as pointer with type `void*`
+- pointer with type `void*` &mdash; can be converted as pointer to any type (with [explicit cast](/prog/cpp/td/conversion-explicit-casting))
+- zero integer expression &mdash; can be converted as the null pointer
+
+## Reference conversions
+
+- reference to a subclass — can be converted as reference to its superclass ("upcasting")
+
+## References
+
+<References
+  references={[
+    {
+      text: '8.1 — Implicit type conversion (coercion)',
+      link: 'https://www.learncpp.com/cpp-tutorial/implicit-type-conversion-coercion/',
+    },
+    {
+      text: '8.2 — Floating-point and integral promotion',
+      link: 'https://www.learncpp.com/cpp-tutorial/floating-point-and-integral-promotion/',
+    },
+    {
+      text: '8.3 — Numeric conversions',
+      link: 'https://www.learncpp.com/cpp-tutorial/numeric-conversions/',
+    },
+    {
+      text: '8.11 — Function overload resolution and ambiguous matches',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/function-overload-resolution-and-ambiguous-matches/',
+    },
+    {
+      text: 'Standard conversions',
+      link: 'https://docs.microsoft.com/en-us/cpp/cpp/standard-conversions?view=msvc-170',
+    },
+  ]}
+></References>

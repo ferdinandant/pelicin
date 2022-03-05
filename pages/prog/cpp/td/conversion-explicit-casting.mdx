@@ -3,7 +3,9 @@ import { smartTrim } from '@pelicin/utils';
 
 # Explicit Conversion (Casting)
 
-Explicit conversion (aka. type-casting) explicitly converts one type into another type (Lospinoso).
+Explicit conversion (aka. type casting) explicitly converts one type into another type (Lospinoso).
+
+Note that type conversion produces a new value of the desired type and DOES NOT change the value or type of the object being converted (learncpp.com).
 
 ## C-style casts
 
@@ -83,7 +85,7 @@ int main() {
 
   // `dynamic_cast<Derived*>(base_ptr_1)` is not a valid cast
   // (casting a `Base*` object as `Derived*` type)
-  // it will return the null/zero pointer
+  // it will return the null pointer
   Derived* derived_ptr_1 = dynamic_cast<Derived*>(base_ptr_1);
   Derived* derived_ptr_2 = dynamic_cast<Derived*>(base_ptr_2);
   printf("%p\n", derived_ptr_1); //=> 0x0
