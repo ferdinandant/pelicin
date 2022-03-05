@@ -122,13 +122,12 @@ const chapters: TopicChapters = [
     chapter: 'Type Definitons and Conversions',
     children: [
       {
-        title: 'Implicit Conversion',
-        path: '/prog/cpp/td/implicit-conversion',
-        badge: 'TODO',
+        title: 'Implicit Conversion (Coercion)',
+        path: '/prog/cpp/td/conversion-implicit-coercion',
       },
       {
         title: 'Explicit Conversion (Casting)',
-        path: '/prog/cpp/td/explicit-conversion-casting',
+        path: '/prog/cpp/td/conversion-explicit-casting',
       },
       {
         title: 'Type Aliases and Typedefs',
