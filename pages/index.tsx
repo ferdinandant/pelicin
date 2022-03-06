@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/Head';
 import getConfig from 'next/config';
 
 import { TopBar, Hero, ContentIndex, Footer } from '@pelicin/layout';
@@ -14,6 +15,10 @@ export default function IndexPage() {
 
   return (
     <>
+      <Head key="title">
+        <title>Home - Pelicin!</title>
+      </Head>
+
       <TopBar />
       <Hero />
       <main>

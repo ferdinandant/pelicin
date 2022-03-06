@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { Heading, SyntaxHighlighter } from '@pelicin/components';
 import { extractHashFromNode } from '@pelicin/layout';
 import { extractStringFromNode } from '@pelicin/utils';
+import { useTopicConfig } from '@pelicin/config';
 
 /**
  * Process article MDX nodes (e.g. to swap them with other components, or add/remove nodes)
@@ -19,6 +20,8 @@ export default function processArticleMDX(children: ReactNode) {
 }
 
 function processChild(child: ReactNode, index = 0) {
+  const { topicTitle } = useTopicConfig();
+
   if (!child) {
     return;
   }
@@ -33,10 +36,13 @@ function processChild(child: ReactNode, index = 0) {
     // Map heading to include anchor hash
     const anchorHash = extractHashFromNode(children);
     const titleString = extractStringFromNode(children);
+    const siteTopicString = topicTitle ? `Pelicin / ${topicTitle}` : 'Pelicin';
     return (
       <React.Fragment key={index}>
         <Head key="title">
-          <title>{titleString} - Pelicin</title>
+          <title>
+            {titleString} - {siteTopicString}
+          </title>
         </Head>
         <Heading heading={mdxType} anchor={anchorHash} key={index}>
           {children}
