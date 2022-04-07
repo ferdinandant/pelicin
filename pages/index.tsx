@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/Head';
+import Head from 'next/head';
 import getConfig from 'next/config';
 
 import { TopBar, Hero, ContentIndex, Footer } from '@pelicin/layout';
