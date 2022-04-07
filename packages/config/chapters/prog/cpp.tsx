@@ -37,17 +37,16 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Expressions',
-        path: '/prog/cpp/core/expressions',
-        badge: 'TODO'
+        path: '/prog/cpp/getting-started/expressions',
       },
       {
         title: 'Statements',
-        path: '/prog/cpp/core/statements',
+        path: '/prog/cpp/getting-started/statements',
         badge: 'TODO'
       },
       {
         title: 'Functions',
-        path: '/prog/cpp/core/functions',
+        path: '/prog/cpp/getting-started/functions',
         badge: 'TODO'
       },
     ],
@@ -134,8 +133,13 @@ const chapters: TopicChapters = [
         path: '/prog/cpp/td/type-aliases-typedef',
       },
       {
+        title: 'Function Overloading',
+        path: '/prog/cpp/td/overloading-function',
+        badge: 'TODO',
+      },
+      {
         title: 'Operator Overloading',
-        path: '/prog/cpp/td/operator-overloading',
+        path: '/prog/cpp/td/overloading-operator',
         badge: 'TODO',
       },
     ],

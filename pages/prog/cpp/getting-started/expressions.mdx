@@ -1,0 +1,184 @@
+import { References, Badge, NoteBox } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Expressions
+
+Expressions are something that can be evaluated to produce a _value_.
+
+The simplest kind of expression is when you write a variable name or a single literal. You can also make a more sophisticated expressions using _operators_.
+
+## Operators
+
+### Arithmetic operators
+
+<Badge color="gray">Unary arithmetic operators</Badge>
+
+- **`+a` (unary plus)** &mdash; gets the value of `a` (unnecesarry in most cases), and promote the type of the result to `int`
+- **`-a` (unary minus)** &mdash; negates the value of `a` (plus to minus, vice versa), and promote the type of the result to `int`
+
+<Badge color="gray">Binary arithmetic operators</Badge>
+
+- **`a + b` (addition)** &mdash; adds `a` and `b`
+- **`a - b` (subtraction)** &mdash; subtracts `a` with `b`
+- **`a * b` (multiplication)** &mdash; multiplies `a` and `b`
+- **`a / b` (division)** &mdash; divides `a` with `b`
+- **`a % b` (modulo)** &mdash; computes the reminder of `a` divided by `b`
+
+<Badge color="gray">Increment/decrement operators</Badge>
+
+- **`a++`** &mdash; gets the current value of `a`, then increments the value of `a` by 1
+- **`a--`** &mdash; gets the current value of `a`, then decrements the value of `a` by 1
+- **`++a`** &mdash; increments the value of `a` by 1, then gets the new value of `a`
+- **`--a`** &mdash; decrements the value of `a` by 1, then gets the new value of `a`
+
+### Assignment operators
+
+<Badge color="gray">Normal assignment</Badge>
+
+- **`a = b`** &mdash; assigns `b` to `a`, then gets the value of `a`
+
+<Badge color="gray">Compound assignment</Badge>
+
+- **`a += b`** &mdash; equivalent to `a = a + b`
+- **`a -= b`** &mdash; equivalent to `a = a - b`
+- **`a *= b`** &mdash; equivalent to `a = a * b`
+- **`a /= b`** &mdash; equivalent to `a = a / b`
+- **`a %= b`** &mdash; equivalent to `a = a % b`
+- **`a &= b`** &mdash; equivalent to `a = a & b`
+- **`a |= b`** &mdash; equivalent to `a = a | b`
+- **`a ^= b`** &mdash; equivalent to `a = a ^ b`
+- **`a <<= b`** &mdash; equivalent to `a = a << b`
+- **`a >>= b`** &mdash; equivalent to `a = a >> b`
+
+### Relational operators
+
+<Badge color="gray">Equality operators</Badge>
+
+- **`a == b` (equality)** &mdash; returns `true` if `a` = `b`, otherwise return `false`
+- **`a != b` (inequality)** &mdash; returns `true` if `a` &ne; `b`, otherwise return `false`
+
+<Badge color="gray">Comparison operators</Badge>
+
+- **`a < b`** &mdash; returns `true` if `a` < `b`, otherwise return `false`
+- **`a > b`** &mdash; returns `true` if `a` > `b`, otherwise return `false`
+- **`a <= b`** &mdash; returns `true` if `a` &le; `b`, otherwise return `false`
+- **`a >= b`** &mdash; returns `true` if `a` &ge; `b`, otherwise return `false`
+
+### Logical operators
+
+<Badge color="gray">Logical operators</Badge>
+
+- **`a && b` (logical AND)** &mdash; returns `true` if `a` and `b` is both `true`, `false` otherwise
+- **`a || b` (logical OR)** &mdash; returns `true` if either `a` or `b` is `true`, `false` otherwise
+- **`!a` (logical NOT)** &mdash; returns `true` if `a` is `false`, `false` otherwise
+
+<Badge color="gray">Bitwise operators</Badge>
+
+- **`a & b` (bitwise AND)** &mdash; performs boolean AND operation on each bit of `a` and `b`, e.g. `0b0011 & 0b0101` &rArr; `0b0001`
+- **`a | b` (bitwise OR)** &mdash; performs boolean OR operation on each bit of `a` and `b`, e.g. `0b0011 | 0b0101` &rArr; `0b0111`
+- **`a ^ b` (bitwise XOR)** &mdash; performs boolean XOR operation on each bit of `a` and `b`, e.g. `0b0011 ^ 0b0101` &rArr; `0b0110`
+- **`~a` (bitwise NOT)** &mdash; inverts all bits of `a`
+
+<Badge color="gray">Bitwise shift operators</Badge>
+
+- **`a << b` (shift left)** &mdash; shifts in `b` zero bits to the right of `a` (the left-most `b` bits are discarded), e.g. `0b0011 << 1` &rArr; `0b0110`
+- **`a >> b` (shift right)** &mdash; shifts in `b` zero bits to the left of `a` (the right-most `b` bits are discarded), e.g. `0b0011 >> 1` &rArr; `0b0001`
+
+### Miscellaneous operators
+
+<Badge color="gray">Scope resolution operator</Badge>
+
+- **`a::b`** &mdash; gets member `b` in class/namespace `a`
+- **`::b`** &mdash; gets variable `b` in the global namespace
+
+<Badge color="gray">Function calls</Badge>
+
+- **`fn()`** &mdash; calls function `fn`, optionally with parameters, e.g. `fn(a, b, c)`
+
+<Badge color="gray">Pointer operators</Badge>
+
+- **`&a`** &mdash;
+- **`*a`** &mdash;
+- **`a->b`** &mdash;
+
+<Badge color="gray">Other operators</Badge>
+
+- **`a ? b : c` (ternary operator)** &mdash; if `a` is true, returns `b`, otherwise returns `c`
+- **`a, b` (comma operator)** &mdash; RARELY USED: evaluates `a`, then evaluates `b`, then returns `b` (returns the right-most operand)
+
+## Operator precendence and associativity
+
+When multiple operator appears in one statement, _operator precendence_ and _operator associativity_ rules govern how to read the expression (which part should be performed first)
+
+### Operator precendence
+
+Operators with higher precendence should be performed first.
+
+- Use parentheses `(...)` to enforce precendence
+- Remember PEMDAS in math (`*`'s and `/`'s are performed before `+`'s and `-`'s)
+- Logical AND has higher precendence than OR (`&&`'s are performed before `||`'s)
+
+### Operator associativity
+
+<NoteBox>Just use common sense. You shouldn't remember these rules.</NoteBox>
+
+If two operators _have the same precendence_ (e.g. `/` and `*`), operator associativity rule tells us whether we should read it left-to-right or right-to-left.
+
+For example, `a * b * c` should be read as `(a * b) * c`, because `*` have left-to-right associativity (read it from left to right).
+
+## Evaluation order
+
+Operator precendence and associativity rules only tell which part of the expression should be evaluated first **in relation to other operators**.
+
+Given `a + (b * c)` or `f(a, b, c)`, the specification does not tell whether the compiler should evaluate `a`, `b`, or `c` first. The compiler is free to choose whatever order it likes (for optimization).
+
+### Enforcing evaluation order
+
+To enforce certain evaluation order, separate the expression into separate statements:
+
+```cpp
+// The compiler can choose any evaluation order
+// e.g. `roll()` can be called first before `stop()`
+result = (stop() * drop()) + roll();
+
+// Enforcing evaluation order
+int temp =
+result = stop();
+result += drop();
+result += roll();
+```
+
+### Lazy evaluation
+
+Also called _short-circuit evaluation_:
+
+- In `a && b` &mdash; if `a` is `false`, then the whole expression is `false`, so there is no need to evaluate `b` (it is not evaluated and its side effects are not executed)
+- In `a || b` &mdash; if `a` is `true`, then the whole expression is `true`, so there is no need to evaluate `b` (it is not evaluated and its side effects are not executed)
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '7. Expressions',
+    },
+    {
+      text: '5.1 — Operator precedence and associativity',
+      link: 'https://www.learncpp.com/cpp-tutorial/operator-precedence-and-associativity/',
+    },
+    {
+      text: '5.5 — Comma and conditional operators',
+      link: 'https://www.learncpp.com/cpp-tutorial/comma-and-conditional-operators/',
+    },
+    {
+      text: '5.6 — Relational operators and floating point comparisons',
+      link:
+        'https://www.learncpp.com/cpp-tutorial/relational-operators-and-floating-point-comparisons/',
+    },
+    {
+      text: '5.7 — Logical operators',
+      link: 'https://www.learncpp.com/cpp-tutorial/logical-operators/',
+    },
+  ]}
+></References>
