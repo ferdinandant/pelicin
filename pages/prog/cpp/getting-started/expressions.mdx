@@ -1,4 +1,4 @@
-import { References, Badge } from '@pelicin/components';
+import { References, Badge, NoteBox } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Expressions
@@ -86,35 +86,66 @@ The simplest kind of expression is when you write a variable name or a single li
 
 ### Miscellaneous operators
 
+<Badge color="gray">Scope resolution operator</Badge>
+
+- **`a::b`** &mdash; gets member `b` in class/namespace `a`
+- **`::b`** &mdash; gets variable `b` in the global namespace
+
+<Badge color="gray">Function calls</Badge>
+
+- **`fn()`** &mdash; calls function `fn`, optionally with parameters, e.g. `fn(a, b, c)`
+
+<Badge color="gray">Pointer operators</Badge>
+
+- **`&a`** &mdash;
+- **`*a`** &mdash;
+- **`a->b`** &mdash;
+
+<Badge color="gray">Other operators</Badge>
+
 - **`a ? b : c` (ternary operator)** &mdash; if `a` is true, returns `b`, otherwise returns `c`
-- **`a, b` (comma operator)** &mdash; evaluates `a`, then evaluates `b`, then returns `b` (returns the right-most operand)
+- **`a, b` (comma operator)** &mdash; RARELY USED: evaluates `a`, then evaluates `b`, then returns `b` (returns the right-most operand)
 
-## Operator precendence
+## Operator precendence and associativity
 
-Generally,
+When multiple operator appears in one statement, _operator precendence_ and _operator associativity_ rules govern how to read the expression (which part should be performed first)
+
+### Operator precendence
+
+Operators with higher precendence should be performed first.
 
 - Use parentheses `(...)` to enforce precendence
 - Remember PEMDAS in math (`*`'s and `/`'s are performed before `+`'s and `-`'s)
 - Logical AND has higher precendence than OR (`&&`'s are performed before `||`'s)
 
-## Order of evaluation
+### Operator associativity
 
-Operator precendence rules only tell which part of the expression should be evaluated first **in relation to other operators**. It does not tell which _value_ should be evaluated first.
+<NoteBox>Just use common sense. You shouldn't remember these rules.</NoteBox>
 
-### Compiler optimization
+If two operators _have the same precendence_ (e.g. `/` and `*`), operator associativity rule tells us whether we should read it left-to-right or right-to-left.
 
-When faced with `a + (b * c)` or `f(a, b, c)`, the order to evaluate `a`, `b`, or `c` is not specified by the specification, so the compiler is free to choose whatever order for optimization.
+For example, `a * b * c` should be read as `(a * b) * c`, because `*` have left-to-right associativity (read it from left to right).
 
-To enforce certain order, separate the expression into separate statements:
+## Evaluation order
+
+Operator precendence and associativity rules only tell which part of the expression should be evaluated first **in relation to other operators**.
+
+Given `a + (b * c)` or `f(a, b, c)`, the specification does not tell whether the compiler should evaluate `a`, `b`, or `c` first. The compiler is free to choose whatever order it likes (for optimization).
+
+### Enforcing evaluation order
+
+To enforce certain evaluation order, separate the expression into separate statements:
 
 ```cpp
-// Instead of doing:
-// int res = readInput() + (readInput() * readInput());
-// (the compiler may call the right-most `readInput()` first)
-int a = readInput();
-int b = readInput();
-int c = readInput();
-int res = a + (b * c);
+// The compiler can choose any evaluation order
+// e.g. `roll()` can be called first before `stop()`
+result = (stop() * drop()) + roll();
+
+// Enforcing evaluation order
+int temp =
+result = stop();
+result += drop();
+result += roll();
 ```
 
 ### Lazy evaluation
@@ -134,20 +165,20 @@ Also called _short-circuit evaluation_:
     },
     {
       text: '5.1 — Operator precedence and associativity',
-      description: 'https://www.learncpp.com/cpp-tutorial/operator-precedence-and-associativity/',
+      link: 'https://www.learncpp.com/cpp-tutorial/operator-precedence-and-associativity/',
     },
     {
       text: '5.5 — Comma and conditional operators',
-      description: 'https://www.learncpp.com/cpp-tutorial/comma-and-conditional-operators/',
+      link: 'https://www.learncpp.com/cpp-tutorial/comma-and-conditional-operators/',
     },
     {
       text: '5.6 — Relational operators and floating point comparisons',
-      description:
+      link:
         'https://www.learncpp.com/cpp-tutorial/relational-operators-and-floating-point-comparisons/',
     },
     {
       text: '5.7 — Logical operators',
-      description: 'https://www.learncpp.com/cpp-tutorial/logical-operators/',
+      link: 'https://www.learncpp.com/cpp-tutorial/logical-operators/',
     },
   ]}
 ></References>
