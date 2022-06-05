@@ -104,7 +104,7 @@ You can use Unicode characters directly in your identifiers, strings, and commen
 
 To write them using ASCII characters, you can write `\uXXXX` or `\u{XXXX}`. (The version with curly braces is introduced in ES6.)
 
-<!-- prettier-ignore -->
+{/* prettier-ignore */}
 ```js
 const π = 3.14;
 
@@ -147,7 +147,7 @@ The exceptions to this rule (Flanagan):
 - if `++` and `--` are to be used as postfix operator (e.g. `i++`), they must appear on the same line as the expression they apply to
 - the `=>` in arrow functions must appear on the same line as the parameter list
 
-<!-- prettier-ignore -->
+{/* prettier-ignore */}
 ```js
 // Example 1:
 let a
@@ -160,7 +160,7 @@ a = 3;
 console.log(a);
 ```
 
-<!-- prettier-ignore -->
+{/* prettier-ignore */}
 ```js
 // Example 2:
 let y = x + f
@@ -170,7 +170,7 @@ let y = x + f
 let y = x + f(a+b).toString();
 ```
 
-<!-- prettier-ignore -->
+{/* prettier-ignore */}
 ```js
 // Example 3:
 return

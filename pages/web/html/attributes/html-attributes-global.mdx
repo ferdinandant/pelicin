@@ -106,9 +106,7 @@ The way to activate the shortcut depends on the browser and the OS ([see here](h
 For starters, you can try <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>[accesskey]</kbd> or <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>[accesskey]</kbd>.
 
 ```html
-<button accesskey="s" onclick="alert('Hello')">
-  Try "Alt + Shift + S"
-</button>
+<button accesskey="s" onclick="alert('Hello')">Try "Alt + Shift + S"</button>
 ```
 
 <LightBox label="Preview">
@@ -172,9 +170,7 @@ Indicates if the element should be editable by the user.
 />
 
 ```html
-<blockquote contenteditable="true">
-  You can edit this quote!
-</blockquote>
+<blockquote contenteditable="true">You can edit this quote!</blockquote>
 ```
 
 <LightBox label="Preview">
@@ -222,7 +218,7 @@ Hints what action label/icon to present for the enter key on virtual keyboards.
   ]}
 />
 
-<!-- prettier-ignore -->
+{/* prettier-ignore */}
 ```html
 <input enterkeyhint="search">
 ```
@@ -361,7 +357,7 @@ When a string value is in some machine-readable format unsuitable for human cons
 
 - the `<data>` element and its `value` attribute (with the human-readable version given in the element's content).
 
-<!-- prettier-ignore -->
+{/* prettier-ignore */}
 ```html
 <div itemscope>
  <p>My name is <span itemprop="name">Elizabeth</span>.</p>
@@ -395,7 +391,7 @@ Space-separated id's of elements whose properties are to be associated with this
 
 Gives unique identifier to an item. The value should be a URL or a URN. (`itemscope` and `itemtype` must be defined for such item.)
 
-<!-- prettier-ignore -->
+{/* prettier-ignore */}
 ```html
 <dl itemscope
   itemtype="http://vocab.example.net/book"
