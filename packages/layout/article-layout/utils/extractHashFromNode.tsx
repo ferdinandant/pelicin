@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { extractHashFromTitle } from '@pelicin/layout';
+import { extractHashFromTitle } from '@pelicin/utils';
 
 /**
  * Given a react node (usually heading), extract URL hash based on its content

@@ -24,7 +24,7 @@ const TOCToggleContext = React.createContext<TOCToggleContextStore>({
 // ================================================================================
 
 export function TOCToggleProvider(props: TOCToggleProviderProps) {
-  const { children, initialIsToggled = false } = props;
+  const { children = null, initialIsToggled = false } = props;
   const [isToggled, setIsToggled] = useState(initialIsToggled);
 
   const store = {

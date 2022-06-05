@@ -1,3 +1,6 @@
+/**
+ * Extracts anchor hash (e.g. '#my-title') from a string
+ */
 export default function extractHashFromTitle(title: string) {
   const result = title
     .toLowerCase()

@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { MDXProvider } from '@mdx-js/react';
 
 import {
   getTopicConfigFromPath,
@@ -31,12 +30,6 @@ type Props = {
   children: ReactNode;
 };
 
-const components = {
-  wrapper: ({ children }) => {
-    return renderMDX(children);
-  },
-};
-
 // ================================================================================
 // MAIN
 // ================================================================================
@@ -47,43 +40,30 @@ export default function MDXArticleLayout(props: Props) {
   const topicConfig = getTopicConfigFromPath(pathname);
   const { topicKey } = topicConfig;
 
+  const toc = getArticleTOC(children);
+  const processedChildren = processArticleMDX(children);
+
   return (
     <TopicConfigProvider value={topicConfig}>
       <TopicChaptersProvider topicKey={topicKey}>
         <HamburgerToggleProvider>
           <TOCToggleProvider>
             <TopBar showHamburgerToggle showTOCToggle />
-            <MDXProvider components={components}>{children}</MDXProvider>
+            <ArticleTOCProvider value={toc}>
+              <div>
+                <ChapterSidebar />
+                <HamburgerChapterSidebar />
+                <MainContainer>{processedChildren}</MainContainer>
+              </div>
+            </ArticleTOCProvider>
+            <style jsx>{`
+              div {
+                display: flex;
+              }
+            `}</style>
           </TOCToggleProvider>
         </HamburgerToggleProvider>
       </TopicChaptersProvider>
     </TopicConfigProvider>
-  );
-}
-
-// ================================================================================
-// HELPERS
-// ================================================================================
-
-function renderMDX(children: ReactNode) {
-  const toc = getArticleTOC(children);
-  const processedChildren = processArticleMDX(children);
-
-  return (
-    <>
-      <ArticleTOCProvider value={toc}>
-        <div>
-          <ChapterSidebar />
-          <HamburgerChapterSidebar />
-          <MainContainer>{processedChildren}</MainContainer>
-        </div>
-      </ArticleTOCProvider>
-
-      <style jsx>{`
-        div {
-          display: flex;
-        }
-      `}</style>
-    </>
   );
 }

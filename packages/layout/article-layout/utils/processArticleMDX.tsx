@@ -8,14 +8,14 @@ import { useTopicConfig } from '@pelicin/config';
 
 /**
  * Process article MDX nodes (e.g. to swap them with other components, or add/remove nodes)
- * @param children
+ * @param children - An <MDXContent> component
  */
 export default function processArticleMDX(children: ReactNode) {
-  if (!Array.isArray(children)) {
-    return processChild(children);
+  const mdxChildren = (children as any).type().props.children;
+  if (!Array.isArray(mdxChildren)) {
+    return processChild(mdxChildren);
   }
-
-  const result = children.map((child, index) => processChild(child, index));
+  const result = mdxChildren.map((child, index) => processChild(child, index));
   return result;
 }
 
@@ -26,13 +26,14 @@ function processChild(child: ReactNode, index = 0) {
     return;
   }
 
-  const { props } = child as React.Component<any, any>;
+  // HACK: Accessing some react internals here
+  const { type, props } = child as any;
   if (!props) {
     return child;
   }
-  const { mdxType, children } = props;
+  const { children } = props;
 
-  if (mdxType === 'h1') {
+  if (type === 'h1') {
     // Map heading to include anchor hash
     const anchorHash = extractHashFromNode(children);
     const titleString = extractStringFromNode(children);
@@ -44,20 +45,20 @@ function processChild(child: ReactNode, index = 0) {
             {titleString} - {siteTopicString}
           </title>
         </Head>
-        <Heading heading={mdxType} anchor={anchorHash} key={index}>
+        <Heading heading={type} anchor={anchorHash} key={index}>
           {children}
         </Heading>
       </React.Fragment>
     );
-  } else if (mdxType.match(/h([2-6])/)) {
+  } else if (type.match && type.match(/h([2-6])/)) {
     // Map heading to include anchor hash
     const anchorHash = extractHashFromNode(children);
     return (
-      <Heading heading={mdxType} anchor={anchorHash} key={index}>
+      <Heading heading={type} anchor={anchorHash} key={index}>
         {children}
       </Heading>
     );
-  } else if (mdxType === 'pre') {
+  } else if (type === 'pre') {
     // Map '<pre>' to use syntax highlighter
     const { props: childrenProps } = children as any;
     const { className, children: codeString } = childrenProps || {};

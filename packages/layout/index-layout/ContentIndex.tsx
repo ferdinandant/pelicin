@@ -3,7 +3,8 @@ import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
 import { TopicGroups } from '@pelicin/config';
 import { Icon } from '@pelicin/components';
-import { INDEX_DOM_ID, extractHashFromTitle } from '@pelicin/layout';
+import { INDEX_DOM_ID } from '@pelicin/layout';
+import { extractHashFromTitle } from '@pelicin/utils';
 
 // ================================================================================
 // TYPES/CONST
