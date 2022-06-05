@@ -4,6 +4,7 @@
   "main": "index.ts",
   "license": "MIT",
   "dependencies": {
+    "@mdx-js/react": "^2.1.1",
     "classnames": "^2.2.6",
     "debounce": "^1.2.0",
     "framer-motion": "^3.1.4",

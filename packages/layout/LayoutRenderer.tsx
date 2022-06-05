@@ -33,5 +33,5 @@ function Providers(props: { children: ReactNode }) {
 }
 
 function isMdxComponent(children: ReactNode) {
-  return Boolean((children as any)?.type?.isMDXComponent);
+  return (children as any)?.type?.name === 'MDXContent';
 }
