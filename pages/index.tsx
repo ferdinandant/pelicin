@@ -22,6 +22,9 @@ export default function IndexPage() {
       <TopBar />
       <Hero />
       <main>
+        <div className="tempMessageBox">
+          <b>Currently migrating to MDX v2.</b> Some pages may become broken.
+        </div>
         <ContentIndex groups={shownGroups} />
       </main>
       <Footer />
@@ -31,6 +34,14 @@ export default function IndexPage() {
           width: 100%;
           padding: var(--spacing-xxl) var(--spacing-xl);
           padding-bottom: var(--spacing-xxl);
+        }
+        .tempMessageBox {
+          margin: 0 auto;
+          max-width: 640px;
+          padding: var(--spacing-m) var(--spacing-l);
+          background-color: var(--color-red-1);
+          color: var(--color-red-4);
+          border-radius: var(--border-radius-normal);
         }
       `}</style>
     </>
