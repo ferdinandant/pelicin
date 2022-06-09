@@ -36,6 +36,10 @@ const chapters: TopicChapters = [
         path: '/prog/cpp/getting-started/variables-constants',
       },
       {
+        title: 'Constant Expressions',
+        path: '/prog/cpp/getting-started/constant-expressions',
+      },
+      {
         title: 'Expressions',
         path: '/prog/cpp/getting-started/expressions',
       },

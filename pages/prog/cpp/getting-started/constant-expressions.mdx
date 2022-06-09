@@ -1,0 +1,58 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Constant Expressions
+
+Whereas `const` marks a _runtime constant_ (its value can only be determined at runtime, and cannot be changed after it is assigned), `constexpr` marks a _compile-time constant_.
+
+Using `constexpr` enforces a variable or function to be evaluable during compile-time (otherwise it's a compile error). The compiler can then substitute their occurences with the evaluated value for optimization.
+
+## `constexpr` with variables
+
+Variables with `constexpr` will be evaluated during compile-time. (Note that `constexpr` implies `const`, as the variable's value cannot be changed after initialization.)
+
+```cpp
+int main() {
+  // These are OK because the values
+  // can be evaluated during compile-time
+  constexpr double gravity = 9.8;
+  constexpr int sum = 4 + 5;
+
+  int age{};
+  scanf("%d", &age);
+  // The following causes compile-error
+  // constexpr int const_age = age;
+}
+```
+
+## `constexpr` with functions
+
+Functions with `constexpr` will be evaluated during compile-time.
+
+```cpp
+// You can now use this function in constexpr expressions
+constexpr int max(int a, int b) {
+  return a > b ? a : b;
+}
+
+int main() {
+  // If you don't specify `constexpr` for `max`,
+  // the line below will cause compilation error.
+  constexpr int value = max(2, 3);
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '7. Expressions',
+    },
+    {
+      text: '4.15 — Symbolic constants: const and constexpr variables',
+      link: 'https://www.learncpp.com/cpp-tutorial/const-constexpr-and-symbolic-constants/',
+    },
+  ]}
+></References>
