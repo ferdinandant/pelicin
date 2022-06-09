@@ -122,9 +122,22 @@ Objects with dynamic storage duration are allocated and deallocated upon your re
 
 ```cpp
 int main() {
+  // Simple example with variables
   int* my_int_ptr = new int{ 42 };
   printf("%d\n", *my_int_ptr); //=> 42
   delete my_int_ptr;
+
+  // With array, the length does not need to be a constant.
+  // (The length could also be inferred from the init list.)
+  const int length = 5;
+  int* my_arr_ptr_1 = new int[length]{};
+  int* my_arr_ptr_2 = new int[]{ 111, 222 };
+  printf("%d %d\n", my_arr_ptr_1[0], my_arr_ptr_1[1]); //=> 0 0
+  printf("%d %d\n", my_arr_ptr_2[0], my_arr_ptr_2[1]); //=> 111 222
+  // `delete[]` tells the CPU that it needs to clean up multiple variables
+  // (`new type[]` keeps track of how much memory was used)
+  delete[] my_arr_ptr_1;
+  delete[] my_arr_ptr_2;
 }
 ```
 
@@ -140,6 +153,14 @@ int main() {
     , the condition where your program's memory usage keeps increasing because it does not release the
     memory it no longer uses.
   </p>
+</NoteBox>
+
+<NoteBox type="info" title="Dynamic array vs fixed array">
+  <p>
+    Dynamic arrays (allocated via <Code str="new type[]" />) are stored in the <strong>heap</strong>,
+    as opposed to fixed arrays which are stored in the <strong>stack</strong>.
+  </p>
+  <p>This allows you to allocate large-sized arrays (e.g. arrays with 1,000,000 elements).</p>
 </NoteBox>
 
 ## Storage duration example
@@ -212,8 +233,16 @@ Destructed: Global static variable
       link: 'https://www.learncpp.com/cpp-tutorial/scope-duration-and-linkage-summary/',
     },
     {
+      text: '11.12 — Dynamically allocating arrays',
+      link: 'https://www.learncpp.com/cpp-tutorial/dynamically-allocating-arrays/',
+    },
+    {
       text: 'Storage class specifiers',
       link: 'https://en.cppreference.com/w/cpp/language/storage_duration',
+    },
+    {
+      text: 'Static array vs. dynamic array in C++',
+      link: 'https://stackoverflow.com/questions/2672085/static-array-vs-dynamic-array-in-c',
     },
   ]}
 ></References>
