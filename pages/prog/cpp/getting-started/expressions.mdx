@@ -68,6 +68,8 @@ The simplest kind of expression is when you write a variable name or a single li
 
 <Badge color="gray">Logical operators</Badge>
 
+<Badge color="gray">Logical operators</Badge>
+
 - **`a && b` (logical AND)** &mdash; returns `true` if `a` and `b` is both `true`, `false` otherwise
 - **`a || b` (logical OR)** &mdash; returns `true` if either `a` or `b` is `true`, `false` otherwise
 - **`!a` (logical NOT)** &mdash; returns `true` if `a` is `false`, `false` otherwise
@@ -86,6 +88,20 @@ The simplest kind of expression is when you write a variable name or a single li
 
 ### Miscellaneous operators
 
+<Badge color="gray">Subscript operator</Badge>
+
+- **`a[b]`** &mdash; gets the element at index `b` from array `a`
+
+<Badge color="gray">Member access operators</Badge>
+
+- **`a.b`** &mdash; gets member `b` from object `a`
+- **`a->b`** &mdash; gets member `b` from pointer `a`
+
+<Badge color="gray">Pointer operators</Badge>
+
+- **`&a`** &mdash; gets the address of `a`
+- **`*a`** &mdash; gets the value stored by pointer `a`
+
 <Badge color="gray">Scope resolution operator</Badge>
 
 - **`a::b`** &mdash; gets member `b` in class/namespace `a`
@@ -93,18 +109,35 @@ The simplest kind of expression is when you write a variable name or a single li
 
 <Badge color="gray">Function calls</Badge>
 
-- **`fn()`** &mdash; calls function `fn`, optionally with parameters, e.g. `fn(a, b, c)`
+- **`fn()`** &mdash; calls function `fn`, optionally with parameters (e.g. `fn(a, b, c)`), returning the return value from the function call
 
-<Badge color="gray">Pointer operators</Badge>
+<Badge color="gray">Throw operator</Badge>
 
-- **`&a`** &mdash;
-- **`*a`** &mdash;
-- **`a->b`** &mdash;
+- **`throw a`** &mdash; throws an exception with the value `a` (which could be an error code, a description of the problem, or a custom exception class, learncpp.com)
+
+<Badge color="gray">Allocation/deallocation operators</Badge>
+
+- **`new type`** &mdash; allocates storage for an object of type `type`, returning a pointer to the allocated object
+- **`new type[]`** &mdash; allocates storage for an array of type `type`, optionally with length (e.g. `new type[length]`), returning a pointer to the allocated array
+- **`delete a`** &mdash; deallocates storage for object `a` ("deallocates a single variable")
+- **`delete[] a`** &mdash; deallocates storage for array `a` ("deallocates multiple variables")
+
+<Badge color="gray">Casting operators</Badge>
+
+- **`type(a)`** &mdash; casts `a` to the new type `type` (functional cast)
+- **`type{a}`** &mdash; casts `a` to the new type `type` (functional cast, C++11)
+- **`(type)a`** &mdash; casts `a` to the new type `type` (C-style cast)
+- **`static_cast<type>(expr)`** &mdash; casts `expr` to type `type`
+- **`dynamic_cast<type>(expr)`** &mdash; casts `expr` to type `type` with runtime type-checking (becomes `nullptr` if the casting is invalid)
+- **`const_cast<type>(expr)`** &mdash; removes `const` property from pointer or reference `expr`
+- **`reinterpret_cast<type>(expr)`** &mdash; interprets the value stored at address `expr` as type `type` (usually for low-level programming)
 
 <Badge color="gray">Other operators</Badge>
 
 - **`a ? b : c` (ternary operator)** &mdash; if `a` is true, returns `b`, otherwise returns `c`
+- **`a <=> b` (three-way comparison)** &mdash; if `a < b`, returns a negative value; if `a > b`, returns a positive value; if `a == b`, returns 0
 - **`a, b` (comma operator)** &mdash; RARELY USED: evaluates `a`, then evaluates `b`, then returns `b` (returns the right-most operand)
+- **`sizeof(a)`** &mdash; gets the size of object `a` OR type `a`, in bytes
 
 ## Operator precendence and associativity
 
@@ -179,6 +212,14 @@ Also called _short-circuit evaluation_:
     {
       text: '5.7 — Logical operators',
       link: 'https://www.learncpp.com/cpp-tutorial/logical-operators/',
+    },
+    {
+      text: '20.2 — Basic exception handling',
+      link: 'https://www.learncpp.com/cpp-tutorial/basic-exception-handling/',
+    },
+    {
+      text: 'Comparison operators',
+      link: 'https://en.cppreference.com/w/cpp/language/operator_comparison',
     },
   ]}
 ></References>
