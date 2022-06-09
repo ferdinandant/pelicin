@@ -9,7 +9,7 @@ Note that type conversion produces a new value of the desired type and DOES NOT 
 
 ## C-style casts
 
-In standard C programming, casting is done using the `()` operator, so we use something like `(type)my_object` or `type(my_object)`:
+In standard C programming, casting is done using the `()` operator. So we use something like `(type)my_object` or `(type)(my_object)`:
 
 ```cpp
 int main() {
@@ -25,7 +25,21 @@ int main() {
 }
 ```
 
-Under the hood, C-style casts can do `static_cast`, `const_cast`, or `reinterpret_cast` depending on context. To always get the expected behavior, you should use named casts (explained in the next section).
+Under the hood, C-style casts can do `static_cast`, `const_cast`, or `reinterpret_cast` depending on context. To always get the expected behavior, you should use named casts (explained below).
+
+## Functional casts
+
+Use `type(my_object)` or `type{my_object}` (since C++11).
+
+```cpp
+int main(int argc, const char * argv[]) {
+  int value = 4;
+  double casted = double(value);
+  printf("%lf\n", casted); //=> 4.000000
+}
+```
+
+**They are equivalent to C-style casts,** but you can only use a "simple type specifier" (one-word types like `int` or `unsigned`, but not `unsigned int` or `int*`) or a "typedef specifier" (cppreference.com).
 
 ## Named casts
 
@@ -166,6 +180,14 @@ int main() {
     {
       text: 'C++ Crash Course (Josh Lospinoso)',
       description: '6. Compile-Time Polymorphism',
+    },
+    {
+      text: 'Explicit type conversion',
+      link: 'https://en.cppreference.com/w/cpp/language/explicit_cast',
+    },
+    {
+      text: '9.2.9.3 Simple type specifiers [dcl.type.simple]',
+      link: 'https://eel.is/c++draft/dcl.type.simple#nt:simple-type-specifier',
     },
     {
       text: '8.5 — Explicit type conversion (casting) and static_cast',
