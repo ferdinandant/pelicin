@@ -1,0 +1,96 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Volatile Expressions
+
+Marking something as `volatile` prevents the compiler from optimizing accesses related to that variable/expression.
+
+## Use cases
+
+You might want to opt out from code optimization when:
+
+- you are doing some low-level programming (the "redundant" reads/writes to certain addresses may cause side-effects in the system)
+- the variable in question may be changed from external sources that the compiler is not aware of
+
+## Examples
+
+### Example 1
+
+The following code:
+
+```cpp
+int foo(int& x) {
+  x = 10;
+  x = 20;
+  auto y = x;
+  y = x;
+  return y;
+}
+```
+
+might be simplified to:
+
+```cpp
+int foo(int& x) {
+  x = 20;
+  return x;
+}
+```
+
+To prevent that from happening, you can do:
+
+```cpp
+// reads/writes to `x` may cause
+// side-effects in the system
+int foo(volatile int& x) {
+  x = 10;
+  x = 20;
+  auto y = x;
+  y = x;
+  return y;
+}
+```
+
+### Example 2
+
+The following code:
+
+```cpp
+int some_int = 100;
+while (some_int == 100) {
+  doSomething();
+}
+```
+
+may be optimized to:
+
+```cpp
+while (true) {
+  doSomething();
+}
+```
+
+To prevent that from happening, you can do:
+
+```cpp
+// `some_int` may be changed from external source
+volatile int some_int = 100;
+while (some_int == 100) {
+  doSomething();
+}
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'C++ Crash Course (Josh Lospinoso)',
+      description: '7. Expressions',
+    },
+    {
+      text: 'Why do we use volatile keyword? [duplicate]',
+      link: 'https://stackoverflow.com/questions/4437527/why-do-we-use-volatile-keyword',
+    },
+  ]}
+></References>
