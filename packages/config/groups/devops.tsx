@@ -1,3 +1,4 @@
+import React from 'react';
 import { TopicGroup } from '@pelicin/config';
 
 const group: TopicGroup = {
@@ -7,8 +8,14 @@ const group: TopicGroup = {
     {
       topics: [
         {
+          title: 'Docker',
+          path: '/devops/docker',
+          description: <>TODO</>,
+        },
+        {
           title: 'Kubernetes',
           path: '/devops/kubernetes',
+          description: <>Kubernetes in Action (Marko Lukša)</>,
         },
       ],
     },

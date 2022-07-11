@@ -42,6 +42,12 @@ const map: Record<string, CoreTopicConfig> = {
   // DevOps
   // --------------------------------------------------------------------------------
 
+  '/devops/docker': {
+    topicKey: 'devops/docker',
+    topicTitle: 'Docker',
+    mainColor: '#2496ed',
+    accentColor: '#00b6f6',
+  },
   '/devops/kubernetes': {
     topicKey: 'devops/kubernetes',
     topicTitle: 'Kubernetes',
