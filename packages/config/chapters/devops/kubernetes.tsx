@@ -12,6 +12,10 @@ const chapters: TopicChapters = [
         title: 'References',
         path: '/devops/kubernetes/references',
       },
+      {
+        title: 'Setup',
+        path: '/devops/kubernetes/setup',
+      },
     ],
   },
 ]
