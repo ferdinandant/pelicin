@@ -31,7 +31,7 @@ export default function Hero() {
           height: 75vh;
           min-height: 500px;
           display: flex;
-          background-image: linear-gradient(to bottom, #2a272abb, #2a272abb),
+          background-image: linear-gradient(to bottom, #000000cc, #000000bb),
             url('/site/ben-o-bro-wpU4veNGnHg-unsplash.jpg');
           box-shadow: 0 var(--spacing-l) 100px #00000055 inset;
           background-size: cover;
