@@ -9,7 +9,6 @@ export { default as Link } from './article/Link';
 // Box
 export { default as NoteBox } from './box/NoteBox';
 export { default as LightBox } from './box/LightBox';
-export { default as TodoBox } from './box/TodoBox';
 export { default as Badge } from './box/Badge';
 export type { BadgeColor } from './box/Badge';
 
