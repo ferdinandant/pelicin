@@ -1,4 +1,4 @@
-import { References } from '@pelicin/components';
+import { References, Image } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Introduction
@@ -9,7 +9,37 @@ Kubernetes allows you to run thousands of computer nodes as if they were a singl
 
 ## Architecture of a Kubernetes cluster
 
-> TODO
+A Kubernetes cluster consists of
+
+- **the master node** &mdash; hosts _Kubernetes Control Plane_ that controls and manages the whole Kubernetes system
+- **the worker nodes** &mdash; runs your applications
+
+<Image
+  path="/res/devops/kubernetes/k8s-architecture.png"
+  caption={<>Kubernetes cluster architecture.</>}
+  sourceString={'Lukša'}
+/>
+
+### The master node
+
+There could be one or more master nodes (to ensure high availability).
+
+The master node consists of
+
+- **The Kubernetes API server** &mdash; the front-end of the control plane: lets the user interact with the Kubernetes cluster, also allows external components and parts of the cluster to communicate with each other
+- **The Scheduler** &mdash; assigns pods (sets of containers that should be located on the same node) to nodes
+- **The Controller Manager** &mdash; performs cluster-level functions (replicating components, keeping track of worker nodes, handling node failures, etc.)
+- **etcd (key-value store)** &mdash; persistently stores cluster configuration
+
+### The worker nodes
+
+The worker nodes run your containerized applications (Lukša).
+
+It contains
+
+- **The Kubelet** &mdash; talks to the Kubernetes API server and manages containers on its node
+- **The Kubernetes Service Proxy (kube-proxy)** load-balances traffic to the containers
+- **The Container runtime** &mdash; e.g. Docker, runs your application containers
 
 ## Running an application in Kubernetes
 
@@ -20,12 +50,20 @@ Kubernetes allows you to run thousands of computer nodes as if they were a singl
 <References
   references={[
     {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 1. Introducing Kubernetes',
+    },
+    {
       text: 'Kubernetes',
       link: `https://kubernetes.io/`,
     },
     {
       text: 'Kubernetes in Action (Marko Lukša)',
-      description: 'Chapter 1. Introducing Kubernetes',
+      link: 'https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/',
+    },
+    {
+      text: 'What is the Kubernetes API?',
+      link: 'https://www.redhat.com/en/topics/containers/what-is-the-kubernetes-API',
     },
   ]}
 ></References>
