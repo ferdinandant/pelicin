@@ -1,4 +1,4 @@
-import { References } from '@pelicin/components';
+import { References, Image } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Introduction
@@ -9,23 +9,84 @@ Kubernetes allows you to run thousands of computer nodes as if they were a singl
 
 ## Architecture of a Kubernetes cluster
 
-> TODO
+A Kubernetes cluster consists of
+
+- **the master node** &mdash; hosts _Kubernetes Control Plane_ that controls and manages the whole Kubernetes system
+- **the worker nodes** &mdash; runs your applications
+
+<Image
+  path="/res/devops/kubernetes/k8s-architecture.png"
+  caption={<>Kubernetes cluster architecture.</>}
+  sourceString={'Lukša'}
+/>
+
+### The master node
+
+There could be one or more master nodes (to ensure high availability).
+
+The master node consists of
+
+- **The Kubernetes API server** &mdash; the front-end of the control plane: lets the user interact with the Kubernetes cluster, also allows external components and parts of the cluster to communicate with each other
+- **The Scheduler** &mdash; assigns pods (sets of containers that should be located on the same node) to nodes
+- **The Controller Manager** &mdash; performs cluster-level functions (replicating components, keeping track of worker nodes, handling node failures, etc.)
+- **etcd (key-value store)** &mdash; persistently stores cluster configuration
+
+### The worker nodes
+
+The worker nodes run your containerized applications (Lukša).
+
+It contains
+
+- **The Kubelet** &mdash; talks to the Kubernetes API server and manages containers on its node
+- **The Kubernetes Service Proxy (kube-proxy)** load-balances traffic to the containers
+- **The Container runtime** &mdash; e.g. Docker, runs your application containers
 
 ## Running an application in Kubernetes
 
-> TODO
+The typical steps to run an application in Kubernetes:
+
+1. package the application to one or more container images,
+2. push the image to an image registry,
+3. post a description of the application to the Kubernetes API server.
+
+### The application description
+
+The description of the application posted to the Kubernetes API server includes:
+
+- the application pods/containers
+- how the containers are related to each other
+- which containers need to be co-located (put in the same pod)
+- how many copies ("replicas") of each pods
+- which pods provide service to internal/external clients (should be exposed through a single IP address)
+
+## Benefits of Kubernetes
+
+According to Lukša,
+
+- **Simplifying application deployment** &mdash; You treat the cluster as a single deployment platform, don't need to care about the servers that make up the cluster. (You can specify requirementssuch as requiring the container to run on a node with SSDs instead of HDDs, though.)
+- **Achieving better utilization of hardware** &mdash; Let the Kubernetes choose the most appropriate nodes to run your application. It can move pods/containers around (accross nodes) to tightly pack the worker nodes (achieving more efficient node utilization).
+- **Health-checking and self-healing** &mdash; Kubernetes monitors the containers and nodes they run on, and reschedules them accordingly (to a new node) in case of node failure
+- **Automatic scaling** &mdash; Kubernetes can be told to monitor resource usage and scale each pods/containers accordingly.
 
 ## References
 
 <References
   references={[
     {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 1. Introducing Kubernetes',
+    },
+    {
       text: 'Kubernetes',
       link: `https://kubernetes.io/`,
     },
     {
       text: 'Kubernetes in Action (Marko Lukša)',
-      description: 'Chapter 1. Introducing Kubernetes',
+      link: 'https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/',
+    },
+    {
+      text: 'What is the Kubernetes API?',
+      link: 'https://www.redhat.com/en/topics/containers/what-is-the-kubernetes-API',
     },
   ]}
 ></References>
