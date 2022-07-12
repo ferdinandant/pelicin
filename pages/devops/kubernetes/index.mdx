@@ -43,7 +43,30 @@ It contains
 
 ## Running an application in Kubernetes
 
-> TODO
+The typical steps to run an application in Kubernetes:
+
+1. package the application to one or more container images,
+2. push the image to an image registry,
+3. post a description of the application to the Kubernetes API server.
+
+### The application description
+
+The description of the application posted to the Kubernetes API server includes:
+
+- the application pods/containers
+- how the containers are related to each other
+- which containers need to be co-located (put in the same pod)
+- how many copies ("replicas") of each pods
+- which pods provide service to internal/external clients (should be exposed through a single IP address)
+
+## Benefits of Kubernetes
+
+According to Lukša,
+
+- **Simplifying application deployment** &mdash; You treat the cluster as a single deployment platform, don't need to care about the servers that make up the cluster. (You can specify requirementssuch as requiring the container to run on a node with SSDs instead of HDDs, though.)
+- **Achieving better utilization of hardware** &mdash; Let the Kubernetes choose the most appropriate nodes to run your application. It can move pods/containers around (accross nodes) to tightly pack the worker nodes (achieving more efficient node utilization).
+- **Health-checking and self-healing** &mdash; Kubernetes monitors the containers and nodes they run on, and reschedules them accordingly (to a new node) in case of node failure
+- **Automatic scaling** &mdash; Kubernetes can be told to monitor resource usage and scale each pods/containers accordingly.
 
 ## References
 
