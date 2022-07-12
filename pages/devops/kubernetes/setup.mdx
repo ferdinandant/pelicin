@@ -3,3 +3,97 @@ import { References, Image, NoteBox } from '@pelicin/components';
 # Setup
 
 Before you start, make sure you have [installed Docker](/devops/docker/setup) first.
+
+## Installing Kubernetes
+
+### 1. Installing Kubernetes
+
+You can install Kubernetes:
+
+```bash
+# This also installs kubectl, the Kubernetes Client CLI
+brew install kubernetes-cli
+```
+
+And install Minikube (a tool that sets up a single-node Kubernetes cluster, i.e., the master node and the worker node will be in the same node):
+
+```bash
+brew install minikube
+```
+
+### 2. Starting Minikube virtual machine
+
+Don't forget to ensure that the Docker daemon is running. (Run your VM if you are using Mac, i.e., your Docker Desktop or Rancher Desktop.)
+
+```bash
+minikube start
+# Starting local Kubernetes cluster...
+# Starting VM...
+# SSH-ing files into VM...
+# ...
+# Kubectl is now configured to use the cluster.
+```
+
+### 3. Verify that the cluster is working
+
+Use the `kubectl cluster-info` command to show cluster information:
+
+```bash
+kubectl cluster-info
+# Kubernetes control plane is running at https://127.0.0.1:49155
+# CoreDNS is running at https://127.0.0.1:49155/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+```
+
+Use the `kubectl get nodes` to list cluster nodes:
+
+```bash
+kubectl get nodes
+# NAME       STATUS   ROLES           AGE   VERSION
+# minikube   Ready    control-plane   53m   v1.24.1
+```
+
+### 4. SSH to the single Minikube node (optional)
+
+You can do `minikube ssh` to log into your single Kubernetes node:
+
+```bash
+minikube ssh
+# docker@minikube:~$
+```
+
+## Running your first app
+
+> TODO
+
+## See also
+
+<References
+  references={[
+    {
+      text: 'Google Kubernetes Engine (GKE)',
+      description: (
+        <>
+          To explore multi-node Kubernetes cluster hosted on Google Cloud. Using this tool, you
+          don't have to manually set up all the cluster nodes and networking (Lukša).
+        </>
+      ),
+      link: `https://cloud.google.com/container-engine/docs/before-you-begin`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 2. First steps with Docker and Kubernetes',
+    },
+    {
+      text: 'Are the master and worker nodes the same node in case of a single node cluster?',
+      link:
+        'https://stackoverflow.com/questions/63967089/are-the-master-and-worker-nodes-the-same-node-in-case-of-a-single-node-cluster',
+    },
+  ]}
+></References>
