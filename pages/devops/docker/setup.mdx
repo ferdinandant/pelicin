@@ -38,19 +38,30 @@ You can follow this link to [install Docker Desktop](https://docs.docker.com/des
 
 Ensure that you have followed their installation step (i.e. by click-and-dragging their application's icon to your Applications folder).
 
+**If you use Rancher Desktop:** Open the app, go to Kubernetes Settings, and ensure you choose "dockerd" for the Container Runtime.
+
 ### 3. Verify installation
 
 Try running the following:
 
-```
+```bash
 sudo docker run hello-world
+# Unable to find image 'hello-world:latest' locally
+# latest: Pulling from library/hello-world
+# 7050e35b49f5: Pull complete
+# Digest: sha256:13e367d31ae85359f42d637adf6da428f76d75dc9afeb3c21faea0d976f5c651
+# Status: Downloaded newer image for hello-world:latest
+
+# Hello from Docker!
+# This message shows that your installation appears to be working correctly.
+# ...
 ```
 
 If it fails, try the troubleshooting below.
 
 ### 4. Troubleshooting
 
-Ensure that your VM or Rancher Desktop is running.
+Ensure that your VM or Rancher Desktop is running. If you use Rancher Desktop, ensure that you have chosen "dockerd" for the Container Runtime.
 
 If you see error like `docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?`, check your docker context:
 
