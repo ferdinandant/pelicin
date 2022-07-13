@@ -61,6 +61,89 @@ minikube ssh
 # docker@minikube:~$
 ```
 
+## Creating a simple Docker image
+
+### 1. Create a simple Node.js server
+
+Install Node.js and create the following `app.js` file.
+
+It's a simple server that listens to port 8080 and responds with the hostname of the machine it's running in (not the hostname of the host machine).
+
+```js
+// app.js
+// Code from Kubernetes in Action (Marko Lukša)
+const http = require('http');
+const os = require('os');
+
+var handler = (request, response) => {
+  console.log('Received request from ' + request.connection.remoteAddress);
+  response.writeHead(200);
+  response.end("You've hit " + os.hostname() + '\n');
+};
+
+console.log('Kubia server starting...');
+var www = http.createServer(handler);
+www.listen(8080);
+```
+
+### 2. Create the Dockerfile for the image
+
+Save the following file as `Dockerfile`
+
+```dockerfile
+FROM node:12
+ADD app.js /app.js
+ENTRYPOINT ["node", "app.js"]
+```
+
+### 3. Build the Docker image
+
+Build the docker image:
+
+```bash
+# docker build [options] <path|url>
+# --tag, -t <tagName>: name and optionally a tag in the 'name:tag' format
+docker build -t kubia .
+```
+
+Verify the built image:
+
+```bash
+docker images
+# REPOSITORY   TAG      IMAGE ID       CREATED         SIZE
+# kubia        latest   e679b37d4075   3 minutes ago   864MB
+```
+
+### 4. Running the container image (optional)
+
+Run the container with the following command:
+
+```bash
+# docker run [options] <image> [command] [...arg]
+# --name <name>: assignb name to the running container
+# --publish, -p <hostPort>:<containerPort>: publish container port(s) to the host
+# --detach, -d: run in background and print container ID
+docker run --name kubia-container -p 8080:8080 -d kubia
+# f4befa105984a1937302c6c75e4fca4dec16ca7f3e194df3fd63abb395015f9f
+```
+
+Try accessing the server from `localhost:8080`:
+
+```bash
+curl localhost:8080
+# You've hit f4befa105984
+```
+
+To stop (and delete) the container:
+
+```bash
+docker ps
+# CONTAINER ID   IMAGE   COMMAND         CREATED              STATUS              PORTS                                       NAMES
+# f4befa105984   kubia   "node app.js"   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   kubia-container
+docker stop kubia-container
+docker rm kubia-container
+```
+
 ## Running your first app
 
 > TODO
@@ -94,6 +177,14 @@ minikube ssh
       text: 'Are the master and worker nodes the same node in case of a single node cluster?',
       link:
         'https://stackoverflow.com/questions/63967089/are-the-master-and-worker-nodes-the-same-node-in-case-of-a-single-node-cluster',
+    },
+    {
+      text: 'docker build',
+      link: 'https://docs.docker.com/engine/reference/commandline/build/',
+    },
+    {
+      text: 'docker run',
+      link: 'https://docs.docker.com/engine/reference/commandline/run/',
     },
   ]}
 ></References>
