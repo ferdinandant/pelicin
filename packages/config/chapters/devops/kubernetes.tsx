@@ -18,6 +18,15 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  {
+    chapter: 'Concepts',
+    children: [
+      {
+        title: 'Pods',
+        path: '/devops/kubernetes/concepts/pods',
+      },
+    ],
+  },
 ]
 
 export default chapters;

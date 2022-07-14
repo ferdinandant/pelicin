@@ -1,0 +1,30 @@
+import { References, Image } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Pods
+
+A pod is a group of co-located containers.
+
+These containers run in the same worker node and in the same Linux namespace(s), i.e., they have its own IP, hostname, processes, and so on.
+
+<Image
+  path="/res/devops/kubernetes/pods.jpg"
+  caption={
+    <>
+      Relationship of nodes, pods, and containers. Notice that each pod has their own IP (internal
+      to the cluster unless you expose them).
+    </>
+  }
+  sourceString={'Lukša'}
+/>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 2. First steps with Docker and Kubernetes',
+    },
+  ]}
+></References>
