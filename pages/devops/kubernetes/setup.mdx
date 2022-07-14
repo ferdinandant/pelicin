@@ -1,4 +1,4 @@
-import { References, Image, NoteBox } from '@pelicin/components';
+import { References, Image, NoteBox, Code } from '@pelicin/components';
 
 # Setup
 
@@ -146,7 +146,90 @@ docker rm kubia-container
 
 ## Running your first app
 
-> TODO
+### 1. Ensure that your Kubernetes cluster is running
+
+If you are using Minikube:
+
+```bash
+minikube start
+```
+
+### 2. Ensure that your image is accesible to the Minikube cluster
+
+If you don't push your image to the Docker registry, load your image to Minikube:
+
+```bash
+# minikube image load <imageName>
+minikube image load kubia
+```
+
+If you don't do this, Kubernetes won't be able to pull/load the image when you run `kubectl run` (it tries to pull the image from the registry).
+
+### 3. Deploying your Docker image
+
+Normally, you would create a JSON/YAML description of your cluster, but to get things started, we'll use a one-line command to get it running:
+
+<NoteBox>
+  I have updated the command to not use <Code str="--generator=run/v1" /> from the book
+  (deprecated).
+</NoteBox>
+
+```bash
+kubectl run kubia --image=luksa/kubia --port=8080
+```
+
+The `--image` option specifies the image that you want to run, while `--port=8080` tells Kubernetes that your app is listening on port 8080
+
+Verify that the pod is running (may take a while until the status becomes `Running`):
+
+```bash
+kubectl get pods
+# NAME    READY   STATUS    RESTARTS   AGE
+# kubia   1/1     Running   0          80s
+```
+
+### 4. Expose the pod's IP
+
+Each pod has their own IP, but it's internal to the cluster.
+
+A `LoadBalancer` service is the standard way to expose a service to the internet. With `LoadBalancer`, each service gets its own external IP address. (minikube.sigs.k8s.io.)
+
+Expose your pod using a `LoadBalancer` service like so:
+
+```bash
+kubectl expose pod kubia --type=LoadBalancer --name kubia-http
+# service/kubia-http exposed
+```
+
+### 5. Accessing your pod
+
+You can check the services like the following. It takes time for the load balancer to be created, so you will see `<pending>` for a while.
+
+```bash
+kubectl get services
+# NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+# kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          34h
+# kubia-http   LoadBalancer   10.106.201.80   <pending>     8080:30429/TCP   2m54s
+```
+
+<NoteBox type="info">
+  <strong>Note for Minikube users:</strong> You will need to run <Code str="minikube tunnel" /> so
+  that the load balancer gets an external IP. (Otherwise it will get stuck on{' '}
+  <Code str="<pending>" />
+  .)
+</NoteBox>
+
+After you get the external IP, you can access your pod like so:
+
+```bash
+kubectl get services
+# NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+# kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          35h
+# kubia-http   LoadBalancer   10.106.201.80   127.0.0.1     8080:30429/TCP   64m
+
+curl 127.0.0.1:8080
+# You've hit kubia
+```
 
 ## See also
 
@@ -185,6 +268,14 @@ docker rm kubia-container
     {
       text: 'docker run',
       link: 'https://docs.docker.com/engine/reference/commandline/run/',
+    },
+    {
+      text: 'Pushing images',
+      link: 'https://minikube.sigs.k8s.io/docs/handbook/pushing/',
+    },
+    {
+      text: 'Kubernetes service external ip pending',
+      link: 'https://stackoverflow.com/questions/44110876/kubernetes-service-external-ip-pending',
     },
   ]}
 ></References>
