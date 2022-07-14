@@ -1,5 +1,281 @@
-import { References, Image, NoteBox } from '@pelicin/components';
+import { References, Image, NoteBox, Code } from '@pelicin/components';
 
 # Setup
 
 Before you start, make sure you have [installed Docker](/devops/docker/setup) first.
+
+## Installing Kubernetes
+
+### 1. Installing Kubernetes
+
+You can install Kubernetes:
+
+```bash
+# This also installs kubectl, the Kubernetes Client CLI
+brew install kubernetes-cli
+```
+
+And install Minikube (a tool that sets up a single-node Kubernetes cluster, i.e., the master node and the worker node will be in the same node):
+
+```bash
+brew install minikube
+```
+
+### 2. Starting Minikube virtual machine
+
+Don't forget to ensure that the Docker daemon is running. (Run your VM if you are using Mac, i.e., your Docker Desktop or Rancher Desktop.)
+
+```bash
+minikube start
+# Starting local Kubernetes cluster...
+# Starting VM...
+# SSH-ing files into VM...
+# ...
+# Kubectl is now configured to use the cluster.
+```
+
+### 3. Verify that the cluster is working
+
+Use the `kubectl cluster-info` command to show cluster information:
+
+```bash
+kubectl cluster-info
+# Kubernetes control plane is running at https://127.0.0.1:49155
+# CoreDNS is running at https://127.0.0.1:49155/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+```
+
+Use the `kubectl get nodes` to list cluster nodes:
+
+```bash
+kubectl get nodes
+# NAME       STATUS   ROLES           AGE   VERSION
+# minikube   Ready    control-plane   53m   v1.24.1
+```
+
+### 4. SSH to the single Minikube node (optional)
+
+You can do `minikube ssh` to log into your single Kubernetes node:
+
+```bash
+minikube ssh
+# docker@minikube:~$
+```
+
+## Creating a simple Docker image
+
+### 1. Create a simple Node.js server
+
+Install Node.js and create the following `app.js` file.
+
+It's a simple server that listens to port 8080 and responds with the hostname of the machine it's running in (not the hostname of the host machine).
+
+```js
+// app.js
+// Code from Kubernetes in Action (Marko Lukša)
+const http = require('http');
+const os = require('os');
+
+var handler = (request, response) => {
+  console.log('Received request from ' + request.connection.remoteAddress);
+  response.writeHead(200);
+  response.end("You've hit " + os.hostname() + '\n');
+};
+
+console.log('Kubia server starting...');
+var www = http.createServer(handler);
+www.listen(8080);
+```
+
+### 2. Create the Dockerfile for the image
+
+Save the following file as `Dockerfile`
+
+```dockerfile
+FROM node:12
+ADD app.js /app.js
+ENTRYPOINT ["node", "app.js"]
+```
+
+### 3. Build the Docker image
+
+Build the docker image:
+
+```bash
+# docker build [options] <path|url>
+# --tag, -t <tagName>: name and optionally a tag in the 'name:tag' format
+docker build -t kubia .
+```
+
+Verify the built image:
+
+```bash
+docker images
+# REPOSITORY   TAG      IMAGE ID       CREATED         SIZE
+# kubia        latest   e679b37d4075   3 minutes ago   864MB
+```
+
+### 4. Running the container image (optional)
+
+Run the container with the following command:
+
+```bash
+# docker run [options] <image> [command] [...arg]
+# --name <name>: assignb name to the running container
+# --publish, -p <hostPort>:<containerPort>: publish container port(s) to the host
+# --detach, -d: run in background and print container ID
+docker run --name kubia-container -p 8080:8080 -d kubia
+# f4befa105984a1937302c6c75e4fca4dec16ca7f3e194df3fd63abb395015f9f
+```
+
+Try accessing the server from `localhost:8080`:
+
+```bash
+curl localhost:8080
+# You've hit f4befa105984
+```
+
+To stop (and delete) the container:
+
+```bash
+docker ps
+# CONTAINER ID   IMAGE   COMMAND         CREATED              STATUS              PORTS                                       NAMES
+# f4befa105984   kubia   "node app.js"   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   kubia-container
+docker stop kubia-container
+docker rm kubia-container
+```
+
+## Running your first app
+
+### 1. Ensure that your Kubernetes cluster is running
+
+If you are using Minikube:
+
+```bash
+minikube start
+```
+
+### 2. Ensure that your image is accesible to the Minikube cluster
+
+If you don't push your image to the Docker registry, load your image to Minikube:
+
+```bash
+# minikube image load <imageName>
+minikube image load kubia
+```
+
+If you don't do this, Kubernetes won't be able to pull/load the image when you run `kubectl run` (it tries to pull the image from the registry).
+
+### 3. Deploying your Docker image
+
+Normally, you would create a JSON/YAML description of your cluster, but to get things started, we'll use a one-line command to get it running:
+
+<NoteBox>
+  I have updated the command to not use <Code str="--generator=run/v1" /> from the book
+  (deprecated).
+</NoteBox>
+
+```bash
+kubectl run kubia --image=luksa/kubia --port=8080
+```
+
+The `--image` option specifies the image that you want to run, while `--port=8080` tells Kubernetes that your app is listening on port 8080
+
+Verify that the pod is running (may take a while until the status becomes `Running`):
+
+```bash
+kubectl get pods
+# NAME    READY   STATUS    RESTARTS   AGE
+# kubia   1/1     Running   0          80s
+```
+
+### 4. Expose the pod's IP
+
+Each pod has their own IP, but it's internal to the cluster.
+
+A `LoadBalancer` service is the standard way to expose a service to the internet. With `LoadBalancer`, each service gets its own external IP address. (minikube.sigs.k8s.io.)
+
+Expose your pod using a `LoadBalancer` service like so:
+
+```bash
+kubectl expose pod kubia --type=LoadBalancer --name kubia-http
+# service/kubia-http exposed
+```
+
+### 5. Accessing your pod
+
+You can check the services like the following. It takes time for the load balancer to be created, so you will see `<pending>` for a while.
+
+```bash
+kubectl get services
+# NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+# kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          34h
+# kubia-http   LoadBalancer   10.106.201.80   <pending>     8080:30429/TCP   2m54s
+```
+
+<NoteBox type="info">
+  <strong>Note for Minikube users:</strong> You will need to run <Code str="minikube tunnel" /> so
+  that the load balancer gets an external IP. (Otherwise it will get stuck on{' '}
+  <Code str="<pending>" />
+  .)
+</NoteBox>
+
+After you get the external IP, you can access your pod like so:
+
+```bash
+kubectl get services
+# NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+# kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          35h
+# kubia-http   LoadBalancer   10.106.201.80   127.0.0.1     8080:30429/TCP   64m
+
+curl 127.0.0.1:8080
+# You've hit kubia
+```
+
+## See also
+
+<References
+  references={[
+    {
+      text: 'Google Kubernetes Engine (GKE)',
+      description: (
+        <>
+          To explore multi-node Kubernetes cluster hosted on Google Cloud. Using this tool, you
+          don't have to manually set up all the cluster nodes and networking (Lukša).
+        </>
+      ),
+      link: `https://cloud.google.com/container-engine/docs/before-you-begin`,
+    },
+  ]}
+></References>
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 2. First steps with Docker and Kubernetes',
+    },
+    {
+      text: 'Are the master and worker nodes the same node in case of a single node cluster?',
+      link:
+        'https://stackoverflow.com/questions/63967089/are-the-master-and-worker-nodes-the-same-node-in-case-of-a-single-node-cluster',
+    },
+    {
+      text: 'docker build',
+      link: 'https://docs.docker.com/engine/reference/commandline/build/',
+    },
+    {
+      text: 'docker run',
+      link: 'https://docs.docker.com/engine/reference/commandline/run/',
+    },
+    {
+      text: 'Pushing images',
+      link: 'https://minikube.sigs.k8s.io/docs/handbook/pushing/',
+    },
+    {
+      text: 'Kubernetes service external ip pending',
+      link: 'https://stackoverflow.com/questions/44110876/kubernetes-service-external-ip-pending',
+    },
+  ]}
+></References>
