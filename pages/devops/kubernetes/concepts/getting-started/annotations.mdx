@@ -1,0 +1,58 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Annotations
+
+Annotations are key/value pairs like labels, BUT:
+
+- you don't use them for querying objects (you simply use them as metadata for clients/tools/libraries)
+- you can write a really long value, including with characters that are not supported by labels.
+
+## Working with annotations
+
+### Annotations in the descriptor
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: annotations-demo
+  annotations:
+    imageRegistry: 'https://hub.docker.com/'
+    createdBy: |
+      {"kind":"SerializedReference", "apiVersion":"v1",
+      "reference":{"kind":"ReplicationController", "namespace":"default", ...
+spec:
+  containers: ...
+```
+
+### Adding or modifying annotations
+
+```bash
+kubectl annotate pod kubia-manual mycompany.com/someannotation="foo bar"
+# pod "kubia-manual" annotated
+```
+
+### Viewing annotations
+
+```bash
+kubectl describe pod kubia-manual
+# ...
+# Annotations: mycompany.com/someannotation=foo bar
+# ...
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 3. Pods: running containers in Kubernetes',
+    },
+    {
+      text: 'Annotations',
+      link: 'https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/',
+    },
+  ]}
+></References>

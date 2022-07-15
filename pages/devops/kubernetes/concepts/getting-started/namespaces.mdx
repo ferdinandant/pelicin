@@ -1,0 +1,89 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Namespaces
+
+You can split resources from a single cluster into multiple _namespaces_ for organization. (For example, you want to split resources into "production," "QA," and "development" environments.)
+
+Names of resources need to be unique within a namespace, but not across namespaces.
+
+Also, cluster-wide objects like StorageClass, Nodes, or PersistentVolumes are not scoped by namespaces.
+
+## Namespace descriptor
+
+A sample namespace [descriptor](devops/kubernetes/concepts/getting-started/yaml-descriptor) looks like the following:
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: custom-namespace
+```
+
+## Working with namespaces
+
+Unless you specify the namespace, you are working with the `default` namespace.
+
+### Creating a namespace
+
+Send the namespace descriptor to the Kubernetes API server:
+
+```bash
+# If you create a descriptor named custom-namespace.yaml:
+kubectl create -f custom-namespace.yaml
+```
+
+### Listing namespaces
+
+```bash
+kubectl get namespaces
+# NAME                   STATUS   AGE
+# default                Active   3d
+# kube-node-lease        Active   3d
+# kube-public            Active   3d
+# kube-system            Active   3d
+```
+
+### Listing pods in a namespace
+
+Use `-n <namespace>` or `--namespace <namespace>`:
+
+```bash
+kubectl get pod -n kube-system
+# NAME                               READY   STATUS    RESTARTS        AGE
+# coredns-6d4b75cb6d-zfl6s           1/1     Running   8 (4h9m ago)    3d
+# etcd-minikube                      1/1     Running   8 (4h9m ago)    3d
+# kube-apiserver-minikube            1/1     Running   9 (4h9m ago)    3d
+# kube-controller-manager-minikube   1/1     Running   8 (4h9m ago)    3d
+# kube-proxy-tdqvj                   1/1     Running   8 (4h9m ago)    3d
+# kube-scheduler-minikube            1/1     Running   9 (4h9m ago)    3d
+# storage-provisioner                1/1     Running   14 (4h6m ago)   3d
+```
+
+### Managing objects in a namespace
+
+Do either one of the following:
+
+- add `namespace` field to the `metadata` section of the descriptor, OR
+- use `-n <namespace>` or `--namespace <namespace>`:
+
+```bash
+kubectl create -f kubia-manual.yaml -n custom-namespace
+# pod "kubia-manual" created
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 3. Pods: running containers in Kubernetes',
+    },
+    {
+      text: 'Namespaces',
+      link: 'https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/',
+    },
+  ]}
+></References>
+```

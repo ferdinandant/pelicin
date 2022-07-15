@@ -18,16 +18,37 @@ const chapters: TopicChapters = [
       },
     ],
   },
+  {'@separator': 'Concepts'},
   {
-    chapter: 'Concepts',
+    chapter: 'Getting started',
     children: [
       {
         title: 'Pods',
-        path: '/devops/kubernetes/concepts/pods',
+        path: '/devops/kubernetes/concepts/getting-started/pods',
+      },
+      {
+        title: 'YAML Descriptor',
+        path: '/devops/kubernetes/concepts/getting-started/yaml-descriptor',
+      },
+      {
+        title: 'Labels and Selectors',
+        path: '/devops/kubernetes/concepts/getting-started/labels-selectors',
+      },
+      {
+        title: 'Annotations',
+        path: '/devops/kubernetes/concepts/getting-started/annotations',
+      },
+      {
+        title: 'Namespaces',
+        path: '/devops/kubernetes/concepts/getting-started/namespaces',
       },
       {
         title: 'Services',
-        path: '/devops/kubernetes/concepts/services',
+        path: '/devops/kubernetes/concepts/getting-started/services',
+      },
+      {
+        title: 'Port Forwarding',
+        path: '/devops/kubernetes/concepts/getting-started/port-forwarding',
       },
     ],
   },

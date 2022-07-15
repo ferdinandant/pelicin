@@ -1,0 +1,135 @@
+import { References, Image, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Labels and Selectors
+
+## Labels
+
+_Labels_ are key/value pairs that are attached to objects, e.g., pods. Labels make your cluster more organized, because you can query objects by their labels.
+
+### Label keys and values
+
+Label keys are in the form of `<prefix>/<name>` or `<name>`, where:
+
+- prefixes are optional and must be a DNS subdomain
+- prefixes of `kubernetes.io/` and `k8s.io/` are reserved for Kubernetes core components
+
+Label values must be 63 character or less OR can be empty. Label values may contain alphanumeric characters, dots (`.`), dashes (`-`), and underscores (`_`).
+
+### Example: a pod descriptor with labels
+
+For example, a pod description with labels:
+
+```yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-demo
+  labels:
+    environment: production
+    app: nginx
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.14.2
+      ports:
+        - containerPort: 80
+```
+
+## Selectors
+
+You can use selectors to query for a set of objects.
+
+### Types of requirements
+
+The Kubernetes API currently supports two types of selector _requirements_: (1) **equality-based requirement** and (2) **set-based requirement**.
+
+#### Equality-based requirement
+
+- **equality** &mdash; e.g. `environment = production`
+- **inequality** &mdash; `tier != frontend`
+
+(Note: you can also use `==` instead of `=`).
+
+#### Set-based requirement
+
+- **in** &mdash; e.g. `environment in (production, qa)`
+- **not in** &mdash; e.g. `environment notin (production, qa)`
+- **exists** &mdash; e.g. `environment` (look for anything that has label key `environment`, whatever the value)
+- **not exists** &mdash; e.g. `!environment` (look for anything that DOESN'T HAVE label key `environment`, whatever the value)
+
+### Specifiying multiple requirements
+
+Use comma (`,`) to make an "AND" clause, e.g.,
+
+```
+tier in (fe, be), environment!=qa
+```
+
+will look for anything whose `tier` value is `fe` or `be`, AND whose `environment` value is NOT `qa`.
+
+## Working with labels
+
+### Showing labels
+
+To show objects with labels:
+
+```bash
+kubectl get pod --show-labels
+# NAME            READY  STATUS   RESTARTS  AGE LABELS
+# kubia-manual    1/1    Running  0         16m <none>
+# kubia-manual-v2 1/1    Running  0         2m  creat_method=manual,env=prod
+# kubia-zxzij     1/1    Running  0         1d  run=kubia
+```
+
+To only show certain labels, use the `-L <...keys>` flag:
+
+```bash
+# kubectl get pod -L creation_method,env
+# NAME            READY   STATUS    RESTARTS   AGE   CREATION_METHOD   ENV
+# kubia-manual    1/1     Running   0          16m   <none>            <none>
+# kubia-manual-v2 1/1     Running   0          2m    manual            prod
+# kubia-zxzij     1/1     Running   0          1d    <none>            <none>
+```
+
+### Querying with labels
+
+Use the `kubectl get` command with `-l <selector>`, e.g.:
+
+```bash
+# Enclose `!<something>` in single quotes
+# so bash doesn't evaluate the '!'
+kubectl get pod -l creation_method=manual
+kubectl get pod -l '!env'
+```
+
+### Modifying labels
+
+Use the `kubectl label` command.
+
+```bash
+kubectl label pod kubia-manual creation_method=manual
+# pod "kubia-manual" labeled
+```
+
+Use the `--override` flag to override an existing label.
+
+```bash
+kubectl label pod kubia-manual-v2 env=debug --overwrite
+# pod "kubia-manual-v2" labeled
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 3. Pods: running containers in Kubernetes',
+    },
+    {
+      text: 'Labels and Selectors',
+      link: 'https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/',
+    },
+  ]}
+></References>

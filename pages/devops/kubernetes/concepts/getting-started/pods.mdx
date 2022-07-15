@@ -1,0 +1,110 @@
+import { References, Image } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Pods
+
+A pod is a group of co-located containers (they run in one worker node).
+
+Each pod can communicate to one another using the pod's IP.
+
+<Image
+  path="/res/devops/kubernetes/pods.jpg"
+  caption={
+    <>
+      Relationship of nodes, pods, and containers. Notice that each pod has their own IP (internal
+      to the cluster unless you expose them).
+    </>
+  }
+  sourceString={'Lukša'}
+/>
+
+## Sharing of Linux namespaces
+
+The containers in a pod run in the same Linux namespace(s), i.e.,
+
+- **They share the same network and UTS namespaces** &mdash; They share the same hostname and network interfaces (i.e., they share the same IP and port space). They can communicate to each other using the loopback network interface (localhost). Also, be careful not to have different processes bind to the same port.
+- **They share the same IPC namespace** &mdash; They can communicate through IPC.
+- **BUT they don't share the same PID namespace by default** &mdash; unless you enable this, each container will only see their own processes when you run `ps aux` inside them
+
+## Pod descriptor
+
+A sample pod [descriptor](devops/kubernetes/concepts/getting-started/yaml-descriptor) looks like the following:
+
+```yaml
+# uses the v1 version of the Kubernetes API
+apiVersion: v1
+
+# it's a pod
+kind: Pod
+
+metadata:
+  # name of the pod
+  name: kubia-manual
+  # key-value pair for organization
+  # otherwise your cluster will look like a mess
+  label:
+    appName: kubia-app
+    version: 1.0.0]
+
+spec:
+  containers:
+    - # the image used
+      image: lukas/kubia
+      # name of the pod
+      name: kubia
+      # use local image (don't pull from registry)
+      imagePullPolicy: Never
+      # for documentation only (listing ports are optional)
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+```
+
+## Working with pods
+
+### Creating a new pod
+
+Send the pod descriptor to the Kubernetes API server:
+
+```bash
+# If you create a descriptor named kubia-manual.yaml:
+kubectl create -f kubia-manual.yaml
+```
+
+### Stopping and deleting a pod
+
+You can also use `-l <selector>` to filter by [selectors](/devops/kubernetes/concepts/getting-started/labels-selectors):
+
+```bash
+kubectl delete pod kubia-manual
+```
+
+### Stopping and deleting all pods
+
+Delete all pod in the current namespace as follows:
+
+```bash
+kubectl delete pod --all
+```
+
+If you delete the namespace, all the pods running in there will also be deleted:
+
+```bash
+# kubectl delete namespace <namespace>
+kubectl delete namespace custom-namespace
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 2. First steps with Docker and Kubernetes',
+    },
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 3. Pods: running containers in Kubernetes',
+    },
+  ]}
+></References>

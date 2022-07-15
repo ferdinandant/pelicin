@@ -1,0 +1,38 @@
+import { References, Image, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Port Forwarding
+
+To connect to a pod, you can
+
+- use _services_ (using `kubectl expose pod <podName>` to expose the pod's IP), OR
+- connect to the pod directly using _port forwarding_ (e.g. for testing/debugging).
+
+## Forwarding a local network port
+
+To port a local network port to a port in the pod:
+
+```bash
+# kubectl port-forward <podName> <localPort>:<podPort>
+kubectl port-forward kubia-manual 8888:8080
+# Forwarding from 127.0.0.1:8888 -> 8080
+# Forwarding from [::1]:8888 -> 8080
+```
+
+You can then connect to the pod:
+
+```bash
+curl localhost:8888
+# You've hit kubia-manual
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 3. Pods: running containers in Kubernetes',
+    },
+  ]}
+></References>
