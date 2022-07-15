@@ -3,9 +3,9 @@ import { smartTrim } from '@pelicin/utils';
 
 # Pods
 
-A pod is a group of co-located containers.
+A pod is a group of co-located containers (they run in one worker node).
 
-These containers run in the same worker node and in the same Linux namespace(s), i.e., they have its own IP, hostname, processes, and so on.
+Each pod can communicate to one another using the pod's IP.
 
 <Image
   path="/res/devops/kubernetes/pods.jpg"
@@ -18,6 +18,90 @@ These containers run in the same worker node and in the same Linux namespace(s),
   sourceString={'Lukša'}
 />
 
+## Sharing of Linux namespaces
+
+The containers in a pod run in the same Linux namespace(s), i.e.,
+
+- **They share the same network and UTS namespaces** &mdash; They share the same hostname and network interfaces (i.e., they share the same IP and port space). They can communicate to each other using the loopback network interface (localhost). Also, be careful not to have different processes bind to the same port.
+- **They share the same IPC namespace** &mdash; They can communicate through IPC.
+- **BUT they don't share the same PID namespace by default** &mdash; unless you enable this, each container will only see their own processes when you run `ps aux` inside them
+
+## Pod YAML/JSON descriptor
+
+You can create Kubernetes resources (e.g. a pod) by sending a JSON/YAML descriptor the Kubernetes API server. You can also use commands like `kubectl run`, but that doesn't give you all the options.
+
+### Getting pod YAML descriptor
+
+To get a YAML description of a running pod:
+
+```bash
+kubectl get pod kubia -o yaml
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   ... (names, labels, etc.)
+# spec:
+#   ... (containers, volumes, etc.)
+# status:
+#   ... (current information about the pod)
+```
+
+### Creating a pod YAML descriptor
+
+Here's an example of a basic pod manifest.
+
+```yaml
+# kubia-manual.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-manual
+spec:
+  containers:
+    - image: kubia
+      name: kubia
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+```
+
+- **`apiVersion: v1`** &mdash; It uses the `v1` version of the Kubernetes API.
+- **`kind: Pod`** &mdash; It's a pod, named `kubia-manual`.
+- It has one container named `kubia`, which uses the `kubia` Docker image.
+- We also declare explicitly that the `kubia` container listens to port 8080 (this is for documentation purpose only, but it helps to list the ports this way)
+
+### Descriptor documentation
+
+Head to http://kubernetes.io/docs/api or use the `kubectl explain` command:
+
+```bash
+kubectl explain pod
+# KIND:     Pod
+# VERSION:  v1
+
+# DESCRIPTION:
+#      Pod is a collection of containers that can run on a host.
+#      This resource is created by clients and scheduled onto hosts.
+
+# FIELDS:
+#      apiVersion <string>
+#        ...
+#      kind <string>
+#        ...
+#      metadata <Object>
+#        ...
+#      spec <Object>
+#        ...
+#      status <Object>
+#        ...
+```
+
+You can then dig deeper to the available fields, e.g.
+
+```bash
+kubectl explain pod.metadata
+```
+
 ## References
 
 <References
@@ -25,6 +109,10 @@ These containers run in the same worker node and in the same Linux namespace(s),
     {
       text: 'Kubernetes in Action (Marko Lukša)',
       description: 'Chapter 2. First steps with Docker and Kubernetes',
+    },
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 3. Pods: running containers in Kubernetes',
     },
   ]}
 ></References>
