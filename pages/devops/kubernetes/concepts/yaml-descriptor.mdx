@@ -1,0 +1,116 @@
+import { References, Image, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# YAML descriptor
+
+You can create Kubernetes resources (e.g. a pod) by sending a YAML (or JSON) descriptor the Kubernetes API server.
+
+You can also use commands like `kubectl run`, but that doesn't give you all the options.
+
+## Getting pod YAML descriptor
+
+To get a YAML description of a running pod:
+
+```bash
+kubectl get pod kubia -o yaml
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   ... (names, labels, etc.)
+# spec:
+#   ... (containers, volumes, etc.)
+# status:
+#   ... (current information about the pod)
+```
+
+## Writing a pod YAML descriptor
+
+Here's an example of a basic pod manifest.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-manual
+spec:
+  containers:
+    - image: lukas/kubia
+      name: kubia
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+```
+
+- **`apiVersion: v1`** &mdash; It uses the `v1` version of the Kubernetes API.
+- **`kind: Pod`** &mdash; It's a pod, named `kubia-manual`.
+- It has one container named `kubia`, which uses the `kubia` Docker image, and we should not pull the Dcoker image from the registry (use the local image)
+- We also declare explicitly that the `kubia` container listens to port 8080 (this is for documentation purpose only, but it helps to list the ports this way)
+
+## Sending a pod YAML descriptor to the Kubernetes API server
+
+Assuming you have written a pod descriptor as `kubia-manual.yaml`, run the following command:
+
+<NoteBox type="warning">
+  <strong>Note for minikube users:</strong> Don't forget to load the image to Minikube via{' '}
+  <Code str="minikube image load <imageName>" />.
+</NoteBox>
+
+```bash
+kubectl create -f kubia-manual.yaml
+# pod/kubia-manual created
+```
+
+Verify that the pod is running:
+
+```bash
+kubectl get pods
+# NAME           READY   STATUS    RESTARTS   AGE
+# kubia-manual   1/1     Running   0          8s
+```
+
+## Descriptor documentation
+
+To see the fields you can use in the YAML descriptor, head to http://kubernetes.io/docs/api, or use the `kubectl explain` command:
+
+```bash
+kubectl explain pod
+# KIND:     Pod
+# VERSION:  v1
+
+# DESCRIPTION:
+#      Pod is a collection of containers that can run on a host.
+#      This resource is created by clients and scheduled onto hosts.
+
+# FIELDS:
+#      apiVersion <string>
+#        ...
+#      kind <string>
+#        ...
+#      metadata <Object>
+#        ...
+#      spec <Object>
+#        ...
+#      status <Object>
+#        ...
+```
+
+You can then dig deeper though the available fields, e.g.
+
+```bash
+kubectl explain pod.metadata
+# KIND:     Pod
+# VERSION:  v1
+# ...
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 3. Pods: running containers in Kubernetes',
+    },
+  ]}
+></References>

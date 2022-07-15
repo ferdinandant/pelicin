@@ -26,6 +26,14 @@ const chapters: TopicChapters = [
         path: '/devops/kubernetes/concepts/pods',
       },
       {
+        title: 'YAML Descriptor',
+        path: '/devops/kubernetes/concepts/yaml-descriptor',
+      },
+      {
+        title: 'Port Forwarding',
+        path: '/devops/kubernetes/concepts/port-forwarding',
+      },
+      {
         title: 'Services',
         path: '/devops/kubernetes/concepts/services',
       },
