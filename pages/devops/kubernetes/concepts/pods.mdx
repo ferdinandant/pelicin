@@ -26,6 +26,47 @@ The containers in a pod run in the same Linux namespace(s), i.e.,
 - **They share the same IPC namespace** &mdash; They can communicate through IPC.
 - **BUT they don't share the same PID namespace by default** &mdash; unless you enable this, each container will only see their own processes when you run `ps aux` inside them
 
+## Pod descriptor
+
+You can create a pod by creating a [descriptor file](/devops/kubernetes/concepts/yaml-descriptor) to the Kubernetes API server.
+
+```bash
+# If you create a descriptor named kubia-manual.yaml:
+kubectl create -f kubia-manual.yaml
+```
+
+For a pod, it looks like below:
+
+```yaml
+# uses the v1 version of the Kubernetes API
+apiVersion: v1
+
+# it's a pod
+kind: Pod
+
+metadata:
+  # name of the pod
+  name: kubia-manual
+  # key-value pair for organization
+  # otherwise your cluster will look like a mess
+  label:
+    appName: kubia-app
+    version: 1.0.0]
+
+spec:
+  containers:
+    - # the image used
+      image: lukas/kubia
+      # name of the pod
+      name: kubia
+      # use local image (don't pull from registry)
+      imagePullPolicy: Never
+      # for documentation only (listing ports are optional)
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+```
+
 ## References
 
 <References

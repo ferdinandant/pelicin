@@ -34,6 +34,10 @@ const chapters: TopicChapters = [
         path: '/devops/kubernetes/concepts/port-forwarding',
       },
       {
+        title: 'Labels and Selectors',
+        path: '/devops/kubernetes/concepts/labels-selectors',
+      },
+      {
         title: 'Services',
         path: '/devops/kubernetes/concepts/services',
       },
