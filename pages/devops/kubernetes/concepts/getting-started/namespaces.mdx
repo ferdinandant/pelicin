@@ -24,6 +24,15 @@ metadata:
 
 Unless you specify the namespace, you are working with the `default` namespace.
 
+### Creating a namespace
+
+Send the namespace descriptor to the Kubernetes API server:
+
+```bash
+# If you create a descriptor named custom-namespace.yaml:
+kubectl create -f custom-namespace.yaml
+```
+
 ### Listing namespaces
 
 ```bash
@@ -51,13 +60,16 @@ kubectl get pod -n kube-system
 # storage-provisioner                1/1     Running   14 (4h6m ago)   3d
 ```
 
-### Creating a namespace
+### Managing objects in a namespace
 
-Send the namespace descriptor to the Kubernetes API server:
+Do either one of the following:
+
+- add `namespace` field to the `metadata` section of the descriptor, OR
+- use `-n <namespace>` or `--namespace <namespace>`:
 
 ```bash
-# If you create a descriptor named custom-namespace.yaml:
-kubectl create -f custom-namespace.yaml
+kubectl create -f kubia-manual.yaml -n custom-namespace
+# pod "kubia-manual" created
 ```
 
 ## References

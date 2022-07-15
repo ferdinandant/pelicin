@@ -71,6 +71,29 @@ Send the pod descriptor to the Kubernetes API server:
 kubectl create -f kubia-manual.yaml
 ```
 
+### Stopping and deleting a pod
+
+You can also use `-l <selector>` to filter by [selectors](/devops/kubernetes/concepts/getting-started/labels-selectors):
+
+```bash
+kubectl delete pod kubia-manual
+```
+
+### Stopping and deleting all pods
+
+Delete all pod in the current namespace as follows:
+
+```bash
+kubectl delete pod --all
+```
+
+If you delete the namespace, all the pods running in there will also be deleted:
+
+```bash
+# kubectl delete namespace <namespace>
+kubectl delete namespace custom-namespace
+```
+
 ## References
 
 <References
