@@ -28,14 +28,7 @@ The containers in a pod run in the same Linux namespace(s), i.e.,
 
 ## Pod descriptor
 
-You can create a pod by creating a [descriptor file](/devops/kubernetes/concepts/yaml-descriptor) to the Kubernetes API server.
-
-```bash
-# If you create a descriptor named kubia-manual.yaml:
-kubectl create -f kubia-manual.yaml
-```
-
-For a pod, it looks like below:
+A sample pod [descriptor](devops/kubernetes/concepts/getting-started/yaml-descriptor) looks like the following:
 
 ```yaml
 # uses the v1 version of the Kubernetes API
@@ -65,6 +58,17 @@ spec:
       ports:
         - containerPort: 8080
           protocol: TCP
+```
+
+## Working with pods
+
+### Creating a new pod
+
+Send the pod descriptor to the Kubernetes API server:
+
+```bash
+# If you create a descriptor named kubia-manual.yaml:
+kubectl create -f kubia-manual.yaml
 ```
 
 ## References
