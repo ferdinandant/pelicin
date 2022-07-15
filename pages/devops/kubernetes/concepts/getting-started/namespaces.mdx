@@ -9,6 +9,17 @@ Names of resources need to be unique within a namespace, but not across namespac
 
 Also, cluster-wide objects like StorageClass, Nodes, or PersistentVolumes are not scoped by namespaces.
 
+## Namespace descriptor
+
+A sample namespace [descriptor](devops/kubernetes/concepts/getting-started/yaml-descriptor) looks like the following:
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: custom-namespace
+```
+
 ## Working with namespaces
 
 Unless you specify the namespace, you are working with the `default` namespace.
@@ -41,6 +52,13 @@ kubectl get pod -n kube-system
 ```
 
 ### Creating a namespace
+
+Send the namespace descriptor to the Kubernetes API server:
+
+```bash
+# If you create a descriptor named custom-namespace.yaml:
+kubectl create -f custom-namespace.yaml
+```
 
 ## References
 
