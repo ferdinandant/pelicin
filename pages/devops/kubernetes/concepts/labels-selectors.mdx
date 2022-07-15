@@ -68,6 +68,57 @@ tier in (fe, be), environment!=qa
 
 will look for anything whose `tier` value is `fe` or `be`, AND whose `environment` value is NOT `qa`.
 
+## Working with labels
+
+### Showing labels
+
+To show objects with labels:
+
+```bash
+kubectl get pod --show-labels
+# NAME            READY  STATUS   RESTARTS  AGE LABELS
+# kubia-manual    1/1    Running  0         16m <none>
+# kubia-manual-v2 1/1    Running  0         2m  creat_method=manual,env=prod
+# kubia-zxzij     1/1    Running  0         1d  run=kubia
+```
+
+To only show certain labels, use the `-L <...keys>` flag:
+
+```bash
+# kubectl get pod -L creation_method,env
+# NAME            READY   STATUS    RESTARTS   AGE   CREATION_METHOD   ENV
+# kubia-manual    1/1     Running   0          16m   <none>            <none>
+# kubia-manual-v2 1/1     Running   0          2m    manual            prod
+# kubia-zxzij     1/1     Running   0          1d    <none>            <none>
+```
+
+### Querying with labels
+
+Use the `kubectl get` command with `-l <selector>`, e.g.:
+
+```bash
+# Enclose `!<something>` in single quotes
+# so bash doesn't evaluate the '!'
+kubectl get pod -l creation_method=manual
+kubectl get pod -l '!env'
+```
+
+### Modifying labels
+
+Use the `kubectl label` command.
+
+```bash
+kubectl label pod kubia-manual creation_method=manual
+# pod "kubia-manual" labeled
+```
+
+Use the `--override` flag to override an existing label.
+
+```bash
+kubectl label pod kubia-manual-v2 env=debug --overwrite
+# pod "kubia-manual-v2" labeled
+```
+
 ## References
 
 <References

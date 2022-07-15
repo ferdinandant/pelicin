@@ -30,16 +30,20 @@ const chapters: TopicChapters = [
         path: '/devops/kubernetes/concepts/yaml-descriptor',
       },
       {
-        title: 'Port Forwarding',
-        path: '/devops/kubernetes/concepts/port-forwarding',
-      },
-      {
         title: 'Labels and Selectors',
         path: '/devops/kubernetes/concepts/labels-selectors',
       },
       {
+        title: 'Annotations',
+        path: '/devops/kubernetes/concepts/annotations',
+      },
+      {
         title: 'Services',
         path: '/devops/kubernetes/concepts/services',
+      },
+      {
+        title: 'Port Forwarding',
+        path: '/devops/kubernetes/concepts/port-forwarding',
       },
     ],
   },
