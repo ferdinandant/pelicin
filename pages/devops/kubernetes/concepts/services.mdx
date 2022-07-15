@@ -1,0 +1,25 @@
+import { References, Image } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Services
+
+Pods can be moved accross nodes (thus assigned a different IP), or even replicated (the set of pods' IPs at one time may be different to another).
+
+A _service_ solves this issue by **exposing multiple pods at a single constant IP and port pair** (Lukša). Instead of connecting to the pods directly, you should connect to the service using its static IP.
+
+<Image path="/res/devops/kubernetes/service.jpg" caption={<>A service.</>} sourceString={'Lukša'} />
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 2. First steps with Docker and Kubernetes',
+    },
+    {
+      text: 'Service',
+      link: 'https://kubernetes.io/docs/concepts/services-networking/service/',
+    },
+  ]}
+></References>

@@ -7,10 +7,12 @@ const chapters: TopicChapters = [
       {
         title: 'Introduction',
         path: '/devops/docker',
+        badge: 'TODO'
       },
       {
         title: 'References',
         path: '/devops/docker/references',
+        badge: 'TODO'
       },
       {
         title: 'Setup',

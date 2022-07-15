@@ -25,6 +25,10 @@ const chapters: TopicChapters = [
         title: 'Pods',
         path: '/devops/kubernetes/concepts/pods',
       },
+      {
+        title: 'Services',
+        path: '/devops/kubernetes/concepts/services',
+      },
     ],
   },
 ]
