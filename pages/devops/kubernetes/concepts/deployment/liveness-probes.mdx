@@ -1,0 +1,132 @@
+import { References, NoteBox } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Liveness Probes
+
+Liveness probes are checks (performed by Kubelet) to see if a container is running and healthy.
+
+**If a container fails a liveness probe, Kubelet will restart it.** (Note that Kubelet does it: if the entire node fails, and you don't have something like ReplicationController, the containers will NOT be replaced.)
+
+## Liveness probe descriptor
+
+Here's an example of a pod with a liveness probe check.
+
+Kubelet will hit the path `/healthcheck` on port 8080 and expects to get a non-error response (2xx or 3xx).
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-liveness
+spec:
+  containers:
+    - image: luksa/kubia-unhealthy
+      name: kubia
+      livenessProbe:
+        httpGet:
+          path: /healthcheck
+          port: 8080
+```
+
+## Types of liveness probes
+
+<NoteBox type="warning">
+  <strong>If you are running a Java (JVM-based) app:</strong> use an HTTP get probe instead of an
+  Exec probe because it will otherwise spin up a whole new JVM just to get the liveness information
+  (you waste a considerable of resources).
+</NoteBox>
+
+There are three types of liveness probes.
+
+### HTTP GET probe
+
+Performs an HTTP GET request on the container's IP address, a port, and path you specify. Succeeds if it gets a non-error response (2xx or 3xx).
+
+```yaml
+# Under spec.containers[i]:
+livenessProbe:
+  httpGet:
+    path: /healthcheck
+    port: 8080
+    httpHeaders:
+      - name: Custom-Header
+        value: Awesome
+  initialDelaySeconds: 3
+  periodSeconds: 3
+```
+
+### TCP socket probe
+
+Opens a TCP connection to the specified port of the container. Succeeds if the connection is established successfully.
+
+```yaml
+# Under spec.containers[i]:
+livenessProbe:
+  tcpSocket:
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 20
+```
+
+### Exec probe
+
+Executes an arbitrary command inside the container. Succeeds if the command exited with exit code 0.
+
+```yaml
+# Under spec.containers[i]:
+readinessProbe:
+  exec:
+    # this works too:
+    # command: ["cat", "/tmp/healthy"]
+    command:
+      - cat
+      - /tmp/healthy
+  initialDelaySeconds: 5
+  periodSeconds: 5
+```
+
+## Working with liveness probes
+
+### Checking if a pod has been restarted
+
+See the `RESTARTS` column.
+
+```bash
+kubectl get pod kubia-liveness
+# NAME             READY     STATUS    RESTARTS   AGE
+# kubia-liveness   1/1       Running   1          2m
+```
+
+### Checking why a pod is restarted
+
+You can see the _previous_ pod's log:
+
+```bash
+kubectl logs <podName> --previous
+```
+
+Or see the pod's events:
+
+```bash
+kubectl describe po kubia-liveness
+# ... (some other description)
+# Events:
+# ... Killing container with id docker://95246981:pod "kubia-liveness ..."
+#     container "kubia" is unhealthy, it will be killed and re-created.
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 4. Replication and other controllers: deploying managed pods',
+    },
+    {
+      text: 'Configure Liveness, Readiness and Startup Probes',
+      link:
+        'https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/',
+    },
+  ]}
+></References>
