@@ -20,7 +20,7 @@ const chapters: TopicChapters = [
   },
   {'@separator': 'Concepts'},
   {
-    chapter: 'Getting started',
+    chapter: 'Getting Started',
     children: [
       {
         title: 'Pods',
@@ -49,6 +49,25 @@ const chapters: TopicChapters = [
       {
         title: 'Port Forwarding',
         path: '/devops/kubernetes/concepts/getting-started/port-forwarding',
+      },
+    ],
+  },
+  {
+    chapter: 'Deployment',
+    children: [
+      {
+        title: 'Liveness Probes',
+        path: '/devops/kubernetes/concepts/deployment/liveness-probes',
+      },
+      {
+        title: 'Replication Controllers',
+        path: '/devops/kubernetes/concepts/deployment/replication-controller',
+        badge: 'TODO'
+      },
+      {
+        title: 'Deployments',
+        path: '/devops/kubernetes/concepts/deployment/deployments',
+        badge: 'TODO'
       },
     ],
   },
