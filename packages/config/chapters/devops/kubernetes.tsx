@@ -71,11 +71,6 @@ const chapters: TopicChapters = [
         title: 'Jobs',
         path: '/devops/kubernetes/concepts/deployment/jobs',
       },
-      {
-        title: 'Deployments',
-        path: '/devops/kubernetes/concepts/deployment/deployments',
-        badge: 'TODO'
-      },
     ],
   },
 ]

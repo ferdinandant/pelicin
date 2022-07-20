@@ -5,7 +5,7 @@ import { smartTrim } from '@pelicin/utils';
 
 A Job allows running a pod that is not restarted once it completes successfully.
 
-- If the node that runs a job fails, the job pod will be rescheduled to another node.
+- If the node that runs a job fails, the job pod will be rescheduled to another node
 
 - If the job pod fails, you can choose whether to restart the job or not
 
@@ -40,6 +40,36 @@ spec:
       containers:
         - name: main
           image: luksa/batch-job
+```
+
+## Creating a CronJob
+
+You can create a job that runs every now and then:
+
+```yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: batch-job-every-fifteen-minutes
+spec:
+  # use cron notation:
+  # "minute hour dayOfMonth month dayOfWeek"
+  schedule: '0,15,30,45 * * * *'
+  # schedule the job to start at the latest this many seconds
+  # after the schedule (or threat it as Failed)
+  startingDeadlineSeconds: 15
+  # template for the Job resource
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: periodic-batch-job
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: main
+              image: luksa/batch-job
 ```
 
 ## Working with Jobs
