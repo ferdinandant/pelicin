@@ -59,7 +59,7 @@ You can use `matchLabels` and/or `matchExpressions`. If you specify both, it wil
 This will match pods whose `app` label value is `kubia`:
 
 ```yaml
-# Under spec.selector:
+# Under .spec.selector:
 matchLabels:
   app: kubia
 ```
@@ -73,7 +73,7 @@ Specify an array of expressions (it will select pods matching all the expression
 - **`values`** &mdash; required if you use the `In` or `NotIn` operator
 
 ```yaml
-# Under spec.selector:
+# Under .spec.selector:
 matchExpressions:
   - key: app
     operator: In
