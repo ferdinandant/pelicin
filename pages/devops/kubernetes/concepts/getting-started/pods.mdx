@@ -1,4 +1,4 @@
-import { References, Image } from '@pelicin/components';
+import { References, Image, NoteBox, Code } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # Pods
@@ -49,7 +49,7 @@ metadata:
 spec:
   containers:
     - # the image used
-      image: lukas/kubia
+      image: kubia
       # name of the pod
       name: kubia
       # use local image (don't pull from registry)
@@ -61,6 +61,11 @@ spec:
 ```
 
 ## Working with pods
+
+<NoteBox type="info">
+  Pod's abbreviation is <Code str="po" />. (You can type <Code str="po" /> or <Code str="pod" /> in
+  your command.)
+</NoteBox>
 
 ### Creating a new pod
 
@@ -76,7 +81,7 @@ kubectl create -f kubia-manual.yaml
 You can also use `-l <selector>` to filter by [selectors](/devops/kubernetes/concepts/getting-started/labels-selectors):
 
 ```bash
-kubectl delete pod kubia-manual
+kubectl delete po kubia-manual
 ```
 
 ### Stopping and deleting all pods
@@ -84,7 +89,7 @@ kubectl delete pod kubia-manual
 Delete all pod in the current namespace as follows:
 
 ```bash
-kubectl delete pod --all
+kubectl delete po --all
 ```
 
 If you delete the namespace, all the pods running in there will also be deleted:
