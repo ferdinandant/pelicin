@@ -43,7 +43,7 @@ There are three types of liveness probes.
 Performs an HTTP GET request on the container's IP address, a port, and path you specify. Succeeds if it gets a non-error response (2xx or 3xx).
 
 ```yaml
-# Under spec.containers[i]:
+# Under .spec.containers[i]:
 livenessProbe:
   httpGet:
     path: /healthcheck
@@ -60,7 +60,7 @@ livenessProbe:
 Opens a TCP connection to the specified port of the container. Succeeds if the connection is established successfully.
 
 ```yaml
-# Under spec.containers[i]:
+# Under .spec.containers[i]:
 livenessProbe:
   tcpSocket:
     port: 8080
@@ -73,7 +73,7 @@ livenessProbe:
 Executes an arbitrary command inside the container. Succeeds if the command exited with exit code 0.
 
 ```yaml
-# Under spec.containers[i]:
+# Under .spec.containers[i]:
 readinessProbe:
   exec:
     # this works too:
