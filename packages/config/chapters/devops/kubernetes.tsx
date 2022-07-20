@@ -60,8 +60,12 @@ const chapters: TopicChapters = [
         path: '/devops/kubernetes/concepts/deployment/liveness-probes',
       },
       {
-        title: 'Replication Controllers',
-        path: '/devops/kubernetes/concepts/deployment/replication-controller',
+        title: 'Replica Sets',
+        path: '/devops/kubernetes/concepts/deployment/replica-sets',
+      },
+      {
+        title: 'Daemon Sets',
+        path: '/devops/kubernetes/concepts/deployment/daemon-sets',
         badge: 'TODO'
       },
       {

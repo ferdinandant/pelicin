@@ -1,0 +1,142 @@
+import { References, NoteBox, Code, Link } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Replica Sets
+
+<NoteBox type="info">
+  You don't usually create ReplicaSet directly. Instead, you would normally create them using{' '}
+  <Link str="Deployments" link="/devops/kubernetes/concepts/deployment/deployments" />.
+</NoteBox>
+
+ReplicaSet ensures there are a certain number of pod-replicas (that match the given pod-label selectors) running in the cluster at any given time.
+
+If there are too many pods, ReplicaSet will delete the excess pods; if there are too few, ReplicaSet will create new ones using the template.
+
+## Relationship with ReplicationController
+
+ReplicationController was the "older version" of ReplicaSet. Its selector capability is much limited (could only use the equality operator).
+
+You should use ReplicaSet going forward.
+
+## ReplicaSet descriptor
+
+A sample ReplicaSet looks like the following. It mainly contains of 3 parts:
+
+- **`replicas`** &mdash; how many replica of pods
+- **`selector`** &mdash; pod label selectors
+- **`template`** &mdash; how to create new pods
+
+```yaml
+# Note that this is not part of the core 'v1' API
+# So you would use "apiVersion: apps/v1"
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: kubia
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubia
+  template:
+    metadata:
+      labels:
+        app: kubia
+    spec:
+      containers:
+        - name: kubia
+          image: luksa/kubia
+```
+
+## Type of selectors
+
+You can use `matchLabels` and/or `matchExpressions`. If you specify both, it will select pods matching ALL the selectors.
+
+### `matchLabels`
+
+This will match pods whose `app` label value is `kubia`:
+
+```yaml
+# Under spec.selector:
+matchLabels:
+  app: kubia
+```
+
+### `matchExpressions`
+
+Specify an array of expressions (it will select pods matching all the expressions):
+
+- **`key`** &mdash; the label's key
+- **`operator`** &mdash; could be `In`, `NotIn`, `Exists`, or `DoesNotExist`
+- **`values`** &mdash; required if you use the `In` or `NotIn` operator
+
+```yaml
+# Under spec.selector:
+matchExpressions:
+  - key: app
+    operator: In
+    values:
+      - kubia
+      - kubiu
+```
+
+## Working with ReplicaSet
+
+<NoteBox type="info">
+  ReplicaSet's abbreviation is <Code str="rs" />.
+</NoteBox>
+
+### Creating a ReplicaSet
+
+```bash
+kubectl create -f <filename>
+```
+
+### Listing ReplicaSets
+
+```bash
+kubectl get rs
+# NAME      DESIRED   CURRENT   READY     AGE
+# kubia     3         3         3         3s
+```
+
+### Describing a ReplicaSet
+
+```bash
+kubectl describe rs <replicaSetName>
+# Name:           kubia
+# Namespace:      default
+# Selector:       app=kubia
+# Labels:         app=kubia
+# Annotations:    <none>
+# Replicas:       3 current / 3 desired
+# Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+# Pod Template:
+#   Labels:       app=kubia
+#   Containers:   ...
+#   Volumes:      <none>
+# Events:         <none>
+```
+
+### Deleting a ReplicaSet
+
+<NoteBox type="warning">Deleting a ReplicaSet will also delete all the matching pods.</NoteBox>
+
+```bash
+kubectl delete rs <replicaSetName>
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 4. Replication and other controllers: deploying managed pods',
+    },
+    {
+      text: 'ReplicaSet',
+      link: 'https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/',
+    },
+  ]}
+></References>
