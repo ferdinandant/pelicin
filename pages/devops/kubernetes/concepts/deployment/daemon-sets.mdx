@@ -1,0 +1,106 @@
+import { References, NoteBox, Code, Link, Image } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Daemon Sets
+
+A DaemonSet ensures that all (or some) Nodes run a copy of a pod.
+
+<Image
+  path="/res/devops/kubernetes/replicaset-vs-daemonset.jpg"
+  caption={<>Difference between ReplicaSet (green) and DaemonSet (blue).</>}
+  sourceString={'Lukša'}
+/>
+
+## Relationship with the Scheduler
+
+**A DaemonSet bypasses the Scheduler completely.**
+
+If you mark nodes as unschedulable (preventing pods from being deployed to them), a DaemonSet will still deploy pods to them.
+
+## DaemonSet descriptor
+
+The following example will deploy `luksa/ssd-monitor` pods on nodes that matches the `spec.template.spec.nodeSelector`.
+
+The nodes watched by the DaemonSet itself if tagged with `app=ssd-monitor`. (See [ReplicaSet's types of selector](/devops/kubernetes/concepts/deployment/replica-sets#type-of-selectors) to see how you can select the pods.)
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ssd-monitor
+spec:
+  # The pods watched by DaemonSet are
+  # those that match "app=ssd-monitor"
+  selector:
+    matchLabels:
+      app: ssd-monitor
+  template:
+    metadata:
+      labels:
+        app: ssd-monitor
+    spec:
+      # The pods that the DaemonSet will deploy to
+      # matches "disk=ssd"
+      nodeSelector:
+        disk: ssd
+      containers:
+        - name: main
+          image: luksa/ssd-monitor
+```
+
+Here's the illustration for the above case:
+
+<Image
+  path="/res/devops/kubernetes/daemonset-ssd-monitor.jpg"
+  caption={
+    <>
+      Deploying <Code str="ssd-monitor" /> pods on nodes with <Code str="disk=ssd" />.
+    </>
+  }
+  sourceString={'Lukša'}
+/>
+
+## Working with DaemonSet
+
+<NoteBox type="info">
+  DaemonSet's abbreviation is <Code str="ds" />.
+</NoteBox>
+
+### Creating a DaemonSet
+
+```bash
+kubectl create -f <filename>
+```
+
+### Listing DaemonSets
+
+```bash
+kubectl get ds
+```
+
+### Describing a DaemonSet
+
+```bash
+kubectl describe ds <daemonSetName>
+```
+
+### Deleting a DaemonSet
+
+```bash
+kubectl delete <daemonSetName>
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 4. Replication and other controllers: deploying managed pods',
+    },
+    {
+      text: 'DaemonSet',
+      link: 'https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/',
+    },
+  ]}
+></References>
