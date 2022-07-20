@@ -53,24 +53,23 @@ const chapters: TopicChapters = [
     ],
   },
   {
-    chapter: 'Deployment',
+    chapter: 'Replication and Controllers',
     children: [
       {
         title: 'Liveness Probes',
-        path: '/devops/kubernetes/concepts/deployment/liveness-probes',
+        path: '/devops/kubernetes/concepts/replication-controller/liveness-probes',
       },
       {
         title: 'Replica Sets',
-        path: '/devops/kubernetes/concepts/deployment/replica-sets',
+        path: '/devops/kubernetes/concepts/replication-controller/replica-sets',
       },
       {
         title: 'Daemon Sets',
-        path: '/devops/kubernetes/concepts/deployment/daemon-sets',
+        path: '/devops/kubernetes/concepts/replication-controller/daemon-sets',
       },
       {
-        title: 'Deployments',
-        path: '/devops/kubernetes/concepts/deployment/deployments',
-        badge: 'TODO'
+        title: 'Jobs',
+        path: '/devops/kubernetes/concepts/replication-controller/jobs',
       },
     ],
   },
