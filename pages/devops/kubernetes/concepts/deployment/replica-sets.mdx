@@ -12,6 +12,8 @@ ReplicaSet ensures there are a certain number of pod-replicas (that match the gi
 
 If there are too many pods, ReplicaSet will delete the excess pods; if there are too few, ReplicaSet will create new ones using the template.
 
+**If you change or add a pod's label when ReplicaSet is in effect:** the number of matched pods may differ, and thus, pods will be deleted or created to accomodate.
+
 ## Relationship with ReplicationController
 
 ReplicationController was the "older version" of ReplicaSet. Its selector capability is much limited (could only use the equality operator).
