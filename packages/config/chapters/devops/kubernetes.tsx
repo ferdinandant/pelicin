@@ -68,6 +68,10 @@ const chapters: TopicChapters = [
         path: '/devops/kubernetes/concepts/deployment/daemon-sets',
       },
       {
+        title: 'Jobs',
+        path: '/devops/kubernetes/concepts/deployment/jobs',
+      },
+      {
         title: 'Deployments',
         path: '/devops/kubernetes/concepts/deployment/deployments',
         badge: 'TODO'

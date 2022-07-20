@@ -1,0 +1,94 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Jobs
+
+A Job allows running a pod that is not restarted once it completes successfully.
+
+- If the node that runs a job fails, the job pod will be rescheduled to another node.
+
+- If the job pod fails, you can choose whether to restart the job or not
+
+## Job descriptor
+
+Note that the only required `.spec` field is `template`.
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: batch-job
+spec:
+  # need this many completions (default: 1)
+  completions: 5
+  # e.g. 2 pods can be parallel (default: 1, 0 means pause the job)
+  parallelism: 2
+  # number of retries before considering the job failed (default: 6)
+  backoffLimit: 5
+  # hard time limit before consideting the job failed
+  # (will consider as failure even before backoffLimit is reached)
+  activeDeadlineSeconds: 100
+  # description about the pod to create
+  template:
+    metadata:
+      labels:
+        app: batch-job
+    spec:
+      # The pod can't use the "Always" restartPolicy;
+      # you can choose "OnFailure" or "Never"
+      restartPolicy: OnFailure
+      containers:
+        - name: main
+          image: luksa/batch-job
+```
+
+## Working with Jobs
+
+### Creating a Job
+
+```bash
+kubectl create -f <filename>
+```
+
+### Listing Jobs
+
+```bash
+kubectl get job
+# NAME        DESIRED   SUCCESSFUL   AGE
+# batch-job   1         1            9m
+```
+
+### Describing a Job
+
+```bash
+kubectl describe job <jobName>
+```
+
+### Seeing Job's log
+
+```bash
+kubectl logs <jobName>
+# Fri Apr 29 09:58:22 UTC 2016 Batch job starting
+# Fri Apr 29 10:00:22 UTC 2016 Finished succesfully
+```
+
+### Deleting a Job
+
+```bash
+kubectl delete <jobNane>
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 4. Replication and other controllers: deploying managed pods',
+    },
+    {
+      text: 'Job',
+      description: 'https://kubernetes.io/docs/concepts/workloads/controllers/job/',
+    },
+  ]}
+></References>
