@@ -7,7 +7,7 @@ You can create Kubernetes resources (e.g. a pod) by sending a YAML (or JSON) des
 
 You can also use commands like `kubectl run`, but that doesn't give you all the options.
 
-## Getting an object's YAML descriptor
+## Getting a resource's YAML descriptor
 
 To get a YAML description of a running pod:
 
@@ -49,10 +49,12 @@ spec:
 
 ## Sending a YAML descriptor to the Kubernetes API server
 
-To create an object using its descriptor, you would run:
+### Creating a new resource
+
+To create a resource using its descriptor, you would run:
 
 ```bash
-kubectl create -f <descriptorFile>
+kubectl create -f <filename>
 ```
 
 For example, assuming you have written a pod descriptor as `kubia-manual.yaml`, you can create the pod by running the following command:
@@ -62,7 +64,23 @@ kubectl create -f kubia-manual.yaml
 # pod/kubia-manual created
 ```
 
-## Descriptor documentation
+### Applying changes from the descriptor file
+
+When you edit a descriptor file, you can apply its changes by using:
+
+```bash
+kubectl apply -f <filename>
+```
+
+### Deleting resources from the descriptor file
+
+To delete resources described by a descriptor file, you can use:
+
+```bash
+kubectl delete -f <filename>
+```
+
+## Accessing descriptor documentation
 
 To see the fields you can use in the YAML descriptor, head to http://kubernetes.io/docs/api, or use the `kubectl explain` command:
 
@@ -98,6 +116,10 @@ kubectl explain pod.metadata
     {
       text: 'Kubernetes in Action (Marko Lukša)',
       description: 'Chapter 3. Pods: running containers in Kubernetes',
+    },
+    {
+      text: 'kubectl Cheat Sheet',
+      link: 'https://kubernetes.io/docs/reference/kubectl/cheatsheet/',
     },
   ]}
 ></References>
