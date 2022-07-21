@@ -1,0 +1,40 @@
+import { References } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# ExternalName Services
+
+An ExternalName Service is a special case of Service that does not have selectors and uses DNS names instead (kubernetes.io).
+
+You basically make your service an alias to an external service.
+
+## ExternalName service descriptor
+
+Mention `type` and `externalName`:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-service
+spec:
+  type: ExternalName
+  externalName: someapi.somecompany.com
+  ports:
+    - port: 80
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 5. Services: enabling clients to discover and talk to pods',
+    },
+    {
+      text: 'Kubernetes DNS for Services and Pods',
+      description: 'Services without selectors',
+      link: 'https://kubernetes.io/docs/concepts/services-networking/service/',
+    },
+  ]}
+></References>

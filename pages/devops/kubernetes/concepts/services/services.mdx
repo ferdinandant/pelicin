@@ -36,6 +36,10 @@ spec:
       targetPort: 8080
 ```
 
+### Without selectors
+
+You can create a Service descriptor without the `selector` field, but you will need to manage your own [Endpoints](#TODO).
+
 ### Using named ports
 
 You can target named ports in your pod's descriptor.
