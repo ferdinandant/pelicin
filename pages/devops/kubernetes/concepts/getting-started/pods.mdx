@@ -99,6 +99,26 @@ If you delete the namespace, all the pods running in there will also be deleted:
 kubectl delete namespace custom-namespace
 ```
 
+### Get a shell to a pod's container
+
+If the pod only has one container:
+
+```bash
+# kubectl exec <podName> -- <command>
+kubectl exec kubia-7nog1 -- curl -s http://10.111.249.153
+```
+
+If the pod has multiple containers, select it using `-c <containerName>`:
+
+```bash
+# kubectl exec <podName> -c -- <command>
+# The "-it" flag basically makes it interactive
+# (*) --container, -c <containerName>: the container name to use
+# (*) --stdin, -i: keep stdin open on the container in the pod
+# (*) --tty, -t: allocate a TTY for the container in the pod
+kubectl exec -it my-pod -c main-app -- /bin/bash
+```
+
 ## References
 
 <References
@@ -110,6 +130,15 @@ kubectl delete namespace custom-namespace
     {
       text: 'Kubernetes in Action (Marko Lukša)',
       description: 'Chapter 3. Pods: running containers in Kubernetes',
+    },
+    {
+      text: 'Get a Shell to a Running Container',
+      link: 'https://kubernetes.io/docs/tasks/debug/debug-application/get-shell-running-container/',
+    },
+    {
+      text: 'Kubectl Reference Docs',
+      description: 'exec',
+      link: 'https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#exec',
     },
   ]}
 ></References>
