@@ -44,7 +44,7 @@ const chapters: TopicChapters = [
       },
       {
         title: 'Port Forwarding',
-        path: '/devops/kubernetes/concepts/services/port-forwarding',
+        path: '/devops/kubernetes/concepts/getting-started/port-forwarding',
       },
     ],
   },
@@ -58,7 +58,6 @@ const chapters: TopicChapters = [
       {
         title: 'Endpoints',
         path: '/devops/kubernetes/concepts/services/endpoints',
-        badge: 'TODO'
       },
       {
         title: 'ExternalName Services',
