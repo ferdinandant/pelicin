@@ -1,0 +1,80 @@
+import { References, NoteBox, Image } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# LoadBalancer Services
+
+<NoteBox type="info">
+  <strong>If your environment does not support LoadBalancer services:</strong> no load balancer will
+  be provisioned, but the service will still behave like a NodePort service (Lukša).
+</NoteBox>
+
+A LoadBalancer service is an extension of a NodePort service: it allows you to expose a service (externally) **using your cloud provider's load balancer.**
+
+Kubernetes will automatically create the load balancer, provide firewall rules if needed, and populate the service with the external IP address assigned by the cloud provider (vmware.com).
+
+<Image
+  path="/res/devops/kubernetes/service-loadbalancer.jpg"
+  caption={
+    <>
+      A LoadBalancer service provides an external IP to your service, using the cloud provider's
+      load balancer.
+    </>
+  }
+  sourceString={'Lukša'}
+/>
+
+## LoadBalancer service descriptor
+
+<NoteBox type="warning">
+  You can't experiment with LoadBalancer services on Minikube. Use GKE (Google Kubernetes Engine) or
+  something.
+</NoteBox>
+
+Mention the service's `selector`, and the `ports` mapping.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubia-loadbalancer
+spec:
+  type: LoadBalancer
+  # pods that handle the service have these labels
+  selector:
+    app: kubia
+  # You can mention `nodePort` here, but you don't have to
+  # (you let Kubernetes choose the nodePort)
+  ports:
+    - # connect here if you use the service's internal IP
+      port: 80
+      # traffics will be routed here
+      targetPort: 8080
+```
+
+## Connecting to a LoadBalancer service
+
+You connect to your service using the service's **external IP**:
+
+```bash
+kubectl get svc kubia-loadbalancer
+# NAME                 CLUSTER-IP       EXTERNAL-IP      PORT(S)         AGE
+# kubia-loadbalancer   10.111.241.153   130.211.53.173   80:32143/TCP    1m
+
+curl http://130.211.53.173
+# You've hit kubia-xueq1
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 5. Services: enabling clients to discover and talk to pods',
+    },
+    {
+      text: 'What are Kubernetes Services?',
+      link: 'https://www.vmware.com/topics/glossary/content/kubernetes-services.html',
+    },
+  ]}
+></References>

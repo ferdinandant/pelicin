@@ -70,7 +70,6 @@ const chapters: TopicChapters = [
       {
         title: 'Services: LoadBalancer',
         path: '/devops/kubernetes/concepts/services/services-loadbalancer',
-        badge: 'TODO'
       },
       {
         title: 'Ingress',
