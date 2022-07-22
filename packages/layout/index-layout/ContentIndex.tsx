@@ -19,7 +19,10 @@ type Props = {
 
 export default function ContentIndex(props: Props) {
   const { groups } = props;
-  configureAnchors({ keepLastAnchorHash: true });
+  configureAnchors({
+    offset: -72,
+    keepLastAnchorHash: true,
+  });
 
   return (
     <>
