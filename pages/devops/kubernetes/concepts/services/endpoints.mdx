@@ -1,0 +1,54 @@
+import { References, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Endpoints
+
+An "Endpoints" resource lists the IPs and ports that handle a service.
+
+If you create a Service without specifying a selector, you will need to create/maintain your own Endpoints.
+
+## Endpoints descriptor
+
+**The Endpoints' name must match the service's name.**
+
+List the IP addresses and ports that handle the service.
+
+```yaml
+apiVersion: v1
+kind: Endpoints
+metadata:
+  # must match the service's name
+  name: external-service
+subsets:
+  # list IPs and ports
+  - addresses:
+      - ip: 11.11.11.11
+      - ip: 22.22.22.22
+    ports:
+      - port: 80
+```
+
+## Working with Endpoints
+
+<NoteBox type="info" title="You already know the drill!">
+  <p>From this point onwards, I will only list "interesting" use cases.</p>
+</NoteBox>
+
+Remember how you can create, delete, modify, and/or query a resource:
+
+- **create a resource** &mdash; `kubectl create -f <file>`
+- **modify a resource** &mdash; `kubectl apply -f <file>`
+- **list resources** &mdash; `kubectl get <resourceKind>`
+- **describe a resource** &mdash; `kubectl describe <resourceKind> <resourceName>`
+- **delete a resource** &mdash; `kubectl delete <resourceKind> <resourceName>`
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 5. Services: enabling clients to discover and talk to pods',
+    },
+  ]}
+></References>
