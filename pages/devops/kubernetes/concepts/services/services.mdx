@@ -1,0 +1,215 @@
+import { References, Image, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Services
+
+Pods can be moved accross nodes (thus assigned a different IP), or even replicated (the set of pods' IPs at one time may be different to another).
+
+A _service_ solves this issue by **exposing multiple pods at a single constant IP-and-port pair** (Lukša). Instead of connecting to the pods directly, you should connect to the service using its static IP.
+
+<Image
+  path="/res/devops/kubernetes/service.jpg"
+  caption={<>A service exposes a constant IP and port pair.</>}
+  sourceString={'Lukša'}
+/>
+
+<Image
+  path="/res/devops/kubernetes/service-label.jpg"
+  caption={<>A service knows which pods handle the service through the use of labels.</>}
+  sourceString={'Lukša'}
+/>
+
+## Service descriptor
+
+Mention `selector` (pod label selector, i.e., which pods handle the service) AND `ports` (ports mapping):
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubia
+spec:
+  selector:
+    app: kubia
+  ports:
+    - port: 80
+      targetPort: 8080
+```
+
+### Without selectors
+
+You can create a Service descriptor without the `selector` field, but you will need to manage your own [Endpoints](#TODO).
+
+### Using named ports
+
+You can target named ports in your pod's descriptor.
+
+If those port number changes, you don't need to change the references to those ports which use the ports' name.
+
+```yaml
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: kubia
+      ports:
+        # here's a pod named http in the container
+        - name: http
+          containerPort: 8080
+        # here's a pod named https in the container
+        - name: https
+          containerPort: 8443
+```
+
+```yaml
+apiVersion: v1
+kind: Service
+spec:
+  ports:
+    # target the pods' "http" port
+    - name: service-http-port
+      port: 80
+      targetPort: http
+    # target the pods' "https" port
+    - name: service-https-port
+      port: 443
+      targetPort: https
+```
+
+## Discovering services
+
+For pods to connect to a service, **you don't always need to create the service first and then manually look up its IP and port.**
+
+Kubernetes provides some methods for service discovery.
+
+### Through environment variables
+
+When a pod is started, all preexisting services' ports and IPs are exposed through environment variables.
+
+The services' names will be converted to `SNAKE_CASE`. If your service's name is `xxx`, you will see these environment variables:
+
+- `XXX_SERVICE_HOST` &mdash; telling you the service's host
+- `XXX_SERVICE_PORT` &mdash; telling you the service's port
+
+```bash
+kubectl exec kubia-3inly env
+# PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# HOSTNAME=kubia-3inly
+# KUBERNETES_SERVICE_HOST=10.111.240.1
+# KUBERNETES_SERVICE_PORT=443
+# ...
+# KUBIA_SERVICE_HOST=10.111.249.153
+# KUBIA_SERVICE_PORT=80
+# ...
+```
+
+### Through DNS (only for the IP)
+
+When you list pods in the `kube-system` namespace, you will see a Kubernetes DNS pod, named either:
+
+- `kube-dns-<something>` for Kube-DNS, or
+- `coredns-<something>` for Core DNS.
+
+You can perform a DNS query (in the form of fully qualified domain name, aka FQDN) to get a service's IP address (you still need to know the port yourself).
+
+#### Example
+
+Using DNS resolution allows you to do stuff like this (note that you don't need to know the IP of the `kubia` service in the pod's SSH session):
+
+```bash
+kubectl exec -it kubia-3inly -- bash
+# root@kubia-3inly:/# curl http://kubia.default.svc.cluster.local
+# You've hit kubia-5asi2
+```
+
+#### Service FQDN format
+
+A sample FQDN is as follows (you can configure the `.cluster.local` suffix if you want):
+
+```bash
+# <serviceName>.<serviceNamespaceName>.svc.cluster.local
+backend-database.default.svc.cluster.local
+```
+
+#### Configuring DNS lookup behavior
+
+Kubernetes sets the default DNS lookup behavior in each container by writing a `/etc/resolv.conf` file (e.g., it sets the IP of the DNS server).
+
+You can modify this behavior by changing the [`resolv.conf`](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html) file yourself. For example, setting the `search` field will allow you to automatically expand queries like `data` to `data.test.svc.cluster.local`:
+
+```ini
+# /etc/resolv.conf
+# 'data' queries can be expanded to 'data.test.svc.cluster.local', etc.
+# see https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html
+nameserver 10.32.0.10
+search test.svc.cluster.local svc.cluster.local cluster.local
+options ndots:5
+```
+
+#### Excluding pods for DNS query
+
+Set the `dnsPolicy` field in each pod's spec.
+
+## Working with services
+
+<NoteBox type="info">
+  Service's abbreviation is <Code str="svc" />. (You can type <Code str="service" /> or{' '}
+  <Code str="svc" /> in your command.)
+</NoteBox>
+
+### Creating a Service
+
+You can use a descriptor file:
+
+```bash
+kubectl create -f <filename>
+```
+
+Or the `kubectl expose` command:
+
+```bash
+kubectl expose pod <podName> --type=LoadBalancer --name <serviceName>
+```
+
+### Listing Services
+
+```bash
+kubectl get svc
+# NAME         CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+# kubernetes   10.111.240.1     <none>        443/TCP   30d
+# kubia        10.111.249.153   <none>        80/TCP    6m
+```
+
+### Describing a Service
+
+```bash
+kubectl describe svc <serviceName>
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 2. First steps with Docker and Kubernetes',
+    },
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 5. Services: enabling clients to discover and talk to pods',
+    },
+    {
+      text: 'Service',
+      link: 'https://kubernetes.io/docs/concepts/services-networking/service/',
+    },
+    {
+      text: 'DNS for Services and Pods',
+      link: 'https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/',
+    },
+    {
+      text: 'Kubernetes DNS for Services and Pods',
+      link:
+        'https://medium.com/kubernetes-tutorials/kubernetes-dns-for-services-and-pods-664804211501',
+    },
+  ]}
+></References>

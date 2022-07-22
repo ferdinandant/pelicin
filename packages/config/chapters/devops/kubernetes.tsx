@@ -43,12 +43,41 @@ const chapters: TopicChapters = [
         path: '/devops/kubernetes/concepts/getting-started/namespaces',
       },
       {
+        title: 'Port Forwarding',
+        path: '/devops/kubernetes/concepts/services/port-forwarding',
+      },
+    ],
+  },
+  {
+    chapter: 'Services',
+    children: [
+      {
         title: 'Services',
-        path: '/devops/kubernetes/concepts/getting-started/services',
+        path: '/devops/kubernetes/concepts/services/services',
       },
       {
-        title: 'Port Forwarding',
-        path: '/devops/kubernetes/concepts/getting-started/port-forwarding',
+        title: 'Endpoints',
+        path: '/devops/kubernetes/concepts/services/endpoints',
+        badge: 'TODO'
+      },
+      {
+        title: 'ExternalName Services',
+        path: '/devops/kubernetes/concepts/services/externalname-services',
+      },
+      {
+        title: 'NodePort Services',
+        path: '/devops/kubernetes/concepts/services/nodeport-services',
+        badge: 'TODO'
+      },
+      {
+        title: 'LoadBalancer Services',
+        path: '/devops/kubernetes/concepts/services/loadbalancer-services',
+        badge: 'TODO'
+      },
+      {
+        title: 'Ingress',
+        path: '/devops/kubernetes/concepts/services/ingress',
+        badge: 'TODO'
       },
     ],
   },
