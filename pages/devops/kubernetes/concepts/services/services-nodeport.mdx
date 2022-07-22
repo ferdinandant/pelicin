@@ -1,4 +1,4 @@
-import { References, Image, Code } from '@pelicin/components';
+import { References, Image, Code, NoteBox } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
 # NodePort Services
@@ -30,12 +30,11 @@ metadata:
   name: kubia-nodeport
 spec:
   type: NodePort
-  # pods that handle the service
-  # have these labels
+  # pods that handle the service have these labels
   selector:
     app: kubia
   ports:
-    - # connect here if you use the service's IP
+    - # connect here if you use the service's internal IP
       port: 80
       # connect here if you use a cluster node's IP
       nodePort: 30123
@@ -45,23 +44,28 @@ spec:
 
 ## Connecting to a NodePort service
 
+<NoteBox type="warning">
+  Ensure that you have allowed external connections to your nodes on the specified port.
+</NoteBox>
+
 When you list your NodePort service,
 
 ```bash
-# Assume that the name of the service is `kubia-nodeport`
 kubectl get svc kubia-nodeport
 # NAME             CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
 # kubia-nodeport   10.111.254.223   <nodes>       80:30123/TCP   2m
 ```
 
-**Observe that:**
+Observe that:
 
 - **The `EXTERNAL-IP` column** &mdash; lists `<nodes>`, which means you can connect to the service using any of the cluster node's IP
 - **The `PORT(S)` column** &mdash; lists the "internal port" and the "node port":
   - internal port 80, if you want to connect from the service's cluster-internal IP (in this case, 10.111.254.223)
   - node port 30123, if you want to connect from the cluster node's IP
 
-**This means that you can connect to your service through:**
+---
+
+This means that you can connect to your service through:
 
 - `10.111.254.223` port 80
 - `<1st node's IP>` port 30123
