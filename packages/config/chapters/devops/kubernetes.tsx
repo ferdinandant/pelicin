@@ -74,7 +74,6 @@ const chapters: TopicChapters = [
       {
         title: 'Ingress',
         path: '/devops/kubernetes/concepts/services/ingress',
-        badge: 'TODO'
       },
     ],
   },
