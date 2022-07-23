@@ -149,6 +149,47 @@ The Ingress controller then forward the request to the service's pod. (It doesn'
   sourceString={'Lukša'}
 />
 
+## Configuring Ingress to handle HTTPS traffic
+
+Only the connection between the client and the Ingress controller needs to be encrypted (using TLS/HTTPS). Connection between the Ingress controller and your pod doesn't have to.
+
+Here's how you can set that up. Generally, you need to attach a certificate and a private key to the Ingress.
+
+### Creating a private key and a TLS certificate
+
+```bash
+# Create a private key
+# output as tls.key
+openssl genrsa -out tls.key 2048
+
+# Create a TLS certificate
+# output as tls.cert
+openssl req -new -x509 -key tls.key -out tls.cert -days 360 -subj /CN=kubia.example.com
+```
+
+### Creating a Kubernetes secret
+
+```bash
+kubectl create secret tls tls-secret --cert=tls.cert --key=tls.key
+# secret "tls-secret" created
+```
+
+### Updating your Ingress descriptor
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kubia
+spec:
+  tls:
+    - hosts:
+        - kubia.example.com
+      secretName: tls-secret
+  rules:
+    # ...
+```
+
 ## References
 
 <References
