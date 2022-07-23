@@ -60,23 +60,20 @@ const chapters: TopicChapters = [
         path: '/devops/kubernetes/concepts/services/endpoints',
       },
       {
-        title: 'ExternalName Services',
-        path: '/devops/kubernetes/concepts/services/externalname-services',
+        title: 'Services: ExternalName ',
+        path: '/devops/kubernetes/concepts/services/services-externalname',
       },
       {
-        title: 'NodePort Services',
-        path: '/devops/kubernetes/concepts/services/nodeport-services',
-        badge: 'TODO'
+        title: 'Services: NodePort',
+        path: '/devops/kubernetes/concepts/services/services-nodeport',
       },
       {
-        title: 'LoadBalancer Services',
-        path: '/devops/kubernetes/concepts/services/loadbalancer-services',
-        badge: 'TODO'
+        title: 'Services: LoadBalancer',
+        path: '/devops/kubernetes/concepts/services/services-loadbalancer',
       },
       {
         title: 'Ingress',
         path: '/devops/kubernetes/concepts/services/ingress',
-        badge: 'TODO'
       },
     ],
   },

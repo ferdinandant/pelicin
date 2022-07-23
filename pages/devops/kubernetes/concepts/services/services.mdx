@@ -37,6 +37,9 @@ kind: Service
 metadata:
   name: kubia
 spec:
+  # ClusterIP is the default type of services,
+  # so you don't have to specify it:
+  # type: ClusterIP
   selector:
     app: kubia
   ports:
