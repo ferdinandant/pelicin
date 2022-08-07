@@ -1,0 +1,67 @@
+import { References, NoteBox, Code } from '@pelicin/components';
+import { smartTrim } from '@pelicin/utils';
+
+# Headless Services
+
+A headless service is a service that **does not have a cluster IP**.
+
+Instead of connecting to the service's cluster IP, the client should connect to the service's pod IP directly.
+
+## Headless service descriptor
+
+Put `clusterIP: None` in the service's spec.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubia-headless
+spec:
+  # make the service headless
+  clusterIP: None
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: kubia
+```
+
+## Working with headless services
+
+### Getting all of a service's pod IPs
+
+If you perform a DNS query on a headless service, instead of it returning just one A record, **it will return multiple A record** (one for each of the service's pod IP).
+
+```bash
+# Creating a pod with `nslookup` and `dig` binaries
+kubectl run dnsutils --image=tutum/dnsutils --command -- sleep infinity
+# pod/dnsutils created
+
+# Example of hitting a normal service
+# One A record (the service's cluster IP)
+kubectl exec dnsutils -- nslookup kubia
+# ...
+# Name:    kubia.default.svc.cluster.local
+# Address: 10.111.249.153
+
+# Example of hitting a headless service
+# Multiple A records (the service's pod IPs)
+kubectl exec dnsutils -- nslookup kubia-headless
+# ...
+# Name:    kubia-headless.default.svc.cluster.local
+# Address: 10.108.1.4
+# Name:    kubia-headless.default.svc.cluster.local
+# Address: 10.108.2.5
+```
+
+## References
+
+<References
+  references={[
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 5. Services: enabling clients to discover and talk to pods',
+    },
+  ]}
+></References>
+```
