@@ -81,8 +81,8 @@ const chapters: TopicChapters = [
     chapter: 'Replication and Controllers',
     children: [
       {
-        title: 'Liveness Probes',
-        path: '/devops/kubernetes/concepts/replication-controller/liveness-probes',
+        title: 'Probes: Liveness, Readiness, and Startup Probes',
+        path: '/devops/kubernetes/concepts/replication-controller/probes',
       },
       {
         title: 'Replica Sets',

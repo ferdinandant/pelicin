@@ -1,17 +1,23 @@
 import { References, NoteBox } from '@pelicin/components';
 import { smartTrim } from '@pelicin/utils';
 
-# Liveness Probes
+# Probes: Liveness, Readiness, and Startup Probes
 
-Liveness probes are checks (performed by Kubelet) to see if a container is running and healthy.
+Probes are periodical checks (performed by Kubelet, every 10 seconds by default) that determine if your pod is healthy or is ready.
 
-**If a container fails a liveness probe, Kubelet will restart it.** (Note that Kubelet does it: if the entire node fails, and you don't have something like ReplicationController, the containers will NOT be replaced.)
+**Note that the checks are performed by Kubelet:** if the entire pod fails and you don't have something like ReplicationController, pods failing the probes will not be replaced.
 
-## Liveness probe descriptor
+## Types of probes
 
-Here's an example of a pod with a liveness probe check.
+- **Liveness probes** &mdash; Checks to see if a container is running and healthy ("healthchecks"). If a container fails a liveness probe, Kubelet will restart it.
+- **Readiness probes** &mdash; Checks to see if a container can receive client requests. A pod is ready if all of its containers are ready. If a pod is ready, it is added to the service; if a pod is not ready, it is removed from the service.
+- **Startup probes** &mdash; Disables liveness probes and readiness probes for the container until this probe succeeds (can be used on slow starting containers).
 
-Kubelet will hit the path `/healthcheck` on port 8080 and expects to get a non-error response (2xx or 3xx).
+## Probe descriptor
+
+**Here's an example that adds a liveness probe to a container.** (Adding a readiness probe or a startup probe works similarly, but you use `readinessProbe` or `startupProbe` instead.)
+
+In this example, Kubelet will hit the path `/healthcheck` on port 8080 and expects to get a non-error response (2xx or 3xx).
 
 ```yaml
 apiVersion: v1
@@ -28,7 +34,7 @@ spec:
           port: 8080
 ```
 
-## Types of liveness probes
+## Types of probes
 
 <NoteBox type="warning">
   <strong>If you are running a Java (JVM-based) app:</strong> use an HTTP get probe instead of an
@@ -36,7 +42,9 @@ spec:
   (you waste a considerable of resources).
 </NoteBox>
 
-There are three types of liveness probes.
+There are three types of probes.
+
+We use `livenessProbe` as an example, but you can also use these for `readinessProbe` or `startupProbe`.
 
 ### HTTP GET probe
 
@@ -122,6 +130,10 @@ kubectl describe po kubia-liveness
     {
       text: 'Kubernetes in Action (Marko Lukša)',
       description: 'Chapter 4. Replication and other controllers: deploying managed pods',
+    },
+    {
+      text: 'Kubernetes in Action (Marko Lukša)',
+      description: 'Chapter 5. Services: enabling clients to discover and talk to pods',
     },
     {
       text: 'Configure Liveness, Readiness and Startup Probes',
