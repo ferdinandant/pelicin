@@ -56,9 +56,14 @@ const chapters: TopicChapters = [
         path: '/devops/kubernetes/concepts/services/services',
       },
       {
+        title: 'Headless Services',
+        path: '/devops/kubernetes/concepts/services/headless-services',
+      },
+      {
         title: 'Endpoints',
         path: '/devops/kubernetes/concepts/services/endpoints',
       },
+
       {
         title: 'Services: ExternalName ',
         path: '/devops/kubernetes/concepts/services/services-externalname',
