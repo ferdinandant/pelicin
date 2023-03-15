@@ -51,10 +51,10 @@ export default function ChapterSidebarContent() {
                 const isActive = pathname === path;
                 return (
                   <Link key={titleIndex} href={path}>
-                    <a className={classNames({ active: isActive })}>
+                    <span className={classNames('link', { active: isActive })}>
                       <span className="title">{title}</span>
                       {badge && <Badge isActive={isActive} text={badge} />}
-                    </a>
+                    </span>
                   </Link>
                 );
               })}
@@ -69,6 +69,9 @@ export default function ChapterSidebarContent() {
         }
         .group {
           margin-top: var(--spacing-xl);
+        }
+        .group :global(a) {
+          text-decoration: none;
         }
         .group:first-child {
           margin-top: 0;
@@ -97,7 +100,8 @@ export default function ChapterSidebarContent() {
           color: var(--color-gray-7);
           line-height: 1.4;
         }
-        a {
+
+        span.link {
           display: block;
           position: relative;
           font-size: 15px;
@@ -108,14 +112,14 @@ export default function ChapterSidebarContent() {
           padding: 0 var(--spacing-ms);
         }
 
-        a:hover,
-        a.active {
+        span.link:hover,
+        span.link.active {
           color: ${mainColor};
         }
-        a:hover .title {
+        span.link:hover .title {
           text-decoration: underline;
         }
-        a.active {
+        span.link.active {
           background-color: ${mainColor}22;
           padding: var(--spacing-xs) var(--spacing-ms);
           margin: calc(-1 * var(--spacing-xs)) 0;
@@ -132,7 +136,7 @@ export default function ChapterSidebarContent() {
           background-color: var(--color-gray-1);
           color: var(--color-gray-3);
         }
-        a.active .badge {
+        span.link.active .badge {
           background-color: ${mainColor}17;
           color: ${mainColor};
         }
