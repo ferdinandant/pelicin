@@ -66,6 +66,7 @@ export default function MDXArticleLayout(props: Props) {
 // ================================================================================
 
 function renderMDX(children: ReactNode) {
+  console.log(children);
   const toc = getArticleTOC(children);
   const processedChildren = processArticleMDX(children);
 
