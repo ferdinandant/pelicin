@@ -73,6 +73,7 @@ function MyApp(props: Props) {
       </Head>
       {/* Highlight.js (Syntax Highlighter) */}
       {isUsingSyntaxHighlighter && <LoadSyntaxHighlighter />}
+      <script>0</script>
 
       <LayoutRenderer>
         <Component {...pageProps} />
